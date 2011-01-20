@@ -18,11 +18,11 @@
 		F804BB8F11A86068009B6057 /* DetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F804BB8D11A86068009B6057 /* DetailView.xib */; };
 		F832991511A81E8E005D2572 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F832991311A81E8E005D2572 /* MapViewController.m */; };
 		F832991911A81ED6005D2572 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F832991711A81ED6005D2572 /* MapViewController.xib */; };
+		F836DE0912E86E6A00C9E635 /* libCPSReST.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8EC163512E8666D00B268BD /* libCPSReST.a */; };
 		F846DFB011A2A5F100FC2F49 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F846DFAF11A2A5F100FC2F49 /* MapKit.framework */; };
 		F8491CAC11A6A8B50076B32D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F8491CAB11A6A8B50076B32D /* Settings.bundle */; };
 		F8549A26119DAAEF0010B513 /* StationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8549A24119DAAEF0010B513 /* StationInfoViewController.m */; };
 		F8549A8A119DB46C0010B513 /* StationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8549A88119DB46C0010B513 /* StationDetailViewController.m */; };
-		F8549B02119DDDC80010B513 /* libCPSReST.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8BD956511790F7200B7A614 /* libCPSReST.a */; };
 		F8549B75119DEF3D0010B513 /* WindMobile.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8549B73119DEF3D0010B513 /* WindMobile.strings */; };
 		F858A637119E975600FA26FA /* MainWindow_Pad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A636119E975600FA26FA /* MainWindow_Pad.xib */; };
 		F858A639119E976300FA26FA /* MainWindow_Phone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A638119E976300FA26FA /* MainWindow_Phone.xib */; };
@@ -35,40 +35,40 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		F85B3400117911280090582D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = F8DC2769117752A900E2AA4A;
-			remoteInfo = "CPS-ReST-Library";
-		};
-		F88547DE1192CAB900011A7D /* PBXContainerItemProxy */ = {
+		F8EC163212E8666D00B268BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = F81E5BA2118094A1009F5BD0;
-			remoteInfo = "Test-CPSReST-Library";
+			remoteGlobalIDString = F8785B4811A13A52000E6763;
+			remoteInfo = "CPS-ReST-Framework";
 		};
-		F8BD956411790F7200B7A614 /* PBXContainerItemProxy */ = {
+		F8EC163412E8666D00B268BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = F8DC276A117752A900E2AA4A;
 			remoteInfo = "CPS-ReST-Library";
 		};
-		F8BD956611790F7200B7A614 /* PBXContainerItemProxy */ = {
+		F8EC163612E8666D00B268BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = F8A6A75F11775AC600DCC9A5;
 			remoteInfo = "Test-CPSRest-Framework";
 		};
-		F8D162C9119E8BD100AA93C1 /* PBXContainerItemProxy */ = {
+		F8EC163812E8666D00B268BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = F8D162C3119E8BD100AA93C1;
-			remoteInfo = "CPS-ReST-Framework";
+			remoteGlobalIDString = F81E5BA2118094A1009F5BD0;
+			remoteInfo = "Test-CPSReST-Library";
+		};
+		F8EC164612E8672A00B268BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F8DC2769117752A900E2AA4A;
+			remoteInfo = "CPS-ReST-Library";
 		};
 		F8F1722E117910480046800F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -119,7 +119,7 @@
 		F8B9C80211A1CDBF0033B8EE /* appIcon-50x50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-50x50.png"; sourceTree = "<group>"; };
 		F8B9C80311A1CDBF0033B8EE /* appIcon-57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-57x57.png"; sourceTree = "<group>"; };
 		F8B9C80411A1CDBF0033B8EE /* appIcon-72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-72x72.png"; sourceTree = "<group>"; };
-		F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CPS-ReST-Framework.xcodeproj"; path = "../cps-rest/CPS-ReST-Framework.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CPS-ReST-Framework.xcodeproj"; path = "../CPS-ReST/CPS-ReST-Framework/CPS-ReST-Framework.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		F8BDFA2211A1D73F0069A43E /* WMReSTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMReSTClient.h; path = Shared/WMReSTClient.h; sourceTree = "<group>"; };
 		F8BDFA2311A1D73F0069A43E /* WMReSTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMReSTClient.m; path = Shared/WMReSTClient.m; sourceTree = "<group>"; };
 		F8F17226117910480046800F /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../core-plot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = SOURCE_ROOT; };
@@ -130,7 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8549B02119DDDC80010B513 /* libCPSReST.a in Frameworks */,
+				F836DE0912E86E6A00C9E635 /* libCPSReST.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -251,13 +251,13 @@
 			path = Resources/icons;
 			sourceTree = "<group>";
 		};
-		F8BD955A11790F7200B7A614 /* Products */ = {
+		F8EC162C12E8666D00B268BD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F8D162CA119E8BD100AA93C1 /* CPSReST.framework */,
-				F8BD956511790F7200B7A614 /* libCPSReST.a */,
-				F8BD956711790F7200B7A614 /* Test-CPSRest-Framework.octest */,
-				F88547DF1192CAB900011A7D /* Test-CPSReST-Library.octest */,
+				F8EC163312E8666D00B268BD /* CPSReST.framework */,
+				F8EC163512E8666D00B268BD /* libCPSReST.a */,
+				F8EC163712E8666D00B268BD /* Test-CPSRest-Framework.octest */,
+				F8EC163912E8666D00B268BD /* Test-CPSReST-Library.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -284,7 +284,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				F85B3401117911280090582D /* PBXTargetDependency */,
+				F8EC164712E8672A00B268BD /* PBXTargetDependency */,
 			);
 			name = WindMobile;
 			productName = WindMobile;
@@ -316,7 +316,7 @@
 					ProjectRef = F8F17226117910480046800F /* CorePlot-CocoaTouch.xcodeproj */;
 				},
 				{
-					ProductGroup = F8BD955A11790F7200B7A614 /* Products */;
+					ProductGroup = F8EC162C12E8666D00B268BD /* Products */;
 					ProjectRef = F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */;
 				},
 			);
@@ -328,32 +328,32 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		F88547DF1192CAB900011A7D /* Test-CPSReST-Library.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Test-CPSReST-Library.octest";
-			remoteRef = F88547DE1192CAB900011A7D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F8BD956511790F7200B7A614 /* libCPSReST.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libCPSReST.a;
-			remoteRef = F8BD956411790F7200B7A614 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F8BD956711790F7200B7A614 /* Test-CPSRest-Framework.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Test-CPSRest-Framework.octest";
-			remoteRef = F8BD956611790F7200B7A614 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F8D162CA119E8BD100AA93C1 /* CPSReST.framework */ = {
+		F8EC163312E8666D00B268BD /* CPSReST.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = CPSReST.framework;
-			remoteRef = F8D162C9119E8BD100AA93C1 /* PBXContainerItemProxy */;
+			remoteRef = F8EC163212E8666D00B268BD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F8EC163512E8666D00B268BD /* libCPSReST.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCPSReST.a;
+			remoteRef = F8EC163412E8666D00B268BD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F8EC163712E8666D00B268BD /* Test-CPSRest-Framework.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Test-CPSRest-Framework.octest";
+			remoteRef = F8EC163612E8666D00B268BD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F8EC163912E8666D00B268BD /* Test-CPSReST-Library.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Test-CPSReST-Library.octest";
+			remoteRef = F8EC163812E8666D00B268BD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F8F1722F117910480046800F /* libCorePlot-CocoaTouch.a */ = {
@@ -406,10 +406,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		F85B3401117911280090582D /* PBXTargetDependency */ = {
+		F8EC164712E8672A00B268BD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "CPS-ReST-Library";
-			targetProxy = F85B3400117911280090582D /* PBXContainerItemProxy */;
+			targetProxy = F8EC164612E8672A00B268BD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -473,7 +473,7 @@
 				GCC_PREFIX_HEADER = WindMobile_Prefix.pch;
 				INFOPLIST_FILE = "WindMobile-Info.plist";
 				PRODUCT_NAME = WindMobile;
-				USER_HEADER_SEARCH_PATHS = "../cps-rest/**";
+				USER_HEADER_SEARCH_PATHS = "../CPS-ReST/**";
 			};
 			name = Debug;
 		};
@@ -486,7 +486,7 @@
 				GCC_PREFIX_HEADER = WindMobile_Prefix.pch;
 				INFOPLIST_FILE = "WindMobile-Info.plist";
 				PRODUCT_NAME = WindMobile;
-				USER_HEADER_SEARCH_PATHS = "../cps-rest/**";
+				USER_HEADER_SEARCH_PATHS = "../CPS-ReST/**";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

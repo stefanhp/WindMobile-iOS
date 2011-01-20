@@ -1,0 +1,6 @@
+[submodule "core-plot"]
+	path = core-plot
+	url = https://github.com/djw/core-plot.git
+[submodule "CPS-ReST"]
+	path = CPS-ReST
+	url = https://github.com/stefanhp/CPS-ReST.git
