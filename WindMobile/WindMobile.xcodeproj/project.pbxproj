@@ -1,0 +1,549 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		2860E328111B887F00E27156 /* AppDelegate_Phone.m in Sources */ = {isa = PBXBuildFile; fileRef = 2860E326111B887F00E27156 /* AppDelegate_Phone.m */; };
+		2860E32E111B888700E27156 /* AppDelegate_Pad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2860E32C111B888700E27156 /* AppDelegate_Pad.m */; };
+		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		F804BB8911A86047009B6057 /* iPadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F804BB8811A86047009B6057 /* iPadHelper.m */; };
+		F804BB8C11A86058009B6057 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F804BB8B11A86058009B6057 /* DetailViewController.m */; };
+		F804BB8F11A86068009B6057 /* DetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F804BB8D11A86068009B6057 /* DetailView.xib */; };
+		F832991511A81E8E005D2572 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F832991311A81E8E005D2572 /* MapViewController.m */; };
+		F832991911A81ED6005D2572 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F832991711A81ED6005D2572 /* MapViewController.xib */; };
+		F846DFB011A2A5F100FC2F49 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F846DFAF11A2A5F100FC2F49 /* MapKit.framework */; };
+		F8491CAC11A6A8B50076B32D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F8491CAB11A6A8B50076B32D /* Settings.bundle */; };
+		F8549A26119DAAEF0010B513 /* StationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8549A24119DAAEF0010B513 /* StationInfoViewController.m */; };
+		F8549A8A119DB46C0010B513 /* StationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8549A88119DB46C0010B513 /* StationDetailViewController.m */; };
+		F8549B02119DDDC80010B513 /* libCPSReST.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8BD956511790F7200B7A614 /* libCPSReST.a */; };
+		F8549B75119DEF3D0010B513 /* WindMobile.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8549B73119DEF3D0010B513 /* WindMobile.strings */; };
+		F858A637119E975600FA26FA /* MainWindow_Pad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A636119E975600FA26FA /* MainWindow_Pad.xib */; };
+		F858A639119E976300FA26FA /* MainWindow_Phone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A638119E976300FA26FA /* MainWindow_Phone.xib */; };
+		F858A64C119E97E600FA26FA /* StationDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A64A119E97E600FA26FA /* StationDetailViewController.xib */; };
+		F858A650119E982C00FA26FA /* StationInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A64E119E982C00FA26FA /* StationInfoViewController.xib */; };
+		F8B9C80511A1CDBF0033B8EE /* appIcon-50x50.png in Resources */ = {isa = PBXBuildFile; fileRef = F8B9C80211A1CDBF0033B8EE /* appIcon-50x50.png */; };
+		F8B9C80611A1CDBF0033B8EE /* appIcon-57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = F8B9C80311A1CDBF0033B8EE /* appIcon-57x57.png */; };
+		F8B9C80711A1CDBF0033B8EE /* appIcon-72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = F8B9C80411A1CDBF0033B8EE /* appIcon-72x72.png */; };
+		F8BDFA2411A1D73F0069A43E /* WMReSTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F8BDFA2311A1D73F0069A43E /* WMReSTClient.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F85B3400117911280090582D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F8DC2769117752A900E2AA4A;
+			remoteInfo = "CPS-ReST-Library";
+		};
+		F88547DE1192CAB900011A7D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F81E5BA2118094A1009F5BD0;
+			remoteInfo = "Test-CPSReST-Library";
+		};
+		F8BD956411790F7200B7A614 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8DC276A117752A900E2AA4A;
+			remoteInfo = "CPS-ReST-Library";
+		};
+		F8BD956611790F7200B7A614 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8A6A75F11775AC600DCC9A5;
+			remoteInfo = "Test-CPSRest-Framework";
+		};
+		F8D162C9119E8BD100AA93C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8D162C3119E8BD100AA93C1;
+			remoteInfo = "CPS-ReST-Framework";
+		};
+		F8F1722E117910480046800F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8F17226117910480046800F /* CorePlot-CocoaTouch.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
+			remoteInfo = "CorePlot-CocoaTouch";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1D6058910D05DD3D006BFB54 /* WindMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WindMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2860E325111B887F00E27156 /* AppDelegate_Phone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate_Phone.h; sourceTree = "<group>"; };
+		2860E326111B887F00E27156 /* AppDelegate_Phone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate_Phone.m; sourceTree = "<group>"; };
+		2860E32B111B888700E27156 /* AppDelegate_Pad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate_Pad.h; sourceTree = "<group>"; };
+		2860E32C111B888700E27156 /* AppDelegate_Pad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate_Pad.m; sourceTree = "<group>"; };
+		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Shared/main.m; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* WindMobile_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindMobile_Prefix.pch; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* WindMobile-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WindMobile-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		F804BB8711A86047009B6057 /* iPadHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPadHelper.h; path = Shared/iPadHelper.h; sourceTree = "<group>"; };
+		F804BB8811A86047009B6057 /* iPadHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPadHelper.m; path = Shared/iPadHelper.m; sourceTree = "<group>"; };
+		F804BB8A11A86058009B6057 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		F804BB8B11A86058009B6057 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		F804BB8E11A86068009B6057 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/DetailView.xib; sourceTree = SOURCE_ROOT; };
+		F832991211A81E8E005D2572 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = Shared/MapViewController.h; sourceTree = "<group>"; };
+		F832991311A81E8E005D2572 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = Shared/MapViewController.m; sourceTree = "<group>"; };
+		F832991811A81ED6005D2572 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/MapViewController.xib; sourceTree = "<group>"; };
+		F83299CE11A84597005D2572 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/MapViewController.xib; sourceTree = "<group>"; };
+		F846DF4511A2A06800FC2F49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/StationInfoViewController.xib; sourceTree = "<group>"; };
+		F846DFAF11A2A5F100FC2F49 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		F846E42D11AC5BD10095E6EF /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/DetailView.xib; sourceTree = SOURCE_ROOT; };
+		F8491CAB11A6A8B50076B32D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		F8549A23119DAAEF0010B513 /* StationInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationInfoViewController.h; path = Shared/StationInfoViewController.h; sourceTree = "<group>"; };
+		F8549A24119DAAEF0010B513 /* StationInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationInfoViewController.m; path = Shared/StationInfoViewController.m; sourceTree = "<group>"; };
+		F8549A87119DB46C0010B513 /* StationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationDetailViewController.h; path = Shared/StationDetailViewController.h; sourceTree = "<group>"; };
+		F8549A88119DB46C0010B513 /* StationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationDetailViewController.m; path = Shared/StationDetailViewController.m; sourceTree = "<group>"; };
+		F8549AAF119DC49C0010B513 /* helpers.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = helpers.txt; sourceTree = "<group>"; };
+		F8549B74119DEF3D0010B513 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/WindMobile.strings; sourceTree = "<group>"; };
+		F8549B76119DEFC00010B513 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Resources/fr.lproj/WindMobile.strings; sourceTree = "<group>"; };
+		F858A636119E975600FA26FA /* MainWindow_Pad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow_Pad.xib; sourceTree = "<group>"; };
+		F858A638119E976300FA26FA /* MainWindow_Phone.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow_Phone.xib; sourceTree = "<group>"; };
+		F858A64B119E97E600FA26FA /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/StationDetailViewController.xib; sourceTree = "<group>"; };
+		F858A64D119E980C00FA26FA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/StationDetailViewController.xib; sourceTree = "<group>"; };
+		F858A66E119E984D00FA26FA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/StationInfoViewController.xib; sourceTree = "<group>"; };
+		F8B9C80211A1CDBF0033B8EE /* appIcon-50x50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-50x50.png"; sourceTree = "<group>"; };
+		F8B9C80311A1CDBF0033B8EE /* appIcon-57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-57x57.png"; sourceTree = "<group>"; };
+		F8B9C80411A1CDBF0033B8EE /* appIcon-72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-72x72.png"; sourceTree = "<group>"; };
+		F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CPS-ReST-Framework.xcodeproj"; path = "../cps-rest/CPS-ReST-Framework.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		F8BDFA2211A1D73F0069A43E /* WMReSTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMReSTClient.h; path = Shared/WMReSTClient.h; sourceTree = "<group>"; };
+		F8BDFA2311A1D73F0069A43E /* WMReSTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMReSTClient.m; path = Shared/WMReSTClient.m; sourceTree = "<group>"; };
+		F8F17226117910480046800F /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../core-plot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8549B02119DDDC80010B513 /* libCPSReST.a in Frameworks */,
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
+				F846DFB011A2A5F100FC2F49 /* MapKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* WindMobile.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2860E324111B887F00E27156 /* iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				F858A638119E976300FA26FA /* MainWindow_Phone.xib */,
+				2860E325111B887F00E27156 /* AppDelegate_Phone.h */,
+				2860E326111B887F00E27156 /* AppDelegate_Phone.m */,
+			);
+			path = iPhone;
+			sourceTree = "<group>";
+		};
+		2860E32A111B888700E27156 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				F858A636119E975600FA26FA /* MainWindow_Pad.xib */,
+				2860E32B111B888700E27156 /* AppDelegate_Pad.h */,
+				2860E32C111B888700E27156 /* AppDelegate_Pad.m */,
+				F804BB8A11A86058009B6057 /* DetailViewController.h */,
+				F804BB8B11A86058009B6057 /* DetailViewController.m */,
+				F804BB8D11A86068009B6057 /* DetailView.xib */,
+			);
+			path = iPad;
+			sourceTree = "<group>";
+		};
+		28EEBF621118D79A00187D67 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				F804BB8711A86047009B6057 /* iPadHelper.h */,
+				F804BB8811A86047009B6057 /* iPadHelper.m */,
+				F8549B73119DEF3D0010B513 /* WindMobile.strings */,
+				F8A73FE611773CF40058A7C4 /* icons */,
+				8D1107310486CEB800E47090 /* WindMobile-Info.plist */,
+				F8549A23119DAAEF0010B513 /* StationInfoViewController.h */,
+				F8549A24119DAAEF0010B513 /* StationInfoViewController.m */,
+				F858A64E119E982C00FA26FA /* StationInfoViewController.xib */,
+				F8549A87119DB46C0010B513 /* StationDetailViewController.h */,
+				F8549A88119DB46C0010B513 /* StationDetailViewController.m */,
+				F858A64A119E97E600FA26FA /* StationDetailViewController.xib */,
+				F8BDFA2211A1D73F0069A43E /* WMReSTClient.h */,
+				F8BDFA2311A1D73F0069A43E /* WMReSTClient.m */,
+				F832991211A81E8E005D2572 /* MapViewController.h */,
+				F832991311A81E8E005D2572 /* MapViewController.m */,
+				F832991711A81ED6005D2572 /* MapViewController.xib */,
+			);
+			name = Shared;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				F8549AAF119DC49C0010B513 /* helpers.txt */,
+				F8F17226117910480046800F /* CorePlot-CocoaTouch.xcodeproj */,
+				F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */,
+				2860E32A111B888700E27156 /* iPad */,
+				2860E324111B887F00E27156 /* iPhone */,
+				28EEBF621118D79A00187D67 /* Shared */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				F8491CB511A6A8E70076B32D /* Preferences */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* WindMobile_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F846DFAF11A2A5F100FC2F49 /* MapKit.framework */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F8491CB511A6A8E70076B32D /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				F8491CAB11A6A8B50076B32D /* Settings.bundle */,
+			);
+			name = Preferences;
+			sourceTree = "<group>";
+		};
+		F8A73FE611773CF40058A7C4 /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				F8B9C80211A1CDBF0033B8EE /* appIcon-50x50.png */,
+				F8B9C80311A1CDBF0033B8EE /* appIcon-57x57.png */,
+				F8B9C80411A1CDBF0033B8EE /* appIcon-72x72.png */,
+			);
+			name = icons;
+			path = Resources/icons;
+			sourceTree = "<group>";
+		};
+		F8BD955A11790F7200B7A614 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F8D162CA119E8BD100AA93C1 /* CPSReST.framework */,
+				F8BD956511790F7200B7A614 /* libCPSReST.a */,
+				F8BD956711790F7200B7A614 /* Test-CPSRest-Framework.octest */,
+				F88547DF1192CAB900011A7D /* Test-CPSReST-Library.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F8F17227117910480046800F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F8F1722F117910480046800F /* libCorePlot-CocoaTouch.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* WindMobile */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "WindMobile" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F85B3401117911280090582D /* PBXTargetDependency */,
+			);
+			name = WindMobile;
+			productName = WindMobile;
+			productReference = 1D6058910D05DD3D006BFB54 /* WindMobile.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "WindMobile" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				fr,
+				en,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F8F17227117910480046800F /* Products */;
+					ProjectRef = F8F17226117910480046800F /* CorePlot-CocoaTouch.xcodeproj */;
+				},
+				{
+					ProductGroup = F8BD955A11790F7200B7A614 /* Products */;
+					ProjectRef = F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* WindMobile */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F88547DF1192CAB900011A7D /* Test-CPSReST-Library.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Test-CPSReST-Library.octest";
+			remoteRef = F88547DE1192CAB900011A7D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F8BD956511790F7200B7A614 /* libCPSReST.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCPSReST.a;
+			remoteRef = F8BD956411790F7200B7A614 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F8BD956711790F7200B7A614 /* Test-CPSRest-Framework.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Test-CPSRest-Framework.octest";
+			remoteRef = F8BD956611790F7200B7A614 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F8D162CA119E8BD100AA93C1 /* CPSReST.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CPSReST.framework;
+			remoteRef = F8D162C9119E8BD100AA93C1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F8F1722F117910480046800F /* libCorePlot-CocoaTouch.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libCorePlot-CocoaTouch.a";
+			remoteRef = F8F1722E117910480046800F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8549B75119DEF3D0010B513 /* WindMobile.strings in Resources */,
+				F858A637119E975600FA26FA /* MainWindow_Pad.xib in Resources */,
+				F858A639119E976300FA26FA /* MainWindow_Phone.xib in Resources */,
+				F858A64C119E97E600FA26FA /* StationDetailViewController.xib in Resources */,
+				F858A650119E982C00FA26FA /* StationInfoViewController.xib in Resources */,
+				F8B9C80511A1CDBF0033B8EE /* appIcon-50x50.png in Resources */,
+				F8B9C80611A1CDBF0033B8EE /* appIcon-57x57.png in Resources */,
+				F8B9C80711A1CDBF0033B8EE /* appIcon-72x72.png in Resources */,
+				F8491CAC11A6A8B50076B32D /* Settings.bundle in Resources */,
+				F832991911A81ED6005D2572 /* MapViewController.xib in Resources */,
+				F804BB8F11A86068009B6057 /* DetailView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				2860E328111B887F00E27156 /* AppDelegate_Phone.m in Sources */,
+				2860E32E111B888700E27156 /* AppDelegate_Pad.m in Sources */,
+				F8549A26119DAAEF0010B513 /* StationInfoViewController.m in Sources */,
+				F8549A8A119DB46C0010B513 /* StationDetailViewController.m in Sources */,
+				F8BDFA2411A1D73F0069A43E /* WMReSTClient.m in Sources */,
+				F832991511A81E8E005D2572 /* MapViewController.m in Sources */,
+				F804BB8911A86047009B6057 /* iPadHelper.m in Sources */,
+				F804BB8C11A86058009B6057 /* DetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F85B3401117911280090582D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CPS-ReST-Library";
+			targetProxy = F85B3400117911280090582D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F804BB8D11A86068009B6057 /* DetailView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F804BB8E11A86068009B6057 /* en */,
+				F846E42D11AC5BD10095E6EF /* fr */,
+			);
+			name = DetailView.xib;
+			sourceTree = "<group>";
+		};
+		F832991711A81ED6005D2572 /* MapViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F832991811A81ED6005D2572 /* en */,
+				F83299CE11A84597005D2572 /* fr */,
+			);
+			name = MapViewController.xib;
+			sourceTree = "<group>";
+		};
+		F8549B73119DEF3D0010B513 /* WindMobile.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F8549B74119DEF3D0010B513 /* en */,
+				F8549B76119DEFC00010B513 /* fr */,
+			);
+			name = WindMobile.strings;
+			sourceTree = "<group>";
+		};
+		F858A64A119E97E600FA26FA /* StationDetailViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F858A64B119E97E600FA26FA /* fr */,
+				F858A64D119E980C00FA26FA /* en */,
+			);
+			name = StationDetailViewController.xib;
+			sourceTree = "<group>";
+		};
+		F858A64E119E982C00FA26FA /* StationInfoViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F858A66E119E984D00FA26FA /* en */,
+				F846DF4511A2A06800FC2F49 /* fr */,
+			);
+			name = StationInfoViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = WindMobile_Prefix.pch;
+				INFOPLIST_FILE = "WindMobile-Info.plist";
+				PRODUCT_NAME = WindMobile;
+				USER_HEADER_SEARCH_PATHS = "../cps-rest/**";
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = WindMobile_Prefix.pch;
+				INFOPLIST_FILE = "WindMobile-Info.plist";
+				PRODUCT_NAME = WindMobile;
+				USER_HEADER_SEARCH_PATHS = "../cps-rest/**";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				PREBINDING = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PREBINDING = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "WindMobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "WindMobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

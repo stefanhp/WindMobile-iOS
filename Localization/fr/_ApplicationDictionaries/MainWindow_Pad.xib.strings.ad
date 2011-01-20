@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Comment here. (1.0a10c2) -->
+<Proj>
+<ProjName>MainWindow_Pad.xib.strings</ProjName>
+
+<!--                                  -->
+<!--    MainWindow_Pad.xib.strings    -->
+<!--                                  -->
+<File>
+<Filepath>MainWindow_Pad.xib.strings</Filepath>
+
+<TextItem>
+<Description> Class = &quot;IBUINavigationItem&quot;; title = &quot;Stations&quot;; ObjectID = &quot;15&quot;; </Description>
+<Position>15.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Stations</base>
+	<tran loc="fr" origin="">Stations</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+</Proj>

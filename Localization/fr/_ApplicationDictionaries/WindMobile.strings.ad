@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Comment here. (1.0a10c2) -->
+<Proj>
+<ProjName>WindMobile.strings</ProjName>
+
+<!--                          -->
+<!--    WindMobile.strings    -->
+<!--                          -->
+<File>
+<Filepath>WindMobile.strings</Filepath>
+
+<TextItem>
+<Description> Altitude format string </Description>
+<Position>ALTITUDE_FORMAT</Position>
+<TranslationSet>
+
+	<base loc="en"          >Altitude %@m</base>
+	<tran loc="fr" origin="">Altitude %@m</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+</Proj>

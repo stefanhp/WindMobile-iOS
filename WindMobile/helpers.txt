@@ -1,0 +1,14 @@
+// Extract string files from xib files
+mv ../Localization/fr/_NewBase/WindMobile.strings ../Localization/fr/_OldBase/
+cp Resources/en.lproj/WindMobile.strings ../Localization/fr/_NewBase/
+
+mv ../Localization/fr/_NewBase/StationInfoViewController.xib.strings ../Localization/fr/_OldBase/
+ibtool --export-strings-file ../Localization/fr/_NewBase/StationInfoViewController.xib.strings Resources/en.lproj/StationInfoViewController.xib 
+
+mv ../Localization/fr/_NewBase/StationDetailViewController.xib.strings ../Localization/fr/_OldBase/
+ibtool --export-strings-file ../Localization/fr/_NewBase/StationDetailViewController.xib.strings Resources/en.lproj/StationDetailViewController.xib 
+
+// Update of french localization for all xib
+cp ../Localization/fr/_NewLoc/WindMobile.strings Resources/fr.lproj/
+ibtool --strings-file ../Localization/fr/_NewLoc/StationInfoViewController.xib.strings --write Resources/fr.lproj/StationInfoViewController.xib Resources/en.lproj/StationInfoViewController.xib
+ibtool --strings-file ../Localization/fr/_NewLoc/StationDetailViewController.xib.strings --write Resources/fr.lproj/StationDetailViewController.xib Resources/en.lproj/StationDetailViewController.xib
