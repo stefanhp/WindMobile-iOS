@@ -28,9 +28,13 @@
 		F858A639119E976300FA26FA /* MainWindow_Phone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A638119E976300FA26FA /* MainWindow_Phone.xib */; };
 		F858A64C119E97E600FA26FA /* StationDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A64A119E97E600FA26FA /* StationDetailViewController.xib */; };
 		F858A650119E982C00FA26FA /* StationInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A64E119E982C00FA26FA /* StationInfoViewController.xib */; };
-		F8B9C80511A1CDBF0033B8EE /* appIcon-50x50.png in Resources */ = {isa = PBXBuildFile; fileRef = F8B9C80211A1CDBF0033B8EE /* appIcon-50x50.png */; };
-		F8B9C80611A1CDBF0033B8EE /* appIcon-57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = F8B9C80311A1CDBF0033B8EE /* appIcon-57x57.png */; };
-		F8B9C80711A1CDBF0033B8EE /* appIcon-72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = F8B9C80411A1CDBF0033B8EE /* appIcon-72x72.png */; };
+		F88F6B4412E88D96009C2B8D /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B3D12E88D96009C2B8D /* Icon-72.png */; };
+		F88F6B4512E88D96009C2B8D /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B3E12E88D96009C2B8D /* Icon-Small-50.png */; };
+		F88F6B4612E88D96009C2B8D /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B3F12E88D96009C2B8D /* Icon-Small.png */; };
+		F88F6B4712E88D96009C2B8D /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B4012E88D96009C2B8D /* Icon-Small@2x.png */; };
+		F88F6B4812E88D96009C2B8D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B4112E88D96009C2B8D /* Icon.png */; };
+		F88F6B4912E88D96009C2B8D /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B4212E88D96009C2B8D /* Icon@2x.png */; };
+		F88F6B4A12E88D96009C2B8D /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B4312E88D96009C2B8D /* iTunesArtwork */; };
 		F8BDFA2411A1D73F0069A43E /* WMReSTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F8BDFA2311A1D73F0069A43E /* WMReSTClient.m */; };
 /* End PBXBuildFile section */
 
@@ -116,9 +120,13 @@
 		F858A64B119E97E600FA26FA /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/StationDetailViewController.xib; sourceTree = "<group>"; };
 		F858A64D119E980C00FA26FA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/StationDetailViewController.xib; sourceTree = "<group>"; };
 		F858A66E119E984D00FA26FA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/StationInfoViewController.xib; sourceTree = "<group>"; };
-		F8B9C80211A1CDBF0033B8EE /* appIcon-50x50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-50x50.png"; sourceTree = "<group>"; };
-		F8B9C80311A1CDBF0033B8EE /* appIcon-57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-57x57.png"; sourceTree = "<group>"; };
-		F8B9C80411A1CDBF0033B8EE /* appIcon-72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-72x72.png"; sourceTree = "<group>"; };
+		F88F6B3D12E88D96009C2B8D /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		F88F6B3E12E88D96009C2B8D /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		F88F6B3F12E88D96009C2B8D /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		F88F6B4012E88D96009C2B8D /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		F88F6B4112E88D96009C2B8D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		F88F6B4212E88D96009C2B8D /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		F88F6B4312E88D96009C2B8D /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CPS-ReST-Framework.xcodeproj"; path = "../CPS-ReST/CPS-ReST-Framework/CPS-ReST-Framework.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		F8BDFA2211A1D73F0069A43E /* WMReSTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMReSTClient.h; path = Shared/WMReSTClient.h; sourceTree = "<group>"; };
 		F8BDFA2311A1D73F0069A43E /* WMReSTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMReSTClient.m; path = Shared/WMReSTClient.m; sourceTree = "<group>"; };
@@ -175,6 +183,7 @@
 		28EEBF621118D79A00187D67 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				F88F6B3C12E88D96009C2B8D /* appIcon */,
 				F804BB8711A86047009B6057 /* iPadHelper.h */,
 				F804BB8811A86047009B6057 /* iPadHelper.m */,
 				F8549B73119DEF3D0010B513 /* WindMobile.strings */,
@@ -240,12 +249,24 @@
 			name = Preferences;
 			sourceTree = "<group>";
 		};
+		F88F6B3C12E88D96009C2B8D /* appIcon */ = {
+			isa = PBXGroup;
+			children = (
+				F88F6B3D12E88D96009C2B8D /* Icon-72.png */,
+				F88F6B3E12E88D96009C2B8D /* Icon-Small-50.png */,
+				F88F6B3F12E88D96009C2B8D /* Icon-Small.png */,
+				F88F6B4012E88D96009C2B8D /* Icon-Small@2x.png */,
+				F88F6B4112E88D96009C2B8D /* Icon.png */,
+				F88F6B4212E88D96009C2B8D /* Icon@2x.png */,
+				F88F6B4312E88D96009C2B8D /* iTunesArtwork */,
+			);
+			name = appIcon;
+			path = Resources/appIcon;
+			sourceTree = "<group>";
+		};
 		F8A73FE611773CF40058A7C4 /* icons */ = {
 			isa = PBXGroup;
 			children = (
-				F8B9C80211A1CDBF0033B8EE /* appIcon-50x50.png */,
-				F8B9C80311A1CDBF0033B8EE /* appIcon-57x57.png */,
-				F8B9C80411A1CDBF0033B8EE /* appIcon-72x72.png */,
 			);
 			name = icons;
 			path = Resources/icons;
@@ -375,12 +396,16 @@
 				F858A639119E976300FA26FA /* MainWindow_Phone.xib in Resources */,
 				F858A64C119E97E600FA26FA /* StationDetailViewController.xib in Resources */,
 				F858A650119E982C00FA26FA /* StationInfoViewController.xib in Resources */,
-				F8B9C80511A1CDBF0033B8EE /* appIcon-50x50.png in Resources */,
-				F8B9C80611A1CDBF0033B8EE /* appIcon-57x57.png in Resources */,
-				F8B9C80711A1CDBF0033B8EE /* appIcon-72x72.png in Resources */,
 				F8491CAC11A6A8B50076B32D /* Settings.bundle in Resources */,
 				F832991911A81ED6005D2572 /* MapViewController.xib in Resources */,
 				F804BB8F11A86068009B6057 /* DetailView.xib in Resources */,
+				F88F6B4412E88D96009C2B8D /* Icon-72.png in Resources */,
+				F88F6B4512E88D96009C2B8D /* Icon-Small-50.png in Resources */,
+				F88F6B4612E88D96009C2B8D /* Icon-Small.png in Resources */,
+				F88F6B4712E88D96009C2B8D /* Icon-Small@2x.png in Resources */,
+				F88F6B4812E88D96009C2B8D /* Icon.png in Resources */,
+				F88F6B4912E88D96009C2B8D /* Icon@2x.png in Resources */,
+				F88F6B4A12E88D96009C2B8D /* iTunesArtwork in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
