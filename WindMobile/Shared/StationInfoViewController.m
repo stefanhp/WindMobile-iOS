@@ -33,19 +33,24 @@
 	UIBarButtonItem *refresh = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
 																			target:self
 																			action:@selector(refreshContent:)];
-	/*
+	
 	UIBarButtonItem *flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
 																			  target:nil
 																			  action:nil];
+	/*
 	UIBarButtonItem *addBookmark = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
 																				target:nil
 																				action:nil];
 	UIBarButtonItem *bookmarks = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks
 																				target:nil
 																				action:nil];
-	 */
+	*/
+	UIBarButtonItem *settings = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"settings"]
+																style:UIBarButtonItemStylePlain 
+															   target:self
+															   action:@selector(showSettings:)];
 	
-	NSArray *items = [NSArray arrayWithObjects:refresh, /*flexItem, addBookmark, flexItem, bookmarks,*/ nil];	
+	NSArray *items = [NSArray arrayWithObjects:refresh, flexItem, /*addBookmark, flexItem, bookmarks,*/settings, nil];	
 	[self setToolbarItems:items];
 	
 	[self.navigationController setToolbarHidden:NO];
@@ -282,5 +287,31 @@
 	[self.tableView reloadData];
 }
 
+#pragma mark -
+#pragma mark Settings methods
+@dynamic appSettingsViewController;
+- (IASKAppSettingsViewController*)appSettingsViewController {
+	if (!appSettingsViewController) {
+		appSettingsViewController = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
+		appSettingsViewController.delegate = self;
+	}
+	return appSettingsViewController;
+}
+
+- (void)showSettings:(id)sender{
+    UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
+    //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
+    self.appSettingsViewController.showDoneButton = YES;
+    [self presentModalViewController:aNavController animated:YES];
+    [aNavController release];
+}
+
+#pragma mark -
+#pragma mark IASKAppSettingsViewControllerDelegate protocol
+- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {
+    [self dismissModalViewControllerAnimated:YES];
+	
+	// your code here to reconfigure the app for changed settings
+}
 @end
 

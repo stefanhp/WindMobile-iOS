@@ -8,16 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "WMReSTClient.h"
+#import "IASKAppSettingsViewController.h"
 
-@interface StationInfoViewController : UITableViewController<WMReSTClientDelegate> {
+@interface StationInfoViewController : UITableViewController<WMReSTClientDelegate,IASKSettingsDelegate> {
 	WMReSTClient* client;
 	NSArray *stations;
+	IASKAppSettingsViewController *appSettingsViewController;
 }
 @property (retain)NSArray *stations;
+@property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 
 // Content
 - (void)refreshContent:(id)sender;
 // WMReSTClient delegate
 - (void)stationList:(NSArray*)stations;
+// Settings
+- (void)showSettings:(id)sender;
 
 @end

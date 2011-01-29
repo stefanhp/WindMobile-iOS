@@ -4,3 +4,6 @@
 [submodule "CPS-ReST"]
 	path = CPS-ReST
 	url = https://github.com/stefanhp/CPS-ReST.git
+[submodule "InAppSettingsKit"]
+	path = InAppSettingsKit
+	url = https://github.com/futuretap/InAppSettingsKit.git
