@@ -34,9 +34,6 @@
 																			target:self
 																			action:@selector(refreshContent:)];
 	
-	UIBarButtonItem *flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-																			  target:nil
-																			  action:nil];
 	/*
 	UIBarButtonItem *addBookmark = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
 																				target:nil
@@ -45,12 +42,22 @@
 																				target:nil
 																				action:nil];
 	*/
-	UIBarButtonItem *settings = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"settings"]
-																style:UIBarButtonItemStylePlain 
-															   target:self
-															   action:@selector(showSettings:)];
+	NSArray *items = nil;
 	
-	NSArray *items = [NSArray arrayWithObjects:refresh, flexItem, /*addBookmark, flexItem, bookmarks,*/settings, nil];	
+	if([iPadHelper isIpad]){
+		items = [NSArray arrayWithObjects:refresh, nil];
+	} else {
+		// iPhone
+		UIBarButtonItem *flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+																				  target:nil
+																				  action:nil];
+		UIBarButtonItem *settings = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"settings"]
+																	style:UIBarButtonItemStylePlain 
+																   target:self
+																   action:@selector(showSettings:)];
+		items = [NSArray arrayWithObjects:refresh, flexItem, /*addBookmark, flexItem, bookmarks,*/settings, nil];
+	}
+	 	
 	[self setToolbarItems:items];
 	
 	[self.navigationController setToolbarHidden:NO];
