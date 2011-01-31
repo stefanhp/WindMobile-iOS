@@ -29,35 +29,6 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	
-	// toolbar buttons
-	UIBarButtonItem *refresh = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-																			target:self
-																			action:@selector(refreshContent:)];
-	
-	/*
-	UIBarButtonItem *addBookmark = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-																				target:nil
-																				action:nil];
-	UIBarButtonItem *bookmarks = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks
-																				target:nil
-																				action:nil];
-	*/
-	NSArray *items = nil;
-	
-	if([iPadHelper isIpad]){
-		items = [NSArray arrayWithObjects:refresh, nil];
-	} else {
-		// iPhone
-		UIBarButtonItem *flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-																				  target:nil
-																				  action:nil];
-		items = [NSArray arrayWithObjects:refresh, flexItem, /*addBookmark, flexItem, bookmarks,*/ nil];
-	}
-	 	
-	[self setToolbarItems:items];
-	
-	[self.navigationController setToolbarHidden:NO];
-	
 	[self refreshContent:self];
 }
 
@@ -263,6 +234,9 @@
 #pragma mark Station methods
 
 - (void)refreshContent:(id)sender {
+	// Remove refresh button
+	self.navigationItem.rightBarButtonItem = nil;
+
 	// activity indicator
 	UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
 	[activityIndicator startAnimating];
@@ -285,6 +259,15 @@
 
 	// Stop animation
 	self.navigationItem.rightBarButtonItem = nil;
+	
+	// Put Refresh button on the top left
+	//if([iPadHelper isIpad]){} else {
+	UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+																				 target:self 
+																				 action:@selector(refreshContent:)];
+	self.navigationItem.rightBarButtonItem = refreshItem;
+	//}
+	
 	
 	// refresh table
 	[self.tableView reloadData];
