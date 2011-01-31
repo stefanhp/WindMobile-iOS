@@ -51,11 +51,7 @@
 		UIBarButtonItem *flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
 																				  target:nil
 																				  action:nil];
-		UIBarButtonItem *settings = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"settings"]
-																	style:UIBarButtonItemStylePlain 
-																   target:self
-																   action:@selector(showSettings:)];
-		items = [NSArray arrayWithObjects:refresh, flexItem, /*addBookmark, flexItem, bookmarks,*/settings, nil];
+		items = [NSArray arrayWithObjects:refresh, flexItem, /*addBookmark, flexItem, bookmarks,*/ nil];
 	}
 	 	
 	[self setToolbarItems:items];
@@ -294,31 +290,5 @@
 	[self.tableView reloadData];
 }
 
-#pragma mark -
-#pragma mark Settings methods
-@dynamic appSettingsViewController;
-- (IASKAppSettingsViewController*)appSettingsViewController {
-	if (!appSettingsViewController) {
-		appSettingsViewController = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
-		appSettingsViewController.delegate = self;
-	}
-	return appSettingsViewController;
-}
-
-- (void)showSettings:(id)sender{
-    UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
-    //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
-    self.appSettingsViewController.showDoneButton = YES;
-    [self presentModalViewController:aNavController animated:YES];
-    [aNavController release];
-}
-
-#pragma mark -
-#pragma mark IASKAppSettingsViewControllerDelegate protocol
-- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {
-    [self dismissModalViewControllerAnimated:YES];
-	
-	// your code here to reconfigure the app for changed settings
-}
 @end
 
