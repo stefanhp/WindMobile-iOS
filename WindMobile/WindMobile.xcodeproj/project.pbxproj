@@ -59,9 +59,20 @@
 		F88F6B4912E88D96009C2B8D /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B4212E88D96009C2B8D /* Icon@2x.png */; };
 		F88F6B4A12E88D96009C2B8D /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B4312E88D96009C2B8D /* iTunesArtwork */; };
 		F8BDFA2411A1D73F0069A43E /* WMReSTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F8BDFA2311A1D73F0069A43E /* WMReSTClient.m */; };
+		F8E9494812F4830E0036C165 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F1722F117910480046800F /* libCorePlot-CocoaTouch.a */; };
+		F8E9494E12F483730036C165 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E9494D12F483730036C165 /* QuartzCore.framework */; };
+		F8E9498712F487380036C165 /* WindPlotController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8E9498512F487380036C165 /* WindPlotController.m */; };
+		F8E9498812F487380036C165 /* WindPlotController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8E9498612F487380036C165 /* WindPlotController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F8E9499912F489790036C165 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8F17226117910480046800F /* CorePlot-CocoaTouch.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BC9B83460FB8A0A40035D8DA;
+			remoteInfo = "CorePlot-CocoaTouch";
+		};
 		F8EC163212E8666D00B268BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */;
@@ -191,6 +202,10 @@
 		F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CPS-ReST-Framework.xcodeproj"; path = "../CPS-ReST/CPS-ReST-Framework/CPS-ReST-Framework.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		F8BDFA2211A1D73F0069A43E /* WMReSTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMReSTClient.h; path = Shared/WMReSTClient.h; sourceTree = "<group>"; };
 		F8BDFA2311A1D73F0069A43E /* WMReSTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMReSTClient.m; path = Shared/WMReSTClient.m; sourceTree = "<group>"; };
+		F8E9494D12F483730036C165 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F8E9498412F487380036C165 /* WindPlotController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WindPlotController.h; path = Shared/WindPlotController.h; sourceTree = "<group>"; };
+		F8E9498512F487380036C165 /* WindPlotController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WindPlotController.m; path = Shared/WindPlotController.m; sourceTree = "<group>"; };
+		F8E9498612F487380036C165 /* WindPlotController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = WindPlotController.xib; path = Shared/WindPlotController.xib; sourceTree = "<group>"; };
 		F8F17226117910480046800F /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../core-plot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -199,12 +214,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8E9494812F4830E0036C165 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				F836DE0912E86E6A00C9E635 /* libCPSReST.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				F846DFB011A2A5F100FC2F49 /* MapKit.framework in Frameworks */,
 				F851ACE812F447E1002F851C /* MessageUI.framework in Frameworks */,
+				F8E9494E12F483730036C165 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +279,9 @@
 				F832991211A81E8E005D2572 /* MapViewController.h */,
 				F832991311A81E8E005D2572 /* MapViewController.m */,
 				F832991711A81ED6005D2572 /* MapViewController.xib */,
+				F8E9498412F487380036C165 /* WindPlotController.h */,
+				F8E9498512F487380036C165 /* WindPlotController.m */,
+				F8E9498612F487380036C165 /* WindPlotController.xib */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -275,12 +295,13 @@
 				2860E32A111B888700E27156 /* iPad */,
 				2860E324111B887F00E27156 /* iPhone */,
 				28EEBF621118D79A00187D67 /* Shared */,
-				F851AC8012F4478D002F851C /* InAppSettingsKit */,
+				F8E948EB12F47CCA0036C165 /* External Frameworks */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				F8491CB511A6A8E70076B32D /* Preferences */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				F851ACE712F447E1002F851C /* MessageUI.framework */,
+				F8E9494D12F483730036C165 /* QuartzCore.framework */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -413,6 +434,14 @@
 			path = Resources/icons;
 			sourceTree = "<group>";
 		};
+		F8E948EB12F47CCA0036C165 /* External Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F851AC8012F4478D002F851C /* InAppSettingsKit */,
+			);
+			name = "External Frameworks";
+			sourceTree = "<group>";
+		};
 		F8EC162C12E8666D00B268BD /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -448,6 +477,7 @@
 			);
 			dependencies = (
 				F8EC164712E8672A00B268BD /* PBXTargetDependency */,
+				F8E9499A12F489790036C165 /* PBXTargetDependency */,
 			);
 			name = WindMobile;
 			productName = WindMobile;
@@ -555,6 +585,7 @@
 				F851ACBB12F4478D002F851C /* IASKPSTextFieldSpecifierViewCell.xib in Resources */,
 				F851ACBC12F4478D002F851C /* IASKPSToggleSwitchSpecifierViewCell.xib in Resources */,
 				F851ACBD12F4478D002F851C /* IASKSpecifierValuesView.xib in Resources */,
+				F8E9498812F487380036C165 /* WindPlotController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,12 +637,18 @@
 				F851ACB512F4478D002F851C /* IASKSlider.m in Sources */,
 				F851ACB612F4478D002F851C /* IASKSwitch.m in Sources */,
 				F851ACB712F4478D002F851C /* IASKTextField.m in Sources */,
+				F8E9498712F487380036C165 /* WindPlotController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F8E9499A12F489790036C165 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CorePlot-CocoaTouch";
+			targetProxy = F8E9499912F489790036C165 /* PBXContainerItemProxy */;
+		};
 		F8EC164712E8672A00B268BD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "CPS-ReST-Library";
@@ -678,8 +715,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WindMobile_Prefix.pch;
 				INFOPLIST_FILE = "WindMobile-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = WindMobile;
-				USER_HEADER_SEARCH_PATHS = "../CPS-ReST/**";
+				USER_HEADER_SEARCH_PATHS = "../core-plot/framework/** ../CPS-ReST/**";
 			};
 			name = Debug;
 		};
@@ -691,8 +732,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WindMobile_Prefix.pch;
 				INFOPLIST_FILE = "WindMobile-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = WindMobile;
-				USER_HEADER_SEARCH_PATHS = "../CPS-ReST/**";
+				USER_HEADER_SEARCH_PATHS = "../core-plot/framework/** ../CPS-ReST/**";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

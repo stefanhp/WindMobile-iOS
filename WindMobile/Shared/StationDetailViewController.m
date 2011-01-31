@@ -10,6 +10,7 @@
 #import "CPSReSTClient.h"
 #import "MapViewController.h"
 #import "iPadHelper.h"
+#import "WindPlotController.h"
 
 #define SECTION_INFO 0
 #define INDEX_ALTITUDE 0
@@ -20,6 +21,7 @@
 #define INDEX_WIND_CURRENT 0
 #define INDEX_WIND_MAX 1
 #define INDEX_WIND_TREND 2
+#define INDEX_WIND_GRAPH 3
 
 #define SECTION_WEATHER 2
 #define INDEX_TEMPERATURE 0
@@ -121,7 +123,7 @@
 			return INDEX_MAP+1;
 			break;
 		case SECTION_CURRENT:
-			return INDEX_WIND_TREND+1;
+			return INDEX_WIND_GRAPH+1;
 			break;
 		case SECTION_HISTORY:
 			return INDEX_HISTORY_AVERAGE+1;
@@ -237,6 +239,15 @@
 						cell.detailTextLabel.text = NSLocalizedStringFromTable(@"NOT_AVAILABLE", @"WindMobile", nil);
 					}
 					return cell;
+					break;
+				case INDEX_WIND_GRAPH:
+					if([iPadHelper isIpad]){} else {
+						cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+					}
+					cell.textLabel.text = NSLocalizedStringFromTable(@"INDEX_WIND_GRAPH", @"WindMobile", nil);
+					cell.detailTextLabel.text = NSLocalizedStringFromTable(@"COORDINATE_SHOW", @"WindMobile", nil);
+					return cell;
+					
 					break;
 			}
 			break;
@@ -383,6 +394,16 @@
 		} else {
 			// push controller
 			[self.navigationController pushViewController:mapVC animated:YES];
+		}
+	} else if (indexPath.section == SECTION_CURRENT && indexPath.row == INDEX_WIND_GRAPH){
+		WindPlotController *wplot = [[WindPlotController alloc] init];
+		[wplot setTitle:[NSString stringWithFormat:@"%@ %@",
+						 NSLocalizedStringFromTable(@"SECTION_CURRENT", @"WindMobile", nil),
+						 NSLocalizedStringFromTable(@"INDEX_WIND_GRAPH", @"WindMobile", nil)]];
+		
+		if([iPadHelper isIpad]){} else {
+			// push controller
+			[self.navigationController pushViewController:wplot animated:YES];
 		}
 	}
 }
