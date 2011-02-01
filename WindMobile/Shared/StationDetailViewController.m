@@ -11,6 +11,7 @@
 #import "MapViewController.h"
 #import "iPadHelper.h"
 #import "WindPlotController.h"
+#import "StationInfo.h"
 
 #define SECTION_INFO 0
 #define INDEX_ALTITUDE 0
@@ -36,11 +37,8 @@
 
 @implementation StationDetailViewController
 
-@synthesize stationID;
-@synthesize stationName;
-@synthesize altitude;
+@synthesize stationInfo;
 @synthesize stationData;
-@synthesize coordinate;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -55,30 +53,10 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	
 
-	self.title = stationName;
+	self.title = stationInfo.name;
 	[self refreshContent:self];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    // remove the toolbar
-    [self.navigationController setToolbarHidden:YES animated:YES];
-}
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-*/
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
@@ -167,7 +145,7 @@
 			switch(indexPath.row){
 				case INDEX_ALTITUDE:
 					cell.textLabel.text = NSLocalizedStringFromTable(@"ALTITUDE", @"WindMobile", nil);
-					cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"ALTITUDE_SHORT_FORMAT", @"WindMobile", nil),self.altitude];
+					cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"ALTITUDE_SHORT_FORMAT", @"WindMobile", nil),self.stationInfo.altitude];
 					return cell;
 					break;
 				case INDEX_UPDATE:
@@ -345,17 +323,6 @@
 	if(indexPath.section == SECTION_INFO && indexPath.row == INDEX_MAP){
 		MapViewController *mapVC = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
 		
-		MKCoordinateRegion newRegion;
-		newRegion.center.latitude = self.coordinate.latitude;
-		newRegion.center.longitude = self.coordinate.longitude;
-		newRegion.span.latitudeDelta = 0.096379;
-		newRegion.span.longitudeDelta = 0.173893;
-		
-		[mapVC setRegion:newRegion];
-		[mapVC setCoordinate:self.coordinate];
-		[mapVC setTitle:self.title];
-		[mapVC setSubtitle:[NSString stringWithFormat:NSLocalizedStringFromTable(@"ALTITUDE_SHORT_FORMAT", @"WindMobile", nil),self.altitude]];
-		
 		if([iPadHelper isIpad]){
 #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_3_1
 			// show in popover
@@ -374,6 +341,7 @@
 		} else {
 			// push controller
 			[self.navigationController pushViewController:mapVC animated:YES];
+			[mapVC addAnnotation:self.stationInfo];
 		}
 	} else if (indexPath.section == SECTION_CURRENT && indexPath.row == INDEX_WIND_GRAPH){
 		WindPlotController *wplot = [[WindPlotController alloc] init];
@@ -435,7 +403,7 @@
 	}
 	
 	// (re-)load content
-	[client asyncGetStationData:stationID forSender:self];
+	[client asyncGetStationData:self.stationInfo.stationID forSender:self];
 }
 
 - (void)stationData:(NSDictionary*)aStationData{

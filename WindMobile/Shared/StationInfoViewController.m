@@ -12,6 +12,7 @@
 #import <MapKit/MapKit.h>
 #import "iPadHelper.h"
 #import "DetailViewController.h"
+#import "StationInfo.h"
 
 @implementation StationInfoViewController
 
@@ -161,42 +162,22 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if(stations != nil && [stations count]>0){
 		StationDetailViewController *detailVC = nil;
-		NSDictionary* data = [stations objectAtIndex:indexPath.row];
-		NSString *idString = [data objectForKey:@"@id"];
-		NSString *name = [data objectForKey:@"@shortName"];
-		NSString *altitude = [data objectForKey:@"@altitude"];
-		NSString *wgs84Latitude = [data objectForKey:@"@wgs84Latitude"];
-		NSString *wgs84Longitude = [data objectForKey:@"@wgs84Longitude"];
+		StationInfo* stationInfo = [stations objectAtIndex:indexPath.row];
 		
 		if([iPadHelper isIpad]){
 			// For iPad, get detail view form split view
 #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_3_1
 			DetailViewController* splitDetailVC = (DetailViewController*)[self.splitViewController.viewControllers objectAtIndex:1];
 			detailVC = [splitDetailVC stationDetailVC];
-			splitDetailVC.navigationBar.topItem.title = [data objectForKey:@"@shortName"];
+			splitDetailVC.navigationBar.topItem.title = stationInfo.shortName;
 			[splitDetailVC dismissPopover:self];
 #endif
 		} else {
 			// For iPhone, create one to push
 			detailVC = [[StationDetailViewController alloc] initWithNibName:@"StationDetailViewController" bundle:nil];
-		}	
-		
-		if(idString != nil){
-			[detailVC setStationID:idString];
-			if(name != nil){
-				[detailVC setStationName:name];
-			}
-			if(altitude != nil){
-				[detailVC setAltitude:altitude];
-			}
-			if(wgs84Latitude != nil && wgs84Longitude != nil){
-				CLLocationCoordinate2D theCoordinate;
-				theCoordinate.latitude = [wgs84Latitude doubleValue];
-				theCoordinate.longitude = [wgs84Longitude doubleValue];
-				[detailVC setCoordinate:theCoordinate];
-			}
-			
 		}
+		
+		[detailVC setStationInfo:stationInfo];
 		
 		if([iPadHelper isIpad]){
 			[detailVC refreshContent:self];

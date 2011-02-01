@@ -20,5 +20,60 @@
 </TranslationSet>
 </TextItem>
 
+<TextItem>
+<Description> Class = &quot;IBUINavigationItem&quot;; title = &quot;Root View Controller&quot;; ObjectID = &quot;29&quot;; </Description>
+<Position>29.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Root View Controller</base>
+	<tran loc="fr" origin="">Controlleur de Vue Principal</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUITabBarItem&quot;; title = &quot;Settings&quot;; ObjectID = &quot;30&quot;; </Description>
+<Position>30.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Settings</base>
+	<tran loc="fr" origin="">Réglages</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUITabBarItem&quot;; title = &quot;Stations&quot;; ObjectID = &quot;35&quot;; </Description>
+<Position>35.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Stations</base>
+	<tran loc="fr" origin="">Stations</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUINavigationItem&quot;; title = &quot;Item&quot;; ObjectID = &quot;37&quot;; </Description>
+<Position>37.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Item</base>
+	<tran loc="fr" origin="">Elément</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUITabBarItem&quot;; title = &quot;Map&quot;; ObjectID = &quot;47&quot;; </Description>
+<Position>47.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Map</base>
+	<tran loc="fr" origin="">Plan</tran>
+
+</TranslationSet>
+</TextItem>
+
 </File>
 </Proj>

@@ -34,10 +34,32 @@
 			<key>Values</key>
 			<array>
 				<integer>10</integer>
-				<string>20</string>
-				<string>30</string>
-				<string>45</string>
-				<string>60</string>
+				<integer>20</integer>
+				<integer>30</integer>
+				<integer>45</integer>
+				<integer>60</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<integer>0</integer>
+			<key>Key</key>
+			<string>map_type_preference</string>
+			<key>Title</key>
+			<string>Map Type</string>
+			<key>Titles</key>
+			<array>
+				<string>Standard</string>
+				<string>Satellite</string>
+				<string>Hybrid</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
 			</array>
 		</dict>
 	</array>

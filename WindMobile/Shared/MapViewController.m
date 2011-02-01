@@ -8,13 +8,20 @@
 
 #import "MapViewController.h"
 
+#define SWISS_CENTER_LAT 46.687131
+#define SWISS_CENTER_LON 8.140869
+
+#define SWISS_SPAN_LAT 2.000000
+#define SWISS_SPAN_LON 3.500000
+
+#define POINT_SPAN_LAT 0.096379
+#define POINT_SPAN_LON 0.173893
+
+#define MAP_TYPE_KEY @"map_type_preference"
 
 @implementation MapViewController
 
 @synthesize mapView;
-@synthesize region;
-@synthesize coordinate;
-@synthesize subtitle;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -31,38 +38,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	self.mapView.mapType = MKMapTypeStandard;   // also MKMapTypeSatellite or MKMapTypeHybrid
-
-	// display view
-	[self.mapView setRegion:self.region animated:YES];
-	[self.mapView addAnnotation:self];
+	self.mapView.mapType =[[NSUserDefaults standardUserDefaults]doubleForKey:MAP_TYPE_KEY]; // MKMapTypeStandard, MKMapTypeSatellite or MKMapTypeHybrid
 	
-	UIBarButtonItem *flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-																			  target:nil
-																			  action:nil];
-
-	UIBarButtonItem *showInMapButton = [[UIBarButtonItem alloc]initWithTitle:NSLocalizedStringFromTable(@"COORDINATE_SHOW_IN_MAPS", @"WindMobile", nil)
-																	   style:UIBarButtonItemStyleBordered //  UIBarButtonItemStyleDone
-																	  target:self
-																	  action:@selector(showInMaps:)];
+	// Center on CH by default
+	MKCoordinateRegion newRegion;
+	newRegion.center.latitude = SWISS_CENTER_LAT;
+	newRegion.center.longitude = SWISS_CENTER_LON;
+	newRegion.span.latitudeDelta = SWISS_SPAN_LAT;
+	newRegion.span.longitudeDelta = SWISS_SPAN_LON;
+	[self.mapView setRegion:newRegion animated:YES];
 	
-	[self setToolbarItems:[NSArray arrayWithObjects:flexItem, showInMapButton, nil]];
 
+	// Show in Map button
+	UIBarButtonItem *showInMapButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+																				 target:self 
+																				 action:@selector(showInMaps:)];
+	self.navigationItem.rightBarButtonItem = showInMapButton;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    // bring back the toolbar
-    [self.navigationController setToolbarHidden:NO animated:YES];
+	// in case the user changed the settings
+	self.mapView.mapType =[[NSUserDefaults standardUserDefaults]doubleForKey:MAP_TYPE_KEY];
 }
 
-/*
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    //return (interfaceOrientation == UIInterfaceOrientationPortrait);
+	return YES;
 }
-*/
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
@@ -84,17 +89,57 @@
     [super dealloc];
 }
 
+- (void)addAnnotation:(id <MKAnnotation>)annotation{
+	[self.mapView addAnnotation:annotation];
+
+	// set center and region
+	MKCoordinateRegion newRegion;
+	if([self.mapView.annotations count] > 1){
+		newRegion.center.latitude = SWISS_CENTER_LAT;
+		newRegion.center.longitude = SWISS_CENTER_LON;
+		newRegion.span.latitudeDelta = SWISS_SPAN_LAT;
+		newRegion.span.longitudeDelta = SWISS_SPAN_LON;
+	} else {
+		newRegion.center.latitude = annotation.coordinate.latitude;
+		newRegion.center.longitude = annotation.coordinate.longitude;
+		newRegion.span.latitudeDelta = POINT_SPAN_LAT;
+		newRegion.span.longitudeDelta = POINT_SPAN_LON;
+	}
+	[self.mapView setRegion:newRegion animated:YES];
+
+}
+
 - (IBAction)showInMaps:(id)sender{
-	NSString *latlong = [[NSString stringWithFormat:@"%f,%f", self.coordinate.latitude, self.coordinate.longitude]
-						 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSString *label = [[[self.title stringByAppendingString:@" "] 
-						stringByAppendingString:self.subtitle]
-					   stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+															 delegate:self 
+													cancelButtonTitle:NSLocalizedStringFromTable(@"CANCEL", @"WindMobile", nil)
+											   destructiveButtonTitle:nil 
+													otherButtonTitles:NSLocalizedStringFromTable(@"SHOW_IN_MAPS", @"WindMobile", nil), nil];
+	actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+	[actionSheet showFromTabBar:self.tabBarController.tabBar];
+	[actionSheet release];
 	
-	NSString *url = [NSString stringWithFormat: @"http://maps.google.com/maps?ll=%@&q=%@(%@)&spn=0.096379,0.173893&t=h",
-					 latlong, latlong, label];
-	
-	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+}
+
+#pragma mark -
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	// the user clicked one of the OK/Cancel buttons
+	if (buttonIndex == 0) {
+		NSArray* annotations = self.mapView.annotations;
+		id<MKAnnotation> info = [annotations objectAtIndex:0];
+		NSString *latlong = [[NSString stringWithFormat:@"%f,%f", info.coordinate.latitude, info.coordinate.longitude]
+							 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		NSString *label = [[[info.title stringByAppendingString:@" "] 
+							stringByAppendingString:info.subtitle]
+						   stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		
+		NSString *url = [NSString stringWithFormat: @"http://maps.google.com/maps?ll=%@&q=%@(%@)&spn=0.096379,0.173893&t=h",
+						 latlong, latlong, label];
+		
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+	} 
 }
 
 

@@ -11,20 +11,20 @@
 @implementation AppDelegate_Phone
 
 @synthesize window;
-@synthesize nav;
+@synthesize tabBarController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 	
     // Override point for customization after application launch
-	[window addSubview:nav.view];
-	[window makeKeyAndVisible];
+	[self.window addSubview:tabBarController.view];
+    [self.window makeKeyAndVisible];
 	
 	return YES;
 }
 
 
 - (void)dealloc {
-	[nav release];
+	[tabBarController release];
 	[window release];
 	[super dealloc];
 }

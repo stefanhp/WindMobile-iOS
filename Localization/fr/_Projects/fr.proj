@@ -8,14 +8,15 @@
 		<string>en</string>
 		<key>BrowserTickedFilesList</key>
 		<array>
-			<string>WindMobile.strings</string>
+			<string>MainWindow_Pad.xib.strings</string>
+			<string>MainWindow_Phone.xib.strings</string>
 		</array>
 		<key>BrowserWindowHeight</key>
 		<integer>370</integer>
 		<key>BrowserWindowLeft</key>
-		<integer>295</integer>
+		<integer>123</integer>
 		<key>BrowserWindowTop</key>
-		<integer>399</integer>
+		<integer>212</integer>
 		<key>BrowserWindowWidth</key>
 		<integer>1329</integer>
 		<key>FileMatcherIsVisible</key>
@@ -28,58 +29,58 @@
 	<key>LocSetList</key>
 	<array>
 		<dict>
+			<key>ApplicationDictionary</key>
+			<string>MainWindow_Pad.xib.strings.ad</string>
 			<key>LogFile</key>
-			<string>.svn</string>
+			<string>MainWindow_Pad.xib.strings</string>
 			<key>NewBase</key>
-			<string>.svn</string>
+			<string>MainWindow_Pad.xib.strings</string>
 			<key>NewLoc</key>
-			<string>.svn</string>
-			<key>OldBase</key>
-			<string>.svn</string>
-			<key>OldLoc</key>
-			<string>.svn</string>
+			<string>MainWindow_Pad.xib.strings</string>
+			<key>WorkGlossary</key>
+			<string>MainWindow_Pad.xib.strings.wg</string>
+		</dict>
+		<dict>
+			<key>ApplicationDictionary</key>
+			<string>MainWindow_Phone.xib.strings.ad</string>
+			<key>LogFile</key>
+			<string>MainWindow_Phone.xib.strings</string>
+			<key>NewBase</key>
+			<string>MainWindow_Phone.xib.strings</string>
+			<key>NewLoc</key>
+			<string>MainWindow_Phone.xib.strings</string>
+			<key>WorkGlossary</key>
+			<string>MainWindow_Phone.xib.strings.wg</string>
 		</dict>
 		<dict>
 			<key>ApplicationDictionary</key>
 			<string>StationDetailViewController.xib.strings.ad</string>
-			<key>LogFile</key>
-			<string>StationDetailViewController.xib.strings</string>
 			<key>NewBase</key>
 			<string>StationDetailViewController.xib.strings</string>
 			<key>NewLoc</key>
 			<string>StationDetailViewController.xib.strings</string>
 			<key>OldBase</key>
 			<string>StationDetailViewController.xib.strings</string>
-			<key>WorkGlossary</key>
-			<string>StationDetailViewController.xib.strings.wg</string>
 		</dict>
 		<dict>
 			<key>ApplicationDictionary</key>
 			<string>StationInfoViewController.xib.strings.ad</string>
-			<key>LogFile</key>
-			<string>StationInfoViewController.xib.strings</string>
 			<key>NewBase</key>
 			<string>StationInfoViewController.xib.strings</string>
 			<key>NewLoc</key>
 			<string>StationInfoViewController.xib.strings</string>
 			<key>OldBase</key>
 			<string>StationInfoViewController.xib.strings</string>
-			<key>WorkGlossary</key>
-			<string>StationInfoViewController.xib.strings.wg</string>
 		</dict>
 		<dict>
 			<key>ApplicationDictionary</key>
 			<string>WindMobile.strings.ad</string>
-			<key>LogFile</key>
-			<string>WindMobile.strings</string>
 			<key>NewBase</key>
 			<string>WindMobile.strings</string>
 			<key>NewLoc</key>
 			<string>WindMobile.strings</string>
 			<key>OldBase</key>
 			<string>WindMobile.strings</string>
-			<key>WorkGlossary</key>
-			<string>WindMobile.strings.wg</string>
 		</dict>
 	</array>
 	<key>ProjectName</key>

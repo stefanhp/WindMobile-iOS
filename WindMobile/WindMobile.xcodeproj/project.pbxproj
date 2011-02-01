@@ -18,6 +18,8 @@
 		F804BB8F11A86068009B6057 /* DetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F804BB8D11A86068009B6057 /* DetailView.xib */; };
 		F832991511A81E8E005D2572 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F832991311A81E8E005D2572 /* MapViewController.m */; };
 		F832991911A81ED6005D2572 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F832991711A81ED6005D2572 /* MapViewController.xib */; };
+		F83365D412F6FA8D00CCF0EB /* StationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F83365D312F6FA8D00CCF0EB /* StationInfo.m */; };
+		F83365F812F719DF00CCF0EB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83365F712F719DF00CCF0EB /* CoreLocation.framework */; };
 		F836DE0912E86E6A00C9E635 /* libCPSReST.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8EC163512E8666D00B268BD /* libCPSReST.a */; };
 		F846DFB011A2A5F100FC2F49 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F846DFAF11A2A5F100FC2F49 /* MapKit.framework */; };
 		F8491CAC11A6A8B50076B32D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F8491CAB11A6A8B50076B32D /* Settings.bundle */; };
@@ -47,8 +49,6 @@
 		F8549A26119DAAEF0010B513 /* StationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8549A24119DAAEF0010B513 /* StationInfoViewController.m */; };
 		F8549A8A119DB46C0010B513 /* StationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8549A88119DB46C0010B513 /* StationDetailViewController.m */; };
 		F8549B75119DEF3D0010B513 /* WindMobile.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8549B73119DEF3D0010B513 /* WindMobile.strings */; };
-		F858A637119E975600FA26FA /* MainWindow_Pad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A636119E975600FA26FA /* MainWindow_Pad.xib */; };
-		F858A639119E976300FA26FA /* MainWindow_Phone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A638119E976300FA26FA /* MainWindow_Phone.xib */; };
 		F858A64C119E97E600FA26FA /* StationDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A64A119E97E600FA26FA /* StationDetailViewController.xib */; };
 		F858A650119E982C00FA26FA /* StationInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A64E119E982C00FA26FA /* StationInfoViewController.xib */; };
 		F88F6B4412E88D96009C2B8D /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B3D12E88D96009C2B8D /* Icon-72.png */; };
@@ -59,6 +59,10 @@
 		F88F6B4912E88D96009C2B8D /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B4212E88D96009C2B8D /* Icon@2x.png */; };
 		F88F6B4A12E88D96009C2B8D /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B4312E88D96009C2B8D /* iTunesArtwork */; };
 		F8BDFA2411A1D73F0069A43E /* WMReSTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F8BDFA2311A1D73F0069A43E /* WMReSTClient.m */; };
+		F8E8A35412F8602000F2E84B /* world@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F8E8A35212F8602000F2E84B /* world@2x.png */; };
+		F8E8A35512F8602000F2E84B /* world.png in Resources */ = {isa = PBXBuildFile; fileRef = F8E8A35312F8602000F2E84B /* world.png */; };
+		F8E8A38212F8647600F2E84B /* MainWindow_Pad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8E8A38012F8647600F2E84B /* MainWindow_Pad.xib */; };
+		F8E8A38612F8649B00F2E84B /* MainWindow_Phone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8E8A38412F8649B00F2E84B /* MainWindow_Phone.xib */; };
 		F8E9494812F4830E0036C165 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F1722F117910480046800F /* libCorePlot-CocoaTouch.a */; };
 		F8E9494E12F483730036C165 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E9494D12F483730036C165 /* QuartzCore.framework */; };
 		F8E9498712F487380036C165 /* WindPlotController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8E9498512F487380036C165 /* WindPlotController.m */; };
@@ -138,6 +142,9 @@
 		F832991311A81E8E005D2572 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = Shared/MapViewController.m; sourceTree = "<group>"; };
 		F832991811A81ED6005D2572 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/MapViewController.xib; sourceTree = "<group>"; };
 		F83299CE11A84597005D2572 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/MapViewController.xib; sourceTree = "<group>"; };
+		F83365D212F6FA8D00CCF0EB /* StationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationInfo.h; path = Shared/StationInfo.h; sourceTree = "<group>"; };
+		F83365D312F6FA8D00CCF0EB /* StationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationInfo.m; path = Shared/StationInfo.m; sourceTree = "<group>"; };
+		F83365F712F719DF00CCF0EB /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F846DF4511A2A06800FC2F49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/StationInfoViewController.xib; sourceTree = "<group>"; };
 		F846DFAF11A2A5F100FC2F49 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F846E42D11AC5BD10095E6EF /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/DetailView.xib; sourceTree = SOURCE_ROOT; };
@@ -187,8 +194,6 @@
 		F8549AAF119DC49C0010B513 /* helpers.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = helpers.txt; sourceTree = "<group>"; };
 		F8549B74119DEF3D0010B513 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/WindMobile.strings; sourceTree = "<group>"; };
 		F8549B76119DEFC00010B513 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Resources/fr.lproj/WindMobile.strings; sourceTree = "<group>"; };
-		F858A636119E975600FA26FA /* MainWindow_Pad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow_Pad.xib; sourceTree = "<group>"; };
-		F858A638119E976300FA26FA /* MainWindow_Phone.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow_Phone.xib; sourceTree = "<group>"; };
 		F858A64B119E97E600FA26FA /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/StationDetailViewController.xib; sourceTree = "<group>"; };
 		F858A64D119E980C00FA26FA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/StationDetailViewController.xib; sourceTree = "<group>"; };
 		F858A66E119E984D00FA26FA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/StationInfoViewController.xib; sourceTree = "<group>"; };
@@ -202,6 +207,12 @@
 		F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CPS-ReST-Framework.xcodeproj"; path = "../CPS-ReST/CPS-ReST-Framework/CPS-ReST-Framework.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		F8BDFA2211A1D73F0069A43E /* WMReSTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMReSTClient.h; path = Shared/WMReSTClient.h; sourceTree = "<group>"; };
 		F8BDFA2311A1D73F0069A43E /* WMReSTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMReSTClient.m; path = Shared/WMReSTClient.m; sourceTree = "<group>"; };
+		F8E8A35212F8602000F2E84B /* world@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "world@2x.png"; sourceTree = "<group>"; };
+		F8E8A35312F8602000F2E84B /* world.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world.png; sourceTree = "<group>"; };
+		F8E8A38112F8647600F2E84B /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/MainWindow_Pad.xib; sourceTree = SOURCE_ROOT; };
+		F8E8A38312F8648E00F2E84B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/MainWindow_Pad.xib; sourceTree = SOURCE_ROOT; };
+		F8E8A38512F8649B00F2E84B /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/MainWindow_Phone.xib; sourceTree = SOURCE_ROOT; };
+		F8E8A38712F864B000F2E84B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/MainWindow_Phone.xib; sourceTree = SOURCE_ROOT; };
 		F8E9494D12F483730036C165 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F8E9498412F487380036C165 /* WindPlotController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WindPlotController.h; path = Shared/WindPlotController.h; sourceTree = "<group>"; };
 		F8E9498512F487380036C165 /* WindPlotController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WindPlotController.m; path = Shared/WindPlotController.m; sourceTree = "<group>"; };
@@ -222,6 +233,7 @@
 				F846DFB011A2A5F100FC2F49 /* MapKit.framework in Frameworks */,
 				F851ACE812F447E1002F851C /* MessageUI.framework in Frameworks */,
 				F8E9494E12F483730036C165 /* QuartzCore.framework in Frameworks */,
+				F83365F812F719DF00CCF0EB /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,7 +251,7 @@
 		2860E324111B887F00E27156 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
-				F858A638119E976300FA26FA /* MainWindow_Phone.xib */,
+				F8E8A38412F8649B00F2E84B /* MainWindow_Phone.xib */,
 				2860E325111B887F00E27156 /* AppDelegate_Phone.h */,
 				2860E326111B887F00E27156 /* AppDelegate_Phone.m */,
 			);
@@ -249,7 +261,7 @@
 		2860E32A111B888700E27156 /* iPad */ = {
 			isa = PBXGroup;
 			children = (
-				F858A636119E975600FA26FA /* MainWindow_Pad.xib */,
+				F8E8A38012F8647600F2E84B /* MainWindow_Pad.xib */,
 				2860E32B111B888700E27156 /* AppDelegate_Pad.h */,
 				2860E32C111B888700E27156 /* AppDelegate_Pad.m */,
 				F804BB8A11A86058009B6057 /* DetailViewController.h */,
@@ -282,6 +294,8 @@
 				F8E9498412F487380036C165 /* WindPlotController.h */,
 				F8E9498512F487380036C165 /* WindPlotController.m */,
 				F8E9498612F487380036C165 /* WindPlotController.xib */,
+				F83365D212F6FA8D00CCF0EB /* StationInfo.h */,
+				F83365D312F6FA8D00CCF0EB /* StationInfo.m */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -302,6 +316,7 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				F851ACE712F447E1002F851C /* MessageUI.framework */,
 				F8E9494D12F483730036C165 /* QuartzCore.framework */,
+				F83365F712F719DF00CCF0EB /* CoreLocation.framework */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -428,6 +443,8 @@
 		F8A73FE611773CF40058A7C4 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				F8E8A35212F8602000F2E84B /* world@2x.png */,
+				F8E8A35312F8602000F2E84B /* world.png */,
 				F851AC6F12F446D2002F851C /* settings.png */,
 			);
 			name = icons;
@@ -564,8 +581,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8549B75119DEF3D0010B513 /* WindMobile.strings in Resources */,
-				F858A637119E975600FA26FA /* MainWindow_Pad.xib in Resources */,
-				F858A639119E976300FA26FA /* MainWindow_Phone.xib in Resources */,
 				F858A64C119E97E600FA26FA /* StationDetailViewController.xib in Resources */,
 				F858A650119E982C00FA26FA /* StationInfoViewController.xib in Resources */,
 				F8491CAC11A6A8B50076B32D /* Settings.bundle in Resources */,
@@ -586,6 +601,10 @@
 				F851ACBC12F4478D002F851C /* IASKPSToggleSwitchSpecifierViewCell.xib in Resources */,
 				F851ACBD12F4478D002F851C /* IASKSpecifierValuesView.xib in Resources */,
 				F8E9498812F487380036C165 /* WindPlotController.xib in Resources */,
+				F8E8A35412F8602000F2E84B /* world@2x.png in Resources */,
+				F8E8A35512F8602000F2E84B /* world.png in Resources */,
+				F8E8A38212F8647600F2E84B /* MainWindow_Pad.xib in Resources */,
+				F8E8A38612F8649B00F2E84B /* MainWindow_Phone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,6 +657,7 @@
 				F851ACB612F4478D002F851C /* IASKSwitch.m in Sources */,
 				F851ACB712F4478D002F851C /* IASKTextField.m in Sources */,
 				F8E9498712F487380036C165 /* WindPlotController.m in Sources */,
+				F83365D412F6FA8D00CCF0EB /* StationInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -700,6 +720,24 @@
 				F846DF4511A2A06800FC2F49 /* fr */,
 			);
 			name = StationInfoViewController.xib;
+			sourceTree = "<group>";
+		};
+		F8E8A38012F8647600F2E84B /* MainWindow_Pad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F8E8A38112F8647600F2E84B /* fr */,
+				F8E8A38312F8648E00F2E84B /* en */,
+			);
+			name = MainWindow_Pad.xib;
+			sourceTree = "<group>";
+		};
+		F8E8A38412F8649B00F2E84B /* MainWindow_Phone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F8E8A38512F8649B00F2E84B /* fr */,
+				F8E8A38712F864B000F2E84B /* en */,
+			);
+			name = MainWindow_Phone.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

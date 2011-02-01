@@ -25,6 +25,7 @@
 }
 @property (retain,readwrite) NSObject<WMReSTClientDelegate>* stationListSender;
 @property (retain,readwrite) NSObject<WMReSTClientDelegate>* stationDataSender;
++ (NSArray*)convertToStationInfo:(NSArray*)stations;
 
 - (NSArray*)getStationList;
 - (void)asyncGetStationList:(id)sender;

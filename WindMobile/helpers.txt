@@ -1,4 +1,10 @@
 // Extract string files from xib files
+mv ../Localization/fr/_NewBase/MainWindow_Phone.xib.strings ../Localization/fr/_OldBase/
+ibtool --export-strings-file ../Localization/fr/_NewBase/MainWindow_Phone.xib.strings Resources/en.lproj/MainWindow_Phone.xib 
+
+mv ../Localization/fr/_NewBase/MainWindow_Pad.xib.strings ../Localization/fr/_OldBase/
+ibtool --export-strings-file ../Localization/fr/_NewBase/MainWindow_Pad.xib.strings Resources/en.lproj/MainWindow_Pad.xib 
+
 mv ../Localization/fr/_NewBase/WindMobile.strings ../Localization/fr/_OldBase/
 cp Resources/en.lproj/WindMobile.strings ../Localization/fr/_NewBase/
 
@@ -9,6 +15,8 @@ mv ../Localization/fr/_NewBase/StationDetailViewController.xib.strings ../Locali
 ibtool --export-strings-file ../Localization/fr/_NewBase/StationDetailViewController.xib.strings Resources/en.lproj/StationDetailViewController.xib 
 
 // Update of french localization for all xib
+ibtool --strings-file ../Localization/fr/_NewLoc/MainWindow_Phone.xib.strings --write Resources/fr.lproj/MainWindow_Phone.xib Resources/en.lproj/MainWindow_Phone.xib
+ibtool --strings-file ../Localization/fr/_NewLoc/MainWindow_Pad.xib.strings --write Resources/fr.lproj/MainWindow_Pad.xib Resources/en.lproj/MainWindow_Pad.xib
 cp ../Localization/fr/_NewLoc/WindMobile.strings Resources/fr.lproj/
 ibtool --strings-file ../Localization/fr/_NewLoc/StationInfoViewController.xib.strings --write Resources/fr.lproj/StationInfoViewController.xib Resources/en.lproj/StationInfoViewController.xib
 ibtool --strings-file ../Localization/fr/_NewLoc/StationDetailViewController.xib.strings --write Resources/fr.lproj/StationDetailViewController.xib Resources/en.lproj/StationDetailViewController.xib

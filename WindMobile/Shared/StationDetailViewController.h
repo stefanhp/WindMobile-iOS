@@ -10,19 +10,16 @@
 #import "WMReSTClient.h"
 #import <MapKit/MapKit.h>
 
+@class StationInfo;
+
 @interface StationDetailViewController : UITableViewController {
 	WMReSTClient* client;
-	NSString *stationID;
-	NSString *stationName;
-	NSString *altitude;
+
+	StationInfo* stationInfo;
 	NSDictionary *stationData;
-	CLLocationCoordinate2D coordinate;
 }
-@property (retain) NSString *stationID; 
-@property (retain) NSString *stationName; 
-@property (retain) NSString *altitude; 
+@property (retain) StationInfo *stationInfo; 
 @property (retain) NSDictionary *stationData; 
-@property (nonatomic) CLLocationCoordinate2D coordinate; 
 + (NSDate*)decodeDateFromString:(NSString*)stringDate;
 + (NSString*)naturalTimeSinceDate:(NSDate*)date;
 // Content

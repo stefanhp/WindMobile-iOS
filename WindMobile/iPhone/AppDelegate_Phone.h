@@ -10,11 +10,11 @@
 
 @interface AppDelegate_Phone : NSObject <UIApplicationDelegate> {
 	UIWindow *window;
-	UINavigationController *nav;
+	UITabBarController *tabBarController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UINavigationController *nav;
+@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 
 @end
 

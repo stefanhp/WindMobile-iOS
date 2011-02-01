@@ -7,6 +7,7 @@
 //
 
 #import "WMReSTClient.h"
+#import "StationInfo.h"
 
 #define TIMEOUT_KEY @"timeout_preference"
 #define URL_STATION_INFOS @"/windmobile/stationinfos"
@@ -39,7 +40,7 @@
 		stations = [[content objectForKey:@"stationInfos"]objectForKey:@"stationInfo"];
 	}
 	
-	return stations;
+	return [WMReSTClient convertToStationInfo:stations];
 }
 
 - (void)asyncGetStationList:(id)sender{
@@ -57,8 +58,17 @@
 	}
 	
 	if(stationListSender != nil && [stationListSender respondsToSelector:@selector(stationList:)]){
-		[stationListSender stationList:stations];
+		[stationListSender stationList:[WMReSTClient convertToStationInfo:stations]];
 	}
+}
+
++ (NSArray*)convertToStationInfo:(NSArray*)stations{
+	NSMutableArray *converted = [[NSMutableArray alloc] initWithCapacity:[stations count]];
+	for(NSDictionary* station in stations){
+		StationInfo* info = [[StationInfo alloc]initWithDictionary:station];
+		[converted addObject:info];
+	}
+	return converted;
 }
 
 - (NSDictionary*)getStationData:(NSString*)stationID{

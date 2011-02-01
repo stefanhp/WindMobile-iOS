@@ -11,16 +11,11 @@
 
 @class StationDetailViewController;
 
-@interface MapViewController : UIViewController <MKMapViewDelegate,MKAnnotation> {
+@interface MapViewController : UIViewController <MKMapViewDelegate,UIActionSheetDelegate> {
 	MKMapView *mapView;
-	MKCoordinateRegion region;
-	CLLocationCoordinate2D coordinate;
-	NSString* subtitle;
 }
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
-@property (nonatomic) MKCoordinateRegion region;
-@property (nonatomic) CLLocationCoordinate2D coordinate;
-@property (nonatomic, retain) NSString* subtitle;
 
+- (void)addAnnotation:(id <MKAnnotation>)annotation;
 - (IBAction)showInMaps:(id)sender; 
 @end
