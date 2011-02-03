@@ -65,6 +65,17 @@
 </TextItem>
 
 <TextItem>
+<Description> Class = &quot;IBUINavigationItem&quot;; title = &quot;Stations&quot;; ObjectID = &quot;37&quot;; </Description>
+<Position>37.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Stations</base>
+	<tran loc="fr" origin="">Stations</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
 <Description> Class = &quot;IBUITabBarItem&quot;; title = &quot;Map&quot;; ObjectID = &quot;47&quot;; </Description>
 <Position>47.title</Position>
 <TranslationSet>

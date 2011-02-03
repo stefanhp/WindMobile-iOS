@@ -8,7 +8,6 @@
 		<string>en</string>
 		<key>BrowserTickedFilesList</key>
 		<array>
-			<string>MainWindow_Pad.xib.strings</string>
 			<string>MainWindow_Phone.xib.strings</string>
 		</array>
 		<key>BrowserWindowHeight</key>
@@ -48,6 +47,8 @@
 			<key>NewBase</key>
 			<string>MainWindow_Phone.xib.strings</string>
 			<key>NewLoc</key>
+			<string>MainWindow_Phone.xib.strings</string>
+			<key>OldBase</key>
 			<string>MainWindow_Phone.xib.strings</string>
 			<key>WorkGlossary</key>
 			<string>MainWindow_Phone.xib.strings.wg</string>

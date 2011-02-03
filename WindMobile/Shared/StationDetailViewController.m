@@ -12,6 +12,7 @@
 #import "iPadHelper.h"
 #import "WindPlotController.h"
 #import "StationInfo.h"
+#import "WindMobileHelper.h"
 
 #define SECTION_INFO 0
 #define INDEX_ALTITUDE 0
@@ -150,9 +151,9 @@
 					break;
 				case INDEX_UPDATE:
 					cell.textLabel.text = NSLocalizedStringFromTable(@"UPDATED", @"WindMobile", nil);
-					cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", 
-												 [StationDetailViewController naturalTimeSinceDate:
-												  [StationDetailViewController decodeDateFromString:[stationData objectForKey:@"@lastUpdate"]]]];
+					cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",
+												 [WindMobileHelper naturalTimeSinceDate:
+												  [WindMobileHelper decodeDateFromString:[stationData objectForKey:@"@lastUpdate"]]]];
 					return cell;
 					break;
 				case INDEX_MAP:
@@ -348,6 +349,8 @@
 		[wplot setTitle:[NSString stringWithFormat:@"%@ %@",
 						 NSLocalizedStringFromTable(@"SECTION_CURRENT", @"WindMobile", nil),
 						 NSLocalizedStringFromTable(@"INDEX_WIND_GRAPH", @"WindMobile", nil)]];
+		[wplot setStationInfo:stationInfo];
+		wplot.drawAxisSet = YES;
 		
 		if([iPadHelper isIpad]){} else {
 			// push controller
@@ -374,6 +377,9 @@
 
 
 - (void)dealloc {
+	if(client != nil){
+		[client release];
+	}
     [super dealloc];
 }
 
@@ -388,15 +394,7 @@
 	}
 	[self.tableView reloadData];
 	
-	// Remove refresh button
-	self.navigationItem.rightBarButtonItem = nil;
-	
-	// activity indicator
-	UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-	[activityIndicator startAnimating];
-	UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
-	[activityIndicator release];
-	self.navigationItem.rightBarButtonItem = activityItem;
+	[self startRefreshAnimation];
 	
 	if(client == nil){
 		client = [[[WMReSTClient alloc] init ]retain];
@@ -406,9 +404,32 @@
 	[client asyncGetStationData:self.stationInfo.stationID forSender:self];
 }
 
-- (void)stationData:(NSDictionary*)aStationData{
+- (void)stationData:(StationData*)aStationData{
+	[self stopRefreshAnimation];
+
 	self.stationData = aStationData;
 	
+	// refresh table
+	[self.tableView reloadData];
+}
+
+- (void)requestError:(NSString*) message details:(NSMutableDictionary *)error{
+	[self stopRefreshAnimation];
+}
+
+- (void)startRefreshAnimation{
+	// Remove refresh button
+	self.navigationItem.rightBarButtonItem = nil;
+	
+	// activity indicator
+	UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+	[activityIndicator startAnimating];
+	UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+	[activityIndicator release];
+	self.navigationItem.rightBarButtonItem = activityItem;
+}
+
+- (void)stopRefreshAnimation{
 	// Stop animation
 	self.navigationItem.rightBarButtonItem = nil;
 	
@@ -419,69 +440,6 @@
 																				 action:@selector(refreshContent:)];
 	self.navigationItem.rightBarButtonItem = refreshItem;
 	//}
-
-	// refresh table
-	[self.tableView reloadData];
-}
-
-#pragma mark -
-#pragma mark Helpers
-
-+ (NSDate*)decodeDateFromString:(NSString*)stringDate{
-	if(stringDate == nil){
-		return nil;
-	}
-	if([stringDate length]<24){
-		return nil;
-	}
-	// Expected date format (sample): "2010-02-15T11:14:25.678+01:00"
-	// Expected date format (sample): "2010-05-15T11:40:00+0200"
-	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init]autorelease];
-	[dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"]; 
-	//NSString* toDecodeDate = [[stringDate substringToIndex:19]stringByAppendingString:[stringDate substringFromIndex:23]];
-	//NSLog(@"To decode date: %@", toDecodeDate);
-	return [dateFormatter dateFromString:stringDate];
-}
-
-+ (NSString*)naturalTimeSinceDate:(NSDate*)date{
-	if(date == nil){
-		return NSLocalizedStringFromTable(@"NOT_AVAILABLE", @"WindMobile", nil);
-	}
-	NSTimeInterval interval = [date timeIntervalSinceNow];
-	NSTimeInterval minutes = interval / 60;
-	if(interval >0){
-		// future
-		if(minutes < 60){
-			// minutes
-			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"IN_MINUTES", @"WindMobile", nil), (int)minutes];
-		} else if (minutes < 60*24){
-			// Hours
-			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"IN_HOURS", @"WindMobile", nil), (int)(minutes/60)];
-		} else if(minutes < 60*24*365){
-			// days
-			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"IN_DAYS", @"WindMobile", nil), (int)(minutes/(60*24))];
-		} else {
-			// years
-			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"IN_YEARS", @"WindMobile", nil), (int)(minutes/(60*24*365))];
-		}
-
-	} else {
-		// past
-		if(-minutes < 60){
-			// minutes
-			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"AGO_MINUTES", @"WindMobile", nil), -(int)minutes];
-		} else  if (-minutes < 60*24) {
-			// hours
-			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"AGO_HOURS", @"WindMobile", nil), -(int)(minutes/60)];
-		} else if (-minutes < 60*24*365) {
-			// days
-			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"AGO_DAYS", @"WindMobile", nil), -(int)(minutes/(60*24))];
-		} else {
-			// years
-			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"AGO_YEARS", @"WindMobile", nil), -(int)(minutes/(60*24*365))];
-		}
-	}
-	return @"N/A";
 }
 @end
 

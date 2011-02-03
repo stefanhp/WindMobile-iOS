@@ -67,6 +67,11 @@
 		F8E9494E12F483730036C165 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E9494D12F483730036C165 /* QuartzCore.framework */; };
 		F8E9498712F487380036C165 /* WindPlotController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8E9498512F487380036C165 /* WindPlotController.m */; };
 		F8E9498812F487380036C165 /* WindPlotController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8E9498612F487380036C165 /* WindPlotController.xib */; };
+		F8FE115612F9A6C3006551F4 /* StationData.m in Sources */ = {isa = PBXBuildFile; fileRef = F8FE115512F9A6C3006551F4 /* StationData.m */; };
+		F8FE116D12F9A8CC006551F4 /* StationGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = F8FE116C12F9A8CC006551F4 /* StationGraph.m */; };
+		F8FE11E812F9B322006551F4 /* WindMobileHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F8FE11E712F9B322006551F4 /* WindMobileHelper.m */; };
+		F8FE125212F9BC20006551F4 /* TestWindMobileHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F8FE125112F9BC20006551F4 /* TestWindMobileHelper.m */; };
+		F8FE125C12F9BDC3006551F4 /* WindMobileHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F8FE11E712F9B322006551F4 /* WindMobileHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -218,6 +223,16 @@
 		F8E9498512F487380036C165 /* WindPlotController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WindPlotController.m; path = Shared/WindPlotController.m; sourceTree = "<group>"; };
 		F8E9498612F487380036C165 /* WindPlotController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = WindPlotController.xib; path = Shared/WindPlotController.xib; sourceTree = "<group>"; };
 		F8F17226117910480046800F /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../core-plot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		F8FE115412F9A6C3006551F4 /* StationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationData.h; path = Shared/StationData.h; sourceTree = "<group>"; };
+		F8FE115512F9A6C3006551F4 /* StationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationData.m; path = Shared/StationData.m; sourceTree = "<group>"; };
+		F8FE116B12F9A8CC006551F4 /* StationGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationGraph.h; path = Shared/StationGraph.h; sourceTree = "<group>"; };
+		F8FE116C12F9A8CC006551F4 /* StationGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationGraph.m; path = Shared/StationGraph.m; sourceTree = "<group>"; };
+		F8FE11E612F9B322006551F4 /* WindMobileHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WindMobileHelper.h; path = Shared/WindMobileHelper.h; sourceTree = "<group>"; };
+		F8FE11E712F9B322006551F4 /* WindMobileHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WindMobileHelper.m; path = Shared/WindMobileHelper.m; sourceTree = "<group>"; };
+		F8FE123D12F9BB97006551F4 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8FE123E12F9BB97006551F4 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
+		F8FE125012F9BC20006551F4 /* TestWindMobileHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestWindMobileHelper.h; sourceTree = "<group>"; };
+		F8FE125112F9BC20006551F4 /* TestWindMobileHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestWindMobileHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +252,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F8FE123A12F9BB97006551F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -244,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* WindMobile.app */,
+				F8FE123D12F9BB97006551F4 /* UnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -274,12 +297,15 @@
 		28EEBF621118D79A00187D67 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				8D1107310486CEB800E47090 /* WindMobile-Info.plist */,
+				F8FE11E612F9B322006551F4 /* WindMobileHelper.h */,
+				F8FE11E712F9B322006551F4 /* WindMobileHelper.m */,
+				F8FE115312F9A6AB006551F4 /* Data objects */,
 				F88F6B3C12E88D96009C2B8D /* appIcon */,
 				F804BB8711A86047009B6057 /* iPadHelper.h */,
 				F804BB8811A86047009B6057 /* iPadHelper.m */,
 				F8549B73119DEF3D0010B513 /* WindMobile.strings */,
 				F8A73FE611773CF40058A7C4 /* icons */,
-				8D1107310486CEB800E47090 /* WindMobile-Info.plist */,
 				F8549A23119DAAEF0010B513 /* StationInfoViewController.h */,
 				F8549A24119DAAEF0010B513 /* StationInfoViewController.m */,
 				F858A64E119E982C00FA26FA /* StationInfoViewController.xib */,
@@ -294,8 +320,6 @@
 				F8E9498412F487380036C165 /* WindPlotController.h */,
 				F8E9498512F487380036C165 /* WindPlotController.m */,
 				F8E9498612F487380036C165 /* WindPlotController.xib */,
-				F83365D212F6FA8D00CCF0EB /* StationInfo.h */,
-				F83365D312F6FA8D00CCF0EB /* StationInfo.m */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -314,9 +338,11 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				F8491CB511A6A8E70076B32D /* Preferences */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				F8FE124F12F9BBE4006551F4 /* Tests */,
 				F851ACE712F447E1002F851C /* MessageUI.framework */,
 				F8E9494D12F483730036C165 /* QuartzCore.framework */,
 				F83365F712F719DF00CCF0EB /* CoreLocation.framework */,
+				F8FE123E12F9BB97006551F4 /* UnitTests-Info.plist */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -478,6 +504,28 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F8FE115312F9A6AB006551F4 /* Data objects */ = {
+			isa = PBXGroup;
+			children = (
+				F83365D212F6FA8D00CCF0EB /* StationInfo.h */,
+				F83365D312F6FA8D00CCF0EB /* StationInfo.m */,
+				F8FE115412F9A6C3006551F4 /* StationData.h */,
+				F8FE115512F9A6C3006551F4 /* StationData.m */,
+				F8FE116B12F9A8CC006551F4 /* StationGraph.h */,
+				F8FE116C12F9A8CC006551F4 /* StationGraph.m */,
+			);
+			name = "Data objects";
+			sourceTree = "<group>";
+		};
+		F8FE124F12F9BBE4006551F4 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				F8FE125012F9BC20006551F4 /* TestWindMobileHelper.h */,
+				F8FE125112F9BC20006551F4 /* TestWindMobileHelper.m */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -500,6 +548,24 @@
 			productName = WindMobile;
 			productReference = 1D6058910D05DD3D006BFB54 /* WindMobile.app */;
 			productType = "com.apple.product-type.application";
+		};
+		F8FE123C12F9BB97006551F4 /* UnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8FE124112F9BB97006551F4 /* Build configuration list for PBXNativeTarget "UnitTests" */;
+			buildPhases = (
+				F8FE123812F9BB97006551F4 /* Resources */,
+				F8FE123912F9BB97006551F4 /* Sources */,
+				F8FE123A12F9BB97006551F4 /* Frameworks */,
+				F8FE123B12F9BB97006551F4 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UnitTests;
+			productName = UnitTests;
+			productReference = F8FE123D12F9BB97006551F4 /* UnitTests.octest */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -533,6 +599,7 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* WindMobile */,
+				F8FE123C12F9BB97006551F4 /* UnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -608,6 +675,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F8FE123812F9BB97006551F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -624,6 +698,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
 			shellScript = "# Project version incrementing script\nif [ ${CONFIGURATION} = \"Release\" ]; then\n\tplistFile=\"WindMobile-Info.plist\"\n\tsettingsFile=\"Settings.bundle/Root.plist\"\n\techo \"Incrementing Project Version for \"${plistFile}\n \n\tbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" $plistFile 2>&1)\n\tversionString=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" $plistFile 2>&1)\n\tif [[ \"$buildNumber\" == *Does\\ Not\\ Exist ]] ; then\n\t\tbuildNumber=1\n\t\techo \"Create CFBundleVersion\"\n\t    /usr/libexec/PlistBuddy -c \"Add :CFBundleVersion integer ${buildNumber}\" $plistFile\n\telse\n\t\tbuildNumber=$(($buildNumber + 1))\n\t\techo \"set CFBundleVersion to ${buildNumber}\"\n\t\t/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion ${buildNumber}\" $plistFile\n\t\t/usr/libexec/PlistBuddy -c \"Set PreferenceSpecifiers:0:DefaultValue ${versionString} (${buildNumber})\" $settingsFile\n\tfi\nfi \n";
+		};
+		F8FE123B12F9BB97006551F4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -658,6 +745,18 @@
 				F851ACB712F4478D002F851C /* IASKTextField.m in Sources */,
 				F8E9498712F487380036C165 /* WindPlotController.m in Sources */,
 				F83365D412F6FA8D00CCF0EB /* StationInfo.m in Sources */,
+				F8FE115612F9A6C3006551F4 /* StationData.m in Sources */,
+				F8FE116D12F9A8CC006551F4 /* StationGraph.m in Sources */,
+				F8FE11E812F9B322006551F4 /* WindMobileHelper.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8FE123912F9BB97006551F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8FE125212F9BC20006551F4 /* TestWindMobileHelper.m in Sources */,
+				F8FE125C12F9BDC3006551F4 /* WindMobileHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -811,6 +910,66 @@
 			};
 			name = Release;
 		};
+		F8FE123F12F9BB97006551F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = "UnitTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					SenTestingKit,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = UnitTests;
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		F8FE124012F9BB97006551F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				INFOPLIST_FILE = "UnitTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					SenTestingKit,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = UnitTests;
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -828,6 +987,15 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8FE124112F9BB97006551F4 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8FE123F12F9BB97006551F4 /* Debug */,
+				F8FE124012F9BB97006551F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

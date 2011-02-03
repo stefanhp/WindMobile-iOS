@@ -12,18 +12,21 @@
 
 @class StationInfo;
 
-@interface StationDetailViewController : UITableViewController {
+@interface StationDetailViewController : UITableViewController <WMReSTClientDelegate> {
 	WMReSTClient* client;
 
 	StationInfo* stationInfo;
-	NSDictionary *stationData;
+	StationData* stationData;
 }
-@property (retain) StationInfo *stationInfo; 
-@property (retain) NSDictionary *stationData; 
-+ (NSDate*)decodeDateFromString:(NSString*)stringDate;
-+ (NSString*)naturalTimeSinceDate:(NSDate*)date;
+@property (retain) StationInfo* stationInfo; 
+@property (retain) StationData* stationData; 
 // Content
 - (void)refreshContent:(id)sender;
 // WMReSTClient delegate
-- (void)stationData:(NSDictionary*)stationData;
+- (void)stationData:(StationData*)stationData;
+@end
+
+@interface StationDetailViewController ()
+- (void)startRefreshAnimation;
+- (void)stopRefreshAnimation;
 @end

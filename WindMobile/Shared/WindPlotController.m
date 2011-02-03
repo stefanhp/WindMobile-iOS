@@ -9,10 +9,16 @@
 #import "WindPlotController.h"
 #import "CPGraphHostingView.h"
 
+#define PLOT_WIND_AVERAGE_IDENTIFIER @"Wind Average"
+#define PLOT_WIND_MAX_IDENTIFIER @"Wind Max"
 
 @implementation WindPlotController
 
-@synthesize dataForPlot;
+@synthesize stationInfo;
+@synthesize stationGraph;
+@synthesize drawAxisSet;
+
+//@synthesize dataForPlot;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -28,6 +34,10 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+	// Load data points
+	[self refreshContent:self];
+
 	
     // Create graph from theme
     graph = [[CPXYGraph alloc] initWithFrame:CGRectZero];
@@ -37,107 +47,100 @@
     hostingView.collapsesLayers = NO; // Setting to YES reduces GPU memory usage, but can slow drawing/scrolling
     hostingView.hostedGraph = graph;
 	
-    graph.paddingLeft = 10.0;
-	graph.paddingTop = 10.0;
-	graph.paddingRight = 10.0;
-	graph.paddingBottom = 10.0;
+    graph.paddingLeft = 0.0;
+	graph.paddingTop = 0.0;
+	graph.paddingRight = 0.0;
+	graph.paddingBottom = 0.0;
     
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(3.0)];
+	NSTimeInterval max = [[NSDate date]timeIntervalSince1970];
+	NSTimeInterval min = [[[NSDate date] dateByAddingTimeInterval:-172800.0]timeIntervalSince1970]; // 2 days back = 60 * 60 * 24 * 2 = 172'800
+	NSTimeInterval length = max - min;
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(min) length:CPDecimalFromDouble(length)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(50.0)];
 	
     // Axes
-	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
+	axisSet = [(CPXYAxisSet *)(graph.axisSet) retain];
     CPXYAxis *x = axisSet.xAxis;
-    x.majorIntervalLength = CPDecimalFromString(@"0.5");
-    x.orthogonalCoordinateDecimal = CPDecimalFromString(@"2");
-    x.minorTicksPerInterval = 2;
+    x.majorIntervalLength = CPDecimalFromString(@"3600.0"); // 1 hour = 60 * 60 = 3600
+    x.minorTicksPerInterval = 4;
+	x.isFloatingAxis = NO,
+    x.orthogonalCoordinateDecimal = CPDecimalFromString(@"0");
+	/*
  	NSArray *exclusionRanges = [NSArray arrayWithObjects:
-								[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
-								[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
-								[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(2.99) length:CPDecimalFromFloat(0.02)],
+								[CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(min) length:CPDecimalFromDouble(max)], 
 								nil];
 	x.labelExclusionRanges = exclusionRanges;
+	 */
 	
     CPXYAxis *y = axisSet.yAxis;
-    y.majorIntervalLength = CPDecimalFromString(@"0.5");
-    y.minorTicksPerInterval = 5;
-    y.orthogonalCoordinateDecimal = CPDecimalFromString(@"2");
+    y.majorIntervalLength = CPDecimalFromString(@"10");
+    y.minorTicksPerInterval = 10;
+	y.isFloatingAxis = NO;
+    y.orthogonalCoordinateDecimal = CPDecimalFromDouble(max);
+	/*
 	exclusionRanges = [NSArray arrayWithObjects:
-					   [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
-					   [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
-					   [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(3.99) length:CPDecimalFromFloat(0.02)],
+					   [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0) length:CPDecimalFromFloat(50.0)], 
 					   nil];
 	y.labelExclusionRanges = exclusionRanges;
+	 */
 	
-	// Create a blue plot area
-	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
+	// Create a Wind Average plot area
+	CPScatterPlot *averageLinePlot = [[[CPScatterPlot alloc] init] autorelease];
+    averageLinePlot.identifier = PLOT_WIND_AVERAGE_IDENTIFIER;
+    averageLinePlot.dataSource = self;
+
     CPMutableLineStyle *lineStyle = [CPMutableLineStyle lineStyle];
     lineStyle.miterLimit = 1.0f;
 	lineStyle.lineWidth = 3.0f;
 	lineStyle.lineColor = [CPColor blueColor];
-    boundLinePlot.dataLineStyle = lineStyle;
-    boundLinePlot.identifier = @"Blue Plot";
-    boundLinePlot.dataSource = self;
-	[graph addPlot:boundLinePlot];
-	
+    averageLinePlot.dataLineStyle = lineStyle;
+
 	// Do a blue gradient
-	CPColor *areaColor1 = [CPColor colorWithComponentRed:0.3 green:0.3 blue:1.0 alpha:0.8];
+	CPColor *areaColor1 = [CPColor colorWithComponentRed:0.0 green:0.0 blue:1.0 alpha:0.8];
     CPGradient *areaGradient1 = [CPGradient gradientWithBeginningColor:areaColor1 endingColor:[CPColor clearColor]];
     areaGradient1.angle = -90.0f;
     CPFill *areaGradientFill = [CPFill fillWithGradient:areaGradient1];
-    boundLinePlot.areaFill = areaGradientFill;
-    boundLinePlot.areaBaseValue = [[NSDecimalNumber zero] decimalValue];    
+
+    CPFill *areaColorFill = [CPFill fillWithColor:areaColor1];
+
+    averageLinePlot.areaFill = areaGradientFill;
+    averageLinePlot.areaBaseValue = [[NSDecimalNumber zero] decimalValue];    
+    //averageLinePlot.areaBaseValue = CPDecimalFromString(@"10.0");    
 	
 	// Add plot symbols
+	/*
 	CPMutableLineStyle *symbolLineStyle = [CPMutableLineStyle lineStyle];
 	symbolLineStyle.lineColor = [CPColor blackColor];
 	CPPlotSymbol *plotSymbol = [CPPlotSymbol ellipsePlotSymbol];
 	plotSymbol.fill = [CPFill fillWithColor:[CPColor blueColor]];
 	plotSymbol.lineStyle = symbolLineStyle;
     plotSymbol.size = CGSizeMake(10.0, 10.0);
-    boundLinePlot.plotSymbol = plotSymbol;
+    averageLinePlot.plotSymbol = plotSymbol;
+	 */
+
+	[graph addPlot:averageLinePlot];
 	
-    // Create a green plot area
+    // Create a Wind Max plot area
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
-    lineStyle = [CPMutableLineStyle lineStyle];
-    lineStyle.lineWidth = 3.f;
-    lineStyle.lineColor = [CPColor greenColor];
-	lineStyle.dashPattern = [NSArray arrayWithObjects:[NSNumber numberWithFloat:5.0f], [NSNumber numberWithFloat:5.0f], nil];
-    dataSourceLinePlot.dataLineStyle = lineStyle;
-    dataSourceLinePlot.identifier = @"Green Plot";
+    dataSourceLinePlot.identifier = PLOT_WIND_MAX_IDENTIFIER;
     dataSourceLinePlot.dataSource = self;
+
+    lineStyle = [CPMutableLineStyle lineStyle];
+    lineStyle.lineWidth = 1.0f;
+    lineStyle.lineColor = [CPColor redColor];
+	//lineStyle.dashPattern = [NSArray arrayWithObjects:[NSNumber numberWithFloat:5.0f], [NSNumber numberWithFloat:5.0f], nil];
+    dataSourceLinePlot.dataLineStyle = lineStyle;
 	
-	// Put an area gradient under the plot above
-    CPColor *areaColor = [CPColor colorWithComponentRed:0.3 green:1.0 blue:0.3 alpha:0.8];
-    CPGradient *areaGradient = [CPGradient gradientWithBeginningColor:areaColor endingColor:[CPColor clearColor]];
-    areaGradient.angle = -90.0f;
-    areaGradientFill = [CPFill fillWithGradient:areaGradient];
-    dataSourceLinePlot.areaFill = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = CPDecimalFromString(@"1.75");
 	
-	// Animate in the new plot, as an example
-	dataSourceLinePlot.opacity = 0.0f;
     [graph addPlot:dataSourceLinePlot];
-	
-	CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-	fadeInAnimation.duration = 1.0f;
-	fadeInAnimation.removedOnCompletion = NO;
-	fadeInAnimation.fillMode = kCAFillModeForwards;
-	fadeInAnimation.toValue = [NSNumber numberWithFloat:1.0];
-	[dataSourceLinePlot addAnimation:fadeInAnimation forKey:@"animateOpacity"];
-	
-    // Add some initial data
-	NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
-	NSUInteger i;
-	for ( i = 0; i < 60; i++ ) {
-		id x = [NSNumber numberWithFloat:1+i*0.05];
-		id y = [NSNumber numberWithFloat:1.2*rand()/(float)RAND_MAX + 1.2];
-		[contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
+
+	if(!drawAxisSet){
+		graph.axisSet = nil;
 	}
-	self.dataForPlot = contentArray;
+	
 }
 
 /*
@@ -163,7 +166,9 @@
 
 
 - (void)dealloc {
-	[dataForPlot release];
+	[stationInfo release];
+	[stationGraph release];
+	[axisSet release];
 
     [super dealloc];
 }
@@ -174,21 +179,64 @@
 }
 
 #pragma mark -
+#pragma mark Rest Graph Data
+
+- (void)refreshContent:(id)sender{
+	if(client == nil){
+		client = [[[WMReSTClient alloc] init ]retain];
+	}
+	[client asyncGetStationGraph:stationInfo.stationID duration:@"10000" forSender:self];
+}
+
+- (void)stationGraph:(StationGraph*)graphs{
+	self.stationGraph = graphs;
+	
+	// Adjust graph range
+	CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
+	CPPlotRange *xRange = self.stationGraph.windMaxDateRange;
+    plotSpace.xRange = xRange;
+    plotSpace.yRange = self.stationGraph.windMaxValueRange;
+	
+	// move axis
+	if(drawAxisSet){
+		graph.axisSet = axisSet; // re-appy axis
+	axisSet.yAxis.orthogonalCoordinateDecimal = xRange.location;
+	} else {
+		graph.axisSet = nil;
+	}
+
+	[graph reloadData];
+}
+
+
+#pragma mark -
 #pragma mark Plot Data Source Methods
 
 -(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot {
-    return [dataForPlot count];
+	if(stationGraph == nil){
+		return 0;
+	}
+    return [[stationGraph windAveragePoints] count];
 }
 
 -(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
-    NSNumber *num = [[dataForPlot objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
-	// Green plot gets shifted above the blue
-	if ([(NSString *)plot.identifier isEqualToString:@"Green Plot"])
-	{
-		if ( fieldEnum == CPScatterPlotFieldY ) 
-			num = [NSNumber numberWithDouble:[num doubleValue] + 1.0];
+	// Wind Average
+	if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_AVERAGE_IDENTIFIER]){
+		DataPoint* point = (DataPoint*)[[stationGraph windAveragePoints] objectAtIndex:index];
+		if (fieldEnum == CPScatterPlotFieldX) {
+			return [NSNumber numberWithDouble:[[point date] timeIntervalSince1970]];
+		} else if(fieldEnum == CPScatterPlotFieldY){
+			return [point value];
+		}
+	} else if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_MAX_IDENTIFIER]) { // Wind Max
+		DataPoint* point = (DataPoint*)[[stationGraph windMaxPoints] objectAtIndex:index];
+		if (fieldEnum == CPScatterPlotFieldX) {
+			return [NSNumber numberWithDouble:[[point date] timeIntervalSince1970]];
+		} else if(fieldEnum == CPScatterPlotFieldY){
+			return [point value];
+		}
 	}
-    return num;
+    return [NSNumber numberWithDouble:0.0];
 }
 
 @end

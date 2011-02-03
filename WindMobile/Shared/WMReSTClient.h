@@ -7,31 +7,41 @@
 //
 
 #import "CPSReSTClient.h"
+#import "StationData.h"
+#import "StationGraph.h"
 
 #define REST_SERVER @"windmobile.vol-libre-suchet.ch"
 #define REST_PORT 1588
 
 @protocol WMReSTClientDelegate
 @optional
-- (void)requestError:(NSMutableDictionary *)error;
+- (void)requestError:(NSString*) message details:(NSMutableDictionary *)error;
 - (void)stationList:(NSArray*)stations;
-- (void)stationData:(NSDictionary*)stationData;
+- (void)stationData:(StationData*)stationData;
+- (void)stationGraph:(StationGraph*)stationGraph;
 @end
 
 
 @interface WMReSTClient : CPSReSTClient<CPSReSTClientDelegate> {
 	NSObject<WMReSTClientDelegate>* stationListSender;
 	NSObject<WMReSTClientDelegate>* stationDataSender;
+	NSObject<WMReSTClientDelegate>* stationGraphSender;
 }
 @property (retain,readwrite) NSObject<WMReSTClientDelegate>* stationListSender;
 @property (retain,readwrite) NSObject<WMReSTClientDelegate>* stationDataSender;
+@property (retain,readwrite) NSObject<WMReSTClientDelegate>* stationGraphSender;
 + (NSArray*)convertToStationInfo:(NSArray*)stations;
++ (StationData*)convertToStationData:(NSDictionary*)stationData;
++ (StationGraph*)convertToStationGraph:(NSDictionary*)stationGraph;
 
 - (NSArray*)getStationList;
 - (void)asyncGetStationList:(id)sender;
 
-- (NSDictionary*)getStationData:(NSString*)stationID;
+- (StationData*)getStationData:(NSString*)stationID;
 - (void)asyncGetStationData:(NSString*)stationID forSender:(id)sender;
+
+- (StationGraph*)getStationGraph:(NSString*)stationID duration:(NSString*)duration;
+- (void)asyncGetStationGraph:(NSString*)stationID duration:(NSString*)duration forSender:(id)sender;
 
 // Parent delegate
 - (void)connectionError:(NSMutableDictionary *)error;

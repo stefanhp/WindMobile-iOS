@@ -8,12 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "CorePlot-CocoaTouch.h"
+#import "WMReSTClient.h"
+#import "StationInfo.h"
 
 
 @interface WindPlotController : UIViewController <CPPlotDataSource>{
+	WMReSTClient* client;
 	CPXYGraph *graph;
-	NSMutableArray *dataForPlot;
+	StationInfo *stationInfo;
+
+	CPXYAxisSet *axisSet;
+	BOOL drawAxisSet;
 }
-@property(readwrite, retain, nonatomic) NSMutableArray *dataForPlot;
+@property(readwrite, retain) StationInfo *stationInfo;
+@property(readwrite, retain) StationGraph *stationGraph;
+@property(readwrite)BOOL drawAxisSet;
+- (void)refreshContent:(id)sender;
+- (void)stationGraph:(StationGraph*)dataPoints;
 
 @end

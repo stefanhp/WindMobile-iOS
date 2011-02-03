@@ -8,6 +8,12 @@
 
 #import "StationInfo.h"
 
+#define STATION_INFO_ID_KEY @"@id"
+#define STATION_INFO_NAME_KEY @"@name"
+#define STATION_INFO_SHORT_NAME_KEY @"@shortName"
+#define STATION_INFO_ALTITUDE_KEY @"@altitude"
+#define STATION_INFO_DATA_VALIDITY_KEY @"@dataValidity"
+	
 @implementation StationInfo
 @synthesize stationInfo;
 - (id)initWithDictionary:(NSDictionary *)aDictionary{
@@ -49,27 +55,27 @@
 #pragma mark - StationInfo properties
 @dynamic name;
 - (NSString*)name{
-	return (NSString*)[stationInfo objectForKey:@"@name"];
+	return (NSString*)[stationInfo objectForKey:STATION_INFO_NAME_KEY];
 }
 
 @dynamic shortName;
 - (NSString*)shortName{
-	return (NSString*)[stationInfo objectForKey:@"@shortName"];
+	return (NSString*)[stationInfo objectForKey:STATION_INFO_SHORT_NAME_KEY];
 }
 
 @dynamic altitude;
 - (NSString*)altitude{
-	return (NSString*)[stationInfo objectForKey:@"@altitude"];
+	return (NSString*)[stationInfo objectForKey:STATION_INFO_ALTITUDE_KEY];
 }
 
 @dynamic dataValidity;
 - (NSString*)dataValidity{
-	return (NSString*)[stationInfo objectForKey:@"@dataValidity"];
+	return (NSString*)[stationInfo objectForKey:STATION_INFO_DATA_VALIDITY_KEY];
 }
 
 @dynamic stationID;
 - (NSString*)stationID{
-	return (NSString*)[stationInfo objectForKey:@"@id"];
+	return (NSString*)[stationInfo objectForKey:STATION_INFO_ID_KEY];
 }
 
 #pragma mark -

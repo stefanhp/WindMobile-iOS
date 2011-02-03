@@ -94,10 +94,11 @@
 							<object class="IBUIViewController" id="890518434">
 								<reference key="IBUIToolbarItems" ref="0"/>
 								<object class="IBUINavigationItem" key="IBUINavigationItem" id="436414796">
-									<string key="IBUITitle">Elément</string>
+									<string key="IBUITitle">Stations</string>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								</object>
 								<reference key="IBUIParentViewController" ref="262780797"/>
+								<string key="IBUINibName">StationInfoViewController</string>
 								<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 									<int key="interfaceOrientation">1</int>
 								</object>

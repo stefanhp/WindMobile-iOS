@@ -215,16 +215,7 @@
 #pragma mark Station methods
 
 - (void)refreshContent:(id)sender {
-	// Remove refresh button
-	self.navigationItem.rightBarButtonItem = nil;
-
-	// activity indicator
-	UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-	[activityIndicator startAnimating];
-	UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
-	[activityIndicator release];
-	self.navigationItem.rightBarButtonItem = activityItem;
-	
+	[self startRefreshAnimation];
 	if(client == nil){
 		client = [[[WMReSTClient alloc] init ]retain];
 	}
@@ -234,10 +225,31 @@
 }
 
 - (void)stationList:(NSArray*)aStationArray{
+	[self stopRefreshAnimation];
+
 	self.stations = aStationArray;
 	
-	//NSLog(@"Stations: %@", aStationArray);
+	// refresh table
+	[self.tableView reloadData];
+}
 
+- (void)requestError:(NSString*) message details:(NSMutableDictionary *)error{
+	[self stopRefreshAnimation];
+}
+
+- (void)startRefreshAnimation{
+	// Remove refresh button
+	self.navigationItem.rightBarButtonItem = nil;
+	
+	// activity indicator
+	UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+	[activityIndicator startAnimating];
+	UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+	[activityIndicator release];
+	self.navigationItem.rightBarButtonItem = activityItem;
+}
+
+- (void)stopRefreshAnimation{
 	// Stop animation
 	self.navigationItem.rightBarButtonItem = nil;
 	
@@ -248,10 +260,6 @@
 																				 action:@selector(refreshContent:)];
 	self.navigationItem.rightBarButtonItem = refreshItem;
 	//}
-	
-	
-	// refresh table
-	[self.tableView reloadData];
 }
 
 @end
