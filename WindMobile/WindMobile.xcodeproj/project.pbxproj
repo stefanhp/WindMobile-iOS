@@ -59,6 +59,7 @@
 		F88F6B4912E88D96009C2B8D /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B4212E88D96009C2B8D /* Icon@2x.png */; };
 		F88F6B4A12E88D96009C2B8D /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B4312E88D96009C2B8D /* iTunesArtwork */; };
 		F8BDFA2411A1D73F0069A43E /* WMReSTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F8BDFA2311A1D73F0069A43E /* WMReSTClient.m */; };
+		F8DAB98812FB51B300017BAF /* WMCellGraphTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = F8DAB98712FB51B300017BAF /* WMCellGraphTheme.m */; };
 		F8E8A35412F8602000F2E84B /* world@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F8E8A35212F8602000F2E84B /* world@2x.png */; };
 		F8E8A35512F8602000F2E84B /* world.png in Resources */ = {isa = PBXBuildFile; fileRef = F8E8A35312F8602000F2E84B /* world.png */; };
 		F8E8A38212F8647600F2E84B /* MainWindow_Pad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8E8A38012F8647600F2E84B /* MainWindow_Pad.xib */; };
@@ -212,6 +213,8 @@
 		F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CPS-ReST-Framework.xcodeproj"; path = "../CPS-ReST/CPS-ReST-Framework/CPS-ReST-Framework.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		F8BDFA2211A1D73F0069A43E /* WMReSTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMReSTClient.h; path = Shared/WMReSTClient.h; sourceTree = "<group>"; };
 		F8BDFA2311A1D73F0069A43E /* WMReSTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMReSTClient.m; path = Shared/WMReSTClient.m; sourceTree = "<group>"; };
+		F8DAB98612FB51B300017BAF /* WMCellGraphTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMCellGraphTheme.h; path = Shared/WMCellGraphTheme.h; sourceTree = "<group>"; };
+		F8DAB98712FB51B300017BAF /* WMCellGraphTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMCellGraphTheme.m; path = Shared/WMCellGraphTheme.m; sourceTree = "<group>"; };
 		F8E8A35212F8602000F2E84B /* world@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "world@2x.png"; sourceTree = "<group>"; };
 		F8E8A35312F8602000F2E84B /* world.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world.png; sourceTree = "<group>"; };
 		F8E8A38112F8647600F2E84B /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/MainWindow_Pad.xib; sourceTree = SOURCE_ROOT; };
@@ -320,6 +323,8 @@
 				F8E9498412F487380036C165 /* WindPlotController.h */,
 				F8E9498512F487380036C165 /* WindPlotController.m */,
 				F8E9498612F487380036C165 /* WindPlotController.xib */,
+				F8DAB98612FB51B300017BAF /* WMCellGraphTheme.h */,
+				F8DAB98712FB51B300017BAF /* WMCellGraphTheme.m */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -748,6 +753,7 @@
 				F8FE115612F9A6C3006551F4 /* StationData.m in Sources */,
 				F8FE116D12F9A8CC006551F4 /* StationGraph.m in Sources */,
 				F8FE11E812F9B322006551F4 /* WindMobileHelper.m in Sources */,
+				F8DAB98812FB51B300017BAF /* WMCellGraphTheme.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

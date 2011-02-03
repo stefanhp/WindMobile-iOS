@@ -13,6 +13,7 @@
 #import "WindPlotController.h"
 #import "StationInfo.h"
 #import "WindMobileHelper.h"
+#import "CorePlot-CocoaTouch.h"
 
 #define SECTION_INFO 0
 #define INDEX_ALTITUDE 0
@@ -133,11 +134,47 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
-    }
+    static NSString *CellIdentifierGraph = @"GraphCell";
+	
+    UITableViewCell *cell = nil;
+	
+	if(indexPath.section == SECTION_CURRENT && indexPath.row == INDEX_WIND_GRAPH){
+		cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifierGraph];
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 
+										   reuseIdentifier:CellIdentifierGraph]
+					autorelease];
+			
+			WindPlotController *wplot = [[WindPlotController alloc] init];
+			[wplot setTitle:[NSString stringWithFormat:@"%@ %@",
+							 NSLocalizedStringFromTable(@"SECTION_CURRENT", @"WindMobile", nil),
+							 NSLocalizedStringFromTable(@"INDEX_WIND_GRAPH", @"WindMobile", nil)]];
+			[wplot setStationInfo:stationInfo];
+			wplot.drawAxisSet = NO;
+			wplot.isInCell = YES;
+
+			// resize
+			CGRect frame = cell.contentView.bounds;
+			frame.origin.x	= frame.origin.x + ((frame.size.width/3)) -2.0 ;
+			frame.size.width = (frame.size.width/3)*2;
+			// Smaller option:
+			//frame.origin.x	= frame.size.width - frame.size.height*2 -10.0 ;
+			//frame.size.width = frame.size.height*2;
+			wplot.view.frame = frame;
+			
+			//wplot.view.alpha = 0.5;
+			
+			[cell.contentView addSubview:wplot.view];
+			//[cell.contentView sendSubviewToBack:wplot.view];
+
+		}
+	} else {
+		cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+		}
+	}
+
     
     // Configure the cell...
 	cell.accessoryType = UITableViewCellAccessoryNone;
@@ -204,7 +241,7 @@
 						cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 					}
 					cell.textLabel.text = NSLocalizedStringFromTable(@"INDEX_WIND_GRAPH", @"WindMobile", nil);
-					cell.detailTextLabel.text = NSLocalizedStringFromTable(@"COORDINATE_SHOW", @"WindMobile", nil);
+					//cell.detailTextLabel.text = NSLocalizedStringFromTable(@"COORDINATE_SHOW", @"WindMobile", nil);
 					return cell;
 					
 					break;
@@ -351,6 +388,7 @@
 						 NSLocalizedStringFromTable(@"INDEX_WIND_GRAPH", @"WindMobile", nil)]];
 		[wplot setStationInfo:stationInfo];
 		wplot.drawAxisSet = YES;
+		wplot.isInCell = NO;
 		
 		if([iPadHelper isIpad]){} else {
 			// push controller

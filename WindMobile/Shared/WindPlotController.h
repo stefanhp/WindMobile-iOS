@@ -19,10 +19,12 @@
 
 	CPXYAxisSet *axisSet;
 	BOOL drawAxisSet;
+	BOOL isInCell;
 }
 @property(readwrite, retain) StationInfo *stationInfo;
 @property(readwrite, retain) StationGraph *stationGraph;
 @property(readwrite)BOOL drawAxisSet;
+@property(readwrite)BOOL isInCell;
 - (void)refreshContent:(id)sender;
 - (void)stationGraph:(StationGraph*)dataPoints;
 
