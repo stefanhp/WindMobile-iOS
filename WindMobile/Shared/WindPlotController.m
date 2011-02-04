@@ -265,14 +265,35 @@
     plotSpace.xRange = xRange;
     plotSpace.yRange = self.stationGraph.windMaxValueRange;
 	
-	// move axis
+	// move axis and update labels
 	if(drawAxisSet){
 		graph.axisSet = axisSet; // re-appy axis
 		axisSet.yAxis.orthogonalCoordinateDecimal = CPDecimalFromDouble(xRange.locationDouble + xRange.lengthDouble);
+		// labels
+		CPXYAxis *x = axisSet.xAxis;
+		NSSet* labelCoordinates = x.majorTickLocations;
+		x.labelingPolicy = CPAxisLabelingPolicyNone;
+		NSMutableArray *customLabels = [[NSMutableArray alloc] initWithCapacity:[labelCoordinates count]];
+		for (NSNumber* tickLocation in labelCoordinates){
+			NSTimeInterval location = [tickLocation doubleValue];
+			NSDate* date = [NSDate dateWithTimeIntervalSince1970:location];
+			NSString* dateLabel = [NSDateFormatter localizedStringFromDate:date 
+																 dateStyle:kCFDateFormatterNoStyle
+																 timeStyle:kCFDateFormatterShortStyle];
+			
+			CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText:dateLabel textStyle:x.labelTextStyle];
+			newLabel.tickLocation = CPDecimalFromDouble(location);
+			newLabel.offset = x.labelOffset + x.majorTickLength;
+			//newLabel.rotation = M_PI/4;
+			[customLabels addObject:newLabel];
+			[newLabel release];
+		}
+		x.axisLabels =  [NSSet setWithArray:customLabels];
 	} else {
 		graph.axisSet = nil;
 	}
 
+	
 	[graph reloadData];
 }
 
