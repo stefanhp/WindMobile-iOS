@@ -383,9 +383,7 @@
 		}
 	} else if (indexPath.section == SECTION_CURRENT && indexPath.row == INDEX_WIND_GRAPH){
 		WindPlotController *wplot = [[WindPlotController alloc] init];
-		[wplot setTitle:[NSString stringWithFormat:@"%@ %@",
-						 NSLocalizedStringFromTable(@"SECTION_CURRENT", @"WindMobile", nil),
-						 NSLocalizedStringFromTable(@"INDEX_WIND_GRAPH", @"WindMobile", nil)]];
+		[wplot setTitle:NSLocalizedStringFromTable(@"INDEX_WIND_GRAPH", @"WindMobile", nil)];
 		[wplot setStationInfo:stationInfo];
 		wplot.drawAxisSet = YES;
 		wplot.isInCell = NO;

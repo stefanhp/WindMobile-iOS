@@ -12,7 +12,7 @@
 #import "StationInfo.h"
 
 
-@interface WindPlotController : UIViewController <CPPlotDataSource>{
+@interface WindPlotController : UIViewController <CPPlotDataSource,WMReSTClientDelegate>{
 	WMReSTClient* client;
 	CPXYGraph *graph;
 	StationInfo *stationInfo;
@@ -25,7 +25,13 @@
 @property(readwrite, retain) StationGraph *stationGraph;
 @property(readwrite)BOOL drawAxisSet;
 @property(readwrite)BOOL isInCell;
+
 - (void)refreshContent:(id)sender;
 - (void)stationGraph:(StationGraph*)dataPoints;
 
+@end
+
+@interface WindPlotController ()
+- (void)startRefreshAnimation;
+- (void)stopRefreshAnimation;
 @end

@@ -25,6 +25,7 @@
 @synthesize drawAxisSet;
 @synthesize isInCell;
 
+
 //@synthesize dataForPlot;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -250,10 +251,15 @@
 #pragma mark Rest Graph Data
 
 - (void)refreshContent:(id)sender{
+	[self startRefreshAnimation];
 	if(client == nil){
 		client = [[[WMReSTClient alloc] init ]retain];
 	}
 	[client asyncGetStationGraph:stationInfo.stationID duration:@"10000" forSender:self];
+}
+
+- (void)requestError:(NSString*) message details:(NSMutableDictionary *)error{
+	[self stopRefreshAnimation];
 }
 
 - (void)stationGraph:(StationGraph*)graphs{
@@ -293,10 +299,35 @@
 		graph.axisSet = nil;
 	}
 
+	[self stopRefreshAnimation];
 	
 	[graph reloadData];
 }
 
+- (void)startRefreshAnimation{
+	// Remove refresh button
+	self.navigationItem.rightBarButtonItem = nil;
+	
+	// activity indicator
+	UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+	[activityIndicator startAnimating];
+	UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+	[activityIndicator release];
+	self.navigationItem.rightBarButtonItem = activityItem;
+}
+
+- (void)stopRefreshAnimation{
+	// Stop animation
+	self.navigationItem.rightBarButtonItem = nil;
+	
+	// Put Refresh button on the top left
+	//if([iPadHelper isIpad]){} else {
+	UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+																				 target:self 
+																				 action:@selector(refreshContent:)];
+	self.navigationItem.rightBarButtonItem = refreshItem;
+	//}
+}
 
 #pragma mark -
 #pragma mark Plot Data Source Methods
