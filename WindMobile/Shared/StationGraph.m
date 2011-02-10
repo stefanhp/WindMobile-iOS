@@ -24,7 +24,7 @@
 
 #define GRAPH_INITIAL_MAX_VALUE 25.0
 #define GRAPH_PADDING_VALUE 5.0
-#define GRAPH_PADDING_DATE 0.0
+#define GRAPH_PADDING_DATE 0
 
 @implementation DataPoint
 @synthesize graphType;
@@ -38,6 +38,7 @@
 
 @implementation StationGraph
 @synthesize stationGraph;
+@synthesize addPadding;
 + (DataPoint*)convertToDataPoint:(NSDictionary*)pointDict forType:(GraphPointType)aType{
 	DataPoint *point = [[DataPoint alloc]init];
 	point.graphType = [NSNumber numberWithUnsignedInteger:aType];
@@ -52,6 +53,7 @@
 	if(self != nil && aDictionary != nil){
 		stationGraph = [aDictionary retain];
 	}
+	addPadding = YES;
 	return self;
 }
 
@@ -166,7 +168,10 @@
 - (CPPlotRange*)rangeForType:(GraphPointType)pointType andProperty:(GraphRangeType)rangeType{
 	NSArray *points = [self windSeriesForType:pointType];
 	if(points != nil && [points count]>0){
-		double maxValue = GRAPH_INITIAL_MAX_VALUE;
+		double maxValue = 0;
+		if(addPadding){
+			maxValue = GRAPH_INITIAL_MAX_VALUE;
+		}
 		double currentValue;
 		NSTimeInterval minDate = [[(DataPoint*)([points objectAtIndex:0]) date] timeIntervalSince1970];
 		NSTimeInterval maxDate = minDate;
@@ -183,8 +188,14 @@
 						maxDate = currentDate;
 					}
 				}
-				return [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(minDate - GRAPH_PADDING_DATE)
-												   length:CPDecimalFromDouble(maxDate - minDate + GRAPH_PADDING_DATE)];
+				if (addPadding) {
+					return [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(minDate - GRAPH_PADDING_DATE)
+													   length:CPDecimalFromDouble(maxDate - minDate + GRAPH_PADDING_DATE)];
+				} else {
+					return [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(minDate)
+													   length:CPDecimalFromDouble(maxDate - minDate)];
+				}
+
 				
 				break;
 			case GraphRangeForValue:
@@ -194,8 +205,14 @@
 						maxValue = currentValue;
 					}
 				}
-				return [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0 - GRAPH_PADDING_VALUE)
-												   length:CPDecimalFromDouble(maxValue + GRAPH_PADDING_VALUE)];
+				if(addPadding){
+					double pad = (maxValue / GRAPH_PADDING_VALUE) -1; 
+					return [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0 - pad)
+													   length:CPDecimalFromDouble(maxValue + GRAPH_PADDING_VALUE)];
+				} else {
+					return [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0 - GRAPH_PADDING_VALUE)
+													   length:CPDecimalFromDouble(maxValue + GRAPH_PADDING_VALUE)];
+				}
 				break;
 			default:
 				break;

@@ -15,11 +15,30 @@
 #define PLOT_WIND_ORANGE_IDENTIFIER @"WARNING"
 #define PLOT_WIND_RED_IDENTIFIER @"DANGER"
 
+#define DEFAULT_DURATION @"21600"
+#define DURATION_FORMAT @"DURATION%i"
+
 #define ORANGE_LIMIT 15.0
 #define RED_LIMIT 35.0
 
+#define NUMBER_OF_BUTTONS 6
+#define BUTTON_WIDTH 30
+#define BUTTON_HEIGTH 20
+#define BUTTON_PADDING_X 5
+#define BUTTON_PADDING_Y 10
+
+#define INTERVAL_2_HOURS 0
+#define INTERVAL_6_HOURS 1
+#define INTERVAL_12_HOURS 2
+#define INTERVAL_24_HOURS 3
+#define INTERVAL_2_DAYS 4
+#define INTERVAL_3_DAYS 5
+
 @implementation WindPlotController
 
+@synthesize hostingView;
+@synthesize scale;
+@synthesize info;
 @synthesize stationInfo;
 @synthesize stationGraph;
 @synthesize drawAxisSet;
@@ -42,8 +61,14 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+	
+	if(self.isInCell == NO){
+		[self setupButtons];
+		info.hidden = NO;
+	}
+	
 	// Load data points
+	self.duration = DEFAULT_DURATION; 
 	[self refreshContent:self];
 
 	
@@ -54,10 +79,9 @@
 		theme = [[WMCellGraphTheme alloc]init];
 		graph.fill = [CPFill fillWithColor:[CPColor whiteColor]];
 	} else {
-	theme = [CPTheme themeNamed:kCPDarkGradientTheme];
+		theme = [CPTheme themeNamed:kCPDarkGradientTheme];
 	}
     [graph applyTheme:theme];
-	CPGraphHostingView *hostingView = (CPGraphHostingView *)self.view;
     hostingView.collapsesLayers = NO; // Setting to YES reduces GPU memory usage, but can slow drawing/scrolling
     hostingView.hostedGraph = graph;
 	
@@ -76,18 +100,20 @@
     
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.allowsUserInteraction = !self.isInCell;
+    //plotSpace.allowsUserInteraction = !self.isInCell;
+	plotSpace.allowsUserInteraction = NO;
 	NSTimeInterval max = [[NSDate date]timeIntervalSince1970];
-	NSTimeInterval min = [[[NSDate date] dateByAddingTimeInterval:-172800.0]timeIntervalSince1970]; // 2 days back = 60 * 60 * 24 * 2 = 172'800
+	NSTimeInterval min = [[[NSDate date] dateByAddingTimeInterval:-21600.0]timeIntervalSince1970]; // 6h back = 60 * 60 * 6 = 21'600
 	NSTimeInterval length = max - min;
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(min) length:CPDecimalFromDouble(length)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(50.0)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-5.0) length:CPDecimalFromFloat(25.0)];
 	
     // Axes
 	axisSet = [(CPXYAxisSet *)(graph.axisSet) retain];
     CPXYAxis *x = axisSet.xAxis;
-    x.majorIntervalLength = CPDecimalFromString(@"3600.0"); // 1 hour = 60 * 60 = 3600
-    x.minorTicksPerInterval = 4;
+	x.majorIntervalLength = CPDecimalFromDouble(7200.0); // 2h
+	x.minorTicksPerInterval = 6; // 15 min
+	x.labelingPolicy = CPAxisLabelingPolicyNone;
 	x.isFloatingAxis = NO,
     x.orthogonalCoordinateDecimal = CPDecimalFromString(@"0");
 	/*
@@ -255,7 +281,7 @@
 	if(client == nil){
 		client = [[[WMReSTClient alloc] init ]retain];
 	}
-	[client asyncGetStationGraph:stationInfo.stationID duration:@"10000" forSender:self];
+	[client asyncGetStationGraph:stationInfo.stationID duration:self.duration forSender:self];
 }
 
 - (void)requestError:(NSString*) message details:(NSMutableDictionary *)error{
@@ -274,23 +300,75 @@
 	// move axis and update labels
 	if(drawAxisSet){
 		graph.axisSet = axisSet; // re-appy axis
-		axisSet.yAxis.orthogonalCoordinateDecimal = CPDecimalFromDouble(xRange.locationDouble + xRange.lengthDouble);
-		// labels
+		axisSet.yAxis.orthogonalCoordinateDecimal = CPDecimalFromDouble(xRange.locationDouble + xRange.lengthDouble - xRange.lengthDouble/50);
+
+		// labeling range
 		CPXYAxis *x = axisSet.xAxis;
+		switch (scale.selectedSegmentIndex) {
+			case INTERVAL_2_HOURS:
+				x.majorIntervalLength = CPDecimalFromDouble(1800.0); // 30 minutes
+				x.minorTicksPerInterval = 1; // 15 min
+				break;
+			case INTERVAL_6_HOURS:
+				x.majorIntervalLength = CPDecimalFromDouble(7200.0); // 2h
+				x.minorTicksPerInterval = 6; // 15 min
+				break;
+			case INTERVAL_12_HOURS:
+				x.majorIntervalLength = CPDecimalFromDouble(10800); // 3h
+				x.minorTicksPerInterval = 9; // 15 min
+				break;
+			case INTERVAL_24_HOURS:
+				x.majorIntervalLength = CPDecimalFromDouble(43200); // 12h
+				x.minorTicksPerInterval = 11; // 1 h
+				break;
+			case INTERVAL_2_DAYS:
+				x.majorIntervalLength = CPDecimalFromDouble(86400); // 24h
+				x.minorTicksPerInterval = 23; // 1 h
+				break;
+			case INTERVAL_3_DAYS:
+				x.majorIntervalLength = CPDecimalFromDouble(86400); // 24h
+				x.minorTicksPerInterval = 23; // 1 h
+				break;
+			default:
+				x.majorIntervalLength = CPDecimalFromDouble(7200.0);
+				x.preferredNumberOfMajorTicks = 6;
+				x.minorTicksPerInterval = 0;
+				break;
+		}
+		x.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
+		[x relabel];
+		
+		// labels
 		NSSet* labelCoordinates = x.majorTickLocations;
 		x.labelingPolicy = CPAxisLabelingPolicyNone;
 		NSMutableArray *customLabels = [[NSMutableArray alloc] initWithCapacity:[labelCoordinates count]];
+		
+		unsigned unitFlags = NSDayCalendarUnit;
+		NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:xRange.locationDouble];
+		NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:(xRange.locationDouble + xRange.lengthDouble)];
+		NSDateComponents *startComps = [[NSCalendar currentCalendar] components:unitFlags fromDate:startDate];
+		NSDateComponents *endComps = [[NSCalendar currentCalendar] components:unitFlags fromDate:endDate];
+		BOOL showDate = [startComps day] != [endComps day];
+		
 		for (NSNumber* tickLocation in labelCoordinates){
 			NSTimeInterval location = [tickLocation doubleValue];
 			NSDate* date = [NSDate dateWithTimeIntervalSince1970:location];
-			NSString* dateLabel = [NSDateFormatter localizedStringFromDate:date 
-																 dateStyle:kCFDateFormatterNoStyle
-																 timeStyle:kCFDateFormatterShortStyle];
+			
+			NSString* dateLabel;
+			if(showDate){ // range crosses day boundary
+				dateLabel = [NSDateFormatter localizedStringFromDate:date 
+														   dateStyle:kCFDateFormatterShortStyle
+														   timeStyle:kCFDateFormatterShortStyle];
+			} else {
+				dateLabel = [NSDateFormatter localizedStringFromDate:date 
+														   dateStyle:kCFDateFormatterNoStyle
+														   timeStyle:kCFDateFormatterShortStyle];
+			}
+
 			
 			CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText:dateLabel textStyle:x.labelTextStyle];
 			newLabel.tickLocation = CPDecimalFromDouble(location);
 			newLabel.offset = x.labelOffset + x.majorTickLength;
-			//newLabel.rotation = M_PI/4;
 			[customLabels addObject:newLabel];
 			[newLabel release];
 		}
@@ -369,6 +447,63 @@
 		}
 	}
     return [NSNumber numberWithDouble:0.0];
+}
+
+#pragma mark -
+#pragma mark Buttons
+@synthesize duration;
+
+- (IBAction)setInterval:(id)sender{
+	// new duration
+	NSString* newDuration;
+	switch (scale.selectedSegmentIndex) {
+		case INTERVAL_2_HOURS:
+			newDuration = @"7200"; // 2h = 60 * 60 * 2 seconds
+			break;
+		case INTERVAL_6_HOURS:
+			newDuration = @"21600"; // 6h = 60 * 60 * 6 seconds
+			break;
+		case INTERVAL_12_HOURS:
+			newDuration = @"43200"; // 12h = 60 * 60 * 12 seconds
+			break;
+		case INTERVAL_24_HOURS:
+			newDuration = @"86400"; // 1d = 24h = 60 * 60 * 24 seconds
+			break;
+		case INTERVAL_2_DAYS:
+			newDuration = @"172800"; // 2d = 48h = 60 * 60 * 48 seconds
+			break;
+		case INTERVAL_3_DAYS:
+			newDuration = @"259200"; // 3d = 48h = 60 * 60 * 48 seconds
+			break;
+		default:
+			newDuration = DEFAULT_DURATION;
+			break;
+	}
+	
+	// Swap buttons
+	scale.hidden = YES;
+	info.hidden = NO;
+	
+	// apply new duration
+	if([newDuration compare:self.duration] !=  NSOrderedSame){
+		self.duration = newDuration;
+		[self refreshContent:sender];
+	}
+}
+
+- (IBAction)showScale:(id)sender{
+	info.hidden = YES;
+	scale.hidden = NO;
+}
+
+
+- (void)setupButtons{
+	NSString *value;
+	for (int i=0; i<scale.numberOfSegments; i++) {
+		value = [NSString stringWithFormat:DURATION_FORMAT, i];
+		[scale setTitle:NSLocalizedStringFromTable(value, @"WindMobile", nil) forSegmentAtIndex:i];
+	}
+	
 }
 
 @end

@@ -36,8 +36,10 @@ typedef NSUInteger GraphRangeType;
 
 @interface StationGraph : NSObject {
 	NSDictionary* stationGraph;
+	BOOL addPadding;
 }
 @property (retain) NSDictionary* stationGraph;
+@property (nonatomic) BOOL addPadding;
 // StationGraph properties:
 @property (readonly) NSNumber* duration;
 @property (readonly) NSDate* lastUpdate;
