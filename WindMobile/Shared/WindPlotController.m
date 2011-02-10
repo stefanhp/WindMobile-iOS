@@ -15,19 +15,13 @@
 #define PLOT_WIND_ORANGE_IDENTIFIER @"WARNING"
 #define PLOT_WIND_RED_IDENTIFIER @"DANGER"
 
-#define DEFAULT_DURATION @"21600"
+#define DEFAULT_DURATION @"14400"
 #define DURATION_FORMAT @"DURATION%i"
 
 #define ORANGE_LIMIT 15.0
 #define RED_LIMIT 35.0
 
-#define NUMBER_OF_BUTTONS 6
-#define BUTTON_WIDTH 30
-#define BUTTON_HEIGTH 20
-#define BUTTON_PADDING_X 5
-#define BUTTON_PADDING_Y 10
-
-#define INTERVAL_2_HOURS 0
+#define INTERVAL_4_HOURS 0
 #define INTERVAL_6_HOURS 1
 #define INTERVAL_12_HOURS 2
 #define INTERVAL_24_HOURS 3
@@ -305,9 +299,9 @@
 		// labeling range
 		CPXYAxis *x = axisSet.xAxis;
 		switch (scale.selectedSegmentIndex) {
-			case INTERVAL_2_HOURS:
-				x.majorIntervalLength = CPDecimalFromDouble(1800.0); // 30 minutes
-				x.minorTicksPerInterval = 1; // 15 min
+			case INTERVAL_4_HOURS:
+				x.majorIntervalLength = CPDecimalFromDouble(3600.0); // 1h
+				x.minorTicksPerInterval = 3; // 15 min
 				break;
 			case INTERVAL_6_HOURS:
 				x.majorIntervalLength = CPDecimalFromDouble(7200.0); // 2h
@@ -457,8 +451,8 @@
 	// new duration
 	NSString* newDuration;
 	switch (scale.selectedSegmentIndex) {
-		case INTERVAL_2_HOURS:
-			newDuration = @"7200"; // 2h = 60 * 60 * 2 seconds
+		case INTERVAL_4_HOURS:
+			newDuration = @"14400"; // 4h = 60 * 60 * 4 seconds
 			break;
 		case INTERVAL_6_HOURS:
 			newDuration = @"21600"; // 6h = 60 * 60 * 6 seconds
