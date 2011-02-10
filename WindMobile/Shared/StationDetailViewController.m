@@ -191,6 +191,18 @@
 					cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",
 												 [WindMobileHelper naturalTimeSinceDate:
 												  [WindMobileHelper decodeDateFromString:[stationData objectForKey:@"@lastUpdate"]]]];
+					//UIColor *color = cell.detailTextLabel.textColor;
+					switch (stationData.statusEnum) {
+						case StationDataStatusRed:
+							cell.detailTextLabel.textColor = [UIColor redColor];
+							break;
+						case StationDataStatusOrange:
+							cell.detailTextLabel.textColor = [UIColor orangeColor];
+							break;
+						default:
+							cell.detailTextLabel.textColor = [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
+							break;
+					}
 					return cell;
 					break;
 				case INDEX_MAP:

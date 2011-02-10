@@ -8,12 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
+enum  {
+	StationDataStatusGreen = 0,
+	StationDataStatusOrange,
+	StationDataStatusRed
+};
+typedef NSUInteger StationDataStatus;
 
 @interface StationData : NSObject {
 	NSDictionary* stationData;
 }
 @property (retain) NSDictionary* stationData;
 // StationData properties:
+@property (readonly) NSString* status;
+@property (readonly) StationDataStatus statusEnum;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary;
 
