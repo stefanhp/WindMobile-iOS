@@ -271,12 +271,22 @@
 		}
 	} else {
 		// not all seleted: select all
-		if([self.delegate respondsToSelector:@selector(willAddItems:)]){
-			[delegate willAddItems:self.stations];
+		
+		// gather list of objects to add
+		NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:[self.stations count]];
+		for (StationInfo* data in self.stations) {
+			if([selectedStations containsObject:data] == NO){
+				[tmp addObject:data];
+			}
 		}
-		[self.selectedStations addObjectsFromArray:self.stations];
+		
+		// add them
+		if([self.delegate respondsToSelector:@selector(willAddItems:)]){
+			[delegate willAddItems:tmp];
+		}
+		[self.selectedStations addObjectsFromArray:tmp];
 		if([self.delegate respondsToSelector:@selector(didAddItems:)]){
-			[delegate didAddItems:self.stations];
+			[delegate didAddItems:tmp];
 		}
 	}
 	[self.tableView reloadData];
