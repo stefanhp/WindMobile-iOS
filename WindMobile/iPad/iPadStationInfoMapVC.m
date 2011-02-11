@@ -28,6 +28,7 @@
 	IASKAppSettingsViewController *appSettings = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
 	//appSettings.delegate = self;
     appSettings.showDoneButton = NO;
+	appSettings.title = NSLocalizedStringFromTable(@"SETTINGS", @"WindMobile", nil);
 	
 	// Navigation controller
 	UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:appSettings];

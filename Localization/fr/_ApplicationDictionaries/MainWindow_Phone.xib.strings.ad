@@ -21,12 +21,34 @@
 </TextItem>
 
 <TextItem>
+<Description> Class = &quot;IBUIViewController&quot;; title = &quot;Settings&quot;; ObjectID = &quot;27&quot;; </Description>
+<Position>27.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Settings</base>
+	<tran loc="fr" origin="">Réglages</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
 <Description> Class = &quot;IBUINavigationItem&quot;; title = &quot;Root View Controller&quot;; ObjectID = &quot;29&quot;; </Description>
 <Position>29.title</Position>
 <TranslationSet>
 
 	<base loc="en"          >Root View Controller</base>
 	<tran loc="fr" origin="">Controlleur de Vue Principal</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUINavigationItem&quot;; title = &quot;Settings&quot;; ObjectID = &quot;29&quot;; </Description>
+<Position>29.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Settings</base>
+	<tran loc="fr" origin="">Réglages</tran>
 
 </TranslationSet>
 </TextItem>

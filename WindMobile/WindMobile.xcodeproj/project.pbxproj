@@ -223,6 +223,7 @@
 		F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CPS-ReST-Framework.xcodeproj"; path = "../CPS-ReST/CPS-ReST-Framework/CPS-ReST-Framework.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		F8BDFA2211A1D73F0069A43E /* WMReSTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMReSTClient.h; path = Shared/WMReSTClient.h; sourceTree = "<group>"; };
 		F8BDFA2311A1D73F0069A43E /* WMReSTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMReSTClient.m; path = Shared/WMReSTClient.m; sourceTree = "<group>"; };
+		F8BE64B01305FD3D00ECC373 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/StationListViewController.xib; sourceTree = "<group>"; };
 		F8DAB98612FB51B300017BAF /* WMCellGraphTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMCellGraphTheme.h; path = Shared/WMCellGraphTheme.h; sourceTree = "<group>"; };
 		F8DAB98712FB51B300017BAF /* WMCellGraphTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMCellGraphTheme.m; path = Shared/WMCellGraphTheme.m; sourceTree = "<group>"; };
 		F8E8A35212F8602000F2E84B /* world@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "world@2x.png"; sourceTree = "<group>"; };
@@ -865,6 +866,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				F855F644130570860038A03B /* en */,
+				F8BE64B01305FD3D00ECC373 /* fr */,
 			);
 			name = StationListViewController.xib;
 			sourceTree = "<group>";

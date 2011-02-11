@@ -36,6 +36,8 @@
 			<string>MainWindow_Pad.xib.strings</string>
 			<key>NewLoc</key>
 			<string>MainWindow_Pad.xib.strings</string>
+			<key>OldBase</key>
+			<string>MainWindow_Pad.xib.strings</string>
 			<key>WorkGlossary</key>
 			<string>MainWindow_Pad.xib.strings.wg</string>
 		</dict>
