@@ -8,17 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class iPadStationInfoMapVC;
+
 @interface AppDelegate_Pad : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_3_1
-    UISplitViewController *splitViewController;
-#endif
+	
+	iPadStationInfoMapVC *root;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_3_1
-@property (nonatomic, retain) IBOutlet UISplitViewController *splitViewController;
-#endif
 
 @end
 

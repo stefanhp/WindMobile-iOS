@@ -11,7 +11,6 @@
 #import "StationDetailViewController.h"
 #import <MapKit/MapKit.h>
 #import "iPadHelper.h"
-#import "DetailViewController.h"
 #import "StationInfo.h"
 
 @implementation StationInfoViewController
@@ -86,7 +85,7 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"StationInfoCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -166,12 +165,6 @@
 		
 		if([iPadHelper isIpad]){
 			// For iPad, get detail view form split view
-#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_3_1
-			DetailViewController* splitDetailVC = (DetailViewController*)[self.splitViewController.viewControllers objectAtIndex:1];
-			detailVC = [splitDetailVC stationDetailVC];
-			splitDetailVC.navigationBar.topItem.title = stationInfo.shortName;
-			[splitDetailVC dismissPopover:self];
-#endif
 		} else {
 			// For iPhone, create one to push
 			detailVC = [[StationDetailViewController alloc] initWithNibName:@"StationDetailViewController" bundle:nil];

@@ -7,21 +7,23 @@
 //
 
 #import "AppDelegate_Pad.h"
+#import "iPadStationInfoMapVC.h"
 
 @implementation AppDelegate_Pad
 
 @synthesize window;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_3_1
-@synthesize splitViewController;
-#endif
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 	
     // Override point for customization after application launch
-#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_3_1
-	[window addSubview:splitViewController.view];
-#endif
+	root = [[[iPadStationInfoMapVC alloc]initWithNibName:@"StationInfoMapViewController"
+												  bundle:nil] retain];
+	window.rootViewController = root;
+	/*
+	root.view.frame = window.bounds;
+	[window addSubview:root.view];
+	 */
     [window makeKeyAndVisible];
 	
 	return YES;
@@ -29,9 +31,7 @@
 
 
 - (void)dealloc {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_3_1
-	[splitViewController release];
-#endif
+	[root release];
     [window release];
     [super dealloc];
 }

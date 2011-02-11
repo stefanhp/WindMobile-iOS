@@ -6,7 +6,10 @@
 //  Copyright 2010 Pistache Software. All rights reserved.
 //
 
+#import <CoreLocation/CoreLocation.h>
 #import "MapViewController.h"
+#import "MKMapView+ZoomLevel.h"
+#import "iPadHelper.h"
 
 #define SWISS_CENTER_LAT 46.687131
 #define SWISS_CENTER_LON 8.140869
@@ -47,6 +50,9 @@
 	newRegion.span.latitudeDelta = SWISS_SPAN_LAT;
 	newRegion.span.longitudeDelta = SWISS_SPAN_LON;
 	[self.mapView setRegion:newRegion animated:YES];
+	
+	// show current location
+	self.mapView.showsUserLocation = YES;
 	
 
 	// Show in Map button
@@ -92,7 +98,9 @@
 - (void)addAnnotation:(id <MKAnnotation>)annotation{
 	[self.mapView addAnnotation:annotation];
 
-	// set center and region
+	[self centerWithHint:annotation.coordinate];
+	/*
+	// set center and region 
 	MKCoordinateRegion newRegion;
 	if([self.mapView.annotations count] > 1){
 		newRegion.center.latitude = SWISS_CENTER_LAT;
@@ -106,6 +114,50 @@
 		newRegion.span.longitudeDelta = POINT_SPAN_LON;
 	}
 	[self.mapView setRegion:newRegion animated:YES];
+	 */
+}
+
+- (void)addAnnotations:(NSArray *)annotations{
+	[self.mapView addAnnotations:annotations];
+	
+	if(self.mapView.showsUserLocation && ![self.mapView.userLocation isUpdating]){
+		[self centerWithHint:self.mapView.userLocation.location.coordinate];
+	} else {
+		id <MKAnnotation> annotation = (id <MKAnnotation>)[annotations objectAtIndex:0];
+		[self centerWithHint:annotation.coordinate];
+	}
+	NSArray *tmp = self.mapView.annotations;
+}
+
+- (void)removeAnnotation:(id <MKAnnotation>)annotation{
+	[self.mapView removeAnnotation:annotation];
+}
+
+- (void)removeAnnotations:(NSArray *)annotations{
+	[self.mapView removeAnnotations:annotations];
+}
+
+- (void)centerWithHint:(CLLocationCoordinate2D) coordinate{
+	int delta = 1;
+	if (self.mapView.showsUserLocation) {
+		delta = 2;
+	}
+
+	int zoomLevel = 6;
+	if([iPadHelper isIpad]){
+		zoomLevel = 7;
+	}
+
+	if([self.mapView.annotations count] > delta){ // many points
+		[self.mapView setCenterCoordinate:coordinate	
+								zoomLevel:zoomLevel
+								 animated:YES];
+	} else { // single point (ignoring current user location
+		[self.mapView setCenterCoordinate:coordinate	
+								zoomLevel:10
+								 animated:YES];
+	}
+
 
 }
 

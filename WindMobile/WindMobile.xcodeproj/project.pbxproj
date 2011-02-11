@@ -14,13 +14,14 @@
 		2860E32E111B888700E27156 /* AppDelegate_Pad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2860E32C111B888700E27156 /* AppDelegate_Pad.m */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		F804BB8911A86047009B6057 /* iPadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F804BB8811A86047009B6057 /* iPadHelper.m */; };
-		F804BB8C11A86058009B6057 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F804BB8B11A86058009B6057 /* DetailViewController.m */; };
-		F804BB8F11A86068009B6057 /* DetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F804BB8D11A86068009B6057 /* DetailView.xib */; };
 		F832991511A81E8E005D2572 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F832991311A81E8E005D2572 /* MapViewController.m */; };
 		F832991911A81ED6005D2572 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F832991711A81ED6005D2572 /* MapViewController.xib */; };
 		F83365D412F6FA8D00CCF0EB /* StationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F83365D312F6FA8D00CCF0EB /* StationInfo.m */; };
 		F83365F812F719DF00CCF0EB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83365F712F719DF00CCF0EB /* CoreLocation.framework */; };
 		F836DE0912E86E6A00C9E635 /* libCPSReST.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8EC163512E8666D00B268BD /* libCPSReST.a */; };
+		F83DF1DD130454A30073F555 /* StationInfoMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F83DF1DB130454A30073F555 /* StationInfoMapViewController.m */; };
+		F83DF1DE130454A30073F555 /* StationInfoMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F83DF1DC130454A30073F555 /* StationInfoMapViewController.xib */; };
+		F83DF28A130472ED0073F555 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = F83DF289130472ED0073F555 /* MKMapView+ZoomLevel.m */; };
 		F846DFB011A2A5F100FC2F49 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F846DFAF11A2A5F100FC2F49 /* MapKit.framework */; };
 		F8491CAC11A6A8B50076B32D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F8491CAB11A6A8B50076B32D /* Settings.bundle */; };
 		F851AC7012F446D2002F851C /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = F851AC6F12F446D2002F851C /* settings.png */; };
@@ -49,6 +50,9 @@
 		F8549A26119DAAEF0010B513 /* StationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8549A24119DAAEF0010B513 /* StationInfoViewController.m */; };
 		F8549A8A119DB46C0010B513 /* StationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8549A88119DB46C0010B513 /* StationDetailViewController.m */; };
 		F8549B75119DEF3D0010B513 /* WindMobile.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8549B73119DEF3D0010B513 /* WindMobile.strings */; };
+		F855F58413055A260038A03B /* iPadStationInfoMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F855F58313055A260038A03B /* iPadStationInfoMapVC.m */; };
+		F855F641130570100038A03B /* StationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F855F63F130570100038A03B /* StationListViewController.m */; };
+		F855F645130570860038A03B /* StationListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F855F643130570860038A03B /* StationListViewController.xib */; };
 		F858A64C119E97E600FA26FA /* StationDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A64A119E97E600FA26FA /* StationDetailViewController.xib */; };
 		F858A650119E982C00FA26FA /* StationInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A64E119E982C00FA26FA /* StationInfoViewController.xib */; };
 		F88F6B4412E88D96009C2B8D /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B3D12E88D96009C2B8D /* Icon-72.png */; };
@@ -141,9 +145,6 @@
 		8D1107310486CEB800E47090 /* WindMobile-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WindMobile-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		F804BB8711A86047009B6057 /* iPadHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPadHelper.h; path = Shared/iPadHelper.h; sourceTree = "<group>"; };
 		F804BB8811A86047009B6057 /* iPadHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPadHelper.m; path = Shared/iPadHelper.m; sourceTree = "<group>"; };
-		F804BB8A11A86058009B6057 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		F804BB8B11A86058009B6057 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		F804BB8E11A86068009B6057 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/DetailView.xib; sourceTree = SOURCE_ROOT; };
 		F832991211A81E8E005D2572 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = Shared/MapViewController.h; sourceTree = "<group>"; };
 		F832991311A81E8E005D2572 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = Shared/MapViewController.m; sourceTree = "<group>"; };
 		F832991811A81ED6005D2572 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/MapViewController.xib; sourceTree = "<group>"; };
@@ -151,9 +152,13 @@
 		F83365D212F6FA8D00CCF0EB /* StationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationInfo.h; path = Shared/StationInfo.h; sourceTree = "<group>"; };
 		F83365D312F6FA8D00CCF0EB /* StationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationInfo.m; path = Shared/StationInfo.m; sourceTree = "<group>"; };
 		F83365F712F719DF00CCF0EB /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		F83DF1DA130454A30073F555 /* StationInfoMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationInfoMapViewController.h; path = Shared/StationInfoMapViewController.h; sourceTree = "<group>"; };
+		F83DF1DB130454A30073F555 /* StationInfoMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationInfoMapViewController.m; path = Shared/StationInfoMapViewController.m; sourceTree = "<group>"; };
+		F83DF1DC130454A30073F555 /* StationInfoMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = StationInfoMapViewController.xib; path = Shared/StationInfoMapViewController.xib; sourceTree = "<group>"; };
+		F83DF288130472ED0073F555 /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MKMapView+ZoomLevel.h"; path = "Shared/MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
+		F83DF289130472ED0073F555 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MKMapView+ZoomLevel.m"; path = "Shared/MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
 		F846DF4511A2A06800FC2F49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/StationInfoViewController.xib; sourceTree = "<group>"; };
 		F846DFAF11A2A5F100FC2F49 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		F846E42D11AC5BD10095E6EF /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/DetailView.xib; sourceTree = SOURCE_ROOT; };
 		F8491CAB11A6A8B50076B32D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		F851AC6F12F446D2002F851C /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		F851AC8212F4478D002F851C /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
@@ -200,6 +205,11 @@
 		F8549AAF119DC49C0010B513 /* helpers.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = helpers.txt; sourceTree = "<group>"; };
 		F8549B74119DEF3D0010B513 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/WindMobile.strings; sourceTree = "<group>"; };
 		F8549B76119DEFC00010B513 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Resources/fr.lproj/WindMobile.strings; sourceTree = "<group>"; };
+		F855F58213055A260038A03B /* iPadStationInfoMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPadStationInfoMapVC.h; sourceTree = "<group>"; };
+		F855F58313055A260038A03B /* iPadStationInfoMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPadStationInfoMapVC.m; sourceTree = "<group>"; };
+		F855F63E130570100038A03B /* StationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationListViewController.h; path = Shared/StationListViewController.h; sourceTree = "<group>"; };
+		F855F63F130570100038A03B /* StationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationListViewController.m; path = Shared/StationListViewController.m; sourceTree = "<group>"; };
+		F855F644130570860038A03B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/StationListViewController.xib; sourceTree = "<group>"; };
 		F858A64B119E97E600FA26FA /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/StationDetailViewController.xib; sourceTree = "<group>"; };
 		F858A64D119E980C00FA26FA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/StationDetailViewController.xib; sourceTree = "<group>"; };
 		F858A66E119E984D00FA26FA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/StationInfoViewController.xib; sourceTree = "<group>"; };
@@ -290,9 +300,8 @@
 				F8E8A38012F8647600F2E84B /* MainWindow_Pad.xib */,
 				2860E32B111B888700E27156 /* AppDelegate_Pad.h */,
 				2860E32C111B888700E27156 /* AppDelegate_Pad.m */,
-				F804BB8A11A86058009B6057 /* DetailViewController.h */,
-				F804BB8B11A86058009B6057 /* DetailViewController.m */,
-				F804BB8D11A86068009B6057 /* DetailView.xib */,
+				F855F58213055A260038A03B /* iPadStationInfoMapVC.h */,
+				F855F58313055A260038A03B /* iPadStationInfoMapVC.m */,
 			);
 			path = iPad;
 			sourceTree = "<group>";
@@ -301,30 +310,15 @@
 			isa = PBXGroup;
 			children = (
 				8D1107310486CEB800E47090 /* WindMobile-Info.plist */,
-				F8FE11E612F9B322006551F4 /* WindMobileHelper.h */,
-				F8FE11E712F9B322006551F4 /* WindMobileHelper.m */,
-				F8FE115312F9A6AB006551F4 /* Data objects */,
-				F88F6B3C12E88D96009C2B8D /* appIcon */,
-				F804BB8711A86047009B6057 /* iPadHelper.h */,
-				F804BB8811A86047009B6057 /* iPadHelper.m */,
 				F8549B73119DEF3D0010B513 /* WindMobile.strings */,
+				F88F6B3C12E88D96009C2B8D /* appIcon */,
 				F8A73FE611773CF40058A7C4 /* icons */,
-				F8549A23119DAAEF0010B513 /* StationInfoViewController.h */,
-				F8549A24119DAAEF0010B513 /* StationInfoViewController.m */,
-				F858A64E119E982C00FA26FA /* StationInfoViewController.xib */,
-				F8549A87119DB46C0010B513 /* StationDetailViewController.h */,
-				F8549A88119DB46C0010B513 /* StationDetailViewController.m */,
-				F858A64A119E97E600FA26FA /* StationDetailViewController.xib */,
-				F8BDFA2211A1D73F0069A43E /* WMReSTClient.h */,
-				F8BDFA2311A1D73F0069A43E /* WMReSTClient.m */,
-				F832991211A81E8E005D2572 /* MapViewController.h */,
-				F832991311A81E8E005D2572 /* MapViewController.m */,
-				F832991711A81ED6005D2572 /* MapViewController.xib */,
-				F8E9498412F487380036C165 /* WindPlotController.h */,
-				F8E9498512F487380036C165 /* WindPlotController.m */,
-				F8E9498612F487380036C165 /* WindPlotController.xib */,
-				F8DAB98612FB51B300017BAF /* WMCellGraphTheme.h */,
-				F8DAB98712FB51B300017BAF /* WMCellGraphTheme.m */,
+				F855F57C130558E00038A03B /* Helpers */,
+				F8FE115312F9A6AB006551F4 /* Data objects */,
+				F855F57D130559240038A03B /* ReST Client */,
+				F855F57E130559440038A03B /* Station */,
+				F855F580130559610038A03B /* Graph */,
+				F855F57F130559540038A03B /* Maps */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -454,6 +448,69 @@
 				F851ACA812F4478D002F851C /* IASKSpecifierValuesView.xib */,
 			);
 			path = Xibs;
+			sourceTree = "<group>";
+		};
+		F855F57C130558E00038A03B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F804BB8711A86047009B6057 /* iPadHelper.h */,
+				F804BB8811A86047009B6057 /* iPadHelper.m */,
+				F8FE11E612F9B322006551F4 /* WindMobileHelper.h */,
+				F8FE11E712F9B322006551F4 /* WindMobileHelper.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		F855F57D130559240038A03B /* ReST Client */ = {
+			isa = PBXGroup;
+			children = (
+				F8BDFA2211A1D73F0069A43E /* WMReSTClient.h */,
+				F8BDFA2311A1D73F0069A43E /* WMReSTClient.m */,
+			);
+			name = "ReST Client";
+			sourceTree = "<group>";
+		};
+		F855F57E130559440038A03B /* Station */ = {
+			isa = PBXGroup;
+			children = (
+				F8549A23119DAAEF0010B513 /* StationInfoViewController.h */,
+				F8549A24119DAAEF0010B513 /* StationInfoViewController.m */,
+				F858A64E119E982C00FA26FA /* StationInfoViewController.xib */,
+				F8549A87119DB46C0010B513 /* StationDetailViewController.h */,
+				F8549A88119DB46C0010B513 /* StationDetailViewController.m */,
+				F858A64A119E97E600FA26FA /* StationDetailViewController.xib */,
+				F855F63E130570100038A03B /* StationListViewController.h */,
+				F855F63F130570100038A03B /* StationListViewController.m */,
+				F855F643130570860038A03B /* StationListViewController.xib */,
+			);
+			name = Station;
+			sourceTree = "<group>";
+		};
+		F855F57F130559540038A03B /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+				F83DF288130472ED0073F555 /* MKMapView+ZoomLevel.h */,
+				F83DF289130472ED0073F555 /* MKMapView+ZoomLevel.m */,
+				F832991211A81E8E005D2572 /* MapViewController.h */,
+				F832991311A81E8E005D2572 /* MapViewController.m */,
+				F832991711A81ED6005D2572 /* MapViewController.xib */,
+				F83DF1DA130454A30073F555 /* StationInfoMapViewController.h */,
+				F83DF1DB130454A30073F555 /* StationInfoMapViewController.m */,
+				F83DF1DC130454A30073F555 /* StationInfoMapViewController.xib */,
+			);
+			name = Maps;
+			sourceTree = "<group>";
+		};
+		F855F580130559610038A03B /* Graph */ = {
+			isa = PBXGroup;
+			children = (
+				F8E9498412F487380036C165 /* WindPlotController.h */,
+				F8E9498512F487380036C165 /* WindPlotController.m */,
+				F8E9498612F487380036C165 /* WindPlotController.xib */,
+				F8DAB98612FB51B300017BAF /* WMCellGraphTheme.h */,
+				F8DAB98712FB51B300017BAF /* WMCellGraphTheme.m */,
+			);
+			name = Graph;
 			sourceTree = "<group>";
 		};
 		F88F6B3C12E88D96009C2B8D /* appIcon */ = {
@@ -657,7 +714,6 @@
 				F858A650119E982C00FA26FA /* StationInfoViewController.xib in Resources */,
 				F8491CAC11A6A8B50076B32D /* Settings.bundle in Resources */,
 				F832991911A81ED6005D2572 /* MapViewController.xib in Resources */,
-				F804BB8F11A86068009B6057 /* DetailView.xib in Resources */,
 				F88F6B4412E88D96009C2B8D /* Icon-72.png in Resources */,
 				F88F6B4512E88D96009C2B8D /* Icon-Small-50.png in Resources */,
 				F88F6B4612E88D96009C2B8D /* Icon-Small.png in Resources */,
@@ -677,6 +733,8 @@
 				F8E8A35512F8602000F2E84B /* world.png in Resources */,
 				F8E8A38212F8647600F2E84B /* MainWindow_Pad.xib in Resources */,
 				F8E8A38612F8649B00F2E84B /* MainWindow_Phone.xib in Resources */,
+				F83DF1DE130454A30073F555 /* StationInfoMapViewController.xib in Resources */,
+				F855F645130570860038A03B /* StationListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -732,7 +790,6 @@
 				F8BDFA2411A1D73F0069A43E /* WMReSTClient.m in Sources */,
 				F832991511A81E8E005D2572 /* MapViewController.m in Sources */,
 				F804BB8911A86047009B6057 /* iPadHelper.m in Sources */,
-				F804BB8C11A86058009B6057 /* DetailViewController.m in Sources */,
 				F851ACA912F4478D002F851C /* IASKAppSettingsViewController.m in Sources */,
 				F851ACAA12F4478D002F851C /* IASKAppSettingsWebViewController.m in Sources */,
 				F851ACAB12F4478D002F851C /* IASKSpecifierValuesViewController.m in Sources */,
@@ -754,6 +811,10 @@
 				F8FE116D12F9A8CC006551F4 /* StationGraph.m in Sources */,
 				F8FE11E812F9B322006551F4 /* WindMobileHelper.m in Sources */,
 				F8DAB98812FB51B300017BAF /* WMCellGraphTheme.m in Sources */,
+				F83DF1DD130454A30073F555 /* StationInfoMapViewController.m in Sources */,
+				F83DF28A130472ED0073F555 /* MKMapView+ZoomLevel.m in Sources */,
+				F855F58413055A260038A03B /* iPadStationInfoMapVC.m in Sources */,
+				F855F641130570100038A03B /* StationListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -782,15 +843,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		F804BB8D11A86068009B6057 /* DetailView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F804BB8E11A86068009B6057 /* en */,
-				F846E42D11AC5BD10095E6EF /* fr */,
-			);
-			name = DetailView.xib;
-			sourceTree = "<group>";
-		};
 		F832991711A81ED6005D2572 /* MapViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -807,6 +859,14 @@
 				F8549B76119DEFC00010B513 /* fr */,
 			);
 			name = WindMobile.strings;
+			sourceTree = "<group>";
+		};
+		F855F643130570860038A03B /* StationListViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F855F644130570860038A03B /* en */,
+			);
+			name = StationListViewController.xib;
 			sourceTree = "<group>";
 		};
 		F858A64A119E97E600FA26FA /* StationDetailViewController.xib */ = {

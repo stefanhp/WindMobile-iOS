@@ -17,5 +17,9 @@
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 
 - (void)addAnnotation:(id <MKAnnotation>)annotation;
-- (IBAction)showInMaps:(id)sender; 
+- (void)addAnnotations:(NSArray *)annotations;
+- (void)removeAnnotation:(id <MKAnnotation>)annotation;
+- (void)removeAnnotations:(NSArray *)annotations;
+- (IBAction)showInMaps:(id)sender;
+- (void)centerWithHint:(CLLocationCoordinate2D) coordinate;
 @end

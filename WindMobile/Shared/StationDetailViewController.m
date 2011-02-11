@@ -133,7 +133,7 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"StationDetailCell";
     static NSString *CellIdentifierGraph = @"GraphCell";
 	
     UITableViewCell *cell = nil;
