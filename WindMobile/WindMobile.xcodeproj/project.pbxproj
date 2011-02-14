@@ -55,6 +55,14 @@
 		F855F645130570860038A03B /* StationListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F855F643130570860038A03B /* StationListViewController.xib */; };
 		F858A64C119E97E600FA26FA /* StationDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A64A119E97E600FA26FA /* StationDetailViewController.xib */; };
 		F858A650119E982C00FA26FA /* StationInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A64E119E982C00FA26FA /* StationInfoViewController.xib */; };
+		F866565F13090CF000CF97D8 /* GraphData.m in Sources */ = {isa = PBXBuildFile; fileRef = F866565E13090CF000CF97D8 /* GraphData.m */; };
+		F86656E913092B1D00CF97D8 /* TestStationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F86656E813092B1D00CF97D8 /* TestStationInfo.m */; };
+		F86656EA13092B8B00CF97D8 /* StationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F83365D312F6FA8D00CCF0EB /* StationInfo.m */; };
+		F866571F130931B500CF97D8 /* StationData.m in Sources */ = {isa = PBXBuildFile; fileRef = F8FE115512F9A6C3006551F4 /* StationData.m */; };
+		F8665722130931CE00CF97D8 /* TestStationData.m in Sources */ = {isa = PBXBuildFile; fileRef = F8665721130931CE00CF97D8 /* TestStationData.m */; };
+		F866573F13096A2100CF97D8 /* GraphData.m in Sources */ = {isa = PBXBuildFile; fileRef = F866565E13090CF000CF97D8 /* GraphData.m */; };
+		F866575613096C5D00CF97D8 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F1722F117910480046800F /* libCorePlot-CocoaTouch.a */; };
+		F866576113096CE700CF97D8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		F88F6B4412E88D96009C2B8D /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B3D12E88D96009C2B8D /* Icon-72.png */; };
 		F88F6B4512E88D96009C2B8D /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B3E12E88D96009C2B8D /* Icon-Small-50.png */; };
 		F88F6B4612E88D96009C2B8D /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B3F12E88D96009C2B8D /* Icon-Small.png */; };
@@ -80,6 +88,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F866575D13096CC300CF97D8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8F17226117910480046800F /* CorePlot-CocoaTouch.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BC9B83460FB8A0A40035D8DA;
+			remoteInfo = "CorePlot-CocoaTouch";
+		};
 		F8E9499912F489790036C165 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F8F17226117910480046800F /* CorePlot-CocoaTouch.xcodeproj */;
@@ -213,6 +228,12 @@
 		F858A64B119E97E600FA26FA /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/StationDetailViewController.xib; sourceTree = "<group>"; };
 		F858A64D119E980C00FA26FA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/StationDetailViewController.xib; sourceTree = "<group>"; };
 		F858A66E119E984D00FA26FA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/StationInfoViewController.xib; sourceTree = "<group>"; };
+		F866565D13090CF000CF97D8 /* GraphData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphData.h; path = Shared/GraphData.h; sourceTree = "<group>"; };
+		F866565E13090CF000CF97D8 /* GraphData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphData.m; path = Shared/GraphData.m; sourceTree = "<group>"; };
+		F86656E713092B1D00CF97D8 /* TestStationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestStationInfo.h; sourceTree = "<group>"; };
+		F86656E813092B1D00CF97D8 /* TestStationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestStationInfo.m; sourceTree = "<group>"; };
+		F8665720130931CE00CF97D8 /* TestStationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestStationData.h; sourceTree = "<group>"; };
+		F8665721130931CE00CF97D8 /* TestStationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestStationData.m; sourceTree = "<group>"; };
 		F88F6B3D12E88D96009C2B8D /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		F88F6B3E12E88D96009C2B8D /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
 		F88F6B3F12E88D96009C2B8D /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
@@ -270,6 +291,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F866575613096C5D00CF97D8 /* libCorePlot-CocoaTouch.a in Frameworks */,
+				F866576113096CE700CF97D8 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,6 +597,8 @@
 				F83365D312F6FA8D00CCF0EB /* StationInfo.m */,
 				F8FE115412F9A6C3006551F4 /* StationData.h */,
 				F8FE115512F9A6C3006551F4 /* StationData.m */,
+				F866565D13090CF000CF97D8 /* GraphData.h */,
+				F866565E13090CF000CF97D8 /* GraphData.m */,
 				F8FE116B12F9A8CC006551F4 /* StationGraph.h */,
 				F8FE116C12F9A8CC006551F4 /* StationGraph.m */,
 			);
@@ -585,6 +610,10 @@
 			children = (
 				F8FE125012F9BC20006551F4 /* TestWindMobileHelper.h */,
 				F8FE125112F9BC20006551F4 /* TestWindMobileHelper.m */,
+				F86656E713092B1D00CF97D8 /* TestStationInfo.h */,
+				F86656E813092B1D00CF97D8 /* TestStationInfo.m */,
+				F8665720130931CE00CF97D8 /* TestStationData.h */,
+				F8665721130931CE00CF97D8 /* TestStationData.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -624,6 +653,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F866575E13096CC300CF97D8 /* PBXTargetDependency */,
 			);
 			name = UnitTests;
 			productName = UnitTests;
@@ -816,6 +846,7 @@
 				F83DF28A130472ED0073F555 /* MKMapView+ZoomLevel.m in Sources */,
 				F855F58413055A260038A03B /* iPadStationInfoMapVC.m in Sources */,
 				F855F641130570100038A03B /* StationListViewController.m in Sources */,
+				F866565F13090CF000CF97D8 /* GraphData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -825,12 +856,22 @@
 			files = (
 				F8FE125212F9BC20006551F4 /* TestWindMobileHelper.m in Sources */,
 				F8FE125C12F9BDC3006551F4 /* WindMobileHelper.m in Sources */,
+				F86656E913092B1D00CF97D8 /* TestStationInfo.m in Sources */,
+				F86656EA13092B8B00CF97D8 /* StationInfo.m in Sources */,
+				F866571F130931B500CF97D8 /* StationData.m in Sources */,
+				F8665722130931CE00CF97D8 /* TestStationData.m in Sources */,
+				F866573F13096A2100CF97D8 /* GraphData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F866575E13096CC300CF97D8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CorePlot-CocoaTouch";
+			targetProxy = F866575D13096CC300CF97D8 /* PBXContainerItemProxy */;
+		};
 		F8E9499A12F489790036C165 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "CorePlot-CocoaTouch";
@@ -1006,6 +1047,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = UnitTests;
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "../core-plot/framework/**";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -1035,6 +1077,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = UnitTests;
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "../core-plot/framework/**";
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};

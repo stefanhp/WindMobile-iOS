@@ -126,7 +126,7 @@
 		id <MKAnnotation> annotation = (id <MKAnnotation>)[annotations objectAtIndex:0];
 		[self centerWithHint:annotation.coordinate];
 	}
-	NSArray *tmp = self.mapView.annotations;
+	//NSArray *tmp = self.mapView.annotations;
 }
 
 - (void)removeAnnotation:(id <MKAnnotation>)annotation{

@@ -6,55 +6,35 @@
 //  Copyright 2011 Pistache Software. All rights reserved.
 //
 
+/* Sample Data:
+ <chart duration="14400" lastUpdate="2011-02-13T17:00:00+0100">
+	<serie name="windAverage"/>
+	<serie name="windMax"/>
+	<serie name="windDirection"/>
+ </chart>
+ */
+
 #import <Foundation/Foundation.h>
 #import "CPPlotRange.h"
-
-enum {
-	GraphPointTypeAverage = 0,
-	GraphPointTypeMax,
-	GraphPointTypeDirection
-};
-typedef NSUInteger GraphPointType;
-
-enum  {
-	GraphRangeForType = 0,
-	GraphRangeForDate,
-	GraphRangeForValue
-};
-typedef NSUInteger GraphRangeType;
-
-@interface DataPoint : NSObject {
-	GraphPointType type;
-	NSDate* date;
-	NSNumber* value;
-}
-@property (retain) NSNumber *graphType;
-@property (retain) NSDate *date;
-@property (retain) NSNumber *value; 
-
-@end
+#import "GraphData.h"
 
 @interface StationGraph : NSObject {
 	NSDictionary* stationGraph;
 	BOOL addPadding;
+	
+	GraphData *windAverage;
+	GraphData *windMax;
+	GraphData *windDirection;
+	
 }
 @property (retain) NSDictionary* stationGraph;
 @property (nonatomic) BOOL addPadding;
 // StationGraph properties:
-@property (readonly) NSNumber* duration;
-@property (readonly) NSDate* lastUpdate;
-@property (readonly) NSArray* windAveragePoints;
-@property (readonly) NSArray* windMaxPoints;
-@property (readonly) NSArray* windDirectionPoints;
-@property (readonly) CPPlotRange* windAverageDateRange;
-@property (readonly) CPPlotRange* windMaxDateRange;
-@property (readonly) CPPlotRange* windDirectionDateRange;
-@property (readonly) CPPlotRange* windAverageValueRange;
-@property (readonly) CPPlotRange* windMaxValueRange;
-@property (readonly) CPPlotRange* windDirectionValueRange;
-
-+ (DataPoint*)convertToDataPoint:(NSDictionary*)point forType:(GraphPointType)aType;
-
+@property (readonly) NSNumber *duration;
+@property (readonly) NSDate *lastUpdate;
+@property (readonly) GraphData *windAverage;
+@property (readonly) GraphData *windMax;
+@property (readonly) GraphData *windDirection;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary;
 
@@ -64,9 +44,4 @@ typedef NSUInteger GraphRangeType;
 - (NSEnumerator *)keyEnumerator;
 - (NSString *)description;
 
-@end
-
-@interface StationGraph ()
-- (NSArray*)windSeriesForType:(GraphPointType)aType;
-- (CPPlotRange*)rangeForType:(GraphPointType)pointType andProperty:(GraphRangeType)rangeType;
 @end

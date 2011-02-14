@@ -9,6 +9,9 @@
 #import "StationData.h"
 
 #define STATION_DATA_STATUS_KEY @"@status"
+#define STATION_DATA_WIND_CHART_KEY @"windDirectionChart"
+#define STATION_DATA_GRAPH_DURATION_KEY @"@duration"
+#define STATION_DATA_GRAPH_SERIE_KEY @"serie"
 
 #define STATION_DATA_VALUE_RED @"red"
 #define STATION_DATA_VALUE_ORANGE @"orange"
@@ -16,10 +19,22 @@
 
 @implementation StationData
 @synthesize stationData;
+@synthesize windDirection;
+
 - (id)initWithDictionary:(NSDictionary *)aDictionary{
 	self = [super init];
 	if(self != nil && aDictionary != nil){
 		stationData = [aDictionary retain];
+		
+		// Create graphs
+		NSDictionary *chart = [stationData objectForKey:STATION_DATA_WIND_CHART_KEY];
+		if(chart != nil){
+			NSNumber* aDuration = [NSNumber numberWithInteger:[(NSString*)([chart objectForKey:STATION_DATA_GRAPH_DURATION_KEY]) integerValue]];
+			NSDictionary *serie = [chart objectForKey:STATION_DATA_GRAPH_SERIE_KEY];
+			windDirection = [[[GraphData alloc] initWithDictionary:serie andDuration:aDuration]retain];
+			windDirection.addPadding = YES;
+		}
+		
 	}
 	return self;
 }

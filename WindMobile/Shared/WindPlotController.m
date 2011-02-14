@@ -287,9 +287,9 @@
 	
 	// Adjust graph range
 	CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-	CPPlotRange *xRange = self.stationGraph.windMaxDateRange;
+	CPPlotRange *xRange = self.stationGraph.windMax.dateRange;
     plotSpace.xRange = xRange;
-    plotSpace.yRange = self.stationGraph.windMaxValueRange;
+    plotSpace.yRange = self.stationGraph.windMax.valueRange;
 	
 	// move axis and update labels
 	if(drawAxisSet){
@@ -408,12 +408,12 @@
 	if(stationGraph == nil){
 		return 0;
 	}
-    return [[stationGraph windAveragePoints] count];
+    return [stationGraph.windAverage.dataPoints count];
 }
 
 -(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
 	// Wind Average
-	DataPoint* point = (DataPoint*)[[stationGraph windAveragePoints] objectAtIndex:index];
+	DataPoint* point = (DataPoint*)[stationGraph.windAverage.dataPoints objectAtIndex:index];
 	if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_AVERAGE_IDENTIFIER]){
 		if (fieldEnum == CPScatterPlotFieldX) {
 			return [NSNumber numberWithDouble:[[point date] timeIntervalSince1970]];
@@ -421,7 +421,7 @@
 			return [point value];
 		}
 	} else if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_MAX_IDENTIFIER]) { // Wind Max
-		point = (DataPoint*)[[stationGraph windMaxPoints] objectAtIndex:index];
+		point = (DataPoint*)[stationGraph.windMax.dataPoints objectAtIndex:index];
 		if (fieldEnum == CPScatterPlotFieldX) {
 			return [NSNumber numberWithDouble:[[point date] timeIntervalSince1970]];
 		} else if(fieldEnum == CPScatterPlotFieldY){
