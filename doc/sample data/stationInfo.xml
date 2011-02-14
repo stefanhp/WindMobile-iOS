@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<stationInfos>
+	<stationInfo altitude="1180" wgs84Longitude="6.6119477978952" wgs84Latitude="46.854273800878" dataValidity="3600" name="Mauborget" shortName="Mauborget" id="jdc:1001"/>
+	<stationInfo altitude="1588" wgs84Longitude="6.466203196892" wgs84Latitude="46.772423931828" dataValidity="3600" name="Le Suchet" shortName="Le Suchet" id="jdc:1002"/>
+	<stationInfo altitude="2857" wgs84Longitude="7.5865494720763" wgs84Latitude="46.149213826403" dataValidity="3600" name="Zinal" shortName="Zinal" id="jdc:1003"/>
+</stationInfos>

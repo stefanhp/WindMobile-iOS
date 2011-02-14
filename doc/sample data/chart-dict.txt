@@ -1,0 +1,45 @@
+StationGraph {
+    "@duration" = 14400;
+    "@lastUpdate" = "2011-02-14T09:00:00+0100";
+    serie =     (
+                {
+            "@name" = windAverage;
+            points =             (
+                                {
+                    date = 1297669800000;
+                    value = "3.0";
+                },
+                                {
+                    date = 1297670400000;
+                    value = "6.4";
+                }
+            );
+        },
+                {
+            "@name" = windMax;
+            points =             (
+                                {
+                    date = 1297669800000;
+                    value = "9.1";
+                },
+                                {
+                    date = 1297670400000;
+                    value = "19.6";
+                }
+            );
+        },
+                {
+            "@name" = windDirection;
+            points =             (
+                                {
+                    date = 1297669800000;
+                    value = "191.0";
+                },
+                                {
+                    date = 1297670400000;
+                    value = "157.0";
+                }
+            );
+        }
+    );
+}

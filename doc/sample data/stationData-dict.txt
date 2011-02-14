@@ -1,0 +1,50 @@
+StationData {
+    "@expirationDate" = "2011-02-14T10:00:00+0100";
+    "@lastUpdate" = "2011-02-14T09:00:00+0100";
+    "@stationId" = 1001;
+    "@status" = green;
+    airHumidity = "61.6";
+    airTemperature = "3.4";
+    windAverage = "6.4";
+    windDirectionChart =     {
+        "@duration" = 3600;
+        serie =         {
+            "@name" = windDirection;
+            points =             (
+                                {
+                    date = 1297666800000;
+                    value = "326.0";
+                },
+                                {
+                    date = 1297667400000;
+                    value = "324.0";
+                },
+                                {
+                    date = 1297668000000;
+                    value = "191.0";
+                },
+                                {
+                    date = 1297668600000;
+                    value = "182.0";
+                },
+                                {
+                    date = 1297669200000;
+                    value = "157.0";
+                },
+                                {
+                    date = 1297669800000;
+                    value = "191.0";
+                },
+                                {
+                    date = 1297670400000;
+                    value = "157.0";
+                }
+            );
+        };
+    };
+    windHistoryAverage = "2.9";
+    windHistoryMax = "19.6";
+    windHistoryMin = "0.6";
+    windMax = "19.6";
+    windTrend = 48;
+}

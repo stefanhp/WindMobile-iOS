@@ -1,0 +1,3 @@
+http://windmobile.vol-libre-suchet.ch:1588/windmobile/stationinfos
+http://windmobile.vol-libre-suchet.ch:1588/windmobile/stationdatas/jdc:1001
+http://windmobile.vol-libre-suchet.ch:1588/windmobile/windchart/jdc:1001/14400

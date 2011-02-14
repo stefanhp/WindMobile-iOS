@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<stationData stationId="1001" status="green" expirationDate="2011-02-14T09:00:00+0100" lastUpdate="2011-02-13T17:00:00+0100">
+	<windAverage>4.9</windAverage>
+	<windMax>10.5</windMax>
+	<windTrend>-32</windTrend>
+	<windDirectionChart duration="3600">
+		<serie name="windDirection">
+			<points>
+				<date>1297609200000</date>
+				<value>124.0</value>
+			</points>
+			<points>
+				<date>1297609800000</date>
+				<value>139.0</value>
+			</points>
+			<points>
+				<date>1297610400000</date>
+				<value>176.0</value>
+			</points>
+			<points>
+				<date>1297611000000</date>
+				<value>185.0</value>
+			</points>
+			<points>
+				<date>1297611600000</date>
+				<value>147.0</value>
+			</points>
+			<points>
+				<date>1297612200000</date>
+				<value>205.0</value>
+			</points>
+			<points>
+				<date>1297612800000</date>
+				<value>276.0</value>
+			</points>
+		</serie>
+	</windDirectionChart>
+	<windHistoryMin>0.6</windHistoryMin>
+	<windHistoryAverage>4.2</windHistoryAverage>
+	<windHistoryMax>14.3</windHistoryMax>
+	<airTemperature>5.9</airTemperature>
+	<airHumidity>64.7</airHumidity>
+</stationData>

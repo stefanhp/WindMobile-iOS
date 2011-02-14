@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<chart duration="14400" lastUpdate="2011-02-13T17:00:00+0100">
+	<serie name="windAverage">
+		<points>
+			<date>1297598400000</date>
+			<value>10.5</value>
+		</points>
+		<points>
+			<date>1297599000000</date>
+			<value>8.8</value>
+		</points>
+	</serie>
+	<serie name="windMax">
+		<points>
+			<date>1297598400000</date>
+			<value>18.9</value>
+		</points>
+		<points>
+			<date>1297599000000</date>
+			<value>16.5</value>
+		</points>
+	</serie>
+	<serie name="windDirection">
+		<points>
+			<date>1297598400000</date>
+			<value>176.0</value>
+		</points>
+		<points>
+			<date>1297599000000</date>
+			<value>184.0</value>
+		</points>
+	</serie>
+</chart>
