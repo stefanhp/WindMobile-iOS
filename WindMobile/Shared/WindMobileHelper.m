@@ -8,6 +8,9 @@
 
 #import "WindMobileHelper.h"
 
+#define ONE_HOUR 60 // 60 minutes
+#define ONE_DAY 1440 // 60*24 = 1440 minutes
+#define ONE_YEAR 525600 // 60*24*365 = 525600 minutes
 
 @implementation WindMobileHelper
 + (NSDate*)decodeDateFromString:(NSString*)stringDate{
@@ -43,37 +46,37 @@
 	NSTimeInterval minutes = interval / 60;
 	if(interval >0){
 		// future
-		if(minutes < 60){
+		if(minutes < ONE_HOUR){
 			// minutes
 			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"IN_MINUTES", @"WindMobile", nil), (int)minutes];
-		} else if (minutes < 60*24){
+		} else if (minutes < ONE_DAY){
 			// Hours
-			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"IN_HOURS", @"WindMobile", nil), (int)(minutes/60)];
-		} else if(minutes < 60*24*365){
+			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"IN_HOURS", @"WindMobile", nil), (int)(minutes/ONE_HOUR)];
+		} else if(minutes < ONE_YEAR){
 			// days
-			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"IN_DAYS", @"WindMobile", nil), (int)(minutes/(60*24))];
+			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"IN_DAYS", @"WindMobile", nil), (int)(minutes/ONE_DAY)];
 		} else {
 			// years
-			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"IN_YEARS", @"WindMobile", nil), (int)(minutes/(60*24*365))];
+			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"IN_YEARS", @"WindMobile", nil), (int)(minutes/ONE_YEAR)];
 		}
 		
 	} else {
 		// past
-		if(-minutes < 60){
+		if(-minutes < ONE_HOUR){
 			// minutes
 			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"AGO_MINUTES", @"WindMobile", nil), -(int)minutes];
-		} else  if (-minutes < 60*24) {
+		} else  if (-minutes < ONE_DAY) {
 			// hours
-			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"AGO_HOURS", @"WindMobile", nil), -(int)(minutes/60)];
-		} else if (-minutes < 60*24*365) {
+			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"AGO_HOURS", @"WindMobile", nil), -(int)(minutes/ONE_HOUR)];
+		} else if (-minutes < ONE_YEAR) {
 			// days
-			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"AGO_DAYS", @"WindMobile", nil), -(int)(minutes/(60*24))];
+			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"AGO_DAYS", @"WindMobile", nil), -(int)(minutes/ONE_DAY)];
 		} else {
 			// years
-			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"AGO_YEARS", @"WindMobile", nil), -(int)(minutes/(60*24*365))];
+			return [NSString stringWithFormat:NSLocalizedStringFromTable(@"AGO_YEARS", @"WindMobile", nil), -(int)(minutes/ONE_YEAR)];
 		}
 	}
-	return @"N/A";
+	return NSLocalizedStringFromTable(@"NOT_AVAILABLE", @"WindMobile", nil);
 }
 
 @end
