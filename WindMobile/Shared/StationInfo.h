@@ -9,6 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
+enum  {
+	StationInfoStatusUndef = 0,
+	StationInfoStatusGreen,
+	StationInfoStatusOrange,
+	StationInfoStatusRed
+};
+typedef NSUInteger StationInfoStatus;
+
 
 @interface StationInfo : NSObject <MKAnnotation> {
 	NSDictionary* stationInfo;
@@ -23,6 +31,8 @@
 @property (readonly) NSString* shortName;
 @property (readonly) NSString* altitude;
 @property (readonly) NSString* dataValidity;
+@property (readonly) NSString* maintenanceStatus;
+@property (readonly) StationInfoStatus maintenanceStatusEnum;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary;
 

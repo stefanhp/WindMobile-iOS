@@ -13,7 +13,12 @@
 #define STATION_INFO_SHORT_NAME_KEY @"@shortName"
 #define STATION_INFO_ALTITUDE_KEY @"@altitude"
 #define STATION_INFO_DATA_VALIDITY_KEY @"@dataValidity"
-	
+#define STATION_INFO_MAINTENANCE_STATUS_KEY @"@maintenanceStatus"
+
+#define STATION_INFO_VALUE_RED @"red"
+#define STATION_INFO_VALUE_ORANGE @"orange"
+#define STATION_INFO_VALUE_GREEN @"green"
+
 @implementation StationInfo
 @synthesize stationInfo;
 - (id)initWithDictionary:(NSDictionary *)aDictionary{
@@ -77,6 +82,29 @@
 - (NSString*)stationID{
 	return (NSString*)[stationInfo objectForKey:STATION_INFO_ID_KEY];
 }
+
+@dynamic maintenanceStatus;
+- (NSString*)maintenanceStatus{
+	return (NSString*)[stationInfo objectForKey:STATION_INFO_MAINTENANCE_STATUS_KEY];
+}
+
+@dynamic maintenanceStatusEnum;
+- (StationInfoStatus)maintenanceStatusEnum{
+	if(self.maintenanceStatus == nil){
+		return StationInfoStatusUndef;
+	}
+	
+	if([self.maintenanceStatus compare:STATION_INFO_VALUE_GREEN] == NSOrderedSame){
+		return StationInfoStatusGreen;
+	} else if([self.maintenanceStatus compare:STATION_INFO_VALUE_ORANGE] == NSOrderedSame){
+		return StationInfoStatusOrange;
+	} else if([self.maintenanceStatus compare:STATION_INFO_VALUE_RED] == NSOrderedSame){
+		return StationInfoStatusRed;
+	}
+	// default:
+	return StationInfoStatusUndef;
+}
+
 
 #pragma mark -
 #pragma mark - MKAnnotation protocol

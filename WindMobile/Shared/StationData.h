@@ -10,7 +10,8 @@
 #import "GraphData.h"
 
 enum  {
-	StationDataStatusGreen = 0,
+	StationDataStatusUndef = 0,
+	StationDataStatusGreen,
 	StationDataStatusOrange,
 	StationDataStatusRed
 };
@@ -23,9 +24,18 @@ typedef NSUInteger StationDataStatus;
 }
 @property (retain) NSDictionary* stationData;
 // StationData properties:
-@property (readonly) NSString* status;
+@property (readonly) NSString *status;
 @property (readonly) StationDataStatus statusEnum;
 @property (readonly) GraphData *windDirection;
+@property (readonly) NSString *lastUpdate;
+@property (readonly) NSString *windAverage;
+@property (readonly) NSString *windMax;
+@property (readonly) NSString *windTrend;
+@property (readonly) NSString *windHistoryMin;
+@property (readonly) NSString *windHistoryMax;
+@property (readonly) NSString *windHistoryAverage;
+@property (readonly) NSString *airTemperature;
+@property (readonly) NSString *airHumidity;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary;
 

@@ -19,6 +19,10 @@
 		F83365D412F6FA8D00CCF0EB /* StationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F83365D312F6FA8D00CCF0EB /* StationInfo.m */; };
 		F83365F812F719DF00CCF0EB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83365F712F719DF00CCF0EB /* CoreLocation.framework */; };
 		F836DE0912E86E6A00C9E635 /* libCPSReST.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8EC163512E8666D00B268BD /* libCPSReST.a */; };
+		F83779BD130C2F62008B47CC /* bullet-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F83779B9130C2F62008B47CC /* bullet-green.png */; };
+		F83779BE130C2F62008B47CC /* bullet-grey.png in Resources */ = {isa = PBXBuildFile; fileRef = F83779BA130C2F62008B47CC /* bullet-grey.png */; };
+		F83779BF130C2F62008B47CC /* bullet-red.png in Resources */ = {isa = PBXBuildFile; fileRef = F83779BB130C2F62008B47CC /* bullet-red.png */; };
+		F83779C0130C2F62008B47CC /* bullet-yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = F83779BC130C2F62008B47CC /* bullet-yellow.png */; };
 		F83DF1DD130454A30073F555 /* StationInfoMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F83DF1DB130454A30073F555 /* StationInfoMapViewController.m */; };
 		F83DF1DE130454A30073F555 /* StationInfoMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F83DF1DC130454A30073F555 /* StationInfoMapViewController.xib */; };
 		F83DF28A130472ED0073F555 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = F83DF289130472ED0073F555 /* MKMapView+ZoomLevel.m */; };
@@ -167,6 +171,10 @@
 		F83365D212F6FA8D00CCF0EB /* StationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationInfo.h; path = Shared/StationInfo.h; sourceTree = "<group>"; };
 		F83365D312F6FA8D00CCF0EB /* StationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationInfo.m; path = Shared/StationInfo.m; sourceTree = "<group>"; };
 		F83365F712F719DF00CCF0EB /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		F83779B9130C2F62008B47CC /* bullet-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bullet-green.png"; sourceTree = "<group>"; };
+		F83779BA130C2F62008B47CC /* bullet-grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bullet-grey.png"; sourceTree = "<group>"; };
+		F83779BB130C2F62008B47CC /* bullet-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bullet-red.png"; sourceTree = "<group>"; };
+		F83779BC130C2F62008B47CC /* bullet-yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bullet-yellow.png"; sourceTree = "<group>"; };
 		F83DF1DA130454A30073F555 /* StationInfoMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationInfoMapViewController.h; path = Shared/StationInfoMapViewController.h; sourceTree = "<group>"; };
 		F83DF1DB130454A30073F555 /* StationInfoMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationInfoMapViewController.m; path = Shared/StationInfoMapViewController.m; sourceTree = "<group>"; };
 		F83DF1DC130454A30073F555 /* StationInfoMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = StationInfoMapViewController.xib; path = Shared/StationInfoMapViewController.xib; sourceTree = "<group>"; };
@@ -558,6 +566,10 @@
 				F8E8A35212F8602000F2E84B /* world@2x.png */,
 				F8E8A35312F8602000F2E84B /* world.png */,
 				F851AC6F12F446D2002F851C /* settings.png */,
+				F83779B9130C2F62008B47CC /* bullet-green.png */,
+				F83779BA130C2F62008B47CC /* bullet-grey.png */,
+				F83779BB130C2F62008B47CC /* bullet-red.png */,
+				F83779BC130C2F62008B47CC /* bullet-yellow.png */,
 			);
 			name = icons;
 			path = Resources/icons;
@@ -766,6 +778,10 @@
 				F8E8A38612F8649B00F2E84B /* MainWindow_Phone.xib in Resources */,
 				F83DF1DE130454A30073F555 /* StationInfoMapViewController.xib in Resources */,
 				F855F645130570860038A03B /* StationListViewController.xib in Resources */,
+				F83779BD130C2F62008B47CC /* bullet-green.png in Resources */,
+				F83779BE130C2F62008B47CC /* bullet-grey.png in Resources */,
+				F83779BF130C2F62008B47CC /* bullet-red.png in Resources */,
+				F83779C0130C2F62008B47CC /* bullet-yellow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

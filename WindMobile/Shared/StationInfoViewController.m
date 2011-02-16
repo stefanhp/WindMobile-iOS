@@ -92,11 +92,10 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     
-	NSDictionary* data = [stations objectAtIndex:indexPath.row];
+	StationInfo *data = [stations objectAtIndex:indexPath.row];
 
     // Configure the cell...
 	if(data != nil){
-		//cell.accessoryType = UITableViewCellAccessoryNone; // tmp until subview is ready
 		if([iPadHelper isIpad]){
 			cell.accessoryType = UITableViewCellAccessoryNone;
 		} else {
@@ -109,6 +108,20 @@
 																								 @"Altitude %@m", 
 																								 @"Altitude format string"),
 									 [data objectForKey:@"@altitude"]];
+		switch (data.maintenanceStatusEnum) {
+			case StationInfoStatusGreen:
+				cell.imageView.image = [UIImage imageNamed:@"bullet-green"];
+				break;
+			case StationInfoStatusOrange:
+				cell.imageView.image = [UIImage imageNamed:@"bullet-yellow"];
+				break;
+			case StationInfoStatusRed:
+				cell.imageView.image = [UIImage imageNamed:@"bullet-red"];
+				break;
+			default:
+				cell.imageView.image = [UIImage imageNamed:@"bullet-grey"];
+				break;
+		}
 	}
 	
 	return cell;
