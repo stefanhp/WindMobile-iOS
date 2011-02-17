@@ -29,6 +29,7 @@
 @synthesize stationListSender;
 @synthesize stationDataSender;
 @synthesize stationGraphSender;
+@synthesize useMockClient;
 
 - (id)init{
 	if(self=[super initWithServer:REST_SERVER onPort:REST_PORT withSSL:NO]){
@@ -37,7 +38,8 @@
 		if (interval > 5) {
 			[super setTimeout:interval];
 		}
-
+		useMockClient = [[NSUserDefaults standardUserDefaults] boolForKey:@"mock_data_preference"];
+;
 	}
 	return self;
 }
@@ -227,6 +229,231 @@
 										   otherButtonTitles:nil];
 	[alert show];
 	[alert release];
+}
+
+#pragma mark -
+#pragma mark CPSReSTClient override
+
+- (NSMutableDictionary*)execRequest:(NSURLRequest*)request {
+	if(useMockClient == NO){
+		return [super execRequest:request];
+	}
+	
+	NSArray *pathComp = request.URL.pathComponents;
+	
+	if([pathComp containsObject:@"stationinfos"]){
+		return [self mockStationInfo];
+	} else if([pathComp containsObject:@"stationdatas"]){
+		return [self mockStationData];
+	} else if([pathComp containsObject:@"windchart"]){
+		return [self mockGraphData];
+	}
+	
+	// error
+	if (delegate != nil && [delegate conformsToProtocol:@protocol(CPSReSTClientDelegate)]) {
+		[delegate performSelectorOnMainThread:@selector(connectionError: ) withObject:[NSMutableDictionary dictionaryWithCapacity:0] waitUntilDone:YES];
+	}
+	
+	return [NSMutableDictionary dictionaryWithCapacity:0];
+}
+
+- (NSMutableDictionary*)mockStationInfo{
+	NSMutableDictionary *response = [NSMutableDictionary dictionaryWithCapacity:2]; 
+	NSDictionary *stationInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+								 @"1180", @"@altitude",
+								 @"3600", @"@dataValidity", 
+								 @"jdc:1001", @"@id",
+								 @"Mauborget", @"@name",
+								 @"Mauborget", @"@shortName",
+								 @"46.854273800878", @"@wgs84Latitude",
+								 @"6.6119477978952", @"@wgs84Longitude",
+								 @"green", @"@maintenanceStatus",
+								 nil];
+	NSDictionary *stationInfos = [[NSDictionary alloc] initWithObjectsAndKeys:
+								  [NSArray arrayWithObject:stationInfo], @"stationInfo",
+								  nil];
+	NSDictionary *content = [[NSDictionary alloc] initWithObjectsAndKeys:
+							 stationInfos, @"stationInfos",
+							 nil];
+	[response setObject:content forKey:@"content"];
+	return response;
+}
+
+- (NSMutableDictionary*)mockStationData{
+	NSMutableDictionary *response = [NSMutableDictionary dictionaryWithCapacity:2]; 
+	NSDictionary* point1 = [NSDictionary dictionaryWithObjectsAndKeys:
+							@"1297666800000", @"date",
+							@"326.0", @"value",
+							nil];
+	
+	NSDictionary* point2 = [NSDictionary dictionaryWithObjectsAndKeys:
+							@"1297667400000", @"date",
+							@"324.0", @"value",
+							nil];
+	NSDictionary* point3 = [NSDictionary dictionaryWithObjectsAndKeys:
+							@"1297668000000", @"date",
+							@"191.0", @"value",
+							nil];
+	NSDictionary* point4 = [NSDictionary dictionaryWithObjectsAndKeys:
+							@"1297668600000", @"date",
+							@"182.0", @"value",
+							nil];
+	NSDictionary* point5 = [NSDictionary dictionaryWithObjectsAndKeys:
+							@"1297668000000", @"date",
+							@"157.0", @"value",
+							nil];
+	NSDictionary* point6 = [NSDictionary dictionaryWithObjectsAndKeys:
+							@"1297669800000", @"date",
+							@"191.0", @"value",
+							nil];
+	NSDictionary* point7 = [NSDictionary dictionaryWithObjectsAndKeys:
+							@"1297670400000", @"date",
+							@"157.0", @"value",
+							nil];
+	
+	NSDictionary* serie = [NSDictionary dictionaryWithObjectsAndKeys:
+						   @"windDirection", @"@name",
+						   [NSArray arrayWithObjects:point1, point2, point3, point4, point5, point6, point7, nil], @"points",
+						   nil];
+	
+	NSDictionary* chart = [NSDictionary dictionaryWithObjectsAndKeys:
+						   @"3600", @"duration",
+						   serie, @"serie",
+						   nil];
+	
+	NSDictionary* stationData = [NSDictionary dictionaryWithObjectsAndKeys:
+								 @"2011-02-14T10:00:00+0100", @"@expirationDate",
+								 @"2011-02-14T09:00:00+0100", @"@lastUpdate",
+								 @"1001", @"@stationId",
+								 @"green", @"@status",
+								 @"61.6", @"airHumidity", 
+								 @"3.4", @"airTemperature", 
+								 @"6.4", @"windAverage",
+								 
+								 chart, @"windDirectionChart",
+								 
+								 @"2.9", @"windHistoryAverage",
+								 @"19.6", @"windHistoryMax",
+								 @"0.6", @"windHistoryMin",
+								 @"19.6", @"windMax",
+								 @"48", @"windTrend",
+								 
+								 nil];
+	NSDictionary *content = [[NSDictionary alloc] initWithObjectsAndKeys:
+							 stationData, @"stationData",
+							 nil];
+	[response setObject:content forKey:@"content"];
+	return response;
+}
+
+- (NSMutableDictionary*)mockGraphData{
+	NSMutableDictionary *response = [NSMutableDictionary dictionaryWithCapacity:2];
+	
+	NSArray* serie = [NSArray arrayWithObjects:
+					  // average
+					  [NSDictionary dictionaryWithObjectsAndKeys:
+					   @"windAverage", @"@name",
+					   [NSArray arrayWithObjects:
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297940400000", @"date", @"2.8", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297941000000", @"date", @"4.6", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297941600000", @"date", @"1.7", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297942200000", @"date", @"2.5", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297942800000", @"date", @"5.5", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297943400000", @"date", @"6.8", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297944000000", @"date", @"2.5", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297944600000", @"date", @"0.4", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297945200000", @"date", @"0.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297945800000", @"date", @"0.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297946400000", @"date", @"1.7", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297947000000", @"date", @"0.3", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297947600000", @"date", @"0.4", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297948200000", @"date", @"1.1", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297948800000", @"date", @"0.2", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297949400000", @"date", @"0.6", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297950000000", @"date", @"0.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297950600000", @"date", @"1.8", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297951200000", @"date", @"5.4", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297951800000", @"date", @"6.2", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297952400000", @"date", @"6.4", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297953000000", @"date", @"5.7", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297953600000", @"date", @"6.1", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297954200000", @"date", @"3.8", @"value", nil],
+						nil], @"points",
+					   nil],
+					  // max
+					  [NSDictionary dictionaryWithObjectsAndKeys:
+					   @"windMax", @"@name",
+					   [NSArray arrayWithObjects:
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297940400000", @"date", @"8.3", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297941000000", @"date", @"8.7", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297941600000", @"date", @"7.2", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297942200000", @"date", @"8.6", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297942800000", @"date", @"12.3", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297943400000", @"date", @"13.6", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297944000000", @"date", @"7.6", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297944600000", @"date", @"4.1", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297945200000", @"date", @"0.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297945800000", @"date", @"2.1", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297946400000", @"date", @"6.2", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297947000000", @"date", @"4.2", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297947600000", @"date", @"4.1", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297948200000", @"date", @"6.6", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297948800000", @"date", @"4.2", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297949400000", @"date", @"4.7", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297950000000", @"date", @"2.1", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297950600000", @"date", @"9.1", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297951200000", @"date", @"11.8", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297951800000", @"date", @"14.5", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297952400000", @"date", @"13.8", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297953000000", @"date", @"12.9", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297953600000", @"date", @"13.9", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297954200000", @"date", @"13.7", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297954800000", @"date", @"13.8", @"value", nil],
+						nil], @"points",
+					   nil],
+					  // direction
+					  [NSDictionary dictionaryWithObjectsAndKeys:
+					   @"windDirection", @"@name",
+					   [NSArray arrayWithObjects:
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297940400000", @"date", @"173.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297941000000", @"date", @"174.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297941600000", @"date", @"159.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297942200000", @"date", @"264.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297942800000", @"date", @"321.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297943400000", @"date", @"340.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297944000000", @"date", @"338.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297944600000", @"date", @"319.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297945200000", @"date", @"0.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297945800000", @"date", @"325.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297946400000", @"date", @"143.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297947000000", @"date", @"113.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297947600000", @"date", @"134.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297948200000", @"date", @"140.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297948800000", @"date", @"137.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297949400000", @"date", @"163.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297950000000", @"date", @"187.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297950600000", @"date", @"323.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297951200000", @"date", @"328.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297951800000", @"date", @"341.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297952400000", @"date", @"336.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297953000000", @"date", @"335.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297953600000", @"date", @"336.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297954200000", @"date", @"328.0", @"value", nil],
+						[NSDictionary dictionaryWithObjectsAndKeys: @"1297954800000", @"date", @"331.0", @"value", nil],						nil], @"points",
+					   nil],
+					  nil];
+	
+	NSDictionary* stationGraph = [NSDictionary dictionaryWithObjectsAndKeys:
+								  @"14400", @"@duration",
+								  @"2011-02-17T16:00:00+0100", @"@lastUpdate",
+								  serie, @"serie",
+								  nil];
+	
+	NSDictionary *content = [[NSDictionary alloc] initWithObjectsAndKeys:
+							 stationGraph, @"chart",
+							 nil];
+	[response setObject:content forKey:@"content"];
+	return response;
 }
 
 @end

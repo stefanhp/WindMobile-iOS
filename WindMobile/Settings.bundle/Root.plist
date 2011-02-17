@@ -62,6 +62,20 @@
 				<integer>2</integer>
 			</array>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>UseMockData</string>
+			<key>Key</key>
+			<string>mock_data_preference</string>
+			<key>DefaultValue</key>
+			<string>NO</string>
+			<key>TrueValue</key>
+			<string>YES</string>
+			<key>FalseValue</key>
+			<string>NO</string>
+		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>
