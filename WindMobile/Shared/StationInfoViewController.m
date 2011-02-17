@@ -12,6 +12,7 @@
 #import <MapKit/MapKit.h>
 #import "iPadHelper.h"
 #import "StationInfo.h"
+#import "StationDetailMeteoViewController.h"
 
 @implementation StationInfoViewController
 
@@ -173,24 +174,24 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if(stations != nil && [stations count]>0){
-		StationDetailViewController *detailVC = nil;
+		StationDetailMeteoViewController *meteoVC = nil;
 		StationInfo* stationInfo = [stations objectAtIndex:indexPath.row];
 		
 		if([iPadHelper isIpad]){
 			// For iPad, get detail view form split view
 		} else {
 			// For iPhone, create one to push
-			detailVC = [[StationDetailViewController alloc] initWithNibName:@"StationDetailViewController" bundle:nil];
+			meteoVC = [[StationDetailMeteoViewController alloc] initWithNibName:@"StationDetailMeteoViewController" bundle:nil];
 		}
 		
-		[detailVC setStationInfo:stationInfo];
+		[meteoVC setStationInfo:stationInfo];
 		
 		if([iPadHelper isIpad]){
-			[detailVC refreshContent:self];
+			[meteoVC refreshContent:self];
 		} else {
 			// push controller
-			[self.navigationController pushViewController:detailVC animated:YES];
-			[detailVC release];
+			[self.navigationController pushViewController:meteoVC animated:YES];
+			[meteoVC release];
 		}
 	}
 }

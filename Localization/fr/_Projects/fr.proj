@@ -8,7 +8,7 @@
 		<string>en</string>
 		<key>BrowserTickedFilesList</key>
 		<array>
-			<string>MainWindow_Phone.xib.strings</string>
+			<string>WindTrendChartViewController.xib.strings</string>
 		</array>
 		<key>BrowserWindowHeight</key>
 		<integer>370</integer>
@@ -57,6 +57,20 @@
 		</dict>
 		<dict>
 			<key>ApplicationDictionary</key>
+			<string>StationDetailMeteoViewController.xib.strings.ad</string>
+			<key>LogFile</key>
+			<string>StationDetailMeteoViewController.xib.strings</string>
+			<key>NewBase</key>
+			<string>StationDetailMeteoViewController.xib.strings</string>
+			<key>NewLoc</key>
+			<string>StationDetailMeteoViewController.xib.strings</string>
+			<key>OldBase</key>
+			<string>StationDetailMeteoViewController.xib.strings</string>
+			<key>WorkGlossary</key>
+			<string>StationDetailMeteoViewController.xib.strings.wg</string>
+		</dict>
+		<dict>
+			<key>ApplicationDictionary</key>
 			<string>StationDetailViewController.xib.strings.ad</string>
 			<key>NewBase</key>
 			<string>StationDetailViewController.xib.strings</string>
@@ -84,6 +98,18 @@
 			<string>WindMobile.strings</string>
 			<key>OldBase</key>
 			<string>WindMobile.strings</string>
+		</dict>
+		<dict>
+			<key>ApplicationDictionary</key>
+			<string>WindTrendChartViewController.xib.strings.ad</string>
+			<key>LogFile</key>
+			<string>WindTrendChartViewController.xib.strings</string>
+			<key>NewBase</key>
+			<string>WindTrendChartViewController.xib.strings</string>
+			<key>NewLoc</key>
+			<string>WindTrendChartViewController.xib.strings</string>
+			<key>WorkGlossary</key>
+			<string>WindTrendChartViewController.xib.strings.wg</string>
 		</dict>
 	</array>
 	<key>ProjectName</key>

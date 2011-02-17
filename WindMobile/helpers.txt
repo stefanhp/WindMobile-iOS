@@ -14,9 +14,18 @@ ibtool --export-strings-file ../Localization/fr/_NewBase/StationInfoViewControll
 mv ../Localization/fr/_NewBase/StationDetailViewController.xib.strings ../Localization/fr/_OldBase/
 ibtool --export-strings-file ../Localization/fr/_NewBase/StationDetailViewController.xib.strings Resources/en.lproj/StationDetailViewController.xib 
 
+mv ../Localization/fr/_NewBase/StationDetailMeteoViewController.xib.strings ../Localization/fr/_OldBase/
+ibtool --export-strings-file ../Localization/fr/_NewBase/StationDetailMeteoViewController.xib.strings Resources/en.lproj/StationDetailMeteoViewController.xib 
+
+mv ../Localization/fr/_NewBase/WindTrendChartViewController.xib.strings ../Localization/fr/_OldBase/
+ibtool --export-strings-file ../Localization/fr/_NewBase/WindTrendChartViewController.xib.strings Resources/en.lproj/WindTrendChartViewController.xib 
+
 // Update of french localization for all xib
 ibtool --strings-file ../Localization/fr/_NewLoc/MainWindow_Phone.xib.strings --write Resources/fr.lproj/MainWindow_Phone.xib Resources/en.lproj/MainWindow_Phone.xib
 ibtool --strings-file ../Localization/fr/_NewLoc/MainWindow_Pad.xib.strings --write Resources/fr.lproj/MainWindow_Pad.xib Resources/en.lproj/MainWindow_Pad.xib
 cp ../Localization/fr/_NewLoc/WindMobile.strings Resources/fr.lproj/
 ibtool --strings-file ../Localization/fr/_NewLoc/StationInfoViewController.xib.strings --write Resources/fr.lproj/StationInfoViewController.xib Resources/en.lproj/StationInfoViewController.xib
 ibtool --strings-file ../Localization/fr/_NewLoc/StationDetailViewController.xib.strings --write Resources/fr.lproj/StationDetailViewController.xib Resources/en.lproj/StationDetailViewController.xib
+ibtool --strings-file ../Localization/fr/_NewLoc/StationDetailMeteoViewController.xib.strings --write Resources/fr.lproj/StationDetailMeteoViewController.xib Resources/en.lproj/StationDetailMeteoViewController.xib
+ibtool --strings-file ../Localization/fr/_NewLoc/WindTrendChartViewController.xib.strings --write Resources/fr.lproj/WindTrendChartViewController.xib Resources/en.lproj/WindTrendChartViewController.xib
+
