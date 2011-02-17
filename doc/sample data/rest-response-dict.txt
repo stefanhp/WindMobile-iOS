@@ -1,0 +1,44 @@
+{
+    content =     {
+        stationInfos =         {
+            stationInfo =             (
+                                {
+                    "@altitude" = 1180;
+                    "@dataValidity" = 3600;
+                    "@id" = "jdc:1001";
+                    "@name" = Mauborget;
+                    "@shortName" = Mauborget;
+                    "@wgs84Latitude" = "46.854273800878";
+                    "@wgs84Longitude" = "6.6119477978952";
+                },
+                                {
+                    "@altitude" = 2857;
+                    "@dataValidity" = 3600;
+                    "@id" = "jdc:1003";
+                    "@name" = Zinal;
+                    "@shortName" = Zinal;
+                    "@wgs84Latitude" = "46.149213826403";
+                    "@wgs84Longitude" = "7.5865494720763";
+                },
+                                {
+                    "@altitude" = 2940;
+                    "@dataValidity" = 3600;
+                    "@id" = "jdc:1006";
+                    "@name" = "Les Diablerets";
+                    "@shortName" = Diablerets;
+                    "@wgs84Latitude" = "46.783588535294";
+                    "@wgs84Longitude" = "6.6225657433259";
+                }
+            );
+        };
+    };
+    headers =     {
+        "Content-Encoding" = gzip;
+        "Content-Type" = "application/xml";
+        Date = "Thu, 17 Feb 2011 12:26:50 GMT";
+        Server = "Apache-Coyote/1.1";
+        "Transfer-Encoding" = Identity;
+        Vary = "Accept-Encoding";
+    };
+    statusCode = 200;
+}
