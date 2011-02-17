@@ -75,8 +75,26 @@
 	windTrendCtrl.view.frame = self.windTrendContainer.bounds;
 	[self.windTrendContainer addSubview:windTrendCtrl.view];
 	
+	// Set size when in popover
+	self.contentSizeForViewInPopover = CGSizeMake(320.0, 410.0);
+	
 	// load content
 	[self refreshContent:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	if(self.navigationController != nil &&
+	   self.navigationController.parentViewController != nil &&
+	   self.navigationController.parentViewController.modalViewController == self.navigationController){
+		// we are presented modally: add a dismiss button
+		self.navigationItem.rightBarButtonItem = nil;
+		UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
+																					target:self 
+																					action:@selector(dismissModalViewControllerAnimated:)];
+		self.navigationItem.rightBarButtonItem = buttonItem;
+		[buttonItem release];
+	}
+	[super viewWillAppear:animated];
 }
 
 // Override to allow orientations other than the default portrait orientation.
@@ -88,7 +106,8 @@
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 								duration:(NSTimeInterval)duration {
 	// Prepare for rotation
-	if([iPadHelper isIpad]){} else {
+	if([iPadHelper isIpad]){
+	} else {
 		WindPlotController *graph ;
 		switch(toInterfaceOrientation){
 			case UIInterfaceOrientationLandscapeLeft:
@@ -242,25 +261,18 @@
 	// Stop animation
 	self.navigationItem.rightBarButtonItem = nil;
 	
-	// Put Refresh button on the top left
-	//if([iPadHelper isIpad]){} else {
-	UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-																				 target:self 
-																				 action:@selector(refreshContent:)];
-	self.navigationItem.rightBarButtonItem = refreshItem;
-	//}
-	
-	// Map button
+	// Graph or Map button
 	if([iPadHelper isIpad]){
-		UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-																					 target:self 
-																					 action:@selector(refreshContent:)];
-		self.navigationItem.rightBarButtonItem = refreshItem;
+		UIBarButtonItem *graphItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"chart"]
+																	  style:UIBarButtonItemStylePlain 
+																	 target:self 
+																	 action:@selector(showGraph:)];
+		self.navigationItem.rightBarButtonItem = graphItem;
 	} else { // iPhone
-		UIBarButtonItem *showActionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+		UIBarButtonItem *actionButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
 																						  target:self 
 																						  action:@selector(showActionSheet:)];
-		self.navigationItem.rightBarButtonItem = showActionButton;
+		self.navigationItem.rightBarButtonItem = actionButtonItem;
 	}
 }
 
@@ -287,6 +299,22 @@
 	actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
 	[actionSheet showFromTabBar:self.tabBarController.tabBar];
 	[actionSheet release];
+	
+}
+
+- (IBAction)showGraph:(id)sender{
+	if(self.navigationController != nil){
+		WindPlotController* graph = [[WindPlotController alloc] initWithNibName:@"WindPlotController" bundle:nil];
+		graph.stationInfo = self.stationInfo;
+		graph.drawAxisSet = YES;
+		graph.isInCell = NO;
+		
+		// Resize pop over
+		graph.contentSizeForViewInPopover = CGSizeMake(500.0, 320.0);
+		
+		// display view
+		[self.navigationController pushViewController:graph animated:YES];
+	}
 	
 }
 

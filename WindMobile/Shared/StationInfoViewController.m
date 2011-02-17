@@ -178,7 +178,7 @@
 		StationInfo* stationInfo = [stations objectAtIndex:indexPath.row];
 		
 		if([iPadHelper isIpad]){
-			// For iPad, get detail view form split view
+			// For iPad, detail view is loaded from map annotation only
 		} else {
 			// For iPhone, create one to push
 			meteoVC = [[StationDetailMeteoViewController alloc] initWithNibName:@"StationDetailMeteoViewController" bundle:nil];

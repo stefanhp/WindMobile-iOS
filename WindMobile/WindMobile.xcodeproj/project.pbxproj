@@ -79,6 +79,8 @@
 		F88F6B4812E88D96009C2B8D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B4112E88D96009C2B8D /* Icon.png */; };
 		F88F6B4912E88D96009C2B8D /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B4212E88D96009C2B8D /* Icon@2x.png */; };
 		F88F6B4A12E88D96009C2B8D /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = F88F6B4312E88D96009C2B8D /* iTunesArtwork */; };
+		F8B88BA4130DDCCE004FAF3C /* chart.png in Resources */ = {isa = PBXBuildFile; fileRef = F8B88BA3130DDCCE004FAF3C /* chart.png */; };
+		F8B88BAE130DDF1F004FAF3C /* chart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F8B88BAD130DDF1F004FAF3C /* chart@2x.png */; };
 		F8BDFA2411A1D73F0069A43E /* WMReSTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F8BDFA2311A1D73F0069A43E /* WMReSTClient.m */; };
 		F8DAB98812FB51B300017BAF /* WMCellGraphTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = F8DAB98712FB51B300017BAF /* WMCellGraphTheme.m */; };
 		F8E8A35412F8602000F2E84B /* world@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F8E8A35212F8602000F2E84B /* world@2x.png */; };
@@ -263,6 +265,8 @@
 		F88F6B4112E88D96009C2B8D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		F88F6B4212E88D96009C2B8D /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		F88F6B4312E88D96009C2B8D /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
+		F8B88BA3130DDCCE004FAF3C /* chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chart.png; sourceTree = "<group>"; };
+		F8B88BAD130DDF1F004FAF3C /* chart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chart@2x.png"; sourceTree = "<group>"; };
 		F8BD955911790F7200B7A614 /* CPS-ReST-Framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CPS-ReST-Framework.xcodeproj"; path = "../CPS-ReST/CPS-ReST-Framework/CPS-ReST-Framework.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		F8BDFA2211A1D73F0069A43E /* WMReSTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMReSTClient.h; path = Shared/WMReSTClient.h; sourceTree = "<group>"; };
 		F8BDFA2311A1D73F0069A43E /* WMReSTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMReSTClient.m; path = Shared/WMReSTClient.m; sourceTree = "<group>"; };
@@ -583,6 +587,8 @@
 		F8A73FE611773CF40058A7C4 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				F8B88BAD130DDF1F004FAF3C /* chart@2x.png */,
+				F8B88BA3130DDCCE004FAF3C /* chart.png */,
 				F80C4EBA130ABF8E00FAD1A4 /* arrow.png */,
 				F8E8A35212F8602000F2E84B /* world@2x.png */,
 				F8E8A35312F8602000F2E84B /* world.png */,
@@ -806,6 +812,8 @@
 				F83779BE130C2F62008B47CC /* bullet-grey.png in Resources */,
 				F83779BF130C2F62008B47CC /* bullet-red.png in Resources */,
 				F83779C0130C2F62008B47CC /* bullet-yellow.png in Resources */,
+				F8B88BA4130DDCCE004FAF3C /* chart.png in Resources */,
+				F8B88BAE130DDF1F004FAF3C /* chart@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

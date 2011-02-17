@@ -8,6 +8,8 @@
 
 #import "StationInfoMapViewController.h"
 #import "MapViewController.h"
+#import "iPadHelper.h"
+#import "StationDetailMeteoViewController.h"
 
 @implementation StationInfoMapViewController
 @synthesize toolBar;
@@ -146,6 +148,8 @@
 	[self stopRefreshAnimation];
 	
 	[map removeAnnotations:self.visibleStations];
+	map.mapView.delegate = self;
+
 	
 	self.stations = aStationArray;
 	self.visibleStations = [NSMutableArray arrayWithArray:aStationArray];
@@ -179,5 +183,77 @@
 	[self.toolBar setItems:[items arrayByAddingObject:refreshItem] animated:NO];
 }
 
+#pragma mark -
+#pragma mark MKMapViewDelegate
+
+- (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation{
+	static NSString* stationAnnotationIdentifier = @"stationAnnotationIdentifier";
+	MKPinAnnotationView* pinView = (MKPinAnnotationView *)
+	[map.mapView dequeueReusableAnnotationViewWithIdentifier:stationAnnotationIdentifier];
+	if (!pinView)
+	{
+		// if an existing pin view was not available, create one
+		MKPinAnnotationView* customPinView = [[[MKPinAnnotationView alloc]
+											   initWithAnnotation:annotation reuseIdentifier:stationAnnotationIdentifier] autorelease];
+		//customPinView.pinColor = MKPinAnnotationColorPurple;
+		customPinView.animatesDrop = YES;
+		customPinView.canShowCallout = YES;
+		
+		// add a detail disclosure button to the callout which will open a new view controller page
+		//
+		// note: you can assign a specific call out accessory view, or as MKMapViewDelegate you can implement:
+		//  - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control;
+		//
+		UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+		[rightButton addTarget:self
+						action:@selector(showStationDetail:)
+			  forControlEvents:UIControlEventTouchUpInside];
+		customPinView.rightCalloutAccessoryView = rightButton;
+		
+		return customPinView;
+	}
+	else
+	{
+		pinView.annotation = annotation;
+	}
+	return pinView;
+	
+}
+
+- (void)showStationDetail:(id)sender{
+	StationDetailMeteoViewController *meteo = [[StationDetailMeteoViewController alloc]initWithNibName:@"StationDetailMeteoViewController" bundle:nil];
+	NSArray *annotations = map.mapView.selectedAnnotations;
+	//meteo.stationInfo = self.stationIn
+	id <MKAnnotation> annotation;
+	if(annotations != nil && [annotations count] == 1){
+		StationInfo *info = [annotations objectAtIndex:0];
+		annotation = [annotations objectAtIndex:0];
+		meteo.stationInfo = info;
+	}
+
+	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:meteo];
+
+	if([iPadHelper isIpad]){
+		// show in popover
+		if(annotation != nil){
+			// deselect annotation
+			[map.mapView deselectAnnotation:annotation animated:YES];
+			
+			// find location
+			CGPoint point = [map.mapView convertCoordinate:annotation.coordinate toPointToView:self.view];
+			
+			UIPopoverController * pop = [[UIPopoverController alloc] initWithContentViewController:nav];
+			[pop presentPopoverFromRect:CGRectMake(point.x + 6.5, point.y - 27.0, 1.0, 1.0) 
+								 inView:self.view 
+			   permittedArrowDirections:UIPopoverArrowDirectionAny 
+							   animated:YES];
+		}
+		
+	} else {
+		// Show in modal view
+		//[meteo setModalPresentationStyle:UIModalPresentationFormSheet];
+		[self presentModalViewController:nav animated:YES];
+	}
+}
 
 @end

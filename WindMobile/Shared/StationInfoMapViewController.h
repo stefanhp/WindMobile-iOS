@@ -12,7 +12,7 @@
 
 @class MapViewController;
 
-@interface StationInfoMapViewController : UIViewController <WMReSTClientDelegate, StationListDelegate> {
+@interface StationInfoMapViewController : UIViewController <WMReSTClientDelegate, StationListDelegate,MKMapViewDelegate> {
 	UIToolbar *toolBar;
 	UIBarButtonItem *titleItem;
 	UIBarButtonItem *flexItem;
@@ -44,4 +44,5 @@
 @interface StationInfoMapViewController ()
 - (void)startRefreshAnimation;
 - (void)stopRefreshAnimation;
+- (void)showStationDetail:(id)sender;
 @end
