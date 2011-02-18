@@ -224,7 +224,7 @@
 	StationDetailMeteoViewController *meteo = [[StationDetailMeteoViewController alloc]initWithNibName:@"StationDetailMeteoViewController" bundle:nil];
 	NSArray *annotations = map.mapView.selectedAnnotations;
 	//meteo.stationInfo = self.stationIn
-	id <MKAnnotation> annotation;
+	id <MKAnnotation> annotation = nil;
 	if(annotations != nil && [annotations count] == 1){
 		StationInfo *info = [annotations objectAtIndex:0];
 		annotation = [annotations objectAtIndex:0];
