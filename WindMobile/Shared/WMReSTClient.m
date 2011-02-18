@@ -9,8 +9,6 @@
 #import "WMReSTClient.h"
 #import "StationInfo.h"
 
-#define TIMEOUT_KEY @"timeout_preference"
-
 #define RESP_CONTENT_KEY @"content"
 #define RESP_ERROR_KEY @"error"
 
@@ -29,7 +27,6 @@
 @synthesize stationListSender;
 @synthesize stationDataSender;
 @synthesize stationGraphSender;
-@synthesize useMockClient;
 
 - (id)init{
 	if(self=[super initWithServer:REST_SERVER onPort:REST_PORT withSSL:NO]){
@@ -38,8 +35,6 @@
 		if (interval > 5) {
 			[super setTimeout:interval];
 		}
-		useMockClient = [[NSUserDefaults standardUserDefaults] boolForKey:@"mock_data_preference"];
-;
 	}
 	return self;
 }
@@ -235,7 +230,7 @@
 #pragma mark CPSReSTClient override
 
 - (NSMutableDictionary*)execRequest:(NSURLRequest*)request {
-	if(useMockClient == NO){
+	if([[NSUserDefaults standardUserDefaults] boolForKey:MOCK_KEY] == NO){
 		return [super execRequest:request];
 	}
 	

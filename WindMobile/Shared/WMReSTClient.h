@@ -32,7 +32,6 @@
 @property (retain,readwrite) NSObject<WMReSTClientDelegate>* stationListSender;
 @property (retain,readwrite) NSObject<WMReSTClientDelegate>* stationDataSender;
 @property (retain,readwrite) NSObject<WMReSTClientDelegate>* stationGraphSender;
-@property BOOL useMockClient;
 + (NSArray*)convertToStationInfo:(NSArray*)stations;
 + (StationData*)convertToStationData:(NSDictionary*)stationData;
 + (StationGraph*)convertToStationGraph:(NSDictionary*)stationGraph;

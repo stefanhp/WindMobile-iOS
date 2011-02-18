@@ -7,10 +7,12 @@
 //
 
 #import "iPadStationInfoMapVC.h"
-#import "IASKAppSettingsViewController.h"
 #import "StationListViewController.h"
+#import "MapViewController.h"
 
 @implementation iPadStationInfoMapVC
+@synthesize settingsPopOver;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
@@ -27,17 +29,18 @@
 	// InAppSettings
 	IASKAppSettingsViewController *appSettings = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
 	//appSettings.delegate = self;
-    appSettings.showDoneButton = NO;
+    appSettings.showDoneButton = YES;
 	appSettings.title = NSLocalizedStringFromTable(@"SETTINGS", @"WindMobile", nil);
+	appSettings.delegate = self;
 	
 	// Navigation controller
 	UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:appSettings];
 	
 	// show in popover
-	UIPopoverController * pop = [[UIPopoverController alloc] initWithContentViewController:aNavController];
-	[pop presentPopoverFromBarButtonItem:settingsItem 
-				permittedArrowDirections:UIPopoverArrowDirectionAny
-								animated:YES];
+	self.settingsPopOver = [[UIPopoverController alloc] initWithContentViewController:aNavController];
+	[settingsPopOver presentPopoverFromBarButtonItem:settingsItem 
+							permittedArrowDirections:UIPopoverArrowDirectionAny
+											animated:YES];
 	
 }
 
@@ -55,5 +58,23 @@
 								animated:YES];
 	
 }
+
+#pragma mark -
+#pragma mark IASKSettingsDelegate
+- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender{
+	// Update changed preferences
+	// Map type
+	map.mapView.mapType =[[NSUserDefaults standardUserDefaults]doubleForKey:MAP_TYPE_KEY];
+	
+	// Timeout and mock data
+	if(client != nil){
+		// we only update an existing client: newly created clients will use the new default values
+		client.timeout = [[NSUserDefaults standardUserDefaults]doubleForKey:TIMEOUT_KEY];
+	}
+	if(self.settingsPopOver != nil){
+		[settingsPopOver dismissPopoverAnimated:YES];
+	}
+}
+
 
 @end

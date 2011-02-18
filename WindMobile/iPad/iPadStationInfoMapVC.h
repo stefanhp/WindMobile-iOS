@@ -8,10 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "StationInfoMapViewController.h"
+#import "IASKAppSettingsViewController.h"
 
-@interface iPadStationInfoMapVC : StationInfoMapViewController {
+@interface iPadStationInfoMapVC : StationInfoMapViewController<IASKSettingsDelegate> {
 	UIBarButtonItem *settingsItem;
-
+	UIPopoverController *settingsPopOver;
 }
+@property (retain) UIPopoverController *settingsPopOver;
 - (void)showSettings:(id)sender;
+- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender;
+
 @end

@@ -20,8 +20,6 @@
 #define POINT_SPAN_LAT 0.096379
 #define POINT_SPAN_LON 0.173893
 
-#define MAP_TYPE_KEY @"map_type_preference"
-
 @implementation MapViewController
 
 @synthesize mapView;
@@ -63,9 +61,9 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
 	// in case the user changed the settings
 	self.mapView.mapType =[[NSUserDefaults standardUserDefaults]doubleForKey:MAP_TYPE_KEY];
+    [super viewWillAppear:animated];
 }
 
 // Override to allow orientations other than the default portrait orientation.

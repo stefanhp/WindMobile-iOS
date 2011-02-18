@@ -12,7 +12,7 @@
 
 @class MapViewController;
 
-@interface StationInfoMapViewController : UIViewController <WMReSTClientDelegate, StationListDelegate,MKMapViewDelegate> {
+@interface StationInfoMapViewController : UIViewController <WMReSTClientDelegate, StationListDelegate,MKMapViewDelegate,UITabBarControllerDelegate> {
 	UIToolbar *toolBar;
 	UIBarButtonItem *titleItem;
 	UIBarButtonItem *flexItem;

@@ -10,6 +10,7 @@
 #import "MapViewController.h"
 #import "iPadHelper.h"
 #import "StationDetailMeteoViewController.h"
+#import "AppDelegate_Phone.h"
 
 @implementation StationInfoMapViewController
 @synthesize toolBar;
@@ -59,6 +60,12 @@
 	NSArray *items = [NSArray arrayWithObjects:flexItem, titleItem, flexItem, refreshItem, nil];	
 	[self.toolBar setItems:items animated:NO];
 	//[self.mainView addSubview:self.toolBar];
+	
+	// set myself as the tab bar delegate to be able to receive preference changes
+	/*if([iPadHelper isIpad] == NO){
+		AppDelegate_Phone *appDelegate = [[UIApplication sharedApplication]delegate];
+		appDelegate.tabBarController.delegate = self;
+	}*/
 
 	// load content
 	[self refreshContent:self];
@@ -255,5 +262,15 @@
 		[self presentModalViewController:nav animated:YES];
 	}
 }
+
+#pragma mark -
+#pragma mark UITabBarControllerDelegate
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
+	// check for preference changes
+	if(viewController == self){
+		map.mapView.mapType =[[NSUserDefaults standardUserDefaults]doubleForKey:MAP_TYPE_KEY];
+	}
+}
+
 
 @end
