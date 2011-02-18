@@ -39,6 +39,7 @@
 - (void)stationGraph:(StationGraph*)dataPoints;
 - (IBAction)setInterval:(id)sender;
 - (IBAction)showScale:(id)sender;
+- (NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot;
 @end
 
 @interface WindPlotController ()

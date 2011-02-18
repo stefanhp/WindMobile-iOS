@@ -58,19 +58,6 @@
 	}
 }
 @synthesize windData;
-/*
-- (GraphData*) windData{
-	return windData;
-}
-
-- (void)SetWindData:(GraphData*)newData{
-	if(windData != nil){
-		[windData release];
-	}
-	windData = [newData retain];
-	[self setNeedsDisplay];
-}
-*/
 @end
 	
 @implementation WindTrendChartViewController

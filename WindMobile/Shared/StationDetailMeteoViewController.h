@@ -12,6 +12,7 @@
 @class StationInfo;
 @class StationData;
 @class WindTrendChartViewController;
+@class WindPlotController;
 
 @interface StationDetailMeteoViewController : UIViewController<UIActionSheetDelegate> {
 	WMReSTClient* client;
@@ -36,6 +37,7 @@
 	WindTrendChartViewController *windTrendCtrl;
 	
 	UIView *graphView;
+	WindPlotController *graphController;
 }
 @property (retain) StationInfo* stationInfo; 
 @property (retain) StationData* stationData; 
@@ -54,6 +56,7 @@
 @property (retain) IBOutlet UIView *windTrendContainer;
 @property (retain) IBOutlet WindTrendChartViewController *windTrendCtrl;
 @property (retain) UIView *graphView;
+@property (retain) WindPlotController *graphController;
 
 // Content
 - (IBAction)refreshContent:(id)sender;

@@ -208,8 +208,11 @@
 
 
 - (void)dealloc {
-    [super dealloc];
+	if(client !=  nil){
+		[client release];
+	}
 	[stations release];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -218,7 +221,7 @@
 - (void)refreshContent:(id)sender {
 	[self startRefreshAnimation];
 	if(client == nil){
-		client = [[[WMReSTClient alloc] init ]retain];
+		client = [[WMReSTClient alloc] init ];
 	}
 	
 	// (re-)load content
@@ -248,6 +251,7 @@
 	UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
 	[activityIndicator release];
 	self.navigationItem.rightBarButtonItem = activityItem;
+	[activityItem release];
 }
 
 - (void)stopRefreshAnimation{
@@ -255,12 +259,11 @@
 	self.navigationItem.rightBarButtonItem = nil;
 	
 	// Put Refresh button on the top left
-	//if([iPadHelper isIpad]){} else {
 	UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
 																				 target:self 
 																				 action:@selector(refreshContent:)];
 	self.navigationItem.rightBarButtonItem = refreshItem;
-	//}
+	[refreshItem release];
 }
 
 @end

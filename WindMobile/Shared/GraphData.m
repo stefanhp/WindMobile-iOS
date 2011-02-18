@@ -46,7 +46,7 @@
 	
 	point.date = [WindMobileHelper decodeDateFromJavaInt:[(NSNumber*)([pointDict objectForKey:DATA_POINT_DATE_KEY]) doubleValue]];
 	point.value = [pointDict objectForKey:DATA_POINT_VALUE_KEY];
-	return point;
+	return [point autorelease];
 }
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary  andDuration:(NSNumber*)aDuration{
@@ -99,7 +99,7 @@
 - (NSArray *)dataPoints{
 	NSArray* tmp = [graphData objectForKey:STATION_GRAPH_POINTS_KEY];
 	if(tmp != nil && [tmp count]>0){
-		NSMutableArray *result = [[NSMutableArray alloc]initWithCapacity:[tmp count]];
+		NSMutableArray *result = [[[NSMutableArray alloc]initWithCapacity:[tmp count]]autorelease];
 		
 		for(NSDictionary* dictPoint in tmp){
 			[result addObject:[GraphData convertToDataPoint:dictPoint forType:self.graphType]];

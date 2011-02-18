@@ -34,6 +34,7 @@
 @synthesize windTrendContainer;
 @synthesize windTrendCtrl;
 @synthesize graphView;
+@synthesize graphController;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -106,31 +107,32 @@
 	// Prepare for rotation
 	if([iPadHelper isIpad]){
 	} else {
-		WindPlotController *graph ;
 		switch(toInterfaceOrientation){
 			case UIInterfaceOrientationLandscapeLeft:
 			case UIInterfaceOrientationLandscapeRight:
-				graph = [[WindPlotController alloc] initWithNibName:@"WindPlotController" bundle:nil];
-				graph.stationInfo = self.stationInfo;
-				graph.drawAxisSet = YES;
-				graph.isInCell = NO;
+				self.graphController = [[WindPlotController alloc] initWithNibName:@"WindPlotController" bundle:nil];
+				graphController.stationInfo = self.stationInfo;
+				graphController.drawAxisSet = YES;
+				graphController.isInCell = NO;
 				
 				// display view
-				graph.view.frame = self.view.bounds;
-				self.graphView = graph.view; // save for future reference
-				[self.view addSubview:graph.view];
+				graphController.view.frame = self.view.bounds;
+				self.graphView = graphController.view; // save for future reference
+				[self.view addSubview:graphController.view];
 				break;
 			case UIInterfaceOrientationPortrait:
 			case UIInterfaceOrientationPortraitUpsideDown:
 				[self.graphView removeFromSuperview];
+				self.graphController = nil;
 				break;
 		}
 	}
 }
 
+/*
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
-	// reset proper views	
 }
+*/
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
@@ -147,6 +149,9 @@
 
 
 - (void)dealloc {
+	if(client !=  nil){
+		[client release];
+	}
     [super dealloc];
 }
 
@@ -159,7 +164,7 @@
 	[self startRefreshAnimation];
 	
 	if(client == nil){
-		client = [[[WMReSTClient alloc] init ]retain];
+		client = [[WMReSTClient alloc] init ];
 	}
 	
 	// (re-)load content
@@ -253,6 +258,7 @@
 	UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
 	[activityIndicator release];
 	self.navigationItem.rightBarButtonItem = activityItem;
+	[activityItem release];
 }
 
 - (void)stopRefreshAnimation{
@@ -266,6 +272,7 @@
 																	 target:self 
 																	 action:@selector(showGraph:)];
 		self.navigationItem.rightBarButtonItem = graphItem;
+		[graphItem release];
 	} else { // iPhone
 		if([self isPresentedModaly]){
 			UIBarButtonItem *dismissButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
@@ -273,11 +280,13 @@
 																						action:@selector(dismissModalViewControllerAnimated:)];
 			
 			self.navigationItem.rightBarButtonItem = dismissButtonItem;
+			[dismissButtonItem release];
 		} else {
 			UIBarButtonItem *actionButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
 																							  target:self 
 																							  action:@selector(showActionSheet:)];
 			self.navigationItem.rightBarButtonItem = actionButtonItem;
+			[actionButtonItem release];
 		} 
 	}
 }
@@ -290,6 +299,7 @@
 		if(self.stationInfo != nil){
 			[mapVC addAnnotation:self.stationInfo];
 		}
+		[mapVC release];
 	}
 	
 }
@@ -320,8 +330,8 @@
 		
 		// display view
 		[self.navigationController pushViewController:graph animated:YES];
+		[graph release];
 	}
-	
 }
 
 - (BOOL)isPresentedModaly{

@@ -63,14 +63,12 @@
 	
 	// Load data points
 	self.duration = DEFAULT_DURATION; 
-	[self refreshContent:self];
-
 	
     // Create graph from theme
     graph = [[CPXYGraph alloc] initWithFrame:CGRectZero];
 	CPTheme *theme;
 	if(self.isInCell){
-		theme = [[WMCellGraphTheme alloc]init];
+		theme = [[[WMCellGraphTheme alloc]init]autorelease];
 		graph.fill = [CPFill fillWithColor:[CPColor whiteColor]];
 	} else {
 		theme = [CPTheme themeNamed:kCPDarkGradientTheme];
@@ -232,6 +230,11 @@
 	
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+	[self refreshContent:self];
+	[super viewWillAppear:animated];
+}
+
 /*
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -255,6 +258,10 @@
 
 
 - (void)dealloc {
+	if(client !=  nil){
+		[client release];
+	}
+	
 	[stationInfo release];
 	[stationGraph release];
 	[axisSet release];
@@ -273,7 +280,7 @@
 - (void)refreshContent:(id)sender{
 	[self startRefreshAnimation];
 	if(client == nil){
-		client = [[[WMReSTClient alloc] init ]retain];
+		client = [[WMReSTClient alloc] init ];
 	}
 	[client asyncGetStationGraph:stationInfo.stationID duration:self.duration forSender:self];
 }
@@ -367,6 +374,7 @@
 			[newLabel release];
 		}
 		x.axisLabels =  [NSSet setWithArray:customLabels];
+		[customLabels release];
 	} else {
 		graph.axisSet = nil;
 	}
@@ -386,6 +394,7 @@
 	UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
 	[activityIndicator release];
 	self.navigationItem.rightBarButtonItem = activityItem;
+	[activityItem release];
 }
 
 - (void)stopRefreshAnimation{
@@ -393,25 +402,24 @@
 	self.navigationItem.rightBarButtonItem = nil;
 	
 	// Put Refresh button on the top left
-	//if([iPadHelper isIpad]){} else {
 	UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
 																				 target:self 
 																				 action:@selector(refreshContent:)];
 	self.navigationItem.rightBarButtonItem = refreshItem;
-	//}
+	[refreshItem release];
 }
 
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot {
+- (NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot {
 	if(stationGraph == nil){
 		return 0;
 	}
     return [stationGraph.windAverage.dataPoints count];
 }
 
--(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
+- (NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
 	// Wind Average
 	DataPoint* point = (DataPoint*)[stationGraph.windAverage.dataPoints objectAtIndex:index];
 	if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_AVERAGE_IDENTIFIER]){

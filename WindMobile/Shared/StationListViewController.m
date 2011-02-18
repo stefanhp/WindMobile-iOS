@@ -70,18 +70,6 @@
 #pragma mark -
 #pragma mark Table view data source
 @synthesize stations;
-/*
- - (void)setStations:(NSArray *)newStations{
-	if (stations != newStations) {
-		[stations release];
-		stations = [newStations retain];
-	}
-}
-
-- (NSArray*)stations{
-	return stations;
-}
-*/
 @synthesize selectedStations;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

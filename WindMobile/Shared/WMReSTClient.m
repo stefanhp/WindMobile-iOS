@@ -84,8 +84,9 @@
 	for(NSDictionary* station in stations){
 		StationInfo* info = [[StationInfo alloc]initWithDictionary:station];
 		[converted addObject:info];
+		[info release];
 	}
-	return converted;
+	return [converted autorelease];
 }
 
 #pragma mark -
@@ -131,7 +132,7 @@
 }
 
 + (StationData*)convertToStationData:(NSDictionary*)stationData{
-	return [[StationData alloc]initWithDictionary:stationData];
+	return [[[StationData alloc]initWithDictionary:stationData]autorelease];
 }
 
 #pragma mark -
@@ -175,7 +176,7 @@
 }
 
 + (StationGraph*)convertToStationGraph:(NSDictionary*)stationGraph{
-	return [[StationGraph alloc]initWithDictionary:stationGraph];
+	return [[[StationGraph alloc]initWithDictionary:stationGraph]autorelease];
 }
 
 #pragma mark -
@@ -271,44 +272,24 @@
 							 stationInfos, @"stationInfos",
 							 nil];
 	[response setObject:content forKey:@"content"];
+	[stationInfos release];
+	[stationInfo release];
+	[content release];
 	return response;
 }
 
 - (NSMutableDictionary*)mockStationData{
 	NSMutableDictionary *response = [NSMutableDictionary dictionaryWithCapacity:2]; 
-	NSDictionary* point1 = [NSDictionary dictionaryWithObjectsAndKeys:
-							@"1297666800000", @"date",
-							@"326.0", @"value",
-							nil];
-	
-	NSDictionary* point2 = [NSDictionary dictionaryWithObjectsAndKeys:
-							@"1297667400000", @"date",
-							@"324.0", @"value",
-							nil];
-	NSDictionary* point3 = [NSDictionary dictionaryWithObjectsAndKeys:
-							@"1297668000000", @"date",
-							@"191.0", @"value",
-							nil];
-	NSDictionary* point4 = [NSDictionary dictionaryWithObjectsAndKeys:
-							@"1297668600000", @"date",
-							@"182.0", @"value",
-							nil];
-	NSDictionary* point5 = [NSDictionary dictionaryWithObjectsAndKeys:
-							@"1297668000000", @"date",
-							@"157.0", @"value",
-							nil];
-	NSDictionary* point6 = [NSDictionary dictionaryWithObjectsAndKeys:
-							@"1297669800000", @"date",
-							@"191.0", @"value",
-							nil];
-	NSDictionary* point7 = [NSDictionary dictionaryWithObjectsAndKeys:
-							@"1297670400000", @"date",
-							@"157.0", @"value",
-							nil];
-	
-	NSDictionary* serie = [NSDictionary dictionaryWithObjectsAndKeys:
-						   @"windDirection", @"@name",
-						   [NSArray arrayWithObjects:point1, point2, point3, point4, point5, point6, point7, nil], @"points",
+	NSDictionary* serie = [NSDictionary dictionaryWithObjectsAndKeys: @"windDirection", @"@name",
+						   [NSArray arrayWithObjects:
+							[NSDictionary dictionaryWithObjectsAndKeys: @"1297666800000", @"date", @"326.0", @"value", nil], 
+							[NSDictionary dictionaryWithObjectsAndKeys: @"1297667400000", @"date", @"324.0", @"value", nil], 
+							[NSDictionary dictionaryWithObjectsAndKeys: @"1297668000000", @"date", @"191.0", @"value", nil], 
+							[NSDictionary dictionaryWithObjectsAndKeys: @"1297668600000", @"date", @"182.0", @"value", nil], 
+							[NSDictionary dictionaryWithObjectsAndKeys: @"1297668000000", @"date", @"157.0", @"value", nil], 
+							[NSDictionary dictionaryWithObjectsAndKeys: @"1297669800000", @"date", @"191.0", @"value",nil], 
+							[NSDictionary dictionaryWithObjectsAndKeys: @"1297670400000", @"date", @"157.0", @"value",nil], 
+							nil], @"points",
 						   nil];
 	
 	NSDictionary* chart = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -334,7 +315,7 @@
 								 @"48", @"windTrend",
 								 
 								 nil];
-	NSDictionary *content = [[NSDictionary alloc] initWithObjectsAndKeys:
+	NSDictionary *content = [NSDictionary dictionaryWithObjectsAndKeys:
 							 stationData, @"stationData",
 							 nil];
 	[response setObject:content forKey:@"content"];
@@ -444,7 +425,7 @@
 								  serie, @"serie",
 								  nil];
 	
-	NSDictionary *content = [[NSDictionary alloc] initWithObjectsAndKeys:
+	NSDictionary *content = [NSDictionary dictionaryWithObjectsAndKeys:
 							 stationGraph, @"chart",
 							 nil];
 	[response setObject:content forKey:@"content"];

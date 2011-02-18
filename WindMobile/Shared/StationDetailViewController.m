@@ -165,7 +165,7 @@
 			//wplot.view.alpha = 0.5;
 			
 			[cell.contentView addSubview:wplot.view];
-			//[cell.contentView sendSubviewToBack:wplot.view];
+			[wplot release];
 
 		}
 	} else {
@@ -376,7 +376,8 @@
 		if([iPadHelper isIpad]){
 #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_3_1
 			// show in popover
-			UIPopoverController * pop = [[UIPopoverController alloc] initWithContentViewController:mapVC];
+			UIPopoverController * pop = [[[UIPopoverController alloc] initWithContentViewController:mapVC]autorelease];
+			[mapVC release];
 			[mapVC setModalPresentationStyle:UIModalPresentationFormSheet];
 			//[mapVC setModalInPopover:YES];
 			//[self presentModalViewController:mapVC animated:YES];
@@ -392,6 +393,7 @@
 			// push controller
 			[self.navigationController pushViewController:mapVC animated:YES];
 			[mapVC addAnnotation:self.stationInfo];
+			[mapVC release];
 		}
 	} else if (indexPath.section == SECTION_CURRENT && indexPath.row == INDEX_WIND_GRAPH){
 		WindPlotController *wplot = [[WindPlotController alloc] init];
@@ -404,6 +406,7 @@
 			// push controller
 			[self.navigationController pushViewController:wplot animated:YES];
 		}
+		[wplot release];
 	}
 }
 
@@ -445,7 +448,7 @@
 	[self startRefreshAnimation];
 	
 	if(client == nil){
-		client = [[[WMReSTClient alloc] init ]retain];
+		client = [[WMReSTClient alloc] init ];
 	}
 	
 	// (re-)load content
@@ -475,6 +478,7 @@
 	UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
 	[activityIndicator release];
 	self.navigationItem.rightBarButtonItem = activityItem;
+	[activityItem release];
 }
 
 - (void)stopRefreshAnimation{
@@ -482,12 +486,11 @@
 	self.navigationItem.rightBarButtonItem = nil;
 	
 	// Put Refresh button on the top left
-	//if([iPadHelper isIpad]){} else {
 	UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
 																				 target:self 
 																				 action:@selector(refreshContent:)];
 	self.navigationItem.rightBarButtonItem = refreshItem;
-	//}
+	[refreshItem release];
 }
 @end
 

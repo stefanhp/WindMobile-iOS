@@ -44,13 +44,13 @@
 			for(NSDictionary* serie in series){
 				NSString *name = [serie objectForKey:STATION_GRAPH_NAME_KEY];
 				if([name isEqualToString:STATION_GRAPH_AVERAGE_KEY]){
-					windAverage = [[[GraphData alloc] initWithDictionary:serie andDuration:aDuration]retain];
+					windAverage = [[GraphData alloc] initWithDictionary:serie andDuration:aDuration];
 					windAverage.addPadding = addPadding;
 				} else if([name isEqualToString:STATION_GRAPH_MAX_KEY]){
-					windMax = [[[GraphData alloc] initWithDictionary:serie andDuration:aDuration]retain];
+					windMax = [[GraphData alloc] initWithDictionary:serie andDuration:aDuration];
 					windMax.addPadding = addPadding;
 				} else if([name isEqualToString:STATION_GRAPH_DIRECTION_KEY]){
-					windDirection = [[[GraphData alloc] initWithDictionary:serie andDuration:aDuration]retain];
+					windDirection = [[GraphData alloc] initWithDictionary:serie andDuration:aDuration];
 					windDirection.addPadding = addPadding;
 				}
 			}

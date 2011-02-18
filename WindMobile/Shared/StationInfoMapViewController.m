@@ -35,7 +35,7 @@
     [super viewDidLoad];
 	
 	// Map
-	map = [[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] retain];
+	map = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
 	[self.mapView addSubview:map.view];
 	
 	// toolbar buttons
@@ -92,6 +92,10 @@
 
 
 - (void)dealloc {
+	if(client !=  nil){
+		[client release];
+	}
+	
 	[map release];
 	
     [super dealloc];
@@ -110,6 +114,7 @@
 
 	// show in modal sheet
 	UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:showStations];
+	[showStations release];
 
 	[aNavController setModalPresentationStyle:UIModalPresentationFormSheet];
 	[self presentModalViewController:aNavController animated:YES];
@@ -144,7 +149,7 @@
 - (void)refreshContent:(id)sender {
 	[self startRefreshAnimation];
 	if(client == nil){
-		client = [[[WMReSTClient alloc] init ]retain];
+		client = [[WMReSTClient alloc] init ];
 	}
 	
 	// (re-)load content
@@ -239,6 +244,7 @@
 	}
 
 	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:meteo];
+	[meteo release];
 
 	if([iPadHelper isIpad]){
 		// show in popover
@@ -249,7 +255,7 @@
 			// find location
 			CGPoint point = [map.mapView convertCoordinate:annotation.coordinate toPointToView:self.view];
 			
-			UIPopoverController * pop = [[UIPopoverController alloc] initWithContentViewController:nav];
+			UIPopoverController * pop = [[[UIPopoverController alloc] initWithContentViewController:nav]autorelease];
 			[pop presentPopoverFromRect:CGRectMake(point.x + 6.5, point.y - 27.0, 1.0, 1.0) 
 								 inView:self.view 
 			   permittedArrowDirections:UIPopoverArrowDirectionAny 
@@ -261,6 +267,7 @@
 		//[meteo setModalPresentationStyle:UIModalPresentationFormSheet];
 		[self presentModalViewController:nav animated:YES];
 	}
+	[nav release];
 }
 
 #pragma mark -

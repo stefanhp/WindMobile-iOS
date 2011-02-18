@@ -35,12 +35,14 @@
 	
 	// Navigation controller
 	UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:appSettings];
+	[appSettings release];
 	
 	// show in popover
 	self.settingsPopOver = [[UIPopoverController alloc] initWithContentViewController:aNavController];
 	[settingsPopOver presentPopoverFromBarButtonItem:settingsItem 
 							permittedArrowDirections:UIPopoverArrowDirectionAny
 											animated:YES];
+	[aNavController release];
 	
 }
 
@@ -52,10 +54,11 @@
 	showStations.delegate = self;
 	
 	// show in popover
-	UIPopoverController * pop = [[UIPopoverController alloc] initWithContentViewController:showStations];
+	UIPopoverController * pop = [[[UIPopoverController alloc] initWithContentViewController:showStations]autorelease];
 	[pop presentPopoverFromBarButtonItem:titleItem 
 				permittedArrowDirections:UIPopoverArrowDirectionAny
 								animated:YES];
+	[showStations release];
 	
 }
 

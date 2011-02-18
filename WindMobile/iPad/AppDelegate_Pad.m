@@ -17,8 +17,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 	
     // Override point for customization after application launch
-	root = [[[iPadStationInfoMapVC alloc]initWithNibName:@"StationInfoMapViewController"
-												  bundle:nil] retain];
+	root = [[iPadStationInfoMapVC alloc]initWithNibName:@"StationInfoMapViewController"
+												  bundle:nil];
 	window.rootViewController = root;
 	/*
 	root.view.frame = window.bounds;
