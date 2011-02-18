@@ -174,21 +174,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if(stations != nil && [stations count]>0){
-		StationDetailMeteoViewController *meteoVC = nil;
-		StationInfo* stationInfo = [stations objectAtIndex:indexPath.row];
 		
 		if([iPadHelper isIpad]){
 			// For iPad, detail view is loaded from map annotation only
 		} else {
 			// For iPhone, create one to push
+			StationDetailMeteoViewController *meteoVC = nil;
+			StationInfo* stationInfo = [stations objectAtIndex:indexPath.row];
 			meteoVC = [[StationDetailMeteoViewController alloc] initWithNibName:@"StationDetailMeteoViewController" bundle:nil];
-		}
-		
-		[meteoVC setStationInfo:stationInfo];
-		
-		if([iPadHelper isIpad]){
-			[meteoVC refreshContent:self];
-		} else {
+			[meteoVC setStationInfo:stationInfo];
 			// push controller
 			[self.navigationController pushViewController:meteoVC animated:YES];
 			[meteoVC release];
