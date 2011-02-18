@@ -62,6 +62,7 @@
 - (IBAction)showMap:(id)sender;
 - (IBAction)showActionSheet:(id)sender;
 - (IBAction)showGraph:(id)sender;
+- (BOOL)isPresentedModaly;
 @end
 
 @interface StationDetailMeteoViewController ()

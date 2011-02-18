@@ -83,9 +83,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	if(self.navigationController != nil &&
-	   self.navigationController.parentViewController != nil &&
-	   self.navigationController.parentViewController.modalViewController == self.navigationController){
+	if([self isPresentedModaly]){
 		// we are presented modally: add a dismiss button
 		self.navigationItem.rightBarButtonItem = nil;
 		UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
@@ -269,10 +267,18 @@
 																	 action:@selector(showGraph:)];
 		self.navigationItem.rightBarButtonItem = graphItem;
 	} else { // iPhone
-		UIBarButtonItem *actionButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-																						  target:self 
-																						  action:@selector(showActionSheet:)];
-		self.navigationItem.rightBarButtonItem = actionButtonItem;
+		if([self isPresentedModaly]){
+			UIBarButtonItem *dismissButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
+																						target:self 
+																						action:@selector(dismissModalViewControllerAnimated:)];
+			
+			self.navigationItem.rightBarButtonItem = dismissButtonItem;
+		} else {
+			UIBarButtonItem *actionButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+																							  target:self 
+																							  action:@selector(showActionSheet:)];
+			self.navigationItem.rightBarButtonItem = actionButtonItem;
+		} 
 	}
 }
 
@@ -317,6 +323,13 @@
 	}
 	
 }
+
+- (BOOL)isPresentedModaly{
+	return (self.navigationController != nil &&
+			self.navigationController.parentViewController != nil &&
+			self.navigationController.parentViewController.modalViewController == self.navigationController);
+}
+
 
 #pragma mark -
 #pragma mark - UIActionSheetDelegate
