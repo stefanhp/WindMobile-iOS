@@ -18,6 +18,7 @@
 @synthesize visibleStations;
 @synthesize mainView;
 @synthesize mapView;
+@synthesize stationPopOver;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -95,7 +96,7 @@
 	if(client !=  nil){
 		[client release];
 	}
-	
+	[stationPopOver release];
 	[map release];
 	
     [super dealloc];
@@ -255,8 +256,8 @@
 			// find location
 			CGPoint point = [map.mapView convertCoordinate:annotation.coordinate toPointToView:self.view];
 			
-			UIPopoverController * pop = [[[UIPopoverController alloc] initWithContentViewController:nav]autorelease];
-			[pop presentPopoverFromRect:CGRectMake(point.x + 6.5, point.y - 27.0, 1.0, 1.0) 
+			self.stationPopOver = [[UIPopoverController alloc] initWithContentViewController:nav];
+			[stationPopOver presentPopoverFromRect:CGRectMake(point.x + 6.5, point.y - 27.0, 1.0, 1.0) 
 								 inView:self.view 
 			   permittedArrowDirections:UIPopoverArrowDirectionAny 
 							   animated:YES];

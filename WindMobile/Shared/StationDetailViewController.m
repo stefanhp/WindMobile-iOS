@@ -374,21 +374,6 @@
 		MapViewController *mapVC = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
 		
 		if([iPadHelper isIpad]){
-#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_3_1
-			// show in popover
-			UIPopoverController * pop = [[[UIPopoverController alloc] initWithContentViewController:mapVC]autorelease];
-			[mapVC release];
-			[mapVC setModalPresentationStyle:UIModalPresentationFormSheet];
-			//[mapVC setModalInPopover:YES];
-			//[self presentModalViewController:mapVC animated:YES];
-			[pop setPopoverContentSize:CGSizeMake(700, 700)];
-			[pop presentPopoverFromRect:[self.tableView cellForRowAtIndexPath:indexPath].detailTextLabel.bounds 
-								 inView:self.view 
-			   permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-			/*[pop presentPopoverFromBarButtonItem:xxx 
-						permittedArrowDirections:UIPopoverArrowDirectionAny
-										animated:YES];*/
-#endif
 		} else {
 			// push controller
 			[self.navigationController pushViewController:mapVC animated:YES];

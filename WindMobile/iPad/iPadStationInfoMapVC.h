@@ -13,8 +13,10 @@
 @interface iPadStationInfoMapVC : StationInfoMapViewController<IASKSettingsDelegate> {
 	UIBarButtonItem *settingsItem;
 	UIPopoverController *settingsPopOver;
+	UIPopoverController *stationsPopOver;
 }
 @property (retain) UIPopoverController *settingsPopOver;
+@property (retain) UIPopoverController *stationsPopOver;
 - (void)showSettings:(id)sender;
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender;
 

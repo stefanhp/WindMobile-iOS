@@ -12,6 +12,7 @@
 
 @implementation iPadStationInfoMapVC
 @synthesize settingsPopOver;
+@synthesize stationsPopOver;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,8 +55,8 @@
 	showStations.delegate = self;
 	
 	// show in popover
-	UIPopoverController * pop = [[[UIPopoverController alloc] initWithContentViewController:showStations]autorelease];
-	[pop presentPopoverFromBarButtonItem:titleItem 
+	self.stationsPopOver = [[UIPopoverController alloc] initWithContentViewController:showStations];
+	[stationsPopOver presentPopoverFromBarButtonItem:titleItem 
 				permittedArrowDirections:UIPopoverArrowDirectionAny
 								animated:YES];
 	[showStations release];
@@ -79,5 +80,13 @@
 	}
 }
 
+- (void)dealloc {
+	[settingsItem release];
+	[settingsPopOver release];
+	[stationsPopOver release];
+	
+	self.stationsPopOver = nil;
+    [super dealloc];
+}
 
 @end

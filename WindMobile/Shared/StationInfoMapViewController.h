@@ -26,12 +26,14 @@
 	UIView *mainView;
 	UIView *mapView;
 	MapViewController *map;
+	UIPopoverController *stationPopOver;
 }
 @property (retain) IBOutlet UIToolbar *toolBar;
 @property (retain) NSArray *stations;
 @property (retain) NSMutableArray *visibleStations;
 @property (retain) IBOutlet UIView *mainView;
 @property (retain) IBOutlet UIView *mapView;
+@property (retain) UIPopoverController *stationPopOver;
 // Content
 - (void)refreshContent:(id)sender;
 // WMReSTClient delegate
