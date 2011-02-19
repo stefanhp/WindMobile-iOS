@@ -258,14 +258,16 @@
 
 
 - (void)dealloc {
-	if(client !=  nil){
-		[client release];
-	}
-	
+	[client release];
+	[graph release];
+	[hostingView release];
 	[stationInfo release];
 	[stationGraph release];
 	[axisSet release];
-
+	[duration release];
+	[scale release];
+	[info release];
+	
     [super dealloc];
 }
 

@@ -32,6 +32,13 @@
 	return [NSString stringWithFormat:@"DataPoint %@, %@, %@", graphType, date, value];
 }
 
+- (void)dealloc {
+	[graphType release];
+	[date release];
+	[value release];
+	[super dealloc];
+}
+
 @end
 
 @implementation GraphData
@@ -67,6 +74,13 @@
 		return nil;
 	}
 	return self;
+}
+
+- (void)dealloc {
+	[graphData release];
+	[duration release];
+	[graphType release];
+	[super dealloc];
 }
 
 #pragma mark -

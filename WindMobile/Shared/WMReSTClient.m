@@ -39,6 +39,13 @@
 	return self;
 }
 
+- (void)dealloc {
+	[stationListSender release];
+	[stationDataSender release];
+	[stationGraphSender release];
+	[super dealloc];
+}
+
 #pragma mark -
 #pragma mark - Station Info
 

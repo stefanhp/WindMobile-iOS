@@ -149,9 +149,29 @@
 
 
 - (void)dealloc {
-	if(client !=  nil){
-		[client release];
-	}
+	[client release];
+
+	[stationInfo release];
+	[stationData release];
+	
+	[stationName release];
+	[lastUpdated release];
+	[altitude release];
+	[windAverage release];
+	[windMax release];
+	[windDirectionArrow release];
+	[windHistoryMin release];
+	[windHistoryAverage release];
+	[windHistoryMax release];
+	[airTemperature release];
+	[airHumidity release];
+	
+	[windTrendContainer release];
+	[windTrendCtrl release];
+	
+	[graphView release];
+	[graphController release];
+	
     [super dealloc];
 }
 

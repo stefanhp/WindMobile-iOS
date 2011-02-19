@@ -303,6 +303,8 @@
 
 
 - (void)dealloc {
+	[stations release];
+	[selectedStations release];
     [super dealloc];
 }
 

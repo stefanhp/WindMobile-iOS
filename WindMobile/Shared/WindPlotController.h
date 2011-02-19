@@ -14,10 +14,13 @@
 
 @interface WindPlotController : UIViewController <CPPlotDataSource,WMReSTClientDelegate>{
 	WMReSTClient* client;
+	
 	CPXYGraph *graph;
 	CPGraphHostingView *hostingView;
+	
 	StationInfo *stationInfo;
-
+	StationGraph *stationGraph;
+	
 	CPXYAxisSet *axisSet;
 	BOOL drawAxisSet;
 	BOOL isInCell;

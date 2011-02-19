@@ -60,6 +60,14 @@
 	return self;
 }
 
+- (void)dealloc {
+	[stationGraph release];
+	[windAverage release];
+	[windMax release];
+	[windDirection release];
+	[super dealloc];
+}
+
 #pragma mark -
 #pragma mark - NSDictionary composition
 

@@ -84,8 +84,6 @@
 	[settingsItem release];
 	[settingsPopOver release];
 	[stationsPopOver release];
-	
-	self.stationsPopOver = nil;
     [super dealloc];
 }
 

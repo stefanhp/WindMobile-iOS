@@ -371,11 +371,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if(indexPath.section == SECTION_INFO && indexPath.row == INDEX_MAP){
-		MapViewController *mapVC = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
 		
 		if([iPadHelper isIpad]){
 		} else {
 			// push controller
+			MapViewController *mapVC = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
 			[self.navigationController pushViewController:mapVC animated:YES];
 			[mapVC addAnnotation:self.stationInfo];
 			[mapVC release];
@@ -413,9 +413,9 @@
 
 
 - (void)dealloc {
-	if(client != nil){
-		[client release];
-	}
+	[client release];
+	[stationInfo release];
+	[stationData release];
     [super dealloc];
 }
 

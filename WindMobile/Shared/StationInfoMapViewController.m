@@ -93,9 +93,17 @@
 
 
 - (void)dealloc {
-	if(client !=  nil){
-		[client release];
-	}
+	[toolBar release];
+	[titleItem release];
+	[flexItem release];
+	[refreshItem release];
+	[activityItem release];
+	[client release];
+	[stations release];
+	[visibleStations release];
+	[mainView release];
+	[mapView release];
+	[map release];
 	[stationPopOver release];
 	[map release];
 	

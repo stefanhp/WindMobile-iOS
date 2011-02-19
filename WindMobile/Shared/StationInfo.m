@@ -37,6 +37,11 @@
 	return self;
 }
 
+- (void)dealloc {
+	[stationInfo release];
+	[super dealloc];
+}
+
 #pragma mark -
 #pragma mark - NSDictionary composition
 

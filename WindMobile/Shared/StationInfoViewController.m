@@ -208,9 +208,7 @@
 
 
 - (void)dealloc {
-	if(client !=  nil){
-		[client release];
-	}
+	[client release];
 	[stations release];
     [super dealloc];
 }

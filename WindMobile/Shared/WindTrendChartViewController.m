@@ -121,6 +121,7 @@
 
 
 - (void)dealloc {
+	[windData release];
     [super dealloc];
 }
 

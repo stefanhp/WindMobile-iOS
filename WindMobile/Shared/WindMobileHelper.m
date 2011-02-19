@@ -35,8 +35,8 @@
 	// A negative number indicates the number of milliseconds before January 1, 1970, 00:00:00 GMT 
 	// Objective-C are in seconds since the same reference date.
 	NSTimeInterval seconds = (NSTimeInterval)(dateValue / 1000);
-	//return [NSDate dateWithTimeIntervalSince1970:seconds];
-	return [[NSDate dateWithTimeIntervalSince1970:seconds]autorelease];
+	return [NSDate dateWithTimeIntervalSince1970:seconds];
+	//return [[NSDate dateWithTimeIntervalSince1970:seconds]autorelease];
 }
 
 + (NSString*)naturalTimeSinceDate:(NSDate*)date{
