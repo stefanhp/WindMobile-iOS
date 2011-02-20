@@ -147,6 +147,20 @@
 											 [data objectForKey:@"@altitude"]];
 			}
 			cell.textLabel.textAlignment = UITextAlignmentLeft;
+			switch (data.maintenanceStatusEnum) {
+				case StationInfoStatusGreen:
+					cell.imageView.image = [UIImage imageNamed:@"bullet-green"];
+					break;
+				case StationInfoStatusOrange:
+					cell.imageView.image = [UIImage imageNamed:@"bullet-yellow"];
+					break;
+				case StationInfoStatusRed:
+					cell.imageView.image = [UIImage imageNamed:@"bullet-red"];
+					break;
+				default:
+					cell.imageView.image = [UIImage imageNamed:@"bullet-grey"];
+					break;
+			}
 			break;
 			
 		default:
