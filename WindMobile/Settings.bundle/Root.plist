@@ -15,6 +15,14 @@
 			<string>PSTitleValueSpecifier</string>
 		</dict>
 		<dict>
+			<key>File</key>
+			<string>Disclaimer</string>
+			<key>Title</key>
+			<string>Disclaimer</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
 			<key>DefaultValue</key>
 			<integer>20</integer>
 			<key>Key</key>
