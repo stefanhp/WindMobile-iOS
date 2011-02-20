@@ -302,11 +302,12 @@
 			self.navigationItem.rightBarButtonItem = dismissButtonItem;
 			[dismissButtonItem release];
 		} else {
-			UIBarButtonItem *actionButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-																							  target:self 
-																							  action:@selector(showActionSheet:)];
-			self.navigationItem.rightBarButtonItem = actionButtonItem;
-			[actionButtonItem release];
+			UIBarButtonItem *mapItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"world"]
+																		  style:UIBarButtonItemStylePlain 
+																		 target:self 
+																		 action:@selector(showMap:)];
+			self.navigationItem.rightBarButtonItem = mapItem;
+			[mapItem release];
 		} 
 	}
 }
