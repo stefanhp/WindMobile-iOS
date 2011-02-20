@@ -63,6 +63,7 @@
 	
 	// Load data points
 	self.duration = DEFAULT_DURATION; 
+	[self refreshContent:self];
 	
     // Create graph from theme
     graph = [[CPXYGraph alloc] initWithFrame:CGRectZero];
@@ -230,10 +231,11 @@
 	
 }
 
+/*
 - (void)viewWillAppear:(BOOL)animated{
-	[self refreshContent:self];
 	[super viewWillAppear:animated];
 }
+*/
 
 /*
 // Override to allow orientations other than the default portrait orientation.
