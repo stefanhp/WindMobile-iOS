@@ -171,6 +171,14 @@
 		8D1107310486CEB800E47090 /* WindMobile-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WindMobile-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		F804BB8711A86047009B6057 /* iPadHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPadHelper.h; path = Shared/iPadHelper.h; sourceTree = "<group>"; };
 		F804BB8811A86047009B6057 /* iPadHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPadHelper.m; path = Shared/iPadHelper.m; sourceTree = "<group>"; };
+		F809AE3C1311C5FD00193754 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Resources/de.lproj/WindMobile.strings; sourceTree = "<group>"; };
+		F809AE3D1311C74B00193754 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = Resources/de.lproj/MainWindow_Pad.xib; sourceTree = SOURCE_ROOT; };
+		F809AE3E1311C75E00193754 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = Resources/de.lproj/MainWindow_Phone.xib; sourceTree = SOURCE_ROOT; };
+		F809AE3F1311C77B00193754 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = Resources/de.lproj/StationInfoViewController.xib; sourceTree = "<group>"; };
+		F809AE401311C7B900193754 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = Resources/de.lproj/StationListViewController.xib; sourceTree = "<group>"; };
+		F809AE411311C7CA00193754 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = Resources/de.lproj/StationDetailViewController.xib; sourceTree = "<group>"; };
+		F809AE421311C7D800193754 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = Resources/de.lproj/StationDetailMeteoViewController.xib; sourceTree = "<group>"; };
+		F809AE431311C7E800193754 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = Resources/de.lproj/WindTrendChartViewController.xib; sourceTree = "<group>"; };
 		F80C4EBA130ABF8E00FAD1A4 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		F80C4EBF130AC2FF00FAD1A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/StationDetailMeteoViewController.xib; sourceTree = "<group>"; };
 		F80C4EC2130AC6BC00FAD1A4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/StationDetailMeteoViewController.xib; sourceTree = "<group>"; };
@@ -199,6 +207,7 @@
 		F846DF4511A2A06800FC2F49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/StationInfoViewController.xib; sourceTree = "<group>"; };
 		F846DFAF11A2A5F100FC2F49 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F8491CAB11A6A8B50076B32D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		F84A1BB81311CCCB00A85422 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = Resources/de.lproj/MapViewController.xib; sourceTree = "<group>"; };
 		F851AC6F12F446D2002F851C /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		F851AC8212F4478D002F851C /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		F851AC8312F4478D002F851C /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
@@ -715,6 +724,7 @@
 				German,
 				fr,
 				en,
+				de,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -940,6 +950,7 @@
 			children = (
 				F80C4EBF130AC2FF00FAD1A4 /* en */,
 				F80C4EC2130AC6BC00FAD1A4 /* fr */,
+				F809AE421311C7D800193754 /* de */,
 			);
 			name = StationDetailMeteoViewController.xib;
 			sourceTree = "<group>";
@@ -949,6 +960,7 @@
 			children = (
 				F814469A130C1C9C002D83CE /* en */,
 				F8377990130C2241008B47CC /* fr */,
+				F809AE431311C7E800193754 /* de */,
 			);
 			name = WindTrendChartViewController.xib;
 			sourceTree = "<group>";
@@ -958,6 +970,7 @@
 			children = (
 				F832991811A81ED6005D2572 /* en */,
 				F83299CE11A84597005D2572 /* fr */,
+				F84A1BB81311CCCB00A85422 /* de */,
 			);
 			name = MapViewController.xib;
 			sourceTree = "<group>";
@@ -967,6 +980,7 @@
 			children = (
 				F8549B74119DEF3D0010B513 /* en */,
 				F8549B76119DEFC00010B513 /* fr */,
+				F809AE3C1311C5FD00193754 /* de */,
 			);
 			name = WindMobile.strings;
 			sourceTree = "<group>";
@@ -976,6 +990,7 @@
 			children = (
 				F855F644130570860038A03B /* en */,
 				F8BE64B01305FD3D00ECC373 /* fr */,
+				F809AE401311C7B900193754 /* de */,
 			);
 			name = StationListViewController.xib;
 			sourceTree = "<group>";
@@ -985,6 +1000,7 @@
 			children = (
 				F858A64B119E97E600FA26FA /* fr */,
 				F858A64D119E980C00FA26FA /* en */,
+				F809AE411311C7CA00193754 /* de */,
 			);
 			name = StationDetailViewController.xib;
 			sourceTree = "<group>";
@@ -994,6 +1010,7 @@
 			children = (
 				F858A66E119E984D00FA26FA /* en */,
 				F846DF4511A2A06800FC2F49 /* fr */,
+				F809AE3F1311C77B00193754 /* de */,
 			);
 			name = StationInfoViewController.xib;
 			sourceTree = "<group>";
@@ -1003,6 +1020,7 @@
 			children = (
 				F8E8A38112F8647600F2E84B /* fr */,
 				F8E8A38312F8648E00F2E84B /* en */,
+				F809AE3D1311C74B00193754 /* de */,
 			);
 			name = MainWindow_Pad.xib;
 			sourceTree = "<group>";
@@ -1012,6 +1030,7 @@
 			children = (
 				F8E8A38512F8649B00F2E84B /* fr */,
 				F8E8A38712F864B000F2E84B /* en */,
+				F809AE3E1311C75E00193754 /* de */,
 			);
 			name = MainWindow_Phone.xib;
 			sourceTree = "<group>";

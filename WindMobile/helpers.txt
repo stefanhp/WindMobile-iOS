@@ -1,4 +1,4 @@
-// Extract string files from xib files
+// Extract string files from xib files for fr localization
 mv ../Localization/fr/_NewBase/MainWindow_Phone.xib.strings ../Localization/fr/_OldBase/
 ibtool --export-strings-file ../Localization/fr/_NewBase/MainWindow_Phone.xib.strings Resources/en.lproj/MainWindow_Phone.xib 
 
@@ -20,7 +20,7 @@ ibtool --export-strings-file ../Localization/fr/_NewBase/StationDetailMeteoViewC
 mv ../Localization/fr/_NewBase/WindTrendChartViewController.xib.strings ../Localization/fr/_OldBase/
 ibtool --export-strings-file ../Localization/fr/_NewBase/WindTrendChartViewController.xib.strings Resources/en.lproj/WindTrendChartViewController.xib 
 
-// Update of french localization for all xib
+// Update of fr localization for all xib
 ibtool --strings-file ../Localization/fr/_NewLoc/MainWindow_Phone.xib.strings --write Resources/fr.lproj/MainWindow_Phone.xib Resources/en.lproj/MainWindow_Phone.xib
 ibtool --strings-file ../Localization/fr/_NewLoc/MainWindow_Pad.xib.strings --write Resources/fr.lproj/MainWindow_Pad.xib Resources/en.lproj/MainWindow_Pad.xib
 cp ../Localization/fr/_NewLoc/WindMobile.strings Resources/fr.lproj/
@@ -29,3 +29,33 @@ ibtool --strings-file ../Localization/fr/_NewLoc/StationDetailViewController.xib
 ibtool --strings-file ../Localization/fr/_NewLoc/StationDetailMeteoViewController.xib.strings --write Resources/fr.lproj/StationDetailMeteoViewController.xib Resources/en.lproj/StationDetailMeteoViewController.xib
 ibtool --strings-file ../Localization/fr/_NewLoc/WindTrendChartViewController.xib.strings --write Resources/fr.lproj/WindTrendChartViewController.xib Resources/en.lproj/WindTrendChartViewController.xib
 
+// Extract string files from xib files for de localization
+mv ../Localization/de/_NewBase/MainWindow_Phone.xib.strings ../Localization/de/_OldBase/
+ibtool --export-strings-file ../Localization/de/_NewBase/MainWindow_Phone.xib.strings Resources/en.lproj/MainWindow_Phone.xib 
+
+mv ../Localization/de/_NewBase/MainWindow_Pad.xib.strings ../Localization/de/_OldBase/
+ibtool --export-strings-file ../Localization/de/_NewBase/MainWindow_Pad.xib.strings Resources/en.lproj/MainWindow_Pad.xib 
+
+mv ../Localization/de/_NewBase/WindMobile.strings ../Localization/de/_OldBase/
+cp Resources/en.lproj/WindMobile.strings ../Localization/de/_NewBase/
+
+mv ../Localization/de/_NewBase/StationInfoViewController.xib.strings ../Localization/de/_OldBase/
+ibtool --export-strings-file ../Localization/de/_NewBase/StationInfoViewController.xib.strings Resources/en.lproj/StationInfoViewController.xib 
+
+mv ../Localization/de/_NewBase/StationDetailViewController.xib.strings ../Localization/de/_OldBase/
+ibtool --export-strings-file ../Localization/de/_NewBase/StationDetailViewController.xib.strings Resources/en.lproj/StationDetailViewController.xib 
+
+mv ../Localization/de/_NewBase/StationDetailMeteoViewController.xib.strings ../Localization/de/_OldBase/
+ibtool --export-strings-file ../Localization/de/_NewBase/StationDetailMeteoViewController.xib.strings Resources/en.lproj/StationDetailMeteoViewController.xib 
+
+mv ../Localization/de/_NewBase/WindTrendChartViewController.xib.strings ../Localization/de/_OldBase/
+ibtool --export-strings-file ../Localization/de/_NewBase/WindTrendChartViewController.xib.strings Resources/en.lproj/WindTrendChartViewController.xib 
+
+// Update of de localization for all xib
+ibtool --strings-file ../Localization/de/_NewLoc/MainWindow_Phone.xib.strings --write Resources/de.lproj/MainWindow_Phone.xib Resources/en.lproj/MainWindow_Phone.xib
+ibtool --strings-file ../Localization/de/_NewLoc/MainWindow_Pad.xib.strings --write Resources/de.lproj/MainWindow_Pad.xib Resources/en.lproj/MainWindow_Pad.xib
+cp ../Localization/de/_NewLoc/WindMobile.strings Resources/de.lproj/
+ibtool --strings-file ../Localization/de/_NewLoc/StationInfoViewController.xib.strings --write Resources/de.lproj/StationInfoViewController.xib Resources/en.lproj/StationInfoViewController.xib
+ibtool --strings-file ../Localization/de/_NewLoc/StationDetailViewController.xib.strings --write Resources/de.lproj/StationDetailViewController.xib Resources/en.lproj/StationDetailViewController.xib
+ibtool --strings-file ../Localization/de/_NewLoc/StationDetailMeteoViewController.xib.strings --write Resources/de.lproj/StationDetailMeteoViewController.xib Resources/en.lproj/StationDetailMeteoViewController.xib
+ibtool --strings-file ../Localization/de/_NewLoc/WindTrendChartViewController.xib.strings --write Resources/de.lproj/WindTrendChartViewController.xib Resources/en.lproj/WindTrendChartViewController.xib

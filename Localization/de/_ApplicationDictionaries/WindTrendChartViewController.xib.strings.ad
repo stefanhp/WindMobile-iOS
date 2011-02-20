@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Comment here. (1.0a10c2) -->
+<Proj>
+<ProjName>WindTrendChartViewController.xib.strings</ProjName>
+
+<!--                                                -->
+<!--    WindTrendChartViewController.xib.strings    -->
+<!--                                                -->
+<File>
+<Filepath>WindTrendChartViewController.xib.strings</Filepath>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;SE&quot;; ObjectID = &quot;10&quot;; </Description>
+<Position>10.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >SE</base>
+	<tran loc="de" origin="">SO</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;SW&quot;; ObjectID = &quot;11&quot;; </Description>
+<Position>11.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >SW</base>
+	<tran loc="de" origin="">SW</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;N&quot;; ObjectID = &quot;4&quot;; </Description>
+<Position>4.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >N</base>
+	<tran loc="de" origin="">N</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;W&quot;; ObjectID = &quot;5&quot;; </Description>
+<Position>5.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >W</base>
+	<tran loc="de" origin="">W</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;E&quot;; ObjectID = &quot;6&quot;; </Description>
+<Position>6.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >E</base>
+	<tran loc="de" origin="">O</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;S&quot;; ObjectID = &quot;7&quot;; </Description>
+<Position>7.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >S</base>
+	<tran loc="de" origin="">S</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;NE&quot;; ObjectID = &quot;8&quot;; </Description>
+<Position>8.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >NE</base>
+	<tran loc="de" origin="">NO</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;NW&quot;; ObjectID = &quot;9&quot;; </Description>
+<Position>9.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >NW</base>
+	<tran loc="de" origin="">NW</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+</Proj>

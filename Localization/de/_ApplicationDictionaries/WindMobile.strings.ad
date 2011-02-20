@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Comment here. (1.0a10c2) -->
+<Proj>
+<ProjName>WindMobile.strings</ProjName>
+
+<!--                          -->
+<!--    WindMobile.strings    -->
+<!--                          -->
+<File>
+<Filepath>WindMobile.strings</Filepath>
+
+<TextItem>
+<Description> days ago </Description>
+<Position>AGO_DAYS</Position>
+<TranslationSet>
+
+	<base loc="en"          >%i days ago</base>
+	<tran loc="de" origin="">Vor %i Tage</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> hours ago </Description>
+<Position>AGO_HOURS</Position>
+<TranslationSet>
+
+	<base loc="en"          >%i hours ago</base>
+	<tran loc="de" origin="">Vor %i Stunden</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> minutes ago </Description>
+<Position>AGO_MINUTES</Position>
+<TranslationSet>
+
+	<base loc="en"          >%i minutes ago</base>
+	<tran loc="de" origin="">vor %i Minuten</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> years ago </Description>
+<Position>AGO_YEARS</Position>
+<TranslationSet>
+
+	<base loc="en"          >%i years ago</base>
+	<tran loc="de" origin="">vor %i Jahren</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Altitude </Description>
+<Position>ALTITUDE</Position>
+<TranslationSet>
+
+	<base loc="en"          >Altitude</base>
+	<tran loc="de" origin="">Höhe</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Altitude format string </Description>
+<Position>ALTITUDE_FORMAT</Position>
+<TranslationSet>
+
+	<base loc="en"          >Altitude %@ m</base>
+	<tran loc="de" origin="">Höhe %@ M</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Altitude format string </Description>
+<Position>ALTITUDE_SHORT_FORMAT</Position>
+<TranslationSet>
+
+	<base loc="en"          >%@ m</base>
+	<tran loc="de" origin="">%@ M</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Back </Description>
+<Position>BACK</Position>
+<TranslationSet>
+
+	<base loc="en"          >Back</base>
+	<tran loc="de" origin="">Zurück</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Cancel </Description>
+<Position>CANCEL</Position>
+<TranslationSet>
+
+	<base loc="en"          >Cancel</base>
+	<tran loc="de" origin="">Abbrechen</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Coordinate </Description>
+<Position>COORDINATE</Position>
+<TranslationSet>
+
+	<base loc="en"          >Location</base>
+	<tran loc="de" origin="">Standort</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Coordinate </Description>
+<Position>COORDINATE_SHOW</Position>
+<TranslationSet>
+
+	<base loc="en"          >Show</base>
+	<tran loc="de" origin="">Zeigen</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Coordinate </Description>
+<Position>COORDINATE_SHOW_IN_MAPS</Position>
+<TranslationSet>
+
+	<base loc="en"          >Show in Maps</base>
+	<tran loc="de" origin="">In Karten Zeigen</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Duration </Description>
+<Position>DURATION0</Position>
+<TranslationSet>
+
+	<base loc="en"          >4h</base>
+	<tran loc="de" origin="">4S</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Duration </Description>
+<Position>DURATION1</Position>
+<TranslationSet>
+
+	<base loc="en"          >6h</base>
+	<tran loc="de" origin="">6S</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Duration </Description>
+<Position>DURATION2</Position>
+<TranslationSet>
+
+	<base loc="en"          >12h</base>
+	<tran loc="de" origin="">12S</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Duration </Description>
+<Position>DURATION3</Position>
+<TranslationSet>
+
+	<base loc="en"          >1d</base>
+	<tran loc="de" origin="">1T</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Duration </Description>
+<Position>DURATION4</Position>
+<TranslationSet>
+
+	<base loc="en"          >2d</base>
+	<tran loc="de" origin="">2T</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Duration </Description>
+<Position>DURATION5</Position>
+<TranslationSet>
+
+	<base loc="en"          >3d</base>
+	<tran loc="de" origin="">3T</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Error </Description>
+<Position>ERROR_NETWORK</Position>
+<TranslationSet>
+
+	<base loc="en"          >Network error</base>
+	<tran loc="de" origin="">Netzwerkfehler</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Error </Description>
+<Position>ERROR_RECEIVED</Position>
+<TranslationSet>
+
+	<base loc="en"          >Received error </base>
+	<tran loc="de" origin="">Empfangener Fehler </tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Error </Description>
+<Position>ERROR_RECEIVED_FORMAT</Position>
+<TranslationSet>
+
+	<base loc="en"          >Unable to communicate with host %@</base>
+	<tran loc="de" origin="">Unfähig, sich mit Hauptrechner %@ zu verständigen</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Humidity </Description>
+<Position>HUMIDITY</Position>
+<TranslationSet>
+
+	<base loc="en"          >Humidity</base>
+	<tran loc="de" origin="">Feuchtigkeit</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Humidity format </Description>
+<Position>HUMIDITY_FORMAT</Position>
+<TranslationSet>
+
+	<base loc="en"          >%@ %%</base>
+	<tran loc="de" origin="">%@ %%</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Wind graph </Description>
+<Position>INDEX_WIND_GRAPH</Position>
+<TranslationSet>
+
+	<base loc="en"          >Graph</base>
+	<tran loc="de" origin="">Grafik</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> in days </Description>
+<Position>IN_DAYS</Position>
+<TranslationSet>
+
+	<base loc="en"          >in %i days</base>
+	<tran loc="de" origin="">in %i Tagen</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> in hours </Description>
+<Position>IN_HOURS</Position>
+<TranslationSet>
+
+	<base loc="en"          >in %i hours</base>
+	<tran loc="de" origin="">in %i Stunden</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> in minutes </Description>
+<Position>IN_MINUTES</Position>
+<TranslationSet>
+
+	<base loc="en"          >in %i minutes</base>
+	<tran loc="de" origin="">in %i Minuten</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> in years </Description>
+<Position>IN_YEARS</Position>
+<TranslationSet>
+
+	<base loc="en"          >in %i years</base>
+	<tran loc="de" origin="">in %i Jahren</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Not available </Description>
+<Position>NOT_AVAILABLE</Position>
+<TranslationSet>
+
+	<base loc="en"          >---</base>
+	<tran loc="de" origin="">---</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Refresh </Description>
+<Position>REFRESH</Position>
+<TranslationSet>
+
+	<base loc="en"          >Refresh</base>
+	<tran loc="de" origin="">Erneuern</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Station detail section info </Description>
+<Position>SECTION_CURRENT</Position>
+<TranslationSet>
+
+	<base loc="en"          >Current Wind</base>
+	<tran loc="de" origin="">Aktuelles Wind</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Station detail section history </Description>
+<Position>SECTION_HISTORY</Position>
+<TranslationSet>
+
+	<base loc="en"          >History</base>
+	<tran loc="de" origin="">Geschichtlicher überblick</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Station detail section history footer </Description>
+<Position>SECTION_HISTORY_FOOTER</Position>
+<TranslationSet>
+
+	<base loc="en"          >Average on the past hour</base>
+	<tran loc="de" origin="">Durchschnitt der letzten Stunde</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Station detail section info </Description>
+<Position>SECTION_INFO</Position>
+<TranslationSet>
+
+	<base loc="en"          >Info</base>
+	<tran loc="de" origin="">Info</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Station detail section info </Description>
+<Position>SECTION_WEATHER</Position>
+<TranslationSet>
+
+	<base loc="en"          >Weather</base>
+	<tran loc="de" origin="">Wetter</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Settings </Description>
+<Position>SETTINGS</Position>
+<TranslationSet>
+
+	<base loc="en"          >Settings</base>
+	<tran loc="de" origin="">Einstellungen</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Show in Maps </Description>
+<Position>SHOW_IN_MAPS</Position>
+<TranslationSet>
+
+	<base loc="en"          >Show in Maps</base>
+	<tran loc="de" origin="">In Karten Zeigen</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Select displayed stations </Description>
+<Position>SHOW_STATIONS</Position>
+<TranslationSet>
+
+	<base loc="en"          >Show Stations</base>
+	<tran loc="de" origin="">Stationen Zeigen</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Show All Stations </Description>
+<Position>SHOW_STATIONS_ALL</Position>
+<TranslationSet>
+
+	<base loc="en"          >Show All Stations</base>
+	<tran loc="de" origin="">Alle Stationen Zeigen</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Hide All Stations </Description>
+<Position>SHOW_STATIONS_NONE</Position>
+<TranslationSet>
+
+	<base loc="en"          >Hide All Stations</base>
+	<tran loc="de" origin="">Keine Stationen Zeigen</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Stations </Description>
+<Position>STATIONS</Position>
+<TranslationSet>
+
+	<base loc="en"          >Stations</base>
+	<tran loc="de" origin="">Stationen</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Temperature </Description>
+<Position>TEMPERATURE</Position>
+<TranslationSet>
+
+	<base loc="en"          >Temperature</base>
+	<tran loc="de" origin="">Temperatur</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Temperature format</Description>
+<Position>TEMPERATURE_FORMAT</Position>
+<TranslationSet>
+
+	<base loc="en"          >%@ °C</base>
+	<tran loc="de" origin="">%@ °C</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Updated </Description>
+<Position>UPDATED</Position>
+<TranslationSet>
+
+	<base loc="en"          >Updated</base>
+	<tran loc="de" origin="">Aktualisiert</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Average Wind </Description>
+<Position>WIND_AVERAGE</Position>
+<TranslationSet>
+
+	<base loc="en"          >Average</base>
+	<tran loc="de" origin="">Durchschnitt</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Current Wind </Description>
+<Position>WIND_CURRENT</Position>
+<TranslationSet>
+
+	<base loc="en"          >Current</base>
+	<tran loc="de" origin="">Aktuell</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Wind format </Description>
+<Position>WIND_FORMAT</Position>
+<TranslationSet>
+
+	<base loc="en"          >%@ km/h</base>
+	<tran loc="de" origin="">%@ KM/S</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Current Wind </Description>
+<Position>WIND_MAX</Position>
+<TranslationSet>
+
+	<base loc="en"          >Max</base>
+	<tran loc="de" origin="">Max</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Current Wind </Description>
+<Position>WIND_MIN</Position>
+<TranslationSet>
+
+	<base loc="en"          >Min</base>
+	<tran loc="de" origin="">Min</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Current Wind </Description>
+<Position>WIND_TREND</Position>
+<TranslationSet>
+
+	<base loc="en"          >Trend</base>
+	<tran loc="de" origin="">Tendenz</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Current Wind </Description>
+<Position>WIND_TREND_FORMAT</Position>
+<TranslationSet>
+
+	<base loc="en"          >%@ °</base>
+	<tran loc="de" origin="">%@ °</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+</Proj>

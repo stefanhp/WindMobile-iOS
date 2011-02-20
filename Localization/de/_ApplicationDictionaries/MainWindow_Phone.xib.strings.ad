@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Comment here. (1.0a10c2) -->
+<Proj>
+<ProjName>MainWindow_Phone.xib.strings</ProjName>
+
+<!--                                    -->
+<!--    MainWindow_Phone.xib.strings    -->
+<!--                                    -->
+<File>
+<Filepath>MainWindow_Phone.xib.strings</Filepath>
+
+<TextItem>
+<Description> Class = &quot;IBUIViewController&quot;; title = &quot;Settings&quot;; ObjectID = &quot;27&quot;; </Description>
+<Position>27.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Settings</base>
+	<tran loc="de" origin="">Einstellungen</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUINavigationItem&quot;; title = &quot;Settings&quot;; ObjectID = &quot;29&quot;; </Description>
+<Position>29.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Settings</base>
+	<tran loc="de" origin="">Einstellungen</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUITabBarItem&quot;; title = &quot;Settings&quot;; ObjectID = &quot;30&quot;; </Description>
+<Position>30.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Settings</base>
+	<tran loc="de" origin="">Einstellungen</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUITabBarItem&quot;; title = &quot;Stations&quot;; ObjectID = &quot;35&quot;; </Description>
+<Position>35.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Stations</base>
+	<tran loc="de" origin="">Stationen</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUINavigationItem&quot;; title = &quot;Stations&quot;; ObjectID = &quot;37&quot;; </Description>
+<Position>37.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Stations</base>
+	<tran loc="de" origin="">Stationen</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUITabBarItem&quot;; title = &quot;Map&quot;; ObjectID = &quot;47&quot;; </Description>
+<Position>47.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Map</base>
+	<tran loc="de" origin="">Karte</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+</Proj>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Comment here. (1.0a10c2) -->
+<Proj>
+<ProjName>StationDetailMeteoViewController.xib.strings</ProjName>
+
+<!--                                                    -->
+<!--    StationDetailMeteoViewController.xib.strings    -->
+<!--                                                    -->
+<File>
+<Filepath>StationDetailMeteoViewController.xib.strings</Filepath>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;Wind&quot;; ObjectID = &quot;11&quot;; </Description>
+<Position>11.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >Wind</base>
+	<tran loc="de" origin="">Wind</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;Wind last hour&quot;; ObjectID = &quot;12&quot;; </Description>
+<Position>12.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >Wind last hour</base>
+	<tran loc="de" origin="">Wind letzte Stunde</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;SP&quot;; ObjectID = &quot;13&quot;; </Description>
+<Position>13.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >SP</base>
+	<tran loc="de" origin="">SP</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;GU&quot;; ObjectID = &quot;14&quot;; </Description>
+<Position>14.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >GU</base>
+	<tran loc="de" origin="">GU</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;km/h&quot;; ObjectID = &quot;15&quot;; </Description>
+<Position>15.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >km/h</base>
+	<tran loc="de" origin="">KM/S</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;km/h&quot;; ObjectID = &quot;16&quot;; </Description>
+<Position>16.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >km/h</base>
+	<tran loc="de" origin="">KM/S</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;km/h&quot;; ObjectID = &quot;17&quot;; </Description>
+<Position>17.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >km/h</base>
+	<tran loc="de" origin="">KM/S</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;km/h&quot;; ObjectID = &quot;18&quot;; </Description>
+<Position>18.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >km/h</base>
+	<tran loc="de" origin="">KM/S</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;km/h&quot;; ObjectID = &quot;19&quot;; </Description>
+<Position>19.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >km/h</base>
+	<tran loc="de" origin="">KM/S</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;Air&quot;; ObjectID = &quot;20&quot;; </Description>
+<Position>20.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >Air</base>
+	<tran loc="de" origin="">Luft</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;Gust&quot;; ObjectID = &quot;21&quot;; </Description>
+<Position>21.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >Gust</base>
+	<tran loc="de" origin="">Böe</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;Trend&quot;; ObjectID = &quot;22&quot;; </Description>
+<Position>22.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >Trend</base>
+	<tran loc="de" origin="">Tendenz</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;Minimum&quot;; ObjectID = &quot;23&quot;; </Description>
+<Position>23.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >Minimum</base>
+	<tran loc="de" origin="">Minimum</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;Average&quot;; ObjectID = &quot;24&quot;; </Description>
+<Position>24.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >Average</base>
+	<tran loc="de" origin="">Durchschnitt</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;Maximum&quot;; ObjectID = &quot;25&quot;; </Description>
+<Position>25.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >Maximum</base>
+	<tran loc="de" origin="">Maximum</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;Temperature&quot;; ObjectID = &quot;26&quot;; </Description>
+<Position>26.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >Temperature</base>
+	<tran loc="de" origin="">Temperatur</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;degree&quot;; ObjectID = &quot;27&quot;; </Description>
+<Position>27.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >degree</base>
+	<tran loc="de" origin="">grad</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;% rel&quot;; ObjectID = &quot;28&quot;; </Description>
+<Position>28.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >% rel</base>
+	<tran loc="de" origin="">% relativ</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;Humidity&quot;; ObjectID = &quot;29&quot;; </Description>
+<Position>29.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >Humidity</base>
+	<tran loc="de" origin="">Feuchtigkeit</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;MIN&quot;; ObjectID = &quot;30&quot;; </Description>
+<Position>30.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >MIN</base>
+	<tran loc="de" origin="">MIN</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;AV&quot;; ObjectID = &quot;31&quot;; </Description>
+<Position>31.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >AV</base>
+	<tran loc="de" origin="">AV</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;MAX&quot;; ObjectID = &quot;32&quot;; </Description>
+<Position>32.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >MAX</base>
+	<tran loc="de" origin="">MAX</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;TM&quot;; ObjectID = &quot;33&quot;; </Description>
+<Position>33.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >TM</base>
+	<tran loc="de" origin="">TM</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;HU&quot;; ObjectID = &quot;34&quot;; </Description>
+<Position>34.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >HU</base>
+	<tran loc="de" origin="">HU</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;Last updated&quot;; ObjectID = &quot;6&quot;; </Description>
+<Position>6.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >Last updated</base>
+	<tran loc="de" origin="">Letztes aktualisiert</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;Altitude&quot;; ObjectID = &quot;7&quot;; </Description>
+<Position>7.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >Altitude</base>
+	<tran loc="de" origin="">Höhe</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+</Proj>
