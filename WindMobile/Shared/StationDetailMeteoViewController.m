@@ -225,7 +225,7 @@
 	
 	if(self.stationData.windTrend != nil){
 		float direction = [self.stationData.windTrend floatValue];
-		CGAffineTransform xform = CGAffineTransformMakeRotation(DegreeToRadian(direction));
+		CGAffineTransform xform = CGAffineTransformMakeRotation(DegreeToRadian(-direction));
 		//NSLog(@"Direction: %f", direction);
 		self.windDirectionArrow.transform = xform;
 	}
