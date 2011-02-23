@@ -85,7 +85,7 @@
 					</object>
 					<object class="IBUIView" id="31872429">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">307</int>
+						<int key="NSvFlags">289</int>
 						<string key="NSFrame">{{160, 29}, {160, 160}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="745646409">
@@ -640,6 +640,14 @@
 					</object>
 					<int key="connectionID">56</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">windTrendContainer</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="31872429"/>
+					</object>
+					<int key="connectionID">57</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -909,7 +917,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>StationDetailMeteoViewController</string>
 					<string>UIResponder</string>
-					<string>{{370, 406}, {320, 480}}</string>
+					<string>{{383, 263}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -1038,7 +1046,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">56</int>
+			<int key="maxID">57</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1092,6 +1100,7 @@
 							<string>windHistoryMax</string>
 							<string>windHistoryMin</string>
 							<string>windMax</string>
+							<string>windTrendContainer</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1105,6 +1114,7 @@
 							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
+							<string>UIView</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -1121,6 +1131,7 @@
 							<string>windHistoryMax</string>
 							<string>windHistoryMin</string>
 							<string>windMax</string>
+							<string>windTrendContainer</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1163,6 +1174,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">windMax</string>
 								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">windTrendContainer</string>
+								<string key="candidateClassName">UIView</string>
 							</object>
 						</object>
 					</object>
