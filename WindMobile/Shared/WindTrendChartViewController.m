@@ -35,19 +35,20 @@
 		CGContextSetLineWidth(context, 2.0);
 
 		double radius = 0.0;
-		double lineRadius = width/2 -(2*TREND_CHART_PADDING);
+		double drawWidth = width - 2*TREND_CHART_PADDING;
+		double lineRadius = drawWidth/2;
 		
 		CGContextMoveToPoint(context, width/2, width/2);
 
 		for (DataPoint* point in self.windData.dataPoints) {
-			CGFloat direction = [point.value floatValue];
+			CGFloat direction = [point.value floatValue] -90;
 			radius = radius + lineRadius / [self.windData.dataPoints count];
 			
-			double pointOffsetX = TREND_CHART_PADDING + (width - 2.0 * radius) / 2.0;
-            double pointOffsetY = TREND_CHART_PADDING + (width - 2.0 * radius) / 2.0;
+			double pointOffsetX = TREND_CHART_PADDING + (drawWidth -(2.0 * radius)) / 2.0;
+            double pointOffsetY = TREND_CHART_PADDING + (drawWidth -(2.0 * radius)) / 2.0;
 			
-            double circleX = cos(DegreeToRadian(direction)) * radius;
-            double circleY = sin(DegreeToRadian(direction)) * radius;
+            double circleX = -cos(DegreeToRadian(-direction)) * radius;
+            double circleY = sin(DegreeToRadian(-direction)) * radius;
 			
             CGFloat x = (CGFloat) (pointOffsetX + radius - circleX);
             CGFloat y = (CGFloat) (pointOffsetY + radius - circleY);
