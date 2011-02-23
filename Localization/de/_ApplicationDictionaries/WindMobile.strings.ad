@@ -521,7 +521,7 @@
 <TranslationSet>
 
 	<base loc="en"          >%@ km/h</base>
-	<tran loc="de" origin="">%@ KM/S</tran>
+	<tran loc="de" origin="">%@ km/h</tran>
 
 </TranslationSet>
 </TextItem>

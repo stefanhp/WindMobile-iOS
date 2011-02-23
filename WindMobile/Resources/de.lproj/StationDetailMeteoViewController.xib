@@ -186,7 +186,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">KM/S</string>
+						<string key="IBUIText">km/h</string>
 						<object class="NSFont" key="IBUIFont" id="799769985">
 							<string key="NSName">Helvetica</string>
 							<double key="NSSize">14</double>
@@ -207,7 +207,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">KM/S</string>
+						<string key="IBUIText">km/h</string>
 						<reference key="IBUIFont" ref="799769985"/>
 						<reference key="IBUITextColor" ref="189095937"/>
 						<reference key="IBUIHighlightedColor" ref="265464039"/>
@@ -224,7 +224,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">KM/S</string>
+						<string key="IBUIText">km/h</string>
 						<reference key="IBUIFont" ref="799769985"/>
 						<reference key="IBUITextColor" ref="189095937"/>
 						<reference key="IBUIHighlightedColor" ref="265464039"/>
@@ -242,7 +242,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">KM/S</string>
+						<string key="IBUIText">km/h</string>
 						<reference key="IBUIFont" ref="799769985"/>
 						<reference key="IBUITextColor" ref="189095937"/>
 						<reference key="IBUIHighlightedColor" ref="265464039"/>
@@ -260,7 +260,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">KM/S</string>
+						<string key="IBUIText">km/h</string>
 						<reference key="IBUIFont" ref="799769985"/>
 						<reference key="IBUITextColor" ref="189095937"/>
 						<reference key="IBUIHighlightedColor" ref="265464039"/>

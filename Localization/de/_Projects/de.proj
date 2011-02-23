@@ -8,22 +8,16 @@
 		<string>en</string>
 		<key>BrowserTickedFilesList</key>
 		<array>
-			<string>MainWindow_Pad.xib.strings</string>
-			<string>MainWindow_Phone.xib.strings</string>
 			<string>StationDetailMeteoViewController.xib.strings</string>
-			<string>StationDetailViewController.xib.strings</string>
-			<string>StationInfoViewController.xib.strings</string>
-			<string>WindMobile.strings</string>
-			<string>WindTrendChartViewController.xib.strings</string>
 		</array>
 		<key>BrowserWindowHeight</key>
-		<integer>320</integer>
+		<integer>339</integer>
 		<key>BrowserWindowLeft</key>
-		<integer>208</integer>
+		<integer>63</integer>
 		<key>BrowserWindowTop</key>
-		<integer>61</integer>
+		<integer>240</integer>
 		<key>BrowserWindowWidth</key>
-		<integer>1280</integer>
+		<integer>1515</integer>
 		<key>FileMatcherIsVisible</key>
 		<false/>
 		<key>InspectorIsVisible</key>
