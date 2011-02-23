@@ -70,7 +70,7 @@
 <TranslationSet>
 
 	<base loc="en"          >Altitude %@ m</base>
-	<tran loc="de" origin="">Höhe %@ M</tran>
+	<tran loc="de" origin="">Höhe %@ m</tran>
 
 </TranslationSet>
 </TextItem>
@@ -81,7 +81,7 @@
 <TranslationSet>
 
 	<base loc="en"          >%@ m</base>
-	<tran loc="de" origin="">%@ M</tran>
+	<tran loc="de" origin="">%@ m</tran>
 
 </TranslationSet>
 </TextItem>
