@@ -289,13 +289,13 @@
 	NSMutableDictionary *response = [NSMutableDictionary dictionaryWithCapacity:2]; 
 	NSDictionary* serie = [NSDictionary dictionaryWithObjectsAndKeys: @"windDirection", @"@name",
 						   [NSArray arrayWithObjects:
-							[NSDictionary dictionaryWithObjectsAndKeys: @"1297666800000", @"date", @"326.0", @"value", nil], 
-							[NSDictionary dictionaryWithObjectsAndKeys: @"1297667400000", @"date", @"324.0", @"value", nil], 
-							[NSDictionary dictionaryWithObjectsAndKeys: @"1297668000000", @"date", @"191.0", @"value", nil], 
-							[NSDictionary dictionaryWithObjectsAndKeys: @"1297668600000", @"date", @"182.0", @"value", nil], 
-							[NSDictionary dictionaryWithObjectsAndKeys: @"1297668000000", @"date", @"157.0", @"value", nil], 
-							[NSDictionary dictionaryWithObjectsAndKeys: @"1297669800000", @"date", @"191.0", @"value",nil], 
-							[NSDictionary dictionaryWithObjectsAndKeys: @"1297670400000", @"date", @"157.0", @"value",nil], 
+							[NSDictionary dictionaryWithObjectsAndKeys: @"1298473200000", @"date", @"300.0", @"value", nil], 
+							[NSDictionary dictionaryWithObjectsAndKeys: @"1298473800000", @"date", @"246.0", @"value", nil], 
+							[NSDictionary dictionaryWithObjectsAndKeys: @"1298474400000", @"date", @"241.0", @"value", nil], 
+							[NSDictionary dictionaryWithObjectsAndKeys: @"1298475000000", @"date", @"233.0", @"value", nil], 
+							[NSDictionary dictionaryWithObjectsAndKeys: @"1298475600000", @"date", @"234.0", @"value", nil], 
+							[NSDictionary dictionaryWithObjectsAndKeys: @"1298476200000", @"date", @"232.0", @"value",nil], 
+							[NSDictionary dictionaryWithObjectsAndKeys: @"1298476800000", @"date", @"228.0", @"value",nil], 
 							nil], @"points",
 						   nil];
 	
@@ -305,8 +305,8 @@
 						   nil];
 	
 	NSDictionary* stationData = [NSDictionary dictionaryWithObjectsAndKeys:
-								 @"2011-02-14T10:00:00+0100", @"@expirationDate",
-								 @"2011-02-14T09:00:00+0100", @"@lastUpdate",
+								 @"2011-02-24T09:00:00+0100", @"@expirationDate",
+								 @"2011-02-23T17:00:00+0100", @"@lastUpdate",
 								 @"1001", @"@stationId",
 								 @"green", @"@status",
 								 @"61.6", @"airHumidity", 
