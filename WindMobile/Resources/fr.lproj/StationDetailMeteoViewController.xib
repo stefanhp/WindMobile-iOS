@@ -390,14 +390,14 @@
 					<object class="IBUILabel" id="417386610">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">289</int>
-						<string key="NSFrame">{{267, 316}, {44, 21}}</string>
+						<string key="NSFrame">{{264, 316}, {44, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">degré</string>
+						<string key="IBUIText">°C</string>
 						<reference key="IBUIFont" ref="799769985"/>
 						<reference key="IBUITextColor" ref="189095937"/>
 						<reference key="IBUIHighlightedColor" ref="265464039"/>
@@ -1436,7 +1436,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NS.key.0">arrow.png</string>
-			<string key="NS.object.0">{60, 60}</string>
+			<string key="NS.object.0">{24, 24}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">123</string>
 	</data>

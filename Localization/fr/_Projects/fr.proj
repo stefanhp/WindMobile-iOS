@@ -8,14 +8,14 @@
 		<string>en</string>
 		<key>BrowserTickedFilesList</key>
 		<array>
-			<string>WindTrendChartViewController.xib.strings</string>
+			<string>StationDetailMeteoViewController.xib.strings</string>
 		</array>
 		<key>BrowserWindowHeight</key>
 		<integer>370</integer>
 		<key>BrowserWindowLeft</key>
-		<integer>123</integer>
+		<integer>111</integer>
 		<key>BrowserWindowTop</key>
-		<integer>212</integer>
+		<integer>414</integer>
 		<key>BrowserWindowWidth</key>
 		<integer>1329</integer>
 		<key>FileMatcherIsVisible</key>

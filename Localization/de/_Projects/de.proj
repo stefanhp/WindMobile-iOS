@@ -7,15 +7,13 @@
 		<key>BaseLocale</key>
 		<string>en</string>
 		<key>BrowserTickedFilesList</key>
-		<array>
-			<string>StationDetailMeteoViewController.xib.strings</string>
-		</array>
+		<array/>
 		<key>BrowserWindowHeight</key>
 		<integer>339</integer>
 		<key>BrowserWindowLeft</key>
-		<integer>63</integer>
+		<integer>120</integer>
 		<key>BrowserWindowTop</key>
-		<integer>240</integer>
+		<integer>48</integer>
 		<key>BrowserWindowWidth</key>
 		<integer>1515</integer>
 		<key>FileMatcherIsVisible</key>
@@ -59,6 +57,8 @@
 			<key>NewBase</key>
 			<string>StationDetailMeteoViewController.xib.strings</string>
 			<key>NewLoc</key>
+			<string>StationDetailMeteoViewController.xib.strings</string>
+			<key>OldBase</key>
 			<string>StationDetailMeteoViewController.xib.strings</string>
 			<key>WorkGlossary</key>
 			<string>StationDetailMeteoViewController.xib.strings.wg</string>

@@ -197,6 +197,17 @@
 </TextItem>
 
 <TextItem>
+<Description> Class = &quot;IBUILabel&quot;; text = &quot;°C&quot;; ObjectID = &quot;27&quot;; </Description>
+<Position>27.text</Position>
+<TranslationSet>
+
+	<base loc="en"          >°C</base>
+	<tran loc="fr" origin="">°C</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
 <Description> Class = &quot;IBUILabel&quot;; text = &quot;% rel&quot;; ObjectID = &quot;28&quot;; </Description>
 <Position>28.text</Position>
 <TranslationSet>
