@@ -188,7 +188,7 @@
     [graph addPlot:maxLinePlot];
 	
 	// additional plots
-	if(!self.isInCell){
+	if(!self.isInCell && NO){ //Disabled for now. May replace "NO" by a systm preference.
 		// Danger
 		CPScatterPlot *dangerLinePlot = [[[CPScatterPlot alloc] init] autorelease];
 		dangerLinePlot.identifier = PLOT_WIND_RED_IDENTIFIER;
