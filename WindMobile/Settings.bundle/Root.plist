@@ -62,7 +62,7 @@
 				<integer>2</integer>
 			</array>
 		</dict>
-		<dict>
+		<!--dict>
 			<key>DefaultValue</key>
 			<string>NO</string>
 			<key>FalseValue</key>
@@ -75,7 +75,7 @@
 			<string>YES</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
-		</dict>
+		</dict-->
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>
