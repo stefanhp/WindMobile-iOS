@@ -208,6 +208,11 @@
 #pragma mark MKMapViewDelegate
 
 - (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation{
+	if ([annotation isKindOfClass:[MKUserLocation class]]){
+		// Ignore the user location
+        return nil;
+	}
+
 	static NSString* stationAnnotationIdentifier = @"stationAnnotationIdentifier";
 	MKPinAnnotationView* pinView = (MKPinAnnotationView *)
 	[map.mapView dequeueReusableAnnotationViewWithIdentifier:stationAnnotationIdentifier];
