@@ -5,16 +5,16 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string></string>
 			<key>FooterText</key>
 			<string>Copyright</string>
+			<key>Title</key>
+			<string></string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>0.8.2 (36)</string>
+			<string>0.9.0.38</string>
 			<key>Key</key>
 			<string>pref_version</string>
 			<key>Title</key>
