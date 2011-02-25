@@ -70,6 +70,16 @@
 				<integer>2</integer>
 			</array>
 		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string></string>
+			<key>File</key>
+			<string>http://www.la-haut.info/windmobile-ios/</string>
+			<key>Title</key>
+			<string>Support</string>
+			<key>Type</key>
+			<string>IASKOpenURLSpecifier</string>
+		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>
