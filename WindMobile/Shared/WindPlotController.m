@@ -37,6 +37,7 @@
 @synthesize stationGraph;
 @synthesize drawAxisSet;
 @synthesize isInCell;
+@synthesize activityIndicator;
 
 
 //@synthesize dataForPlot;
@@ -393,17 +394,14 @@
 	self.navigationItem.rightBarButtonItem = nil;
 	
 	// activity indicator
-	UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+	info.hidden = YES;
 	[activityIndicator startAnimating];
-	UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
-	[activityIndicator release];
-	self.navigationItem.rightBarButtonItem = activityItem;
-	[activityItem release];
 }
 
 - (void)stopRefreshAnimation{
 	// Stop animation
-	self.navigationItem.rightBarButtonItem = nil;
+	[activityIndicator stopAnimating];
+	info.hidden = NO;
 	
 	// Put Refresh button on the top left
 	UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh

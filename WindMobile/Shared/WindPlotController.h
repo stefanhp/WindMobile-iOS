@@ -28,6 +28,7 @@
 	NSString *duration;
 	UISegmentedControl *scale;
 	UIButton *info;
+	UIActivityIndicatorView *activityIndicator;
 }
 @property(readwrite, retain) IBOutlet CPGraphHostingView *hostingView;
 @property(readwrite, retain) StationInfo *stationInfo;
@@ -37,6 +38,7 @@
 @property(readwrite, retain) NSString* duration;
 @property(readwrite, retain) IBOutlet UISegmentedControl *scale;
 @property(readwrite, retain) IBOutlet UIButton *info;
+@property(readwrite, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 - (void)refreshContent:(id)sender;
 - (void)stationGraph:(StationGraph*)dataPoints;
