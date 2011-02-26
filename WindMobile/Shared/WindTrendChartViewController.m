@@ -30,7 +30,7 @@
 	CGContextStrokePath(context);
 	
 	// Lines
-	if (self.windData != nil && self.windData.dataPoints != nil && [self.windData.dataPoints count]>0) {
+	if (self.windData != nil && [self.windData dataPointCount]>0) {
 		CGContextSetCMYKStrokeColor(context, 0.0, 0.0, 0.67, 0.0, 1.0); // yellow
 		CGContextSetLineWidth(context, 2.0);
 
@@ -40,9 +40,9 @@
 		
 		CGContextMoveToPoint(context, width/2, width/2);
 
-		for (DataPoint* point in self.windData.dataPoints) {
-			CGFloat direction = [point.value floatValue] -90;
-			radius = radius + lineRadius / [self.windData.dataPoints count];
+		for (int i=0; i < [self.windData dataPointCount]; i++) {
+			CGFloat direction = [[self.windData valueForPointAtIndex:i] floatValue] -90;
+			radius = radius + lineRadius / [self.windData dataPointCount];
 			
 			double pointOffsetX = TREND_CHART_PADDING + (drawWidth -(2.0 * radius)) / 2.0;
             double pointOffsetY = TREND_CHART_PADDING + (drawWidth -(2.0 * radius)) / 2.0;

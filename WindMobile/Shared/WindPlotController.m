@@ -418,34 +418,32 @@
 	if(stationGraph == nil){
 		return 0;
 	}
-    return [stationGraph.windAverage.dataPoints count];
+    return [stationGraph.windAverage dataPointCount];
 }
 
 - (NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
 	// Wind Average
-	DataPoint* point = (DataPoint*)[stationGraph.windAverage.dataPoints objectAtIndex:index];
 	if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_AVERAGE_IDENTIFIER]){
 		if (fieldEnum == CPScatterPlotFieldX) {
-			return [NSNumber numberWithDouble:[[point date] timeIntervalSince1970]];
+			return [NSNumber numberWithDouble:[stationGraph.windAverage timeIntervalForPointAtIndex:index]];
 		} else if(fieldEnum == CPScatterPlotFieldY){
-			return [point value];
+			return [stationGraph.windAverage valueForPointAtIndex:index];
 		}
 	} else if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_MAX_IDENTIFIER]) { // Wind Max
-		point = (DataPoint*)[stationGraph.windMax.dataPoints objectAtIndex:index];
 		if (fieldEnum == CPScatterPlotFieldX) {
-			return [NSNumber numberWithDouble:[[point date] timeIntervalSince1970]];
+			return [NSNumber numberWithDouble:[stationGraph.windMax timeIntervalForPointAtIndex:index]];
 		} else if(fieldEnum == CPScatterPlotFieldY){
-			return [point value];
+			return [stationGraph.windMax valueForPointAtIndex:index];
 		}
 	} else if([(NSString *)plot.identifier isEqualToString:PLOT_WIND_RED_IDENTIFIER]){
 		if (fieldEnum == CPScatterPlotFieldX) {
-			return [NSNumber numberWithDouble:[[point date] timeIntervalSince1970]];
+			return [NSNumber numberWithDouble:[stationGraph.windAverage timeIntervalForPointAtIndex:index]];
 		} else if(fieldEnum == CPScatterPlotFieldY){
 			return [NSNumber numberWithDouble:RED_LIMIT];
 		}
 	} else if([(NSString *)plot.identifier isEqualToString:PLOT_WIND_ORANGE_IDENTIFIER]){
 		if (fieldEnum == CPScatterPlotFieldX) {
-			return [NSNumber numberWithDouble:[[point date] timeIntervalSince1970]];
+			return [NSNumber numberWithDouble:[stationGraph.windAverage timeIntervalForPointAtIndex:index]];
 		} else if(fieldEnum == CPScatterPlotFieldY){
 			return [NSNumber numberWithDouble:ORANGE_LIMIT];
 		}

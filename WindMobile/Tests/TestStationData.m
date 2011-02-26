@@ -72,15 +72,13 @@
 	STAssertNotNil(graph, @"Wind deriction graph should not be nil");
 	STAssertTrue([[graph name] isEqualToString:STATION_DATA_GRAPH_NAME], @"Wrong graph name (%@ != %@)", STATION_DATA_GRAPH_NAME, [graph name]);
 	
-	NSArray *points = graph.dataPoints;
-	STAssertNotNil(points, @"Wind deriction graph should have data points");
-	STAssertTrue([points count] == 3, @"Wrong number of data points (3 != %i)", [points count]);
+	STAssertTrue([graph dataPointCount] == 3, @"Wrong number of data points (3 != %i)", [graph dataPointCount]);
 	
-	DataPoint *point = [points objectAtIndex:0];
-	STAssertNotNil(point, @"Data point 1 should not be nil");
-	STAssertTrue([[point graphType] unsignedIntValue] == GraphPointTypeDirection, @"Wrong graph type (2 != %@)", [point graphType]);
-	STAssertTrue([[point date] timeIntervalSince1970] == 1297666800.0, @"Wrong date (1297666800.0 != %f)", [[point date] timeIntervalSince1970]);
-	STAssertTrue(([point.value doubleValue] == 1.0), @"Wrong value (1.0 != %f)", [[point value] doubleValue]);
+	STAssertTrue([[graph graphType] unsignedIntValue] == GraphPointTypeDirection, @"Wrong graph type (2 != %@)", [graph graphType]);
+
+	//DataPoint *point = [points objectAtIndex:0];
+	STAssertTrue([graph timeIntervalForPointAtIndex:0] == 1297666800.0, @"Wrong date (1297666800.0 != %f)", [graph timeIntervalForPointAtIndex:0]);
+	STAssertTrue(([[graph valueForPointAtIndex:0] doubleValue] == 1.0), @"Wrong value (1.0 != %f)", [[graph valueForPointAtIndex:0] doubleValue]);
 	
 	CPPlotRange* dateRange = graph.dateRange;
 	STAssertNotNil(dateRange, @"Date range should not be nil");

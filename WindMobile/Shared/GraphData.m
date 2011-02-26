@@ -24,37 +24,11 @@
 #define GRAPH_PADDING_VALUE 5.0
 #define GRAPH_PADDING_DATE 0
 
-@implementation DataPoint
-@synthesize graphType;
-@synthesize date;
-@synthesize value;
-- (NSString *)description{
-	return [NSString stringWithFormat:@"DataPoint %@, %@, %@", graphType, date, value];
-}
-
-- (void)dealloc {
-	[graphType release];
-	[date release];
-	[value release];
-	[super dealloc];
-}
-
-@end
-
 @implementation GraphData
 @synthesize addPadding;
 @synthesize graphData;
 @synthesize duration;
 @synthesize graphType;
-
-+ (DataPoint*)convertToDataPoint:(NSDictionary*)pointDict forType:(NSNumber*)aType{
-	DataPoint *point = [[DataPoint alloc]init];
-	point.graphType = aType;
-	
-	point.date = [WindMobileHelper decodeDateFromJavaInt:[(NSNumber*)([pointDict objectForKey:DATA_POINT_DATE_KEY]) doubleValue]];
-	point.value = [pointDict objectForKey:DATA_POINT_VALUE_KEY];
-	return [point autorelease];
-}
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary  andDuration:(NSNumber*)aDuration{
 	self = [super init];
@@ -109,31 +83,20 @@
 	return [graphData objectForKey:STATION_GRAPH_NAME_KEY];
 }
 
-@dynamic dataPoints;
 - (NSArray *)dataPoints{
-	NSArray* tmp = [graphData objectForKey:STATION_GRAPH_POINTS_KEY];
-	if(tmp != nil && [tmp count]>0){
-		NSMutableArray *result = [[[NSMutableArray alloc]initWithCapacity:[tmp count]]autorelease];
-		
-		for(NSDictionary* dictPoint in tmp){
-			[result addObject:[GraphData convertToDataPoint:dictPoint forType:self.graphType]];
-		}
-		
-		return [NSArray arrayWithArray:result];
-	}
-	return nil;
+	return [graphData objectForKey:STATION_GRAPH_POINTS_KEY];
 }
 
 @dynamic dateRange;
 - (CPPlotRange *)dateRange{
 	NSArray *points = [self dataPoints];
 	if(points != nil && [points count]>0){
-		NSTimeInterval minDate = [[(DataPoint*)([points objectAtIndex:0]) date] timeIntervalSince1970];
+		NSTimeInterval minDate = [self timeIntervalForPointAtIndex:0];
 		NSTimeInterval maxDate = minDate;
 		NSTimeInterval currentDate;
 		
-		for(DataPoint* point in points){
-			currentDate = [[point date]timeIntervalSince1970];
+		for(int i=1; i< [self dataPointCount]; i++){
+			currentDate = [self timeIntervalForPointAtIndex:i];
 			if(currentDate < minDate){
 				minDate = currentDate;
 			}
@@ -162,8 +125,8 @@
 		}
 		double currentValue;
 		
-		for(DataPoint* point in points){
-			currentValue = [point.value doubleValue];
+		for(int i=0; i< [self dataPointCount]; i++){
+			currentValue = [[self valueForPointAtIndex:i]doubleValue];
 			if(currentValue > maxValue){
 				maxValue = currentValue;
 			}
@@ -178,6 +141,28 @@
 		}
 	}
 	return nil;
+}
+
+#pragma mark -
+#pragma mark Data Points
+
+- (NSUInteger)dataPointCount{
+	return [[self dataPoints] count];
+}
+
+- (NSTimeInterval)timeIntervalForPointAtIndex:(NSUInteger)index{
+	NSDictionary* pointDict = [[self dataPoints] objectAtIndex:index];
+	// Divided by 1000 to convert from Javav form to Objective-C form
+	return [(NSNumber*)([pointDict objectForKey:DATA_POINT_DATE_KEY]) doubleValue] / 1000; 
+}
+
+- (NSDate*)dateForPointAtIndex:(NSUInteger)index{
+	return [NSDate dateWithTimeIntervalSince1970:[self timeIntervalForPointAtIndex:index]];
+}
+
+- (NSNumber*)valueForPointAtIndex:(NSUInteger)index{
+	NSDictionary* pointDict = [[self dataPoints] objectAtIndex:index];
+	return (NSNumber*)([pointDict objectForKey:DATA_POINT_VALUE_KEY]);
 }
 
 @end

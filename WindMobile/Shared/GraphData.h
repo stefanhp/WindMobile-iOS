@@ -37,18 +37,6 @@ enum  {
 };
 typedef NSUInteger GraphRangeType;
 
-@interface DataPoint : NSObject {
-	NSNumber* graphType;
-	NSDate* date;
-	NSNumber* value;
-}
-@property (retain) NSNumber *graphType;
-@property (retain) NSDate *date;
-@property (retain) NSNumber *value; 
-
-@end
-
-
 @interface GraphData : NSObject {
 	NSDictionary* graphData;
 	NSNumber* duration;
@@ -61,11 +49,8 @@ typedef NSUInteger GraphRangeType;
 @property (readonly) NSString* name;
 @property (readonly) NSNumber* duration;
 @property (retain) NSNumber *graphType;
-@property (readonly) NSArray* dataPoints;
 @property (readonly) CPPlotRange* dateRange;
 @property (readonly) CPPlotRange* valueRange;
-
-+ (DataPoint*)convertToDataPoint:(NSDictionary*)point forType:(NSNumber*)aType;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary andDuration:(NSNumber*)duration;
 
@@ -75,4 +60,11 @@ typedef NSUInteger GraphRangeType;
 - (NSEnumerator *)keyEnumerator;
 - (NSString *)description;
 
+// Data points
+- (NSUInteger)dataPointCount;
+- (NSTimeInterval)timeIntervalForPointAtIndex:(NSUInteger)index;
+- (NSDate*)dateForPointAtIndex:(NSUInteger)index;
+- (NSNumber*)valueForPointAtIndex:(NSUInteger)index;
 @end
+
+
