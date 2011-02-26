@@ -93,6 +93,27 @@
 		self.navigationItem.rightBarButtonItem = buttonItem;
 		[buttonItem release];
 	}
+	
+	// If we appear horizontally display the graph on iPhone
+	if([iPadHelper isIpad] == NO){
+		switch (self.interfaceOrientation) {
+			case UIInterfaceOrientationLandscapeLeft:
+			case UIInterfaceOrientationLandscapeRight:
+				self.graphController = [[WindPlotController alloc] initWithNibName:@"WindPlotController" bundle:nil];
+				graphController.stationInfo = self.stationInfo;
+				graphController.drawAxisSet = YES;
+				graphController.isInCell = NO;
+				
+				// display view
+				graphController.view.frame = self.view.bounds;
+				self.graphView = graphController.view; // save for future reference
+				[self.view addSubview:graphController.view];
+				break;
+			default:
+				break;
+		}
+	}
+	
 	[super viewWillAppear:animated];
 }
 
