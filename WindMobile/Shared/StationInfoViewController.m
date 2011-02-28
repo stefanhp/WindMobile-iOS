@@ -223,7 +223,7 @@
 	}
 	
 	// (re-)load content
-	[client asyncGetStationList:self];
+	[client asyncGetStationList:[[NSUserDefaults standardUserDefaults]boolForKey:STATION_OPERATIONAL_KEY] forSender:self];
 }
 
 - (void)stationList:(NSArray*)aStationArray{

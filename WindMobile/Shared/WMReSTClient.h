@@ -36,8 +36,8 @@
 + (StationData*)convertToStationData:(NSDictionary*)stationData;
 + (StationGraph*)convertToStationGraph:(NSDictionary*)stationGraph;
 
-- (NSArray*)getStationList;
-- (void)asyncGetStationList:(id)sender;
+- (NSArray*)getStationList:(BOOL)operationalStationOnly;
+- (void)asyncGetStationList:(BOOL)operationalStationOnly forSender:(id)sender;
 
 - (StationData*)getStationData:(NSString*)stationID;
 - (void)asyncGetStationData:(NSString*)stationID forSender:(id)sender;

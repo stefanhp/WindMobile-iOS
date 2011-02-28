@@ -12,7 +12,7 @@
 #define RESP_CONTENT_KEY @"content"
 #define RESP_ERROR_KEY @"error"
 
-#define URL_STATION_INFOS @"/windmobile/stationinfos"
+#define URL_STATION_INFOS @"/windmobile/stationinfos?allStation=%@"
 #define RESP_STATIONS_INFO_KEY @"stationInfos"
 #define RESP_STATION_INFO_KEY @"stationInfo"
 
@@ -49,8 +49,9 @@
 #pragma mark -
 #pragma mark - Station Info
 
-- (NSArray*)getStationList{
-	NSDictionary* result = [self request:CPSReSTMethodGET atURL:URL_STATION_INFOS withGET:nil withPOST:nil asXML:YES accept:CPSReSTContentTypeApplicationXML];
+- (NSArray*)getStationList:(BOOL)operationalStationOnly{
+	NSDictionary* result = [self request:CPSReSTMethodGET atURL:[NSString stringWithFormat:URL_STATION_INFOS, operationalStationOnly ? @"false" : @"true"] 
+								 withGET:nil withPOST:nil asXML:YES accept:CPSReSTContentTypeApplicationXML];
 	NSArray* stations = nil;
 	
 	// parse result
@@ -65,9 +66,10 @@
 	return [WMReSTClient convertToStationInfo:stations];
 }
 
-- (void)asyncGetStationList:(id)sender{
+- (void)asyncGetStationList:(BOOL)operationalStationOnly forSender:(id)sender{
 	self.stationListSender = sender;
-	[self async:self request:CPSReSTMethodGET atURL:URL_STATION_INFOS withGET:nil withPOST:nil asXML:YES accept:CPSReSTContentTypeApplicationXML];
+	[self async:self request:CPSReSTMethodGET atURL:[NSString stringWithFormat:URL_STATION_INFOS, operationalStationOnly ? @"false" : @"true"]
+		withGET:nil withPOST:nil asXML:YES accept:CPSReSTContentTypeApplicationXML];
 }
 
 - (void)getStationListResponse:(NSDictionary*)response{

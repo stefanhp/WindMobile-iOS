@@ -5,22 +5,66 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
-			<key>FooterText</key>
-			<string>Copyright</string>
-			<key>Title</key>
-			<string></string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Wind Mobile</string>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<string>0.9.0.38</string>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
 			<key>Key</key>
 			<string>pref_version</string>
 			<key>Title</key>
 			<string>Version</string>
+			<key>DefaultValue</key>
+			<string>0.9</string>
+		</dict>
+		<dict>
 			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Weather stations</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Key</key>
+			<string>station_operational_preference</string>
+			<key>Title</key>
+			<string>Operational only</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Key</key>
+			<string>map_type_preference</string>
+			<key>Title</key>
+			<string>Map Type</string>
+			<key>DefaultValue</key>
+			<integer>0</integer>
+			<key>Titles</key>
+			<array>
+				<string>Standard</string>
+				<string>Satellite</string>
+				<string>Hybrid</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -46,28 +90,6 @@
 				<integer>30</integer>
 				<integer>45</integer>
 				<integer>60</integer>
-			</array>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<integer>0</integer>
-			<key>Key</key>
-			<string>map_type_preference</string>
-			<key>Title</key>
-			<string>Map Type</string>
-			<key>Titles</key>
-			<array>
-				<string>Standard</string>
-				<string>Satellite</string>
-				<string>Hybrid</string>
-			</array>
-			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
-			<key>Values</key>
-			<array>
-				<integer>0</integer>
-				<integer>1</integer>
-				<integer>2</integer>
 			</array>
 		</dict>
 	</array>
