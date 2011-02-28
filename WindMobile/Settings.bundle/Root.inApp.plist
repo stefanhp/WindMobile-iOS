@@ -42,7 +42,7 @@
 			<key>Title</key>
 			<string>Operational only</string>
 			<key>DefaultValue</key>
-			<true/>
+            <string>YES</string>
 		</dict>
 		<dict>
 			<key>Type</key>
