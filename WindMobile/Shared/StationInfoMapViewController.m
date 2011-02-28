@@ -221,7 +221,22 @@
 		// if an existing pin view was not available, create one
 		MKPinAnnotationView* customPinView = [[[MKPinAnnotationView alloc]
 											   initWithAnnotation:annotation reuseIdentifier:stationAnnotationIdentifier] autorelease];
-		//customPinView.pinColor = MKPinAnnotationColorPurple;
+
+		StationInfo *info = (StationInfo*)annotation;
+		switch (info.maintenanceStatusEnum) {
+			case StationInfoStatusGreen:
+				customPinView.pinColor = MKPinAnnotationColorGreen;
+				break;
+			case StationInfoStatusOrange:
+				customPinView.pinColor = MKPinAnnotationColorPurple;
+				break;
+			case StationInfoStatusRed:
+				customPinView.pinColor = MKPinAnnotationColorRed;
+				break;
+			default:
+				break;
+		}
+		
 		customPinView.animatesDrop = YES;
 		customPinView.canShowCallout = YES;
 		
