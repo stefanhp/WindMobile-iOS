@@ -175,10 +175,13 @@
 	self.stations = aStationArray;
 	self.visibleStations = [NSMutableArray arrayWithArray:aStationArray];
 	
-	[map addAnnotations:self.visibleStations];
-
-	// refresh display
+	[self performSelectorOnMainThread:@selector(addAnnotations) withObject:nil waitUntilDone:true];
 }
+
+- (void)addAnnotations{
+	[map addAnnotations:self.visibleStations];
+}
+
 
 - (void)requestError:(NSString*) message details:(NSMutableDictionary *)error{
 	[self stopRefreshAnimation];
