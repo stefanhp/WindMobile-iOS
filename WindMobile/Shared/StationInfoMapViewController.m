@@ -215,33 +215,29 @@
 		// Ignore the user location
         return nil;
 	}
-
-	static NSString* stationAnnotationIdentifier = @"stationAnnotationIdentifier";
-	MKPinAnnotationView* pinView = (MKPinAnnotationView *)
-	[map.mapView dequeueReusableAnnotationViewWithIdentifier:stationAnnotationIdentifier];
-	if (!pinView)
-	{
+	StationInfo *info = (StationInfo*)annotation;
+	
+	MKPinAnnotationView* pinView = (MKPinAnnotationView *)[map.mapView dequeueReusableAnnotationViewWithIdentifier:info.stationID];
+	if (!pinView) {
 		// if an existing pin view was not available, create one
-		MKPinAnnotationView* customPinView = [[[MKPinAnnotationView alloc]
-											   initWithAnnotation:annotation reuseIdentifier:stationAnnotationIdentifier] autorelease];
-
-		StationInfo *info = (StationInfo*)annotation;
+		pinView = [[[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:info.stationID] autorelease];
+		
 		switch (info.maintenanceStatusEnum) {
 			case StationInfoStatusGreen:
-				customPinView.pinColor = MKPinAnnotationColorGreen;
+				pinView.pinColor = MKPinAnnotationColorGreen;
 				break;
 			case StationInfoStatusOrange:
-				customPinView.pinColor = MKPinAnnotationColorPurple;
+				pinView.pinColor = MKPinAnnotationColorPurple;
 				break;
 			case StationInfoStatusRed:
-				customPinView.pinColor = MKPinAnnotationColorRed;
+				pinView.pinColor = MKPinAnnotationColorRed;
 				break;
 			default:
 				break;
 		}
 		
-		customPinView.animatesDrop = YES;
-		customPinView.canShowCallout = YES;
+		pinView.animatesDrop = YES;
+		pinView.canShowCallout = YES;
 		
 		// add a detail disclosure button to the callout which will open a new view controller page
 		//
@@ -252,16 +248,9 @@
 		[rightButton addTarget:self
 						action:@selector(showStationDetail:)
 			  forControlEvents:UIControlEventTouchUpInside];
-		customPinView.rightCalloutAccessoryView = rightButton;
-		
-		return customPinView;
-	}
-	else
-	{
-		pinView.annotation = annotation;
+		pinView.rightCalloutAccessoryView = rightButton;
 	}
 	return pinView;
-	
 }
 
 - (void)showStationDetail:(id)sender{
