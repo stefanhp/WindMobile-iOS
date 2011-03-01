@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate_WindMobile.h"
 
-@interface AppDelegate_Phone : NSObject <UIApplicationDelegate> {
+@interface AppDelegate_Phone : AppDelegate_WindMobile {
 	UIWindow *window;
 	UITabBarController *tabBarController;
 }

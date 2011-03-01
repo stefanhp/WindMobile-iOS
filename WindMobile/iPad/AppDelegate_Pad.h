@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate_WindMobile.h"
 
 @class iPadStationInfoMapVC;
 
-@interface AppDelegate_Pad : NSObject <UIApplicationDelegate> {
+@interface AppDelegate_Pad : AppDelegate_WindMobile {
     UIWindow *window;
 	
 	iPadStationInfoMapVC *root;

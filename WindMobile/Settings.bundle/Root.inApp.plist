@@ -5,68 +5,64 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>Wind Mobile</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
-			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
+			<key>DefaultValue</key>
+			<string>0.9.0.38</string>
 			<key>Key</key>
 			<string>pref_version</string>
 			<key>Title</key>
 			<string>Version</string>
-			<key>DefaultValue</key>
-			<string>0.9</string>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
 		</dict>
 		<dict>
-			<key>Type</key>
-			<string>IASKOpenURLSpecifier</string>
-			<key>Title</key>
-			<string>http://www.la-haut.info</string>
 			<key>File</key>
 			<string>http://www.la-haut.info/windmobile-ios/</string>
+			<key>Title</key>
+			<string>http://www.la-haut.info</string>
+			<key>Type</key>
+			<string>IASKOpenURLSpecifier</string>
 		</dict>
 		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>Weather stations</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
+			<key>DefaultValue</key>
+			<true/>
 			<key>Key</key>
 			<string>station_operational_preference</string>
 			<key>Title</key>
 			<string>Operational only</string>
-			<key>DefaultValue</key>
-            <string>YES</string>
-            <key>FalseValue</key>
-            <string>NO</string>
-            <key>TrueValue</key>
-            <string>YES</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
-			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
+			<key>DefaultValue</key>
+			<integer>0</integer>
 			<key>Key</key>
 			<string>map_type_preference</string>
 			<key>Title</key>
 			<string>Map Type</string>
-			<key>DefaultValue</key>
-			<integer>0</integer>
 			<key>Titles</key>
 			<array>
 				<string>Standard</string>
 				<string>Satellite</string>
 				<string>Hybrid</string>
 			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
 			<key>Values</key>
 			<array>
 				<integer>0</integer>

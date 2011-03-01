@@ -31,10 +31,7 @@
 - (id)init{
 	if(self=[super initWithServer:REST_SERVER onPort:REST_PORT withSSL:NO]){
 		[super setDelegate:self];
-		NSTimeInterval interval = [[NSUserDefaults standardUserDefaults]doubleForKey:TIMEOUT_KEY];
-		if (interval > 5) {
-			[super setTimeout:interval];
-		}
+		[super setTimeout:[[NSUserDefaults standardUserDefaults]doubleForKey:TIMEOUT_KEY]];
 	}
 	return self;
 }
