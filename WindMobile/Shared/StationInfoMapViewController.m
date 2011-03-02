@@ -216,25 +216,12 @@
         return nil;
 	}
 	StationInfo *info = (StationInfo*)annotation;
+	static NSString* stationAnnotationIdentifier = @"stationAnnotationIdentifier";
 	
-	MKPinAnnotationView* pinView = (MKPinAnnotationView *)[map.mapView dequeueReusableAnnotationViewWithIdentifier:info.stationID];
+	MKPinAnnotationView* pinView = (MKPinAnnotationView *)[map.mapView dequeueReusableAnnotationViewWithIdentifier:stationAnnotationIdentifier];
 	if (!pinView) {
 		// if an existing pin view was not available, create one
-		pinView = [[[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:info.stationID] autorelease];
-		
-		switch (info.maintenanceStatusEnum) {
-			case StationInfoStatusGreen:
-				pinView.pinColor = MKPinAnnotationColorGreen;
-				break;
-			case StationInfoStatusOrange:
-				pinView.pinColor = MKPinAnnotationColorPurple;
-				break;
-			case StationInfoStatusRed:
-				pinView.pinColor = MKPinAnnotationColorRed;
-				break;
-			default:
-				break;
-		}
+		pinView = [[[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:stationAnnotationIdentifier] autorelease];
 		
 		pinView.animatesDrop = YES;
 		pinView.canShowCallout = YES;
@@ -250,6 +237,22 @@
 			  forControlEvents:UIControlEventTouchUpInside];
 		pinView.rightCalloutAccessoryView = rightButton;
 	}
+	
+	pinView.annotation = annotation;
+	switch (info.maintenanceStatusEnum) {
+		case StationInfoStatusGreen:
+			pinView.pinColor = MKPinAnnotationColorGreen;
+			break;
+		case StationInfoStatusOrange:
+			pinView.pinColor = MKPinAnnotationColorPurple;
+			break;
+		case StationInfoStatusRed:
+			pinView.pinColor = MKPinAnnotationColorRed;
+			break;
+		default:
+			break;
+	}
+	
 	return pinView;
 }
 
