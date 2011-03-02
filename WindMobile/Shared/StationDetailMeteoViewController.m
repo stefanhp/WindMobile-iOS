@@ -14,6 +14,8 @@
 #import "MapViewController.h"
 #import "WindTrendChartViewController.h"
 #import "WindPlotController.h"
+#import "AppDelegate_Phone.h"
+#import "StationInfoMapViewController.h"
 
 #define DegreeToRadian(x) ((x) * M_PI / 180.0f)
 
@@ -335,13 +337,14 @@
 
 - (IBAction)showMap:(id)sender{
 	if([iPadHelper isIpad] == NO){
-		MapViewController *mapVC = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
-		// push controller
-		[self.navigationController pushViewController:mapVC animated:YES];
-		if(self.stationInfo != nil){
-			[mapVC addAnnotation:self.stationInfo];
-		}
-		[mapVC release];
+		static int MAP_INDEX = 1;
+		
+		AppDelegate_Phone *appDelegate = [[UIApplication sharedApplication]delegate];
+		UITabBarController *tabBarController = appDelegate.tabBarController;
+		tabBarController.selectedIndex = MAP_INDEX;
+		
+		StationInfoMapViewController *mapView = [tabBarController.viewControllers objectAtIndex:MAP_INDEX];
+		[mapView.map centerWithHint:self.stationInfo.coordinate];
 	}
 	
 }

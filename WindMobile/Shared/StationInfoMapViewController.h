@@ -34,6 +34,7 @@
 @property (retain) IBOutlet UIView *mainView;
 @property (retain) IBOutlet UIView *mapView;
 @property (retain) UIPopoverController *stationPopOver;
+@property (readonly) MapViewController *map;
 // Content
 - (void)refreshContent:(id)sender;
 // WMReSTClient delegate
