@@ -8,7 +8,6 @@
 
 #import "StationInfoViewController.h"
 #import "WMReSTClient.h"
-#import "StationDetailViewController.h"
 #import <MapKit/MapKit.h>
 #import "iPadHelper.h"
 #import "StationInfo.h"
