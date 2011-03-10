@@ -16,14 +16,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    CGRect toolbarRect;
-    toolbarRect.size.width = [[UIScreen mainScreen] applicationFrame].size.width;
-    toolbarRect.size.height = 50;
-    toolbarRect.origin.x = 0;
-    toolbarRect.origin.y = 0;
+    CGRect toolbarRect = self.view.bounds;
+    toolbarRect.size.height = 44;
     toolbar = [[UIToolbar alloc] initWithFrame:toolbarRect];
     toolbar.barStyle = UIBarStyleBlack;
-    toolbar.translucent = YES;           
+    toolbar.translucent = YES;
+	toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [[self view] addSubview:toolbar];
     
     // toolbar buttons
