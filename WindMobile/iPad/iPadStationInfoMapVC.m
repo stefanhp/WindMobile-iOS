@@ -19,10 +19,10 @@
     CGRect toolbarRect = self.view.bounds;
     toolbarRect.size.height = 44;
     toolbar = [[UIToolbar alloc] initWithFrame:toolbarRect];
+    toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     toolbar.barStyle = UIBarStyleBlack;
     toolbar.translucent = YES;
-	toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [[self view] addSubview:toolbar];
+    [self.view addSubview:toolbar];
     
     // toolbar buttons
     settingsItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] 
@@ -57,7 +57,7 @@
 	range.location = 0;
 	range.length = [toolbar.items count] -1;
 	NSArray *items = [toolbar.items subarrayWithRange:range];
-	
+    
 	[toolbar setItems:[items arrayByAddingObject:activityItem] animated:NO];
     
 	[(UIActivityIndicatorView *)activityItem.customView startAnimating];
