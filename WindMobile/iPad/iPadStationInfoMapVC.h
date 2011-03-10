@@ -11,9 +11,15 @@
 #import "IASKAppSettingsViewController.h"
 
 @interface iPadStationInfoMapVC : StationInfoMapViewController<IASKSettingsDelegate> {
-	UIBarButtonItem *settingsItem;
 	UIPopoverController *settingsPopOver;
 	UIPopoverController *stationsPopOver;
+    
+    UIToolbar *toolbar;
+    UIBarButtonItem *settingsItem;
+    UIBarButtonItem *titleItem;
+	UIBarButtonItem *refreshItem;
+    UIBarButtonItem *activityItem;    
+    UIBarButtonItem *flexItem;
 }
 @property (retain) UIPopoverController *settingsPopOver;
 @property (retain) UIPopoverController *stationsPopOver;

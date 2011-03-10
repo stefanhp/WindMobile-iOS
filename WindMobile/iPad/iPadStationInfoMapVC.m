@@ -8,7 +8,6 @@
 
 #import "iPadStationInfoMapVC.h"
 #import "StationListViewController.h"
-#import "MapViewController.h"
 
 @implementation iPadStationInfoMapVC
 @synthesize settingsPopOver;
@@ -16,14 +15,63 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    CGRect toolbarRect;
+    toolbarRect.size.width = [[UIScreen mainScreen] applicationFrame].size.width;
+    toolbarRect.size.height = 50;
+    toolbarRect.origin.x = 0;
+    toolbarRect.origin.y = 0;
+    toolbar = [[UIToolbar alloc] initWithFrame:toolbarRect];
+    toolbar.barStyle = UIBarStyleBlack;
+    toolbar.translucent = YES;           
+    [[self view] addSubview:toolbar];
+    
+    // toolbar buttons
+    settingsItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] 
+                                                    style:UIBarButtonItemStylePlain 
+                                                   target:self 
+                                                   action:@selector(showSettings:)];
+    
+    titleItem = [[UIBarButtonItem alloc]initWithTitle:NSLocalizedStringFromTable(@"STATIONS", @"WindMobile", nil)
+                                                style:UIBarButtonItemStylePlain 
+                                               target:self
+                                               action:@selector(titleAction:)];
+    
+    flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                             target:nil
+                                                             action:nil];
+    
+    refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                                target:self 
+                                                                action:@selector(refreshContent:)];
+    
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    [activityIndicator startAnimating];
+    activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+    [activityIndicator release];
+    
+    NSArray *items = [NSArray arrayWithObjects:settingsItem, flexItem, titleItem, flexItem, refreshItem, nil];	
+    [toolbar setItems:items animated:NO];
+}
+
+- (void)startRefreshAnimation{
+	NSRange range;
+	range.location = 0;
+	range.length = [toolbar.items count] -1;
+	NSArray *items = [toolbar.items subarrayWithRange:range];
 	
-	settingsItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] 
-													style:UIBarButtonItemStylePlain 
-												   target:self 
-												   action:@selector(showSettings:)];
-	NSArray *items = [NSArray arrayWithObject:settingsItem];
-	items = [items arrayByAddingObjectsFromArray:self.toolBar.items];
-	self.toolBar.items = items;
+	[toolbar setItems:[items arrayByAddingObject:activityItem] animated:NO];
+    
+	[(UIActivityIndicatorView *)activityItem.customView startAnimating];
+}
+
+- (void)stopRefreshAnimation{
+	NSRange range;
+	range.location = 0;
+	range.length = [toolbar.items count] -1;
+	NSArray *items = [toolbar.items subarrayWithRange:range];
+	
+	[toolbar setItems:[items arrayByAddingObject:refreshItem] animated:NO];
 }
 
 - (void)showSettings:(id)sender{
@@ -47,28 +95,12 @@
 	
 }
 
-- (void)titleAction:(id)sender{
-	// Show station list
-	StationListViewController *showStations = [[StationListViewController alloc] initWithNibName:@"StationListViewController" bundle:nil];
-	showStations.stations = self.stations;
-	showStations.selectedStations = self.visibleStations;
-	showStations.delegate = self;
-	
-	// show in popover
-	self.stationsPopOver = [[UIPopoverController alloc] initWithContentViewController:showStations];
-	[stationsPopOver presentPopoverFromBarButtonItem:titleItem 
-				permittedArrowDirections:UIPopoverArrowDirectionAny
-								animated:YES];
-	[showStations release];
-	
-}
-
 #pragma mark -
 #pragma mark IASKSettingsDelegate
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender{
 	// Update changed preferences
 	// Map type
-	map.mapView.mapType =[[NSUserDefaults standardUserDefaults]doubleForKey:MAP_TYPE_KEY];
+	mapView.mapType =[[NSUserDefaults standardUserDefaults]doubleForKey:MAP_TYPE_KEY];
 	
 	// Timeout and mock data
 	if(client != nil){
@@ -81,9 +113,14 @@
 }
 
 - (void)dealloc {
-	[settingsItem release];
-	[settingsPopOver release];
+    [settingsPopOver release];
 	[stationsPopOver release];
+	[toolbar release];	
+	[titleItem release];
+	[flexItem release];	
+	[refreshItem release];	
+	[activityItem release];
+	[settingsItem release];
     [super dealloc];
 }
 

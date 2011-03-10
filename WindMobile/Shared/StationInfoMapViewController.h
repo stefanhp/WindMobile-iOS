@@ -13,35 +13,23 @@
 @class MapViewController;
 
 @interface StationInfoMapViewController : UIViewController <WMReSTClientDelegate, StationListDelegate,MKMapViewDelegate,UITabBarControllerDelegate> {
-	UIToolbar *toolBar;
-	UIBarButtonItem *titleItem;
-	UIBarButtonItem *flexItem;
-	UIBarButtonItem *refreshItem;
-	UIBarButtonItem *activityItem;
-	
 	WMReSTClient *client;
-	NSArray *stations;
-	NSMutableArray *visibleStations;
+	NSString *selectedStation;
 	
-	UIView *mainView;
-	UIView *mapView;
-	MapViewController *map;
+	MKMapView *mapView;
 	UIPopoverController *stationPopOver;
 }
-@property (retain) IBOutlet UIToolbar *toolBar;
-@property (retain) NSArray *stations;
-@property (retain) NSMutableArray *visibleStations;
-@property (retain) IBOutlet UIView *mainView;
-@property (retain) IBOutlet UIView *mapView;
+@property (retain) NSString *selectedStation;
+@property (retain) IBOutlet MKMapView *mapView;
 @property (retain) UIPopoverController *stationPopOver;
-@property (readonly) MapViewController *map;
 // Content
 - (void)refreshContent:(id)sender;
 // WMReSTClient delegate
 - (void)stationList:(NSArray*)stations;
 - (void)requestError:(NSString*) message details:(NSMutableDictionary *)error;
 
-- (void)titleAction:(id)sender;
+- (void)centerToLocation:(CLLocationCoordinate2D)coordinate;
+- (void)centerMapAroundAnnotations:(NSArray*)annotations;
 @end
 
 @interface StationInfoMapViewController ()

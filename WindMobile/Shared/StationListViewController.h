@@ -11,16 +11,6 @@
 
 @protocol StationListDelegate
 @optional
-- (void)willAddItem:(StationInfo*)item;
-- (void)didAddItem:(StationInfo*)item;
-- (void)willRemoveItem:(StationInfo*)item;
-- (void)didRemoveItem:(StationInfo*)item;
-
-- (void)willAddItems:(NSArray*)items;
-- (void)didAddItems:(NSArray*)items;
-- (void)willRemoveItems:(NSArray*)items;
-- (void)didRemoveItems:(NSArray*)items;
-
 - (void)dismissStationListModal:(id)sender;
 @end
 

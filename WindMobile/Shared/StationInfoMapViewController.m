@@ -6,77 +6,33 @@
 //  Copyright 2011 Pistache Software. All rights reserved.
 //
 
+#import <Math.h>
+
 #import "StationInfoMapViewController.h"
-#import "MapViewController.h"
+#import "MKMapView+ZoomLevel.h"
 #import "iPadHelper.h"
 #import "StationDetailMeteoViewController.h"
 #import "AppDelegate_Phone.h"
 
 @implementation StationInfoMapViewController
-@synthesize toolBar;
-@synthesize stations;
-@synthesize visibleStations;
-@synthesize mainView;
+@synthesize selectedStation;
 @synthesize mapView;
 @synthesize stationPopOver;
-@synthesize map;
-
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	// Map
-	map = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
-	[self.mapView addSubview:map.view];
-	
-	// toolbar buttons
-	titleItem = [[UIBarButtonItem alloc]initWithTitle:NSLocalizedStringFromTable(@"STATIONS", @"WindMobile", nil)
-												style:UIBarButtonItemStylePlain 
-											   target:self
-											   action:@selector(titleAction:)];
-
-	flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-															 target:nil
-															 action:nil];
-	
-	refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-																target:self 
-																action:@selector(refreshContent:)];
-	
-	UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-	[activityIndicator startAnimating];
-	activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
-	[activityIndicator release];
-	
-	NSArray *items = [NSArray arrayWithObjects:flexItem, titleItem, flexItem, refreshItem, nil];	
-	[self.toolBar setItems:items animated:NO];
-	//[self.mainView addSubview:self.toolBar];
-	
-	// set myself as the tab bar delegate to be able to receive preference changes
-	/*if([iPadHelper isIpad] == NO){
-		AppDelegate_Phone *appDelegate = [[UIApplication sharedApplication]delegate];
-		appDelegate.tabBarController.delegate = self;
-	}*/
+    self.mapView.delegate = self;
 
 	// load content
-	[self refreshContent:self];
+    [self refreshContent:self];
 }
 
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations.
-    return YES;
+	return YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,62 +48,117 @@
     // e.g. self.myOutlet = nil;
 }
 
-
 - (void)dealloc {
-	[toolBar release];
-	[titleItem release];
-	[flexItem release];
-	[refreshItem release];
-	[activityItem release];
 	[client release];
-	[stations release];
-	[visibleStations release];
-	[mainView release];
+	[selectedStation release];
 	[mapView release];
-	[map release];
 	[stationPopOver release];
-	[map release];
 	
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark Title Action 
+- (void)centerToLocation:(CLLocationCoordinate2D)coordinate{
+	int delta = 1;
+	if (self.mapView.showsUserLocation) {
+		delta = 2;
+	}
+	
+	int zoomLevel = 6;
+	if([iPadHelper isIpad]){
+		zoomLevel = 7;
+	}
+	
+	if([self.mapView.annotations count] > delta){ // many points
+		[self.mapView setCenterCoordinate:coordinate	
+								zoomLevel:zoomLevel
+								 animated:YES];
+	} else { // single point (ignoring current user location
+		[self.mapView setCenterCoordinate:coordinate	
+								zoomLevel:10
+								 animated:YES];
+	}
+}
 
-- (void)titleAction:(id)sender{
-	// Show station list
-	StationListViewController *showStations = [[StationListViewController alloc] initWithNibName:@"StationListViewController" bundle:nil];
-	showStations.stations = self.stations;
-	showStations.selectedStations = self.visibleStations;
-	showStations.delegate = self;
-	showStations.showDoneButton = YES;
-
-	// show in modal sheet
-	UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:showStations];
-	[showStations release];
-
-	[aNavController setModalPresentationStyle:UIModalPresentationFormSheet];
-	[self presentModalViewController:aNavController animated:YES];
+- (void)centerMapAroundAnnotations:(NSArray*)annotations
+{
+    // if we have no annotations we can skip all of this
+    if ( [annotations count] == 0 )
+        return;
+	
+    // then run through each annotation in the list to find the
+    // minimum and maximum latitude and longitude values
+    CLLocationCoordinate2D min;
+    CLLocationCoordinate2D max; 
+    BOOL minMaxInitialized = NO;
+    NSUInteger numberOfValidAnnotations = 0;
+	
+    for ( id<MKAnnotation> a in annotations )
+    {
+        // only use annotations that are of our own custom type
+        // in the event that the user is browsing from a location far away
+        // you can omit this if you want the user's location to be included in the region 
+        if ( [a isKindOfClass: [StationInfo class]] )
+        {
+			// if we haven't grabbed the first good value, do so now
+			if ( !minMaxInitialized )
+			{
+				min = a.coordinate;
+				max = a.coordinate;
+				minMaxInitialized = YES;
+			}
+			else // otherwise compare with the current value
+			{
+				min.latitude = MIN( min.latitude, a.coordinate.latitude );
+				min.longitude = MIN( min.longitude, a.coordinate.longitude );
+				
+				max.latitude = MAX( max.latitude, a.coordinate.latitude );
+				max.longitude = MAX( max.longitude, a.coordinate.longitude );
+			}
+			++numberOfValidAnnotations;
+        }
+    }
+	
+    // If we don't have any valid annotations we can leave now,
+    // this will happen in the event that there is only the user location
+    if ( numberOfValidAnnotations == 0 )
+        return;
+	
+    // Now that we have a min and max lat/lon create locations for the
+    // three points in a right triangle
+    CLLocation* locSouthWest = [[CLLocation alloc] 
+								initWithLatitude: min.latitude 
+								longitude: min.longitude];
+    CLLocation* locSouthEast = [[CLLocation alloc] 
+								initWithLatitude: min.latitude 
+								longitude: max.longitude];
+    CLLocation* locNorthEast = [[CLLocation alloc] 
+								initWithLatitude: max.latitude 
+								longitude: max.longitude];
+	
+    // Create a region centered at the midpoint of our hypotenuse
+    CLLocationCoordinate2D regionCenter;
+    regionCenter.latitude = (min.latitude + max.latitude) / 2.0;
+    regionCenter.longitude = (min.longitude + max.longitude) / 2.0;
+	
+    // Use the locations that we just created to calculate the distance
+    // between each of the points in meters.
+    CLLocationDistance latMeters = [locSouthEast distanceFromLocation: locNorthEast];
+    CLLocationDistance lonMeters = [locSouthEast distanceFromLocation: locSouthWest];
+	
+    MKCoordinateRegion region;
+    region = MKCoordinateRegionMakeWithDistance( regionCenter, latMeters, lonMeters );
+	
+    MKCoordinateRegion fitRegion = [self.mapView regionThatFits: region];
+    [self.mapView setRegion: fitRegion animated: YES];
+	
+    // Clean up
+    [locSouthWest release];
+    [locSouthEast release];
+    [locNorthEast release];
 }
 
 #pragma mark -
 #pragma mark StationListDelegate protocol 
-
-- (void)didRemoveItem:(StationInfo*)item{
-	[map removeAnnotation:item];
-}
-
-- (void)didRemoveItems:(NSArray*)items{
-	[map removeAnnotations:items];
-}
-
-- (void)didAddItem:(StationInfo*)item{
-	[map addAnnotation:item];
-}
-
-- (void)didAddItems:(NSArray*)items{
-	[map addAnnotations:items];
-}
 
 - (void)dismissStationListModal:(id)sender{
 	[self dismissModalViewControllerAnimated:YES];
@@ -166,46 +177,45 @@
 	[client asyncGetStationList:[[NSUserDefaults standardUserDefaults]boolForKey:STATION_OPERATIONAL_KEY] forSender:self];
 }
 
-- (void)stationList:(NSArray*)aStationArray{
+- (void)stationList:(NSArray*)stations{
 	[self stopRefreshAnimation];
-	
-	[map removeAnnotations:self.visibleStations];
-	map.mapView.delegate = self;
-
-	
-	self.stations = aStationArray;
-	self.visibleStations = [NSMutableArray arrayWithArray:aStationArray];
-	
-	[self performSelectorOnMainThread:@selector(addAnnotations) withObject:nil waitUntilDone:true];
+	[self performSelectorOnMainThread:@selector(addAnnotations:) withObject:stations waitUntilDone:true];
 }
 
-- (void)addAnnotations{
-	[map addAnnotations:self.visibleStations];
+- (void)addAnnotations:(NSArray*)annotations{
+	NSArray *oldAnnotations = self.mapView.annotations;
+    [self.mapView removeAnnotations:oldAnnotations];
+    [self.mapView addAnnotations:annotations];
+	[self centerMapAroundAnnotations:annotations];
 }
-
 
 - (void)requestError:(NSString*) message details:(NSMutableDictionary *)error{
 	[self stopRefreshAnimation];
 }
 
 - (void)startRefreshAnimation{
-	NSRange range;
-	range.location = 0;
-	range.length = [self.toolBar.items count] -1;
-	NSArray *items = [self.toolBar.items subarrayWithRange:range];
+	// Remove refresh button
+	self.navigationItem.rightBarButtonItem = nil;
 	
-	[self.toolBar setItems:[items arrayByAddingObject:activityItem] animated:NO];
-
-	[(UIActivityIndicatorView *)activityItem.customView startAnimating];
+	// activity indicator
+	UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+	[activityIndicator startAnimating];
+	UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+	[activityIndicator release];
+	self.navigationItem.rightBarButtonItem = activityItem;
+	[activityItem release];
 }
 
 - (void)stopRefreshAnimation{
-	NSRange range;
-	range.location = 0;
-	range.length = [self.toolBar.items count] -1;
-	NSArray *items = [self.toolBar.items subarrayWithRange:range];
+	// Stop animation
+	self.navigationItem.rightBarButtonItem = nil;
 	
-	[self.toolBar setItems:[items arrayByAddingObject:refreshItem] animated:NO];
+	// Put Refresh button on the top left
+	UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+																				 target:self 
+																				 action:@selector(refreshContent:)];
+	self.navigationItem.rightBarButtonItem = refreshItem;
+	[refreshItem release];
 }
 
 #pragma mark -
@@ -219,7 +229,7 @@
 	StationInfo *info = (StationInfo*)annotation;
 	static NSString* stationAnnotationIdentifier = @"stationAnnotationIdentifier";
 	
-	MKPinAnnotationView* pinView = (MKPinAnnotationView *)[map.mapView dequeueReusableAnnotationViewWithIdentifier:stationAnnotationIdentifier];
+	MKPinAnnotationView* pinView = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:stationAnnotationIdentifier];
 	if (!pinView) {
 		// if an existing pin view was not available, create one
 		pinView = [[[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:stationAnnotationIdentifier] autorelease];
@@ -259,7 +269,7 @@
 
 - (void)showStationDetail:(id)sender{
 	StationDetailMeteoViewController *meteo = [[StationDetailMeteoViewController alloc]initWithNibName:@"StationDetailMeteoViewController" bundle:nil];
-	NSArray *annotations = map.mapView.selectedAnnotations;
+	NSArray *annotations = self.mapView.selectedAnnotations;
 	//meteo.stationInfo = self.stationIn
 	id <MKAnnotation> annotation = nil;
 	if(annotations != nil && [annotations count] == 1){
@@ -275,10 +285,10 @@
 		// show in popover
 		if(annotation != nil){
 			// deselect annotation
-			[map.mapView deselectAnnotation:annotation animated:YES];
+			[self.mapView deselectAnnotation:annotation animated:YES];
 			
 			// find location
-			CGPoint point = [map.mapView convertCoordinate:annotation.coordinate toPointToView:self.view];
+			CGPoint point = [self.mapView convertCoordinate:annotation.coordinate toPointToView:self.view];
 			
 			self.stationPopOver = [[UIPopoverController alloc] initWithContentViewController:nav];
 			[stationPopOver presentPopoverFromRect:CGRectMake(point.x + 6.5, point.y - 27.0, 1.0, 1.0) 
@@ -300,9 +310,8 @@
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
 	// check for preference changes
 	if(viewController == self){
-		map.mapView.mapType =[[NSUserDefaults standardUserDefaults]doubleForKey:MAP_TYPE_KEY];
+		self.mapView.mapType =[[NSUserDefaults standardUserDefaults]doubleForKey:MAP_TYPE_KEY];
 	}
 }
-
 
 @end

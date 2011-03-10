@@ -11,7 +11,6 @@
 #import "StationData.h"
 #import "WindMobileHelper.h"
 #import "iPadHelper.h"
-#import "MapViewController.h"
 #import "WindTrendChartViewController.h"
 #import "WindPlotController.h"
 #import "AppDelegate_Phone.h"
@@ -343,8 +342,9 @@
 		UITabBarController *tabBarController = appDelegate.tabBarController;
 		tabBarController.selectedIndex = MAP_INDEX;
 		
-		StationInfoMapViewController *mapView = [tabBarController.viewControllers objectAtIndex:MAP_INDEX];
-		[mapView.map centerWithHint:self.stationInfo.coordinate];
+		UINavigationController *navController = [tabBarController.viewControllers objectAtIndex:MAP_INDEX];
+		StationInfoMapViewController *mapView = (StationInfoMapViewController *)[navController visibleViewController];
+		[mapView centerToLocation:self.stationInfo.coordinate];
 	}
 	
 }

@@ -21,8 +21,6 @@
 		F814469B130C1C9C002D83CE /* WindTrendChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8144699130C1C9C002D83CE /* WindTrendChartViewController.xib */; };
 		F82351D8130A8D9500C85958 /* StationDetailMeteoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F82351D6130A8D9500C85958 /* StationDetailMeteoViewController.m */; };
 		F82351DD130A8DDD00C85958 /* WindTrendChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F82351DB130A8DDD00C85958 /* WindTrendChartViewController.m */; };
-		F832991511A81E8E005D2572 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F832991311A81E8E005D2572 /* MapViewController.m */; };
-		F832991911A81ED6005D2572 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F832991711A81ED6005D2572 /* MapViewController.xib */; };
 		F83365D412F6FA8D00CCF0EB /* StationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F83365D312F6FA8D00CCF0EB /* StationInfo.m */; };
 		F83365F812F719DF00CCF0EB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83365F712F719DF00CCF0EB /* CoreLocation.framework */; };
 		F836DE0912E86E6A00C9E635 /* libCPSReST.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8EC163512E8666D00B268BD /* libCPSReST.a */; };
@@ -188,10 +186,6 @@
 		F82351D6130A8D9500C85958 /* StationDetailMeteoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationDetailMeteoViewController.m; path = Shared/StationDetailMeteoViewController.m; sourceTree = "<group>"; };
 		F82351DA130A8DDD00C85958 /* WindTrendChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WindTrendChartViewController.h; path = Shared/WindTrendChartViewController.h; sourceTree = "<group>"; };
 		F82351DB130A8DDD00C85958 /* WindTrendChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WindTrendChartViewController.m; path = Shared/WindTrendChartViewController.m; sourceTree = "<group>"; };
-		F832991211A81E8E005D2572 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = Shared/MapViewController.h; sourceTree = "<group>"; };
-		F832991311A81E8E005D2572 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = Shared/MapViewController.m; sourceTree = "<group>"; };
-		F832991811A81ED6005D2572 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/MapViewController.xib; sourceTree = "<group>"; };
-		F83299CE11A84597005D2572 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/MapViewController.xib; sourceTree = "<group>"; };
 		F83365D212F6FA8D00CCF0EB /* StationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationInfo.h; path = Shared/StationInfo.h; sourceTree = "<group>"; };
 		F83365D312F6FA8D00CCF0EB /* StationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationInfo.m; path = Shared/StationInfo.m; sourceTree = "<group>"; };
 		F83365F712F719DF00CCF0EB /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -207,7 +201,6 @@
 		F846DF4511A2A06800FC2F49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/StationInfoViewController.xib; sourceTree = "<group>"; };
 		F846DFAF11A2A5F100FC2F49 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F8491CAB11A6A8B50076B32D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		F84A1BB81311CCCB00A85422 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = Resources/de.lproj/MapViewController.xib; sourceTree = "<group>"; };
 		F851AC6F12F446D2002F851C /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		F851AC8212F4478D002F851C /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		F851AC8312F4478D002F851C /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
@@ -551,9 +544,6 @@
 			children = (
 				F83DF288130472ED0073F555 /* MKMapView+ZoomLevel.h */,
 				F83DF289130472ED0073F555 /* MKMapView+ZoomLevel.m */,
-				F832991211A81E8E005D2572 /* MapViewController.h */,
-				F832991311A81E8E005D2572 /* MapViewController.m */,
-				F832991711A81ED6005D2572 /* MapViewController.xib */,
 				F83DF1DA130454A30073F555 /* StationInfoMapViewController.h */,
 				F83DF1DB130454A30073F555 /* StationInfoMapViewController.m */,
 				F8144697130C1C8A002D83CE /* StationInfoMapViewController.xib */,
@@ -790,7 +780,6 @@
 				F8549B75119DEF3D0010B513 /* WindMobile.strings in Resources */,
 				F858A650119E982C00FA26FA /* StationInfoViewController.xib in Resources */,
 				F8491CAC11A6A8B50076B32D /* Settings.bundle in Resources */,
-				F832991911A81ED6005D2572 /* MapViewController.xib in Resources */,
 				F88F6B4412E88D96009C2B8D /* Icon-72.png in Resources */,
 				F88F6B4512E88D96009C2B8D /* Icon-Small-50.png in Resources */,
 				F88F6B4612E88D96009C2B8D /* Icon-Small.png in Resources */,
@@ -873,7 +862,6 @@
 				2860E32E111B888700E27156 /* AppDelegate_Pad.m in Sources */,
 				F8549A26119DAAEF0010B513 /* StationInfoViewController.m in Sources */,
 				F8BDFA2411A1D73F0069A43E /* WMReSTClient.m in Sources */,
-				F832991511A81E8E005D2572 /* MapViewController.m in Sources */,
 				F804BB8911A86047009B6057 /* iPadHelper.m in Sources */,
 				F851ACA912F4478D002F851C /* IASKAppSettingsViewController.m in Sources */,
 				F851ACAA12F4478D002F851C /* IASKAppSettingsWebViewController.m in Sources */,
@@ -960,16 +948,6 @@
 				F809AE431311C7E800193754 /* de */,
 			);
 			name = WindTrendChartViewController.xib;
-			sourceTree = "<group>";
-		};
-		F832991711A81ED6005D2572 /* MapViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F832991811A81ED6005D2572 /* en */,
-				F83299CE11A84597005D2572 /* fr */,
-				F84A1BB81311CCCB00A85422 /* de */,
-			);
-			name = MapViewController.xib;
 			sourceTree = "<group>";
 		};
 		F8549B73119DEF3D0010B513 /* WindMobile.strings */ = {
