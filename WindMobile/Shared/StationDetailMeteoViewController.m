@@ -344,7 +344,7 @@
 		
 		UINavigationController *navController = [tabBarController.viewControllers objectAtIndex:MAP_INDEX];
 		StationInfoMapViewController *mapView = (StationInfoMapViewController *)[navController visibleViewController];
-		[mapView centerToLocation:self.stationInfo.coordinate];
+		[mapView selectStation:self.stationInfo];
 	}
 	
 }

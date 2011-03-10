@@ -14,72 +14,62 @@
 #import "StationDetailMeteoViewController.h"
 #import "AppDelegate_Phone.h"
 
+@interface StationInfoMapViewController (Private)
+- (void)addAnnotations:(NSArray *)annotations;
+- (void)centerAroundStation:(StationInfo *)station;
+- (void)startRefreshAnimation;
+- (void)stopRefreshAnimation;
+- (void)refreshAction:(id)sender;
+- (void)showStationDetail:(id)sender;
+@end
+
 @implementation StationInfoMapViewController
-@synthesize selectedStation;
+
 @synthesize mapView;
 @synthesize stationPopOver;
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+#pragma mark -
+#pragma mark UIViewController
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
     self.mapView.delegate = self;
-
-	// load content
-    [self refreshContent:self];
+    [self refresh];
 }
 
-// Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
 	return YES;
 }
 
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
+#pragma mark -
+#pragma mark Public methods
+
+- (StationInfo *)getSelectedStation {
+    return selectedStation;
+}
+
+- (void)selectStation:(StationInfo *)station {
+    if (selectedStation != station) {
+        [selectedStation release];
+        selectedStation = [station retain];
+    }
+    if (station != nil) {
+        [self centerAroundStation:selectedStation];
+    }
+}
+
+- (void)refresh {
+    [self startRefreshAnimation];
+	if(client == nil){
+		client = [[WMReSTClient alloc] init ];
+	}
     
-    // Release any cached data, images, etc. that aren't in use.
+    // (re-)load content
+	[client asyncGetStationList:[[NSUserDefaults standardUserDefaults]boolForKey:STATION_OPERATIONAL_KEY] forSender:self];
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (void)dealloc {
-	[client release];
-	[selectedStation release];
-	[mapView release];
-	[stationPopOver release];
-	
-    [super dealloc];
-}
-
-- (void)centerToLocation:(CLLocationCoordinate2D)coordinate{
-	int delta = 1;
-	if (self.mapView.showsUserLocation) {
-		delta = 2;
-	}
-	
-	int zoomLevel = 6;
-	if([iPadHelper isIpad]){
-		zoomLevel = 7;
-	}
-	
-	if([self.mapView.annotations count] > delta){ // many points
-		[self.mapView setCenterCoordinate:coordinate	
-								zoomLevel:zoomLevel
-								 animated:YES];
-	} else { // single point (ignoring current user location
-		[self.mapView setCenterCoordinate:coordinate	
-								zoomLevel:10
-								 animated:YES];
-	}
-}
-
-- (void)centerMapAroundAnnotations:(NSArray*)annotations
+- (void)centerAroundAnnotations:(NSArray *)annotations
 {
     // if we have no annotations we can skip all of this
     if ( [annotations count] == 0 )
@@ -158,39 +148,25 @@
 }
 
 #pragma mark -
-#pragma mark StationListDelegate protocol 
+#pragma mark Private methods
 
-- (void)dismissStationListModal:(id)sender{
-	[self dismissModalViewControllerAnimated:YES];
-}
-
-#pragma mark -
-#pragma mark Station methods
-
-- (void)refreshContent:(id)sender {
-	[self startRefreshAnimation];
-	if(client == nil){
-		client = [[WMReSTClient alloc] init ];
-	}
-	
-	// (re-)load content
-	[client asyncGetStationList:[[NSUserDefaults standardUserDefaults]boolForKey:STATION_OPERATIONAL_KEY] forSender:self];
-}
-
-- (void)stationList:(NSArray*)stations{
-	[self stopRefreshAnimation];
-	[self performSelectorOnMainThread:@selector(addAnnotations:) withObject:stations waitUntilDone:true];
-}
-
-- (void)addAnnotations:(NSArray*)annotations{
+- (void)addAnnotations:(NSArray *)annotations {
 	NSArray *oldAnnotations = self.mapView.annotations;
     [self.mapView removeAnnotations:oldAnnotations];
     [self.mapView addAnnotations:annotations];
-	[self centerMapAroundAnnotations:annotations];
+    if (selectedStation == nil) {
+        [self centerAroundAnnotations:annotations];
+    } else {
+        [self centerAroundStation:selectedStation];        
+    }
 }
 
-- (void)requestError:(NSString*) message details:(NSMutableDictionary *)error{
-	[self stopRefreshAnimation];
+- (void)centerAroundStation:(StationInfo *)station {
+	int zoomLevel = 9;
+	if([iPadHelper isIpad]){
+		zoomLevel = 10;
+	}
+    [self.mapView setCenterCoordinate:station.coordinate zoomLevel:zoomLevel animated:YES];
 }
 
 - (void)startRefreshAnimation{
@@ -213,9 +189,64 @@
 	// Put Refresh button on the top left
 	UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
 																				 target:self 
-																				 action:@selector(refreshContent:)];
+																				 action:@selector(refreshAction:)];
 	self.navigationItem.rightBarButtonItem = refreshItem;
 	[refreshItem release];
+}
+
+- (void)refreshAction:(id)sender {
+    [self selectStation:nil];
+    [self refresh];
+}
+
+- (void)showStationDetail:(id)sender{
+	StationDetailMeteoViewController *meteo = [[StationDetailMeteoViewController alloc]initWithNibName:@"StationDetailMeteoViewController" bundle:nil];
+	NSArray *annotations = self.mapView.selectedAnnotations;
+	//meteo.stationInfo = self.stationIn
+	id <MKAnnotation> annotation = nil;
+	if(annotations != nil && [annotations count] == 1){
+		StationInfo *info = [annotations objectAtIndex:0];
+		annotation = [annotations objectAtIndex:0];
+		meteo.stationInfo = info;
+	}
+    
+	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:meteo];
+	[meteo release];
+    
+	if([iPadHelper isIpad]){
+		// show in popover
+		if(annotation != nil){
+			// deselect annotation
+			[self.mapView deselectAnnotation:annotation animated:YES];
+			
+			// find location
+			CGPoint point = [self.mapView convertCoordinate:annotation.coordinate toPointToView:self.view];
+			
+			self.stationPopOver = [[UIPopoverController alloc] initWithContentViewController:nav];
+			[stationPopOver presentPopoverFromRect:CGRectMake(point.x + 6.5, point.y - 27.0, 1.0, 1.0) 
+                                            inView:self.view 
+                          permittedArrowDirections:UIPopoverArrowDirectionAny 
+                                          animated:YES];
+		}
+		
+	} else {
+		// Show in modal view
+		//[meteo setModalPresentationStyle:UIModalPresentationFormSheet];
+		[self presentModalViewController:nav animated:YES];
+	}
+	[nav release];
+}
+
+#pragma mark -
+#pragma mark WMReSTClient delegate
+
+- (void)stationList:(NSArray *)stations{
+	[self stopRefreshAnimation];
+	[self performSelectorOnMainThread:@selector(addAnnotations:) withObject:stations waitUntilDone:true];
+}
+
+- (void)requestError:(NSString *) message details:(NSMutableDictionary *)error{
+	[self stopRefreshAnimation];
 }
 
 #pragma mark -
@@ -267,44 +298,6 @@
 	return pinView;
 }
 
-- (void)showStationDetail:(id)sender{
-	StationDetailMeteoViewController *meteo = [[StationDetailMeteoViewController alloc]initWithNibName:@"StationDetailMeteoViewController" bundle:nil];
-	NSArray *annotations = self.mapView.selectedAnnotations;
-	//meteo.stationInfo = self.stationIn
-	id <MKAnnotation> annotation = nil;
-	if(annotations != nil && [annotations count] == 1){
-		StationInfo *info = [annotations objectAtIndex:0];
-		annotation = [annotations objectAtIndex:0];
-		meteo.stationInfo = info;
-	}
-
-	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:meteo];
-	[meteo release];
-
-	if([iPadHelper isIpad]){
-		// show in popover
-		if(annotation != nil){
-			// deselect annotation
-			[self.mapView deselectAnnotation:annotation animated:YES];
-			
-			// find location
-			CGPoint point = [self.mapView convertCoordinate:annotation.coordinate toPointToView:self.view];
-			
-			self.stationPopOver = [[UIPopoverController alloc] initWithContentViewController:nav];
-			[stationPopOver presentPopoverFromRect:CGRectMake(point.x + 6.5, point.y - 27.0, 1.0, 1.0) 
-								 inView:self.view 
-			   permittedArrowDirections:UIPopoverArrowDirectionAny 
-							   animated:YES];
-		}
-		
-	} else {
-		// Show in modal view
-		//[meteo setModalPresentationStyle:UIModalPresentationFormSheet];
-		[self presentModalViewController:nav animated:YES];
-	}
-	[nav release];
-}
-
 #pragma mark -
 #pragma mark UITabBarControllerDelegate
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
@@ -312,6 +305,25 @@
 	if(viewController == self){
 		self.mapView.mapType =[[NSUserDefaults standardUserDefaults]doubleForKey:MAP_TYPE_KEY];
 	}
+}
+
+#pragma mark -
+#pragma mark Memory
+
+- (void)didReceiveMemoryWarning {
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc. that aren't in use.
+}
+
+- (void)dealloc {
+	[client release];
+	[selectedStation release];
+	[mapView release];
+	[stationPopOver release];
+	
+    [super dealloc];
 }
 
 @end

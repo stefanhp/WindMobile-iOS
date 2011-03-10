@@ -7,33 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+
 #import "WMReSTClient.h"
-#import "StationListViewController.h"
+#import "StationInfo.h"
 
 @class MapViewController;
 
-@interface StationInfoMapViewController : UIViewController <WMReSTClientDelegate, StationListDelegate,MKMapViewDelegate,UITabBarControllerDelegate> {
+@interface StationInfoMapViewController : UIViewController <WMReSTClientDelegate, MKMapViewDelegate, UITabBarControllerDelegate> {
 	WMReSTClient *client;
-	NSString *selectedStation;
 	
 	MKMapView *mapView;
 	UIPopoverController *stationPopOver;
+    @private StationInfo *selectedStation;
 }
-@property (retain) NSString *selectedStation;
 @property (retain) IBOutlet MKMapView *mapView;
 @property (retain) UIPopoverController *stationPopOver;
-// Content
-- (void)refreshContent:(id)sender;
-// WMReSTClient delegate
-- (void)stationList:(NSArray*)stations;
-- (void)requestError:(NSString*) message details:(NSMutableDictionary *)error;
-
-- (void)centerToLocation:(CLLocationCoordinate2D)coordinate;
-- (void)centerMapAroundAnnotations:(NSArray*)annotations;
-@end
-
-@interface StationInfoMapViewController ()
-- (void)startRefreshAnimation;
-- (void)stopRefreshAnimation;
-- (void)showStationDetail:(id)sender;
+- (StationInfo *) getSelectedStation;
+- (void)selectStation:(StationInfo *)station;
+- (void)refresh;
+- (void)centerAroundAnnotations:(NSArray *)annotations;
 @end
