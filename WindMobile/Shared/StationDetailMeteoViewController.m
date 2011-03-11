@@ -52,8 +52,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-	
 	// Update main info
 	self.title = stationInfo.name;
 	self.altitude.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"ALTITUDE_FORMAT", 
@@ -85,6 +83,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    
 	if([self isPresentedModaly]){
 		// we are presented modally: add a dismiss button
 		self.navigationItem.rightBarButtonItem = nil;
@@ -116,6 +116,10 @@
 	}
 	
 	[super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
 }
 
 // Override to allow orientations other than the default portrait orientation.
