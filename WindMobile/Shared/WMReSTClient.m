@@ -53,13 +53,9 @@
 	
 	// parse result
 	NSDictionary * content = [result objectForKey:RESP_CONTENT_KEY];
-	if(content != nil && [content count]>0 && [result objectForKey:RESP_ERROR_KEY] == nil){
+	if(content != nil && [content count]>0){
 		stations = [[content objectForKey:RESP_STATIONS_INFO_KEY]objectForKey:RESP_STATION_INFO_KEY];
-	} else if(content != nil && [content count]>0 && [result objectForKey:RESP_ERROR_KEY] != nil){
-		[self connectionError:[result objectForKey:RESP_ERROR_KEY]];
-		return nil;
 	}
-	
 	return [WMReSTClient convertToStationInfo:stations];
 }
 
@@ -69,18 +65,12 @@
 		withGET:nil withPOST:nil asXML:YES accept:CPSReSTContentTypeApplicationXML];
 }
 
-- (void)getStationListResponse:(NSDictionary*)response{
-	NSArray* stations = nil;
-	
-	// parse result
-	NSDictionary * content = [response objectForKey:RESP_CONTENT_KEY];
-	if(content != nil && [content count]>0 && [response objectForKey:RESP_ERROR_KEY] == nil){
-		stations = [[content objectForKey:RESP_STATIONS_INFO_KEY]objectForKey:RESP_STATION_INFO_KEY];
+- (void)getStationListResponse:(NSDictionary*)content{
+	if(content != nil && [content count]>0){
+		NSArray* stations = [[content objectForKey:RESP_STATIONS_INFO_KEY]objectForKey:RESP_STATION_INFO_KEY];
 		if(stationListSender != nil && [stationListSender respondsToSelector:@selector(stationList:)]){
 			[stationListSender stationList:[WMReSTClient convertToStationInfo:stations]];
 		}
-	} else if(content != nil && [content count]>0 && [response objectForKey:RESP_ERROR_KEY] != nil){
-		[self connectionError:[response objectForKey:RESP_ERROR_KEY]];
 	}
 	self.stationListSender = nil;
 }
@@ -105,13 +95,9 @@
 	
 	// parse result
 	NSDictionary * content = [result objectForKey:RESP_CONTENT_KEY];
-	if(content != nil && [content count]>0 && [result objectForKey:RESP_ERROR_KEY] == nil){
+	if(content != nil && [content count]>0){
 		stationData = [content objectForKey:RESP_STATION_DATA_KEY];
-	} else if(content != nil && [content count]>0 && [result objectForKey:RESP_ERROR_KEY] != nil){
-		[self connectionError:[result objectForKey:RESP_ERROR_KEY]];
-		return nil;
-	}
-	
+	}	
 	return [WMReSTClient convertToStationData:stationData];
 }
 
@@ -121,18 +107,12 @@
 		withGET:nil withPOST:nil asXML:YES accept:CPSReSTContentTypeApplicationXML]; 
 }
 
-- (void)getStationDataResponse:(NSDictionary*)response{
-	NSDictionary* stationData = nil;
-
-	// parse result
-	NSDictionary * content = [response objectForKey:RESP_CONTENT_KEY];
-	if(content != nil && [content count]>0 && [response objectForKey:RESP_ERROR_KEY] == nil){
-		stationData = [content objectForKey:RESP_STATION_DATA_KEY];
+- (void)getStationDataResponse:(NSDictionary*)content{
+	if(content != nil && [content count]>0){
+		NSDictionary* stationData = [content objectForKey:RESP_STATION_DATA_KEY];
 		if(stationDataSender != nil && [stationDataSender respondsToSelector:@selector(stationData:)]){
 			[stationDataSender stationData:[WMReSTClient convertToStationData:stationData]];
 		}
-	} else if(content != nil && [content count]>0 && [response objectForKey:RESP_ERROR_KEY] != nil){
-		[self connectionError:[response objectForKey:RESP_ERROR_KEY]];
 	}
 	self.stationDataSender = nil;
 }
@@ -154,7 +134,7 @@
 
 	// parse result
 	NSDictionary * content = [result objectForKey:RESP_CONTENT_KEY];
-	if(content != nil && [content count]>0 && [result objectForKey:RESP_ERROR_KEY] == nil){
+	if(content != nil && [content count]>0){
 		stationGraph = [content objectForKey:@"chart"];
 	}
 	return [WMReSTClient convertToStationGraph:stationGraph];
@@ -166,12 +146,9 @@
 		withGET:nil withPOST:nil asXML:YES accept:CPSReSTContentTypeApplicationXML]; 
 }
 
-- (void)getStationGraphResponse:(NSDictionary*)response{
-	NSDictionary* stationGraph = nil;
-	
-	// parse result
-	NSDictionary * content = [response objectForKey:RESP_CONTENT_KEY];
-	if(content != nil && [content count]>0 && [response objectForKey:RESP_ERROR_KEY] == nil){
+- (void)getStationGraphResponse:(NSDictionary*)content{
+    NSDictionary* stationGraph;
+	if(content != nil && [content count]>0){
 		stationGraph = [content objectForKey:RESP_STATION_GRAPH_KEY];
 	}
 	
@@ -190,42 +167,77 @@
 
 - (void)asyncResponse:(NSDictionary*)result{
 	NSDictionary * content = [result objectForKey:RESP_CONTENT_KEY];
-	if(content != nil && [content count]>0 && [result objectForKey:RESP_ERROR_KEY] == nil){
+	if(content != nil && [content count]>0){
 		if([content objectForKey:RESP_STATIONS_INFO_KEY] != nil){
-			[self getStationListResponse:result];
+			[self getStationListResponse:content];
 		} else if([content objectForKey:RESP_STATION_DATA_KEY] != nil){
-			[self getStationDataResponse:result];
+			[self getStationDataResponse:content];
 		} else if([content objectForKey:RESP_STATION_GRAPH_KEY] != nil){
-			[self getStationGraphResponse:result];
-		}
+			[self getStationGraphResponse:content];
+        } else if([content objectForKey:RESP_ERROR_KEY] != nil){
+            [self serverError:content];
+        }
+    }
+}
+
+- (void)serverError:(NSDictionary *)content{
+    // Parse server error
+    NSDictionary *error = [content objectForKey:RESP_ERROR_KEY];
+    
+    NSString* title;
+    int code = [[error objectForKey:@"code"] intValue];
+    switch (code) {
+        case -3:
+            title = NSLocalizedStringFromTable(@"ERROR_SERVER_DATA", @"WindMobile", nil);
+            break;
+            
+        case -2:
+            title = NSLocalizedStringFromTable(@"ERROR_SERVER_DATABASE", @"WindMobile", nil);
+            break;
+            
+        default:
+            title = NSLocalizedStringFromTable(@"ERROR_SERVER_UNKNOWN", @"WindMobile", nil);
+            break;
+    }
+    
+    NSString* message = [error objectForKey:@"message"];
+    if(stationListSender != nil && [stationListSender respondsToSelector:@selector(serverError:message:)]){
+		[stationListSender serverError:title message:message];
+	}
+	if(stationDataSender != nil && [stationDataSender respondsToSelector:@selector(serverError:message:)]){
+		[stationDataSender serverError:title message:message];
+	}
+	if(stationGraphSender != nil && [stationGraphSender respondsToSelector:@selector(serverError:message:)]){
+		[stationGraphSender serverError:title message:message];
 	}
 }
 
 - (void)connectionError:(NSMutableDictionary *)error{
+    NSString* title = NSLocalizedStringFromTable(@"ERROR_NETWORK", @"WindMobile", nil);
+    
 	id code = [error objectForKey:@"statusCode"];
-	NSString *msg;
+	NSString *message;
 	if(code != nil){
-		msg = [NSLocalizedStringFromTable(@"ERROR_RECEIVED", @"WindMobile", nil) stringByAppendingString:[code stringValue]];
-		msg = [[msg stringByAppendingString:@":\n"]stringByAppendingString:[NSHTTPURLResponse localizedStringForStatusCode:[code intValue]]];
+		message = [NSHTTPURLResponse localizedStringForStatusCode:[code intValue]];
 	} else {
-		msg = [NSString stringWithFormat:NSLocalizedStringFromTable(@"ERROR_RECEIVED_FORMAT", @"WindMobile", nil), REST_SERVER];
+		message = NSLocalizedStringFromTable(@"ERROR_NETWORK", @"WindMobile", nil);
 	}
 	
-	if(stationListSender != nil && [stationListSender respondsToSelector:@selector(requestError:details:)]){
-		[stationListSender requestError:msg details:error];
+	if(stationListSender != nil && [stationListSender respondsToSelector:@selector(connectionError:message:)]){
+		[stationListSender connectionError:title message:message];
 	}
-	if(stationDataSender != nil && [stationDataSender respondsToSelector:@selector(requestError:details:)]){
-		[stationDataSender requestError:msg details:error];
+	if(stationDataSender != nil && [stationDataSender respondsToSelector:@selector(connectionError:message:)]){
+		[stationDataSender connectionError:title message:message];
 	}
-	if(stationGraphSender != nil && [stationGraphSender respondsToSelector:@selector(requestError:details:)]){
-		[stationGraphSender requestError:msg details:error];
+	if(stationGraphSender != nil && [stationGraphSender respondsToSelector:@selector(connectionError:message:)]){
+		[stationGraphSender connectionError:title message:message];
 	}
 	
-	[self showError:msg];
+	[self showError:title message:message];
 }
 
-- (void)showError:(NSString*)message{
-	UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTable(@"ERROR_NETWORK", @"WindMobile", nil)
+- (void)showError:(NSString*)title message:(NSString*)message{
+	UIAlertView * alert = [[UIAlertView alloc] initWithTitle:title
 													 message:message
 													delegate:nil cancelButtonTitle:NSLocalizedStringFromTable(@"OK", @"WindMobile", nil)
 										   otherButtonTitles:nil];

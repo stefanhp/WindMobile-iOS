@@ -14,7 +14,7 @@
 @class WindTrendChartViewController;
 @class WindPlotController;
 
-@interface StationDetailMeteoViewController : UIViewController<UIActionSheetDelegate> {
+@interface StationDetailMeteoViewController : UIViewController<WMReSTClientDelegate, UIActionSheetDelegate> {
 	WMReSTClient* client;
 	
 	StationInfo* stationInfo;
@@ -60,8 +60,6 @@
 
 // Content
 - (IBAction)refreshContent:(id)sender;
-// WMReSTClient delegate
-- (void)stationData:(StationData*)stationData;
 - (IBAction)showMap:(id)sender;
 - (IBAction)showActionSheet:(id)sender;
 - (IBAction)showGraph:(id)sender;

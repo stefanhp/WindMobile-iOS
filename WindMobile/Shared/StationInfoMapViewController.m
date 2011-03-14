@@ -245,7 +245,11 @@
 	[self performSelectorOnMainThread:@selector(addAnnotations:) withObject:stations waitUntilDone:true];
 }
 
-- (void)requestError:(NSString *) message details:(NSMutableDictionary *)error{
+- (void)serverError:(NSString *)title message:(NSString *)message{
+	[self stopRefreshAnimation];
+}
+
+- (void)connectionError:(NSString *)title message:(NSString *)message{
 	[self stopRefreshAnimation];
 }
 

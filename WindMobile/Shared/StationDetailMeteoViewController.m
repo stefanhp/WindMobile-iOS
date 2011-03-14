@@ -290,8 +290,16 @@
 	[self.view setNeedsDisplay];
 }
 
-- (void)requestError:(NSString*) message details:(NSMutableDictionary *)error{
+- (void)serverError:(NSString* )title message:(NSString *)message{
 	[self stopRefreshAnimation];
+    self.lastUpdated.text = title;
+    self.lastUpdated.textColor = [UIColor redColor];
+}
+
+- (void)connectionError:(NSString* )title message:(NSString *)message{
+	[self stopRefreshAnimation];
+    self.lastUpdated.text = title; 
+    self.lastUpdated.textColor = [UIColor redColor];
 }
 
 - (void)startRefreshAnimation{

@@ -15,10 +15,11 @@
 
 @protocol WMReSTClientDelegate
 @optional
-- (void)requestError:(NSString*) message details:(NSMutableDictionary *)error;
 - (void)stationList:(NSArray*)stations;
 - (void)stationData:(StationData*)stationData;
 - (void)stationGraph:(StationGraph*)stationGraph;
+- (void)serverError:(NSString*)title message:(NSString*)msg;
+- (void)connectionError:(NSString*)title message:(NSString*)msg;
 @end
 
 
@@ -50,13 +51,15 @@
 - (void)asyncResponse:(NSDictionary*)result;
 
 // Helpers
-- (void)showError:(NSString*)message;
+- (void)showError:(NSString*)title message:(NSString*)message;
 
 @end
 
 @interface WMReSTClient ()
 - (void)getStationListResponse:(NSDictionary*)response;
 - (void)getStationDataResponse:(NSDictionary*)response;
+- (void)getStationGraphResponse:(NSDictionary*)response;
+- (void)serverError:(NSDictionary*)error;
 
 - (NSMutableDictionary*)mockStationInfo;
 - (NSMutableDictionary*)mockStationData;
