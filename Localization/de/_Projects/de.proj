@@ -7,13 +7,15 @@
 		<key>BaseLocale</key>
 		<string>en</string>
 		<key>BrowserTickedFilesList</key>
-		<array/>
+		<array>
+			<string>MainWindow_Phone.xib.strings</string>
+		</array>
 		<key>BrowserWindowHeight</key>
 		<integer>339</integer>
 		<key>BrowserWindowLeft</key>
-		<integer>120</integer>
+		<integer>99</integer>
 		<key>BrowserWindowTop</key>
-		<integer>48</integer>
+		<integer>97</integer>
 		<key>BrowserWindowWidth</key>
 		<integer>1515</integer>
 		<key>FileMatcherIsVisible</key>
@@ -45,6 +47,8 @@
 			<key>NewBase</key>
 			<string>MainWindow_Phone.xib.strings</string>
 			<key>NewLoc</key>
+			<string>MainWindow_Phone.xib.strings</string>
+			<key>OldBase</key>
 			<string>MainWindow_Phone.xib.strings</string>
 			<key>WorkGlossary</key>
 			<string>MainWindow_Phone.xib.strings.wg</string>

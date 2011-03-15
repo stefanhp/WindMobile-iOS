@@ -75,5 +75,27 @@
 </TranslationSet>
 </TextItem>
 
+<TextItem>
+<Description> Class = &quot;IBUINavigationItem&quot;; title = &quot;Map&quot;; ObjectID = &quot;57&quot;; </Description>
+<Position>57.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Map</base>
+	<tran loc="de" origin="">Karte</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUITabBarItem&quot;; title = &quot;Map&quot;; ObjectID = &quot;58&quot;; </Description>
+<Position>58.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Map</base>
+	<tran loc="de" origin="">Karte</tran>
+
+</TranslationSet>
+</TextItem>
+
 </File>
 </Proj>
