@@ -19,12 +19,15 @@
 	
 	MKMapView *mapView;
 	UIPopoverController *stationPopOver;
-    @private StationInfo *selectedStation;
+@protected
+	StationInfo *selectedStation;
 }
 @property (retain) IBOutlet MKMapView *mapView;
 @property (retain) UIPopoverController *stationPopOver;
+@property (readonly) NSArray *stations;
 - (StationInfo *) getSelectedStation;
 - (void)selectStation:(StationInfo *)station;
 - (void)refresh;
 - (void)centerAroundAnnotations:(NSArray *)annotations;
+- (void)centerAroundStation:(StationInfo *)station;
 @end

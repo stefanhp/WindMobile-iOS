@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "StationInfoMapViewController.h"
 #import "IASKAppSettingsViewController.h"
+#import "iPadStationInfoViewController.h"
 
-@interface iPadStationInfoMapVC : StationInfoMapViewController<IASKSettingsDelegate> {
+@interface iPadStationInfoMapVC : StationInfoMapViewController<IASKSettingsDelegate,iPadStationInfoDelegate> {
 	UIPopoverController *settingsPopOver;
 	UIPopoverController *stationsPopOver;
     

@@ -8,6 +8,7 @@
 
 #import "iPadStationInfoMapVC.h"
 #import "StationListViewController.h"
+#import "StationInfoViewController.h"
 
 @implementation iPadStationInfoMapVC
 @synthesize settingsPopOver;
@@ -94,6 +95,18 @@
 }
 
 - (void)titleAction:(id)sender{
+	// Show station list
+	iPadStationInfoViewController *showStations = [[iPadStationInfoViewController alloc] initWithNibName:@"StationInfoViewController" bundle:nil];
+	showStations.stations = self.stations;
+	showStations.delegate = self;
+	
+	// show in popover
+	self.stationsPopOver = [[UIPopoverController alloc] initWithContentViewController:showStations];
+	[stationsPopOver presentPopoverFromBarButtonItem:titleItem 
+							permittedArrowDirections:UIPopoverArrowDirectionAny
+											animated:YES];
+	[showStations release];
+	
 }
 
 #pragma mark -

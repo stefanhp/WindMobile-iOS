@@ -147,6 +147,19 @@
     [locNorthEast release];
 }
 
+- (void)centerAroundStation:(StationInfo *)station {
+	int zoomLevel = 9;
+	if([iPadHelper isIpad]){
+		zoomLevel = 10;
+	}
+    [self.mapView setCenterCoordinate:station.coordinate zoomLevel:zoomLevel animated:YES];
+}
+
+@dynamic stations;
+- (NSArray*)stations{
+    return self.mapView.annotations;
+}
+
 #pragma mark -
 #pragma mark Private methods
 
@@ -159,14 +172,6 @@
     } else {
         [self centerAroundStation:selectedStation];        
     }
-}
-
-- (void)centerAroundStation:(StationInfo *)station {
-	int zoomLevel = 9;
-	if([iPadHelper isIpad]){
-		zoomLevel = 10;
-	}
-    [self.mapView setCenterCoordinate:station.coordinate zoomLevel:zoomLevel animated:YES];
 }
 
 - (void)startRefreshAnimation{

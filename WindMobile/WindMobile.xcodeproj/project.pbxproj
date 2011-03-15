@@ -61,6 +61,7 @@
 		F855F641130570100038A03B /* StationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F855F63F130570100038A03B /* StationListViewController.m */; };
 		F855F645130570860038A03B /* StationListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F855F643130570860038A03B /* StationListViewController.xib */; };
 		F858A650119E982C00FA26FA /* StationInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F858A64E119E982C00FA26FA /* StationInfoViewController.xib */; };
+		F861BB14132F7BDC00F77639 /* iPadStationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F861BB13132F7BDC00F77639 /* iPadStationInfoViewController.m */; };
 		F866565F13090CF000CF97D8 /* GraphData.m in Sources */ = {isa = PBXBuildFile; fileRef = F866565E13090CF000CF97D8 /* GraphData.m */; };
 		F86656E913092B1D00CF97D8 /* TestStationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F86656E813092B1D00CF97D8 /* TestStationInfo.m */; };
 		F86656EA13092B8B00CF97D8 /* StationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F83365D312F6FA8D00CCF0EB /* StationInfo.m */; };
@@ -250,6 +251,8 @@
 		F855F63F130570100038A03B /* StationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationListViewController.m; path = Shared/StationListViewController.m; sourceTree = "<group>"; };
 		F855F644130570860038A03B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/StationListViewController.xib; sourceTree = "<group>"; };
 		F858A66E119E984D00FA26FA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/StationInfoViewController.xib; sourceTree = "<group>"; };
+		F861BB12132F7BDC00F77639 /* iPadStationInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPadStationInfoViewController.h; sourceTree = "<group>"; };
+		F861BB13132F7BDC00F77639 /* iPadStationInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPadStationInfoViewController.m; sourceTree = "<group>"; };
 		F866565D13090CF000CF97D8 /* GraphData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphData.h; path = Shared/GraphData.h; sourceTree = "<group>"; };
 		F866565E13090CF000CF97D8 /* GraphData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphData.m; path = Shared/GraphData.m; sourceTree = "<group>"; };
 		F86656E713092B1D00CF97D8 /* TestStationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestStationInfo.h; sourceTree = "<group>"; };
@@ -350,6 +353,8 @@
 				2860E32C111B888700E27156 /* AppDelegate_Pad.m */,
 				F855F58213055A260038A03B /* iPadStationInfoMapVC.h */,
 				F855F58313055A260038A03B /* iPadStationInfoMapVC.m */,
+				F861BB12132F7BDC00F77639 /* iPadStationInfoViewController.h */,
+				F861BB13132F7BDC00F77639 /* iPadStationInfoViewController.m */,
 			);
 			path = iPad;
 			sourceTree = "<group>";
@@ -892,6 +897,7 @@
 				F82351D8130A8D9500C85958 /* StationDetailMeteoViewController.m in Sources */,
 				F82351DD130A8DDD00C85958 /* WindTrendChartViewController.m in Sources */,
 				AAC3DD48131C0D81003CEF97 /* AppDelegate_WindMobile.m in Sources */,
+				F861BB14132F7BDC00F77639 /* iPadStationInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
