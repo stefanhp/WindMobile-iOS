@@ -25,5 +25,5 @@
 @property (retain) UIPopoverController *stationsPopOver;
 - (void)showSettings:(id)sender;
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender;
-
+- (void)titleAction:(id)sender;
 @end

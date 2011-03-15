@@ -93,6 +93,9 @@
 	
 }
 
+- (void)titleAction:(id)sender{
+}
+
 #pragma mark -
 #pragma mark IASKSettingsDelegate
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender{
