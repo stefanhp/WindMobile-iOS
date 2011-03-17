@@ -7,7 +7,6 @@
 //
 
 #import "iPadStationInfoMapVC.h"
-#import "StationListViewController.h"
 #import "StationInfoViewController.h"
 
 @implementation iPadStationInfoMapVC
