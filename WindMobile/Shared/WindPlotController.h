@@ -41,7 +41,6 @@
 @property(readwrite, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 - (void)refreshContent:(id)sender;
-- (void)stationGraph:(StationGraph*)dataPoints;
 - (IBAction)setInterval:(id)sender;
 - (IBAction)showScale:(id)sender;
 - (NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot;

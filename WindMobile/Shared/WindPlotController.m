@@ -290,9 +290,8 @@
 	[client asyncGetStationGraph:stationInfo.stationID duration:self.duration forSender:self];
 }
 
-- (void)requestError:(NSString*) message details:(NSMutableDictionary *)error{
-	[self stopRefreshAnimation];
-}
+#pragma mark -
+#pragma mark WMReSTClientDelegate
 
 - (void)stationGraph:(StationGraph*)graphs{
 	self.stationGraph = graphs;
@@ -387,6 +386,16 @@
 	[self stopRefreshAnimation];
 	
 	[graph reloadData];
+}
+
+- (void)serverError:(NSString *)title message:(NSString *)message{
+	[self stopRefreshAnimation];
+    [WMReSTClient showError:title message:message];
+}
+
+- (void)connectionError:(NSString *)title message:(NSString *)message{
+	[self stopRefreshAnimation];
+    [WMReSTClient showError:title message:message];
 }
 
 - (void)startRefreshAnimation{

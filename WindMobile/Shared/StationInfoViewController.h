@@ -18,10 +18,6 @@
 
 // Content
 - (void)refreshContent:(id)sender;
-// WMReSTClient delegate
-- (void)stationList:(NSArray*)stations;
-- (void)requestError:(NSString*) message details:(NSMutableDictionary *)error;
-
 @end
 
 @interface StationInfoViewController ()

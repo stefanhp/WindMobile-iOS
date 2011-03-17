@@ -298,8 +298,7 @@
 
 - (void)connectionError:(NSString* )title message:(NSString *)message{
 	[self stopRefreshAnimation];
-    self.lastUpdated.text = title; 
-    self.lastUpdated.textColor = [UIColor redColor];
+    [WMReSTClient showError:title message:message];
 }
 
 - (void)startRefreshAnimation{

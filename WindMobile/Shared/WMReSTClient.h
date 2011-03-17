@@ -18,6 +18,7 @@
 - (void)stationList:(NSArray*)stations;
 - (void)stationData:(StationData*)stationData;
 - (void)stationGraph:(StationGraph*)stationGraph;
+@required
 - (void)serverError:(NSString*)title message:(NSString*)msg;
 - (void)connectionError:(NSString*)title message:(NSString*)msg;
 @end
@@ -47,11 +48,11 @@
 - (void)asyncGetStationGraph:(NSString*)stationID duration:(NSString*)duration forSender:(id)sender;
 
 // Parent delegate
-- (void)connectionError:(NSMutableDictionary *)error;
+- (void)connectionError:(NSError*)error;
 - (void)asyncResponse:(NSDictionary*)result;
 
 // Helpers
-- (void)showError:(NSString*)title message:(NSString*)message;
++ (void)showError:(NSString*)title message:(NSString*)message;
 
 @end
 
@@ -60,6 +61,7 @@
 - (void)getStationDataResponse:(NSDictionary*)response;
 - (void)getStationGraphResponse:(NSDictionary*)response;
 - (void)serverError:(NSDictionary*)error;
+- (void)serverUnknownError:(NSInteger)httpStatusCode;
 
 - (NSMutableDictionary*)mockStationInfo;
 - (NSMutableDictionary*)mockStationData;

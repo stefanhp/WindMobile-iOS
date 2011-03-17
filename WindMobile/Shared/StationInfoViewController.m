@@ -225,6 +225,9 @@
 	[client asyncGetStationList:[[NSUserDefaults standardUserDefaults]boolForKey:STATION_OPERATIONAL_KEY] forSender:self];
 }
 
+#pragma mark -
+#pragma mark WMReSTClientDelegate
+
 - (void)stationList:(NSArray*)aStationArray{
 	[self stopRefreshAnimation];
 
@@ -234,8 +237,14 @@
 	[self.tableView reloadData];
 }
 
-- (void)requestError:(NSString*) message details:(NSMutableDictionary *)error{
+- (void)serverError:(NSString *)title message:(NSString *)message{
 	[self stopRefreshAnimation];
+    [WMReSTClient showError:title message:message];
+}
+
+- (void)connectionError:(NSString *)title message:(NSString *)message{
+	[self stopRefreshAnimation];
+    [WMReSTClient showError:title message:message];
 }
 
 - (void)startRefreshAnimation{

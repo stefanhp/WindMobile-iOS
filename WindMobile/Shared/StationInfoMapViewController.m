@@ -243,7 +243,7 @@
 }
 
 #pragma mark -
-#pragma mark WMReSTClient delegate
+#pragma mark WMReSTClientDelegate
 
 - (void)stationList:(NSArray *)stations{
 	[self stopRefreshAnimation];
@@ -252,10 +252,12 @@
 
 - (void)serverError:(NSString *)title message:(NSString *)message{
 	[self stopRefreshAnimation];
+    [WMReSTClient showError:title message:message];
 }
 
 - (void)connectionError:(NSString *)title message:(NSString *)message{
 	[self stopRefreshAnimation];
+    [WMReSTClient showError:title message:message];
 }
 
 #pragma mark -

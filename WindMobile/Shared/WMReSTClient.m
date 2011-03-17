@@ -11,6 +11,7 @@
 
 #define RESP_CONTENT_KEY @"content"
 #define RESP_ERROR_KEY @"error"
+#define RESP_STATUS_CODE_KEY @"statusCode"
 
 #define URL_STATION_INFOS @"/windmobile/stationinfos?allStation=%@"
 #define RESP_STATIONS_INFO_KEY @"stationInfos"
@@ -147,7 +148,7 @@
 }
 
 - (void)getStationGraphResponse:(NSDictionary*)content{
-    NSDictionary* stationGraph;
+    NSDictionary* stationGraph = nil;
 	if(content != nil && [content count]>0){
 		stationGraph = [content objectForKey:RESP_STATION_GRAPH_KEY];
 	}
@@ -166,21 +167,33 @@
 #pragma mark Internal
 
 - (void)asyncResponse:(NSDictionary*)result{
-	NSDictionary * content = [result objectForKey:RESP_CONTENT_KEY];
-	if(content != nil && [content count]>0){
-		if([content objectForKey:RESP_STATIONS_INFO_KEY] != nil){
-			[self getStationListResponse:content];
-		} else if([content objectForKey:RESP_STATION_DATA_KEY] != nil){
-			[self getStationDataResponse:content];
-		} else if([content objectForKey:RESP_STATION_GRAPH_KEY] != nil){
-			[self getStationGraphResponse:content];
-        } else if([content objectForKey:RESP_ERROR_KEY] != nil){
+    NSInteger httpStatusCode = [[result objectForKey:RESP_STATUS_CODE_KEY] intValue];
+	NSDictionary* content = [result objectForKey:RESP_CONTENT_KEY];
+    
+    if (httpStatusCode == 200) {
+        if (content != nil && [content count] > 0) {
+            if([content objectForKey:RESP_STATIONS_INFO_KEY] != nil) {
+                [self getStationListResponse:content];
+            } else if([content objectForKey:RESP_STATION_DATA_KEY] != nil) {
+                [self getStationDataResponse:content];
+            } else if([content objectForKey:RESP_STATION_GRAPH_KEY] != nil) {
+                [self getStationGraphResponse:content];
+            }
+        } else {
+            // Fake 204 "No content"
+            [self serverUnknownError:204];
+        }
+    } else {
+        // Server error
+        if (content != nil && [content objectForKey:RESP_ERROR_KEY] != nil) {
             [self serverError:content];
+        } else {
+            [self serverUnknownError:httpStatusCode];
         }
     }
 }
 
-- (void)serverError:(NSDictionary *)content{
+- (void)serverError:(NSDictionary *)content {
     // Parse server error
     NSDictionary *error = [content objectForKey:RESP_ERROR_KEY];
     
@@ -212,13 +225,33 @@
 	}
 }
 
-- (void)connectionError:(NSMutableDictionary *)error{
+- (void)serverUnknownError:(NSInteger)httpStatusCode {
+    NSString* title = NSLocalizedStringFromTable(@"ERROR_SERVER_UNKNOWN", @"WindMobile", nil);
+    
+    NSString* message;
+	if (httpStatusCode != -1) {
+		message = [NSHTTPURLResponse localizedStringForStatusCode:httpStatusCode];
+	} else {
+		message = NSLocalizedStringFromTable(@"ERROR_SERVER_UNKNOWN", @"WindMobile", nil);
+	}
+    
+    if(stationListSender != nil && [stationListSender respondsToSelector:@selector(serverError:message:)]){
+		[stationListSender serverError:title message:message];
+	}
+	if(stationDataSender != nil && [stationDataSender respondsToSelector:@selector(serverError:message:)]){
+		[stationDataSender serverError:title message:message];
+	}
+	if(stationGraphSender != nil && [stationGraphSender respondsToSelector:@selector(serverError:message:)]){
+		[stationGraphSender serverError:title message:message];
+	}
+}
+
+- (void)connectionError:(NSError *)error {
     NSString* title = NSLocalizedStringFromTable(@"ERROR_NETWORK", @"WindMobile", nil);
     
-	id code = [error objectForKey:@"statusCode"];
-	NSString *message;
-	if(code != nil){
-		message = [NSHTTPURLResponse localizedStringForStatusCode:[code intValue]];
+    NSString* message;
+	if(error != nil){
+		message = [error localizedDescription];
 	} else {
 		message = NSLocalizedStringFromTable(@"ERROR_NETWORK", @"WindMobile", nil);
 	}
@@ -232,11 +265,9 @@
 	if(stationGraphSender != nil && [stationGraphSender respondsToSelector:@selector(connectionError:message:)]){
 		[stationGraphSender connectionError:title message:message];
 	}
-	
-	[self showError:title message:message];
 }
 
-- (void)showError:(NSString*)title message:(NSString*)message{
++ (void)showError:(NSString*)title message:(NSString*)message{
 	UIAlertView * alert = [[UIAlertView alloc] initWithTitle:title
 													 message:message
 													delegate:nil cancelButtonTitle:NSLocalizedStringFromTable(@"OK", @"WindMobile", nil)
