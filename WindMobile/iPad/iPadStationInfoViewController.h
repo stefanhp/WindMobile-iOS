@@ -12,7 +12,7 @@
 
 @protocol iPadStationInfoDelegate
 @required
-- (void)centerAroundStation:(StationInfo *)station;
+- (void)selectStation:(StationInfo *)station;
 @end
 
 @interface iPadStationInfoViewController : StationInfoViewController {

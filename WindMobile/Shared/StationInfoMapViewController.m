@@ -19,7 +19,7 @@
 - (void)centerAroundStation:(StationInfo *)station;
 - (void)startRefreshAnimation;
 - (void)stopRefreshAnimation;
-- (void)refreshAction:(id)sender;
+- (void)refresh;
 - (void)showStationDetail:(id)sender;
 @end
 
@@ -59,14 +59,9 @@
     }
 }
 
-- (void)refresh {
-    [self startRefreshAnimation];
-	if(client == nil){
-		client = [[WMReSTClient alloc] init ];
-	}
-    
-    // (re-)load content
-	[client asyncGetStationList:[[NSUserDefaults standardUserDefaults]boolForKey:STATION_OPERATIONAL_KEY] forSender:self];
+- (void)refreshAction:(id)sender {
+    [self selectStation:nil];
+    [self refresh];
 }
 
 - (void)centerAroundAnnotations:(NSArray *)annotations
@@ -147,14 +142,6 @@
     [locNorthEast release];
 }
 
-- (void)centerAroundStation:(StationInfo *)station {
-	int zoomLevel = 9;
-	if([iPadHelper isIpad]){
-		zoomLevel = 10;
-	}
-    [self.mapView setCenterCoordinate:station.coordinate zoomLevel:zoomLevel animated:YES];
-}
-
 @dynamic stations;
 - (NSArray*)stations{
     return self.mapView.annotations;
@@ -172,6 +159,14 @@
     } else {
         [self centerAroundStation:selectedStation];        
     }
+}
+
+- (void)centerAroundStation:(StationInfo *)station {
+	int zoomLevel = 9;
+	if([iPadHelper isIpad]){
+		zoomLevel = 10;
+	}
+    [self.mapView setCenterCoordinate:station.coordinate zoomLevel:zoomLevel animated:YES];
 }
 
 - (void)startRefreshAnimation{
@@ -199,9 +194,14 @@
 	[refreshItem release];
 }
 
-- (void)refreshAction:(id)sender {
-    [self selectStation:nil];
-    [self refresh];
+- (void)refresh {
+    [self startRefreshAnimation];
+	if(client == nil){
+		client = [[WMReSTClient alloc] init ];
+	}
+    
+    // (re-)load content
+	[client asyncGetStationList:[[NSUserDefaults standardUserDefaults]boolForKey:STATION_OPERATIONAL_KEY] forSender:self];
 }
 
 - (void)showStationDetail:(id)sender{

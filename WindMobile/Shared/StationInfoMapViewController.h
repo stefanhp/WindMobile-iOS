@@ -27,7 +27,6 @@
 @property (readonly) NSArray *stations;
 - (StationInfo *) getSelectedStation;
 - (void)selectStation:(StationInfo *)station;
-- (void)refresh;
+- (void)refreshAction:(id)sender;
 - (void)centerAroundAnnotations:(NSArray *)annotations;
-- (void)centerAroundStation:(StationInfo *)station;
 @end

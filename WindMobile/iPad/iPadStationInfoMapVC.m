@@ -41,7 +41,7 @@
     
     refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                                                 target:self 
-                                                                action:@selector(refresh)];
+                                                                action:@selector(refreshAction:)];
     
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     [activityIndicator startAnimating];
