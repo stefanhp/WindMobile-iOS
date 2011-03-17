@@ -7,6 +7,7 @@
 //
 
 #import <Math.h>
+#import "IASKSettingsReader.h"
 
 #import "StationInfoMapViewController.h"
 #import "MKMapView+ZoomLevel.h"
@@ -14,13 +15,14 @@
 #import "StationDetailMeteoViewController.h"
 #import "AppDelegate_Phone.h"
 
-@interface StationInfoMapViewController (Private)
+@interface StationInfoMapViewController (private)
 - (void)addAnnotations:(NSArray *)annotations;
 - (void)centerAroundStation:(StationInfo *)station;
 - (void)startRefreshAnimation;
 - (void)stopRefreshAnimation;
 - (void)refresh;
 - (void)showStationDetail:(id)sender;
+- (void)settingsChanged:(NSNotification* )notif;
 @end
 
 @implementation StationInfoMapViewController
@@ -34,8 +36,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+    self.mapView.mapType =[[NSUserDefaults standardUserDefaults]integerForKey:MAP_TYPE_KEY];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChanged:) name:kIASKAppSettingChanged object:nil];
+    
     self.mapView.delegate = self;
     [self refresh];
+}
+
+- (void)viewDidUnload {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kIASKAppSettingChanged object:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -242,6 +251,14 @@
 	[nav release];
 }
 
+- (void)settingsChanged:(NSNotification* )notif {
+    if ([[notif object] isEqualToString:STATION_OPERATIONAL_KEY]) {
+        [self refresh];
+    } else if ([[notif object] isEqualToString:MAP_TYPE_KEY]) {
+        self.mapView.mapType =[[NSUserDefaults standardUserDefaults]integerForKey:MAP_TYPE_KEY];
+    }
+}
+
 #pragma mark -
 #pragma mark WMReSTClientDelegate
 
@@ -307,15 +324,6 @@
 	}
 	
 	return pinView;
-}
-
-#pragma mark -
-#pragma mark UITabBarControllerDelegate
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
-	// check for preference changes
-	if(viewController == self){
-		self.mapView.mapType =[[NSUserDefaults standardUserDefaults]doubleForKey:MAP_TYPE_KEY];
-	}
 }
 
 #pragma mark -

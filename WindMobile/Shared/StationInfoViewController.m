@@ -6,12 +6,20 @@
 //  Copyright 2010 Pistache Software. All rights reserved.
 //
 
+#import <MapKit/MapKit.h>
+#import "IASKSettingsReader.h"
+
 #import "StationInfoViewController.h"
 #import "WMReSTClient.h"
-#import <MapKit/MapKit.h>
 #import "iPadHelper.h"
 #import "StationInfo.h"
 #import "StationDetailMeteoViewController.h"
+
+@interface StationInfoViewController (private)
+- (void)startRefreshAnimation;
+- (void)stopRefreshAnimation;
+- (void)settingsChanged:(NSNotification* )notif;
+@end
 
 @implementation StationInfoViewController
 
@@ -23,35 +31,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-    // Uncomment the following line to preserve selection between presentations.
-    //self.clearsSelectionOnViewWillAppear = NO;
-	
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-	
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChanged:) name:kIASKAppSettingChanged object:nil];
+    
 	[self refreshContent:self];
 }
 
-/*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidUnload {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kIASKAppSettingChanged object:nil];
 }
-*/
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-*/
+
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
@@ -62,7 +50,6 @@
 - (CGSize)contentSizeForViewInPopoverView {
     return CGSizeMake(320.0, 280.0);
 }
-
 
 #pragma mark -
 #pragma mark Table view data source
@@ -127,47 +114,6 @@
 	return cell;
 }
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 #pragma mark -
 #pragma mark Table view delegate
 
@@ -200,12 +146,6 @@
     // Relinquish ownership any cached data, images, etc that aren't in use.
 }
 
-- (void)viewDidUnload {
-    // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
-    // For example: self.myOutlet = nil;
-}
-
-
 - (void)dealloc {
 	[client release];
 	[stations release];
@@ -213,7 +153,7 @@
 }
 
 #pragma mark -
-#pragma mark Station methods
+#pragma mark Public methods
 
 - (void)refreshContent:(id)sender {
 	[self startRefreshAnimation];
@@ -226,26 +166,7 @@
 }
 
 #pragma mark -
-#pragma mark WMReSTClientDelegate
-
-- (void)stationList:(NSArray*)aStationArray{
-	[self stopRefreshAnimation];
-
-	self.stations = aStationArray;
-	
-	// refresh table
-	[self.tableView reloadData];
-}
-
-- (void)serverError:(NSString *)title message:(NSString *)message{
-	[self stopRefreshAnimation];
-    [WMReSTClient showError:title message:message];
-}
-
-- (void)connectionError:(NSString *)title message:(NSString *)message{
-	[self stopRefreshAnimation];
-    [WMReSTClient showError:title message:message];
-}
+#pragma mark Private methods
 
 - (void)startRefreshAnimation{
 	// Remove refresh button
@@ -270,6 +191,34 @@
 																				 action:@selector(refreshContent:)];
 	self.navigationItem.rightBarButtonItem = refreshItem;
 	[refreshItem release];
+}
+
+- (void)settingsChanged:(NSNotification* )notif {
+    if ([[notif object] isEqualToString:STATION_OPERATIONAL_KEY]) {
+        [self refreshContent:self];
+    }
+}
+
+#pragma mark -
+#pragma mark WMReSTClientDelegate
+
+- (void)stationList:(NSArray*)aStationArray{
+	[self stopRefreshAnimation];
+
+	self.stations = aStationArray;
+	
+	// refresh table
+	[self.tableView reloadData];
+}
+
+- (void)serverError:(NSString *)title message:(NSString *)message{
+	[self stopRefreshAnimation];
+    [WMReSTClient showError:title message:message];
+}
+
+- (void)connectionError:(NSString *)title message:(NSString *)message{
+	[self stopRefreshAnimation];
+    [WMReSTClient showError:title message:message];
 }
 
 @end

@@ -15,12 +15,5 @@
 	NSArray *stations;
 }
 @property (retain)NSArray *stations;
-
-// Content
 - (void)refreshContent:(id)sender;
-@end
-
-@interface StationInfoViewController ()
-- (void)startRefreshAnimation;
-- (void)stopRefreshAnimation;
 @end
