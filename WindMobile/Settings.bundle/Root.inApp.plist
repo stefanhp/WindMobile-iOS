@@ -24,7 +24,7 @@
 			<key>File</key>
 			<string>http://www.la-haut.info/windmobile-ios/</string>
 			<key>Title</key>
-			<string>http://www.la-haut.info</string>
+			<string>www.la-haut.info</string>
 			<key>Type</key>
 			<string>IASKOpenURLSpecifier</string>
 		</dict>
