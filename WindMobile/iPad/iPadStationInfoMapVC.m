@@ -10,8 +10,8 @@
 #import "StationInfoViewController.h"
 
 @implementation iPadStationInfoMapVC
-@synthesize settingsPopOver;
-@synthesize stationsPopOver;
+@synthesize settingsPopover;
+@synthesize stationsPopover;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,12 +28,12 @@
     settingsItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] 
                                                     style:UIBarButtonItemStylePlain 
                                                    target:self 
-                                                   action:@selector(showSettings:)];
+                                                   action:@selector(showSettingsPopover:)];
     
-    titleItem = [[UIBarButtonItem alloc]initWithTitle:NSLocalizedStringFromTable(@"STATIONS", @"WindMobile", nil)
+    stationsItem = [[UIBarButtonItem alloc]initWithTitle:NSLocalizedStringFromTable(@"STATIONS", @"WindMobile", nil)
                                                 style:UIBarButtonItemStylePlain 
                                                target:self
-                                               action:@selector(titleAction:)];
+                                               action:@selector(showStationsPopover:)];
     
     flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                                              target:nil
@@ -48,7 +48,7 @@
     activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
     [activityIndicator release];
     
-    NSArray *items = [NSArray arrayWithObjects:settingsItem, flexItem, titleItem, flexItem, refreshItem, nil];	
+    NSArray *items = [NSArray arrayWithObjects:settingsItem, flexItem, stationsItem, flexItem, refreshItem, nil];	
     [toolbar setItems:items animated:NO];
 }
 
@@ -72,64 +72,74 @@
 	[toolbar setItems:[items arrayByAddingObject:refreshItem] animated:NO];
 }
 
-- (void)showSettings:(id)sender{
-	// InAppSettings
-	IASKAppSettingsViewController *appSettings = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
-	//appSettings.delegate = self;
-    appSettings.showDoneButton = YES;
-	appSettings.title = NSLocalizedStringFromTable(@"SETTINGS", @"WindMobile", nil);
-	appSettings.delegate = self;
-	
-	// Navigation controller
-	UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:appSettings];
-	[appSettings release];
-	
-	// show in popover
-	self.settingsPopOver = [[UIPopoverController alloc] initWithContentViewController:aNavController];
-	[settingsPopOver presentPopoverFromBarButtonItem:settingsItem 
-							permittedArrowDirections:UIPopoverArrowDirectionAny
-											animated:YES];
-	[aNavController release];
-	
+- (void)showSettingsPopover:(id)sender {
+    if (self.settingsPopover == nil) {
+        // InAppSettings
+        IASKAppSettingsViewController *appSettings = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
+        //appSettings.delegate = self;
+        appSettings.showDoneButton = YES;
+        appSettings.title = NSLocalizedStringFromTable(@"SETTINGS", @"WindMobile", nil);
+        appSettings.delegate = self;
+        
+        // Navigation controller
+        UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:appSettings];
+        [appSettings release];
+        
+        // show in popover
+        self.settingsPopover = [[UIPopoverController alloc] initWithContentViewController:aNavController];
+        [aNavController release];
+    }
+    
+    if (self.settingsPopover.popoverVisible == NO) {
+        [settingsPopover presentPopoverFromBarButtonItem:settingsItem 
+                                permittedArrowDirections:UIPopoverArrowDirectionAny
+                                                animated:YES];
+    }
 }
 
-- (void)titleAction:(id)sender{
-	// Show station list
-	iPadStationInfoViewController *showStations = [[iPadStationInfoViewController alloc] initWithNibName:@"StationInfoViewController" bundle:nil];
-	showStations.stations = self.stations;
-	showStations.delegate = self;
-	
-	// show in popover
-	self.stationsPopOver = [[UIPopoverController alloc] initWithContentViewController:showStations];
-	[stationsPopOver presentPopoverFromBarButtonItem:titleItem 
-							permittedArrowDirections:UIPopoverArrowDirectionAny
-											animated:YES];
-	[showStations release];
-	
+- (void)showStationsPopover:(id)sender {
+    if (self.stationsPopover == nil) {
+        // Show station list
+        iPadStationInfoViewController *stationListController = [[iPadStationInfoViewController alloc] initWithNibName:@"StationInfoViewController" bundle:nil];
+        stationListController.stations = self.stations;
+        stationListController.delegate = self;
+        
+        // show in popover
+        self.stationsPopover = [[UIPopoverController alloc] initWithContentViewController:stationListController];
+        [stationListController release];
+        self.stationsPopover.popoverContentSize = CGSizeMake(380, 450);
+    }
+    
+    if (self.stationsPopover.popoverVisible == NO) {
+        [stationsPopover presentPopoverFromBarButtonItem:stationsItem 
+                                permittedArrowDirections:UIPopoverArrowDirectionAny
+                                                animated:YES];
+    }
 }
 
 #pragma mark -
 #pragma mark IASKSettingsDelegate
-- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender{
-	// Update changed preferences
-	// Map type
-	mapView.mapType =[[NSUserDefaults standardUserDefaults]doubleForKey:MAP_TYPE_KEY];
-	
-	// Timeout and mock data
-	if(client != nil){
-		// we only update an existing client: newly created clients will use the new default values
-		client.timeout = [[NSUserDefaults standardUserDefaults]doubleForKey:TIMEOUT_KEY];
-	}
-	if(self.settingsPopOver != nil){
-		[settingsPopOver dismissPopoverAnimated:YES];
+
+- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {
+	if (self.settingsPopover != nil) {
+		[self.settingsPopover dismissPopoverAnimated:YES];
 	}
 }
 
+#pragma mark -
+#pragma mark iPadStationInfoDelegate methods
+
+- (void)dismissStationsPopover {
+    if (self.stationsPopover.popoverVisible) {
+        [self.stationsPopover dismissPopoverAnimated:NO];
+    }
+}
+
 - (void)dealloc {
-    [settingsPopOver release];
-	[stationsPopOver release];
+    [settingsPopover release];
+	[stationsPopover release];
 	[toolbar release];	
-	[titleItem release];
+	[stationsItem release];
 	[flexItem release];	
 	[refreshItem release];	
 	[activityItem release];

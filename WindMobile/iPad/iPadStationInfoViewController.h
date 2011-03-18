@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "StationInfoViewController.h"
 #import "StationInfo.h"
 
 @protocol iPadStationInfoDelegate
 @required
 - (void)selectStation:(StationInfo *)station;
+- (void)dismissStationsPopover;
 @end
 
 @interface iPadStationInfoViewController : StationInfoViewController {

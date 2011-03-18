@@ -64,6 +64,7 @@
         selectedStation = [station retain];
     }
     if (station != nil) {
+        self.mapView.selectedAnnotations = [NSArray arrayWithObject:station];
         [self centerAroundStation:selectedStation];
     }
 }
@@ -213,17 +214,14 @@
 	[client asyncGetStationList:[[NSUserDefaults standardUserDefaults]boolForKey:STATION_OPERATIONAL_KEY] forSender:self];
 }
 
-- (void)showStationDetail:(id)sender{
-	StationDetailMeteoViewController *meteo = [[StationDetailMeteoViewController alloc]initWithNibName:@"StationDetailMeteoViewController" bundle:nil];
-	NSArray *annotations = self.mapView.selectedAnnotations;
-	//meteo.stationInfo = self.stationIn
-	id <MKAnnotation> annotation = nil;
-	if(annotations != nil && [annotations count] == 1){
-		StationInfo *info = [annotations objectAtIndex:0];
-		annotation = [annotations objectAtIndex:0];
-		meteo.stationInfo = info;
-	}
+- (void)showStationDetail:(id)sender {
+    if ([self.mapView.selectedAnnotations count] == 0) {
+        return;
+    }
+    id<MKAnnotation> annotation = [self.mapView.selectedAnnotations objectAtIndex:0];
     
+	StationDetailMeteoViewController *meteo = [[StationDetailMeteoViewController alloc]initWithNibName:@"StationDetailMeteoViewController" bundle:nil];
+    meteo.stationInfo = annotation;
 	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:meteo];
 	[meteo release];
     
@@ -296,11 +294,6 @@
 		pinView.animatesDrop = YES;
 		pinView.canShowCallout = YES;
 		
-		// add a detail disclosure button to the callout which will open a new view controller page
-		//
-		// note: you can assign a specific call out accessory view, or as MKMapViewDelegate you can implement:
-		//  - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control;
-		//
 		UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 		[rightButton addTarget:self
 						action:@selector(showStationDetail:)

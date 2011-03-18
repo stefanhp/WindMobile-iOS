@@ -7,6 +7,7 @@
 //
 
 #import "StationInfo.h"
+#import "iPadHelper.h"
 
 #define STATION_INFO_ID_KEY @"@id"
 #define STATION_INFO_NAME_KEY @"@name"
@@ -110,18 +111,21 @@
 	return StationInfoStatusUndef;
 }
 
-
 #pragma mark -
 #pragma mark - MKAnnotation protocol
+
 @synthesize coordinate;
-- (NSString *)title{
-	return self.name;
+- (NSString *)title {
+    if ([iPadHelper isIpad]) {
+        return self.name;
+    } else {
+        return self.shortName;
+    }
 }
 
-- (NSString *)subtitle{
+- (NSString *)subtitle {
 	return [NSString stringWithFormat:NSLocalizedStringFromTable(@"ALTITUDE_SHORT_FORMAT", @"WindMobile", nil),
 			self.altitude];
 }
-
 
 @end

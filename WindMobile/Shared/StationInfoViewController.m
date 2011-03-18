@@ -40,36 +40,32 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kIASKAppSettingChanged object:nil];
 }
 
-// Override to allow orientations other than the default portrait orientation.
+#pragma mark -
+#pragma mark UIViewController (orientation)
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    //return (interfaceOrientation == UIInterfaceOrientationPortrait);
 	return YES;
 }
 
-- (CGSize)contentSizeForViewInPopoverView {
-    return CGSizeMake(320.0, 280.0);
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self refreshContent:self];
 }
 
 #pragma mark -
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
     return 1;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
 	if (stations != nil) {
 		return [stations count];
 	}
     return 0;
 }
 
-
-// Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"StationInfoCell";
@@ -80,21 +76,26 @@
     }
     
 	StationInfo *data = [stations objectAtIndex:indexPath.row];
-
+    
     // Configure the cell...
-	if(data != nil){
-		if([iPadHelper isIpad]){
+	if (data != nil) {
+		if ([iPadHelper isIpad]) {
 			cell.accessoryType = UITableViewCellAccessoryNone;
 		} else {
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		}
-		cell.textLabel.text = [data objectForKey:@"@shortName"];
+        if ([iPadHelper isIpad] || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft || self.interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+            cell.textLabel.text = [data objectForKey:@"@name"];
+        } else {
+            cell.textLabel.text = [data objectForKey:@"@shortName"];
+        }
 		cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"ALTITUDE_FORMAT", 
 																								 @"WindMobile", 
 																								 [NSBundle mainBundle], 
 																								 @"Altitude %@m", 
 																								 @"Altitude format string"),
-									 [data objectForKey:@"@altitude"]];
+                                     [data objectForKey:@"@altitude"]];
+        
 		switch (data.maintenanceStatusEnum) {
 			case StationInfoStatusGreen:
 				cell.imageView.image = [UIImage imageNamed:@"bullet-green"];
@@ -115,23 +116,17 @@
 }
 
 #pragma mark -
-#pragma mark Table view delegate
+#pragma mark TableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if(stations != nil && [stations count]>0){
-		
-		if([iPadHelper isIpad]){
-			// For iPad, detail view is loaded from map annotation only
-		} else {
-			// For iPhone, create one to push
-			StationDetailMeteoViewController *meteoVC = nil;
-			StationInfo* stationInfo = [stations objectAtIndex:indexPath.row];
-			meteoVC = [[StationDetailMeteoViewController alloc] initWithNibName:@"StationDetailMeteoViewController" bundle:nil];
-			[meteoVC setStationInfo:stationInfo];
-			// push controller
-			[self.navigationController pushViewController:meteoVC animated:YES];
-			[meteoVC release];
-		}
+        StationDetailMeteoViewController *meteoVC = nil;
+        StationInfo* stationInfo = [stations objectAtIndex:indexPath.row];
+        meteoVC = [[StationDetailMeteoViewController alloc] initWithNibName:@"StationDetailMeteoViewController" bundle:nil];
+        [meteoVC setStationInfo:stationInfo];
+        // push controller
+        [self.navigationController pushViewController:meteoVC animated:YES];
+        [meteoVC release];
 	}
 }
 
@@ -140,7 +135,6 @@
 #pragma mark Memory management
 
 - (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     
     // Relinquish ownership any cached data, images, etc that aren't in use.

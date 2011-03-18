@@ -7,24 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "StationInfoMapViewController.h"
 #import "IASKAppSettingsViewController.h"
+
+#import "StationInfoMapViewController.h"
 #import "iPadStationInfoViewController.h"
 
-@interface iPadStationInfoMapVC : StationInfoMapViewController<IASKSettingsDelegate,iPadStationInfoDelegate> {
-	UIPopoverController *settingsPopOver;
-	UIPopoverController *stationsPopOver;
+@interface iPadStationInfoMapVC : StationInfoMapViewController<IASKSettingsDelegate, iPadStationInfoDelegate> {
+	UIPopoverController *settingsPopover;
+	UIPopoverController *stationsPopover;
     
     UIToolbar *toolbar;
     UIBarButtonItem *settingsItem;
-    UIBarButtonItem *titleItem;
+    UIBarButtonItem *stationsItem;
 	UIBarButtonItem *refreshItem;
     UIBarButtonItem *activityItem;    
     UIBarButtonItem *flexItem;
 }
-@property (retain) UIPopoverController *settingsPopOver;
-@property (retain) UIPopoverController *stationsPopOver;
-- (void)showSettings:(id)sender;
-- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender;
-- (void)titleAction:(id)sender;
+@property (retain) UIPopoverController *settingsPopover;
+@property (retain) UIPopoverController *stationsPopover;
+- (void)showSettingsPopover:(id)sender;
+- (void)showStationsPopover:(id)sender;
 @end

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "WMReSTClient.h"
-#import "IASKAppSettingsViewController.h"
 
 @interface StationInfoViewController : UITableViewController<WMReSTClientDelegate> {
 	WMReSTClient* client;
