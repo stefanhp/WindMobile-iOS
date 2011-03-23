@@ -9,6 +9,7 @@
 #import "WindPlotController.h"
 #import "CPGraphHostingView.h"
 #import "WMCellGraphTheme.h"
+#import "iPadHelper.h"
 
 #define PLOT_WIND_AVERAGE_IDENTIFIER @"Wind Average"
 #define PLOT_WIND_MAX_IDENTIFIER @"Wind Max"
@@ -25,24 +26,25 @@
 @implementation WindPlotController
 
 @synthesize hostingView;
-@synthesize scale;
-@synthesize info;
 @synthesize stationInfo;
 @synthesize stationGraphData;
-@synthesize activityIndicator;
+@synthesize duration;
+@synthesize info;
+@synthesize scale;
+@synthesize masterController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
     [self setupButtons];
-    info.hidden = NO;
+    self.info.hidden = NO;
     
     // Create graph from theme
     graph = [[CPXYGraph alloc] initWithFrame:CGRectZero];
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
     [graph applyTheme:theme];
-    hostingView.collapsesLayers = NO; // Collapsing layers may improve performance in some cases
-    hostingView.hostedGraph = graph;
+    self.hostingView.collapsesLayers = NO; // Collapsing layers may improve performance in some cases
+    self.hostingView.hostedGraph = graph;
 	
     graph.paddingLeft = 0.0;
     graph.paddingTop = 0.0;
@@ -128,6 +130,7 @@
 	[duration release];
 	[scale release];
 	[info release];
+	[masterController release];
 	
     [super dealloc];
 }
@@ -144,7 +147,7 @@
 	if(client == nil){
 		client = [[WMReSTClient alloc] init ];
 	}
-	[client asyncGetStationGraphData:stationInfo.stationID duration:self.duration forSender:self];
+	[client asyncGetStationGraphData:self.stationInfo.stationID duration:self.duration forSender:self];
 }
 
 #pragma mark -
@@ -161,7 +164,7 @@
     CPPlotRange* yRange = plotSpace.yRange;
     
     double maxValue = [yRange locationDouble] + [yRange lengthDouble];
-    double viewHeight = hostingView.bounds.size.height;
+    double viewHeight = self.hostingView.bounds.size.height;
     double scaleFactor = maxValue / viewHeight;
     
     // Y scale : 10 km/h minumum
@@ -179,7 +182,7 @@
     yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(location) length:CPDecimalFromDouble(maxValue - location)];
     
     // Put the y axis on the left of the view
-    axisSet.yAxis.orthogonalCoordinateDecimal = CPDecimalFromDouble(xRange.locationDouble + xRange.lengthDouble - xRange.lengthDouble/50);
+    axisSet.yAxis.orthogonalCoordinateDecimal = CPDecimalFromDouble(xRange.locationDouble + xRange.lengthDouble);
     axisSet.yAxis.visibleRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0) length:CPDecimalFromDouble(maxValue)];
     
     // Setup the "zoomed" range
@@ -193,7 +196,7 @@
     */
     
     // X interval customization
-    switch (scale.selectedSegmentIndex) {
+    switch (self.scale.selectedSegmentIndex) {
         case INTERVAL_4_HOURS:
             axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(3600.0); // 1h
             axisSet.xAxis.minorTicksPerInterval = 1; // 30 min
@@ -211,8 +214,8 @@
             axisSet.xAxis.minorTicksPerInterval = 7; // 1 h
             break;
         case INTERVAL_2_DAYS:
-            axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(28800); // 8h
-            axisSet.xAxis.minorTicksPerInterval = 7; // 1 h
+            axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(36000); // 10h
+            axisSet.xAxis.minorTicksPerInterval = 9; // 1 h
             break;
         default:
             axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(14400); // 4h
@@ -261,52 +264,76 @@
     [WMReSTClient showError:title message:message];
 }
 
-- (void)startRefreshAnimation{
-	// Remove refresh button
-	self.navigationItem.rightBarButtonItem = nil;
-	
-	// activity indicator
-	info.hidden = YES;
-	[activityIndicator startAnimating];
+- (void)startRefreshAnimation {
+    if([iPadHelper isIpad]){
+        // Remove refresh button
+        self.navigationItem.rightBarButtonItem = nil;
+        
+        // Start animation
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+        [activityIndicator startAnimating];
+        UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+        [activityIndicator release];
+        self.navigationItem.rightBarButtonItem = activityItem;
+        [activityItem release];
+    } else { // iPhone
+        [self.masterController startRefreshAnimation];
+    }    
+    
+	self.info.hidden = YES;
+    self.scale.hidden = YES;
 }
 
 - (void)stopRefreshAnimation{
-	// Stop animation
-	[activityIndicator stopAnimating];
-	info.hidden = NO;
-	
-	// Put Refresh button on the top left
-	UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-																				 target:self 
-																				 action:@selector(refreshContent:)];
-	self.navigationItem.rightBarButtonItem = refreshItem;
-	[refreshItem release];
+	if([iPadHelper isIpad]){
+        // Stop animation
+        self.navigationItem.rightBarButtonItem = nil;
+        
+        UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                                                     target:self 
+                                                                                     action:@selector(refreshContent:)];
+        self.navigationItem.rightBarButtonItem = refreshItem;
+        [refreshItem release];
+	} else { // iPhone
+        [self.masterController stopRefreshAnimation];
+	}
+    
+    [self showInfo:self];
 }
 
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
 - (NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot {
-	if(stationGraphData == nil){
+	if(self.stationGraphData == nil){
 		return 0;
 	}
-    return [stationGraphData.windAverage dataPointCount];
+    
+    if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_AVERAGE_IDENTIFIER]) {
+        // Wind Average
+        return [self.stationGraphData.windAverage dataPointCount];
+	} else if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_MAX_IDENTIFIER]) { 
+        // Wind Max
+        return [self.stationGraphData.windMax dataPointCount];
+	}
+    
+    return 0;
 }
 
 - (NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
 	if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_AVERAGE_IDENTIFIER]) {
         // Wind Average
 		if (fieldEnum == CPScatterPlotFieldX) {
-			return [NSNumber numberWithDouble:[stationGraphData.windAverage timeIntervalForPointAtIndex:index]];
+			return [NSNumber numberWithDouble:[self.stationGraphData.windAverage timeIntervalForPointAtIndex:index]];
 		} else if(fieldEnum == CPScatterPlotFieldY){
-			return [stationGraphData.windAverage valueForPointAtIndex:index];
+			return [self.stationGraphData.windAverage valueForPointAtIndex:index];
 		}
 	} else if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_MAX_IDENTIFIER]) { 
         // Wind Max
 		if (fieldEnum == CPScatterPlotFieldX) {
-			return [NSNumber numberWithDouble:[stationGraphData.windMax timeIntervalForPointAtIndex:index]];
+			return [NSNumber numberWithDouble:[self.stationGraphData.windMax timeIntervalForPointAtIndex:index]];
 		} else if(fieldEnum == CPScatterPlotFieldY){
-			return [stationGraphData.windMax valueForPointAtIndex:index];
+			return [self.stationGraphData.windMax valueForPointAtIndex:index];
 		}
 	}
     
@@ -315,12 +342,11 @@
 
 #pragma mark -
 #pragma mark Buttons
-@synthesize duration;
 
-- (IBAction)setInterval:(id)sender{
+- (IBAction)setInterval:(id)sender {
 	// new duration
 	NSString* newDuration;
-	switch (scale.selectedSegmentIndex) {
+	switch (self.scale.selectedSegmentIndex) {
 		case INTERVAL_4_HOURS:
 			newDuration = @"14400"; // 4h = 60 * 60 * 4 seconds
 			break;
@@ -340,10 +366,8 @@
 			newDuration = DEFAULT_DURATION;
 			break;
 	}
-	
-	// Swap buttons
-	scale.hidden = YES;
-	info.hidden = NO;
+    
+    [self showInfo:self];
 	
 	// apply new duration
 	if([newDuration compare:self.duration] !=  NSOrderedSame){
@@ -352,17 +376,20 @@
 	}
 }
 
-- (IBAction)showScale:(id)sender{
-	info.hidden = YES;
-	scale.hidden = NO;
+- (IBAction)showInfo:(id)sender {
+	self.scale.hidden = YES;
+	self.info.hidden = NO;
 }
 
+- (IBAction)showScale:(id)sender {
+	self.info.hidden = YES;
+	self.scale.hidden = NO;
+}
 
-- (void)setupButtons{
-	NSString *value;
-	for (int i=0; i<scale.numberOfSegments; i++) {
-		value = [NSString stringWithFormat:DURATION_FORMAT, i];
-		[scale setTitle:NSLocalizedStringFromTable(value, @"WindMobile", nil) forSegmentAtIndex:i];
+- (void)setupButtons {
+	for (int i=0; i < self.scale.numberOfSegments; i++) {
+        NSString *value = [NSString stringWithFormat:DURATION_FORMAT, i];
+		[self.scale setTitle:NSLocalizedStringFromTable(value, @"WindMobile", nil) forSegmentAtIndex:i];
 	}
 }
 

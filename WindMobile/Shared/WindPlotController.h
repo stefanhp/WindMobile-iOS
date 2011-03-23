@@ -10,6 +10,7 @@
 #import "CorePlot-CocoaTouch.h"
 #import "WMReSTClient.h"
 #import "StationInfo.h"
+#import "StationDetailMeteoViewController.h"
 
 
 @interface WindPlotController : UIViewController <CPPlotDataSource, WMReSTClientDelegate> {
@@ -24,20 +25,21 @@
 	CPXYAxisSet *axisSet;
 	
 	NSString *duration;
+    UIButton *info;
 	UISegmentedControl *scale;
-	UIButton *info;
-	UIActivityIndicatorView *activityIndicator;
+    StationDetailMeteoViewController *masterController;
 }
-@property(readwrite, retain) IBOutlet CPGraphHostingView* hostingView;
-@property(readwrite, retain) StationInfo* stationInfo;
-@property(readwrite, retain) StationGraphData* stationGraphData;
-@property(readwrite, retain) NSString* duration;
-@property(readwrite, retain) IBOutlet UISegmentedControl *scale;
-@property(readwrite, retain) IBOutlet UIButton *info;
-@property(readwrite, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property(retain) IBOutlet CPGraphHostingView* hostingView;
+@property(retain) StationInfo* stationInfo;
+@property(retain) StationGraphData* stationGraphData;
+@property(retain) NSString* duration;
+@property(retain) IBOutlet UIButton *info;
+@property(retain) IBOutlet UISegmentedControl *scale;
+@property(retain) StationDetailMeteoViewController *masterController;
 
 - (void)refreshContent:(id)sender;
 - (IBAction)setInterval:(id)sender;
+- (IBAction)showInfo:(id)sender;
 - (IBAction)showScale:(id)sender;
 - (NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot;
 @end

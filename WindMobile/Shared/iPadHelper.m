@@ -8,13 +8,20 @@
 
 #import "iPadHelper.h"
 
-
 @implementation iPadHelper
-+ (BOOL)isIpad{
+
++(BOOL)isIpad{
 	NSString* model = [[UIDevice currentDevice]model];
 	if([model rangeOfString:@"iPad"].location != NSNotFound){
 		return YES;
 	}
 	return NO;
 }
+
++(BOOL)isPresentedModally:(UIViewController*)viewController {
+    return (viewController.navigationController != nil &&
+			viewController.navigationController.parentViewController != nil &&
+			viewController.navigationController.parentViewController.modalViewController == viewController.navigationController);
+}
+
 @end

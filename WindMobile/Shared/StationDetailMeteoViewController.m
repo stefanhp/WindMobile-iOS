@@ -73,8 +73,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
-	if([self isPresentedModaly]){
-		// we are presented modally: add a dismiss button
+	if ([iPadHelper isPresentedModally:self]) {
+		// we are presented modaly: add a dismiss button
 		self.navigationItem.rightBarButtonItem = nil;
 		UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
 																					target:self 
@@ -90,6 +90,7 @@
 			case UIInterfaceOrientationLandscapeRight:
 				self.windPlotController = [[WindPlotController alloc] initWithNibName:@"WindPlotController" bundle:nil];
 				self.windPlotController.stationInfo = self.stationInfo;
+                self.windPlotController.masterController = self;
                 
 				// Display plot view
 				self.windPlotController.view.frame = self.view.bounds;
@@ -121,6 +122,7 @@
 			case UIInterfaceOrientationLandscapeRight:
 				self.windPlotController = [[WindPlotController alloc] initWithNibName:@"WindPlotController" bundle:nil];
 				self.windPlotController.stationInfo = self.stationInfo;
+                self.windPlotController.masterController = self;
                 
 				// Display plot view
 				self.windPlotController.view.frame = self.view.bounds;
@@ -299,7 +301,7 @@
 	// Stop animation
 	self.navigationItem.rightBarButtonItem = nil;
 	
-	// Graph or Map button
+	// Graph, Done or Map button
 	if([iPadHelper isIpad]){
 		UIBarButtonItem *graphItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"chart"]
 																	  style:UIBarButtonItemStylePlain 
@@ -308,7 +310,7 @@
 		self.navigationItem.rightBarButtonItem = graphItem;
 		[graphItem release];
 	} else { // iPhone
-		if([self isPresentedModaly]){
+        if ([iPadHelper isPresentedModally:self]) {
 			UIBarButtonItem *dismissButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
 																						target:self 
 																						action:@selector(dismissModalViewControllerAnimated:)];
@@ -371,13 +373,6 @@
         self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 	}
 }
-
-- (BOOL)isPresentedModaly{
-	return (self.navigationController != nil &&
-			self.navigationController.parentViewController != nil &&
-			self.navigationController.parentViewController.modalViewController == self.navigationController);
-}
-
 
 #pragma mark -
 #pragma mark - UIActionSheetDelegate
