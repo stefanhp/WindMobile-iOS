@@ -15,20 +15,19 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "CPPlotRange.h"
+
 #import "GraphData.h"
 
-@interface StationGraph : NSObject {
-	NSDictionary* stationGraph;
-	BOOL addPadding;
+@interface StationGraphData : NSObject {
+	NSDictionary* data;
 	
 	GraphData *windAverage;
 	GraphData *windMax;
 	GraphData *windDirection;
 	
 }
-@property (retain) NSDictionary* stationGraph;
-@property (nonatomic) BOOL addPadding;
+@property (retain) NSDictionary* data;
+
 // StationGraph properties:
 @property (readonly) NSNumber *duration;
 @property (readonly) NSDate *lastUpdate;

@@ -8,10 +8,13 @@
 
 #import "iPadStationInfoMapVC.h"
 #import "StationInfoViewController.h"
+#import "StationDetailMeteoViewController.h"
 
 @implementation iPadStationInfoMapVC
+
 @synthesize settingsPopover;
 @synthesize stationsPopover;
+@synthesize detailPopover;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -117,6 +120,35 @@
     }
 }
 
+- (void)showStationDetail:(id)sender {
+    if ([self.mapView.selectedAnnotations count] == 0) {
+        return;
+    }
+    id<MKAnnotation> annotation = [self.mapView.selectedAnnotations objectAtIndex:0];
+    
+	StationDetailMeteoViewController *meteo = [[StationDetailMeteoViewController alloc]initWithNibName:@"StationDetailMeteoViewController" bundle:nil];
+    meteo.stationInfo = annotation;
+	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:meteo];
+	[meteo release];
+    
+    self.detailPopover = [[UIPopoverController alloc] initWithContentViewController:nav];
+    [nav release];
+    // Done in StationDetailMeteoViewController
+    //self.detailPopover.popoverContentSize = CGSizeMake(320, 380);
+    
+    if (self.detailPopover.popoverVisible == NO) {
+        // Deselect annotation
+        [self.mapView deselectAnnotation:annotation animated:NO];
+        
+        // Show from point
+        CGPoint point = [self.mapView convertCoordinate:annotation.coordinate toPointToView:self.view];
+        [detailPopover presentPopoverFromRect:CGRectMake(point.x + 6.5, point.y - 27.0, 1.0, 1.0) 
+                                       inView:self.view 
+                     permittedArrowDirections:UIPopoverArrowDirectionAny 
+                                     animated:YES];
+    }
+}
+
 #pragma mark -
 #pragma mark IASKSettingsDelegate
 
@@ -138,6 +170,7 @@
 - (void)dealloc {
     [settingsPopover release];
 	[stationsPopover release];
+	[detailPopover release];    
 	[toolbar release];	
 	[stationsItem release];
 	[flexItem release];	

@@ -36,8 +36,8 @@
 	UIView *windTrendContainer;
 	WindTrendChartViewController *windTrendCtrl;
 	
-	UIView *graphView;
-	WindPlotController *graphController;
+	UIView *windPlotView;
+	WindPlotController *windPlotController;
 }
 @property (retain) StationInfo* stationInfo; 
 @property (retain) StationData* stationData; 
@@ -55,8 +55,8 @@
 @property (retain) IBOutlet UILabel *airHumidity;
 @property (retain) IBOutlet UIView *windTrendContainer;
 @property (retain) IBOutlet WindTrendChartViewController *windTrendCtrl;
-@property (retain) UIView *graphView;
-@property (retain) WindPlotController *graphController;
+@property (retain) UIView *windPlotView;
+@property (retain) WindPlotController *windPlotController;
 
 // Content
 - (IBAction)refreshContent:(id)sender;

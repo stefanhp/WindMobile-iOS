@@ -15,6 +15,7 @@
 @interface iPadStationInfoMapVC : StationInfoMapViewController<IASKSettingsDelegate, iPadStationInfoDelegate> {
 	UIPopoverController *settingsPopover;
 	UIPopoverController *stationsPopover;
+    UIPopoverController *detailPopover;
     
     UIToolbar *toolbar;
     UIBarButtonItem *settingsItem;
@@ -23,8 +24,12 @@
     UIBarButtonItem *activityItem;    
     UIBarButtonItem *flexItem;
 }
+
 @property (retain) UIPopoverController *settingsPopover;
 @property (retain) UIPopoverController *stationsPopover;
+@property (retain) UIPopoverController *detailPopover;
+
 - (void)showSettingsPopover:(id)sender;
 - (void)showStationsPopover:(id)sender;
+
 @end

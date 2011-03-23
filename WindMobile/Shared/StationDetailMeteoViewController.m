@@ -34,21 +34,9 @@
 @synthesize airHumidity;
 @synthesize windTrendContainer;
 @synthesize windTrendCtrl;
-@synthesize graphView;
-@synthesize graphController;
+@synthesize windPlotView;
+@synthesize windPlotController;
 
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
@@ -74,9 +62,9 @@
 	//windTrend.view.bounds = self.windTrendContainer.frame;
 	windTrendCtrl.view.frame = self.windTrendContainer.bounds;
 	[self.windTrendContainer addSubview:windTrendCtrl.view];
-	
-	// Set size when in popover
-	self.contentSizeForViewInPopover = CGSizeMake(320.0, 410.0);
+    
+    // Set size when in popover
+	self.contentSizeForViewInPopover = CGSizeMake(320, 380);
 	
 	// load content
 	[self refreshContent:self];
@@ -96,19 +84,17 @@
 	}
 	
 	// If we appear horizontally display the graph on iPhone
-	if([iPadHelper isIpad] == NO){
+	if ([iPadHelper isIpad] == NO) {
 		switch (self.interfaceOrientation) {
 			case UIInterfaceOrientationLandscapeLeft:
 			case UIInterfaceOrientationLandscapeRight:
-				self.graphController = [[WindPlotController alloc] initWithNibName:@"WindPlotController" bundle:nil];
-				graphController.stationInfo = self.stationInfo;
-				graphController.drawAxisSet = YES;
-				graphController.isInCell = NO;
-				
-				// display view
-				graphController.view.frame = self.view.bounds;
-				self.graphView = graphController.view; // save for future reference
-				[self.view addSubview:graphController.view];
+				self.windPlotController = [[WindPlotController alloc] initWithNibName:@"WindPlotController" bundle:nil];
+				self.windPlotController.stationInfo = self.stationInfo;
+                
+				// Display plot view
+				self.windPlotController.view.frame = self.view.bounds;
+				self.windPlotView = windPlotController.view; // Save for future reference
+				[self.view addSubview:self.windPlotView];
 				break;
 			default:
 				break;
@@ -122,34 +108,29 @@
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
 }
 
-// Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
     return YES;
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 								duration:(NSTimeInterval)duration {
 	// Prepare for rotation
-	if([iPadHelper isIpad]){
-	} else {
+	if ([iPadHelper isIpad] == NO) {
 		switch(toInterfaceOrientation){
 			case UIInterfaceOrientationLandscapeLeft:
 			case UIInterfaceOrientationLandscapeRight:
-				self.graphController = [[WindPlotController alloc] initWithNibName:@"WindPlotController" bundle:nil];
-				graphController.stationInfo = self.stationInfo;
-				graphController.drawAxisSet = YES;
-				graphController.isInCell = NO;
-				
-				// display view
-				graphController.view.frame = self.view.bounds;
-				self.graphView = graphController.view; // save for future reference
-				[self.view addSubview:graphController.view];
+				self.windPlotController = [[WindPlotController alloc] initWithNibName:@"WindPlotController" bundle:nil];
+				self.windPlotController.stationInfo = self.stationInfo;
+                
+				// Display plot view
+				self.windPlotController.view.frame = self.view.bounds;
+				self.windPlotView = windPlotController.view; // Save for future reference
+				[self.view addSubview:self.windPlotView];
 				break;
 			case UIInterfaceOrientationPortrait:
 			case UIInterfaceOrientationPortraitUpsideDown:
-				[self.graphView removeFromSuperview];
-				self.graphController = nil;
+				[self.windPlotView removeFromSuperview];
+				self.windPlotController = nil;
 				break;
 		}
 	}
@@ -195,8 +176,8 @@
 	[windTrendContainer release];
 	[windTrendCtrl release];
 	
-	[graphView release];
-	[graphController release];
+    [windPlotView release];
+	[windPlotController release];
 	
     [super dealloc];
 }
@@ -374,19 +355,20 @@
 	
 }
 
-- (IBAction)showGraph:(id)sender{
-	if(self.navigationController != nil){
+- (IBAction)showGraph:(id)sender {
+	if (self.navigationController != nil) {
 		WindPlotController* graph = [[WindPlotController alloc] initWithNibName:@"WindPlotController" bundle:nil];
 		graph.stationInfo = self.stationInfo;
-		graph.drawAxisSet = YES;
-		graph.isInCell = NO;
 		
 		// Resize pop over
-		graph.contentSizeForViewInPopover = CGSizeMake(500.0, 320.0);
+		graph.contentSizeForViewInPopover = CGSizeMake(500, 380);
 		
 		// display view
 		[self.navigationController pushViewController:graph animated:YES];
-		[graph release];
+        [graph release];
+        
+        // Force navigation bar color to black 
+        self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 	}
 }
 

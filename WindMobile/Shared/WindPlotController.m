@@ -12,21 +12,15 @@
 
 #define PLOT_WIND_AVERAGE_IDENTIFIER @"Wind Average"
 #define PLOT_WIND_MAX_IDENTIFIER @"Wind Max"
-#define PLOT_WIND_ORANGE_IDENTIFIER @"WARNING"
-#define PLOT_WIND_RED_IDENTIFIER @"DANGER"
 
 #define DEFAULT_DURATION @"14400"
 #define DURATION_FORMAT @"DURATION%i"
-
-#define ORANGE_LIMIT 15.0
-#define RED_LIMIT 35.0
 
 #define INTERVAL_4_HOURS 0
 #define INTERVAL_6_HOURS 1
 #define INTERVAL_12_HOURS 2
 #define INTERVAL_24_HOURS 3
 #define INTERVAL_2_DAYS 4
-#define INTERVAL_3_DAYS 5
 
 @implementation WindPlotController
 
@@ -34,100 +28,39 @@
 @synthesize scale;
 @synthesize info;
 @synthesize stationInfo;
-@synthesize stationGraph;
-@synthesize drawAxisSet;
-@synthesize isInCell;
+@synthesize stationGraphData;
 @synthesize activityIndicator;
 
-
-//@synthesize dataForPlot;
-
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	if(self.isInCell == NO){
-		[self setupButtons];
-		info.hidden = NO;
-	}
-	
-	// Load data points
-	self.duration = DEFAULT_DURATION; 
-	[self refreshContent:self];
-	
+    [self setupButtons];
+    info.hidden = NO;
+    
     // Create graph from theme
     graph = [[CPXYGraph alloc] initWithFrame:CGRectZero];
-	CPTheme *theme;
-	if(self.isInCell){
-		theme = [[[WMCellGraphTheme alloc]init]autorelease];
-		graph.fill = [CPFill fillWithColor:[CPColor whiteColor]];
-	} else {
-		theme = [CPTheme themeNamed:kCPDarkGradientTheme];
-	}
+	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
     [graph applyTheme:theme];
-    hostingView.collapsesLayers = NO; // Setting to YES reduces GPU memory usage, but can slow drawing/scrolling
+    hostingView.collapsesLayers = NO; // Collapsing layers may improve performance in some cases
     hostingView.hostedGraph = graph;
 	
-	if(self.isInCell){
-		graph.paddingLeft = 0.0;
-		graph.paddingTop = 2.0;
-		graph.paddingRight = 0.0;
-		graph.paddingBottom = 2.0;
-	} else {
-		graph.paddingLeft = 0.0;
-		graph.paddingTop = 0.0;
-		graph.paddingRight = 0.0;
-		graph.paddingBottom = 0.0;
-	}
-
+    graph.paddingLeft = 0.0;
+    graph.paddingTop = 0.0;
+    graph.paddingRight = 0.0;
+    graph.paddingBottom = 0.0;
     
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    //plotSpace.allowsUserInteraction = !self.isInCell;
 	plotSpace.allowsUserInteraction = NO;
-	NSTimeInterval max = [[NSDate date]timeIntervalSince1970];
-	NSTimeInterval min = [[[NSDate date] dateByAddingTimeInterval:-21600.0]timeIntervalSince1970]; // 6h back = 60 * 60 * 6 = 21'600
-	NSTimeInterval length = max - min;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(min) length:CPDecimalFromDouble(length)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-5.0) length:CPDecimalFromFloat(25.0)];
-	
-    // Axes
-	axisSet = [(CPXYAxisSet *)(graph.axisSet) retain];
-    CPXYAxis *x = axisSet.xAxis;
-	x.majorIntervalLength = CPDecimalFromDouble(7200.0); // 2h
-	x.minorTicksPerInterval = 6; // 15 min
-	x.labelingPolicy = CPAxisLabelingPolicyNone;
-	x.isFloatingAxis = NO,
-    x.orthogonalCoordinateDecimal = CPDecimalFromString(@"0");
-	/*
- 	NSArray *exclusionRanges = [NSArray arrayWithObjects:
-								[CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(min) length:CPDecimalFromDouble(max)], 
-								nil];
-	x.labelExclusionRanges = exclusionRanges;
-	 */
-	
-    CPXYAxis *y = axisSet.yAxis;
-    y.majorIntervalLength = CPDecimalFromString(@"10");
-    y.minorTicksPerInterval = 10;
-	y.isFloatingAxis = NO;
-    y.orthogonalCoordinateDecimal = CPDecimalFromDouble(max);
-	/*
-	exclusionRanges = [NSArray arrayWithObjects:
-					   [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0) length:CPDecimalFromFloat(50.0)], 
-					   nil];
-	y.labelExclusionRanges = exclusionRanges;
-	 */
+    axisSet = [(CPXYAxisSet *)(graph.axisSet) retain];
+    // Put axis layer to front
+    axisSet.zPosition = CPDefaultZPositionPlotGroup + 1;
+    
+    axisSet.xAxis.isFloatingAxis = NO;
+    
+    axisSet.yAxis.isFloatingAxis = NO;
+    axisSet.yAxis.majorIntervalLength = CPDecimalFromString(@"10");
+    axisSet.yAxis.minorTickLineStyle = nil;
 	
 	// Create a Wind Average plot area
 	CPScatterPlot *averageLinePlot = [[[CPScatterPlot alloc] init] autorelease];
@@ -135,41 +68,21 @@
     averageLinePlot.dataSource = self;
 
     CPMutableLineStyle *lineStyle = [CPMutableLineStyle lineStyle];
-	if(self.isInCell){
-		lineStyle.lineWidth = 1.0f;
-	} else {
-		lineStyle.miterLimit = 1.0f;
-		lineStyle.lineWidth = 3.0f;
-	}
-
-	lineStyle.lineColor = [CPColor blueColor];
+    lineStyle.miterLimit = 1.25f;
+    lineStyle.lineWidth = 2.5f;
+    
+	lineStyle.lineColor = [CPColor colorWithComponentRed:0.65 green:0.66 blue:0.8 alpha:1.0];
     averageLinePlot.dataLineStyle = lineStyle;
 
-	// Do a blue gradient
-	CPColor *areaColor1 = [CPColor colorWithComponentRed:0.0 green:0.0 blue:1.0 alpha:0.8];
-	if (self.isInCell) {
-		CPFill *areaColorFill = [CPFill fillWithColor:areaColor1];
-		averageLinePlot.areaFill = areaColorFill;
-	} else {
-		CPGradient *areaGradient1 = [CPGradient gradientWithBeginningColor:areaColor1 endingColor:[CPColor clearColor]];
-		areaGradient1.angle = -90.0f;
-		CPFill *areaGradientFill = [CPFill fillWithGradient:areaGradient1];
-		averageLinePlot.areaFill = areaGradientFill;
-	}
+	// White to blue gradient
+	CPColor *gradientStart = [CPColor colorWithComponentRed:0.14 green:0.17 blue:0.8 alpha:1.0];
+    CPColor *gradientEnd= [CPColor colorWithComponentRed:0.55 green:0.56 blue:0.8 alpha:1.0];
+    CPGradient *areaGradient = [CPGradient gradientWithBeginningColor:gradientStart endingColor:gradientEnd];
+    areaGradient.angle = 90.0f;
+    CPFill *areaGradientFill = [CPFill fillWithGradient:areaGradient];
+    averageLinePlot.areaFill = areaGradientFill;
 
     averageLinePlot.areaBaseValue = [[NSDecimalNumber zero] decimalValue];    
-    //averageLinePlot.areaBaseValue = CPDecimalFromString(@"10.0");    
-	
-	// Add plot symbols
-	/*
-	CPMutableLineStyle *symbolLineStyle = [CPMutableLineStyle lineStyle];
-	symbolLineStyle.lineColor = [CPColor blackColor];
-	CPPlotSymbol *plotSymbol = [CPPlotSymbol ellipsePlotSymbol];
-	plotSymbol.fill = [CPFill fillWithColor:[CPColor blueColor]];
-	plotSymbol.lineStyle = symbolLineStyle;
-    plotSymbol.size = CGSizeMake(10.0, 10.0);
-    averageLinePlot.plotSymbol = plotSymbol;
-	 */
 
 	[graph addPlot:averageLinePlot];
 	
@@ -179,72 +92,17 @@
     maxLinePlot.dataSource = self;
 
     lineStyle = [CPMutableLineStyle lineStyle];
-    lineStyle.lineWidth = 1.0f;
+    lineStyle.miterLimit = 1.25f;
+    lineStyle.lineWidth = 2.5f;
     lineStyle.lineColor = [CPColor redColor];
-	//lineStyle.dashPattern = [NSArray arrayWithObjects:[NSNumber numberWithFloat:5.0f], [NSNumber numberWithFloat:5.0f], nil];
     maxLinePlot.dataLineStyle = lineStyle;
-	
 	
     [graph addPlot:maxLinePlot];
 	
-	// additional plots
-	if(!self.isInCell && NO){ //Disabled for now. May replace "NO" by a systm preference.
-		// Danger
-		CPScatterPlot *dangerLinePlot = [[[CPScatterPlot alloc] init] autorelease];
-		dangerLinePlot.identifier = PLOT_WIND_RED_IDENTIFIER;
-		dangerLinePlot.dataSource = self;
-		
-		lineStyle = [CPMutableLineStyle lineStyle];
-		lineStyle.lineWidth = 0.5f;
-		lineStyle.lineColor = [CPColor redColor];
-		dangerLinePlot.dataLineStyle = lineStyle;
-		
-		CPColor *areaColorRed = [CPColor colorWithComponentRed:1.0 green:0.0 blue:0.0 alpha:0.2];
-		CPFill *areaColorFillRed = [CPFill fillWithColor:areaColorRed];
-		dangerLinePlot.areaFill = areaColorFillRed;
-		dangerLinePlot.areaBaseValue = CPDecimalFromDouble(RED_LIMIT+10.0);    
-
-		[graph addPlot:dangerLinePlot];
-		
-		// Warning
-		CPScatterPlot *warningLinePlot = [[[CPScatterPlot alloc] init] autorelease];
-		warningLinePlot.identifier = PLOT_WIND_ORANGE_IDENTIFIER;
-		warningLinePlot.dataSource = self;
-		
-		lineStyle = [CPMutableLineStyle lineStyle];
-		lineStyle.lineWidth = 0.5f;
-		lineStyle.lineColor = [CPColor orangeColor];
-		warningLinePlot.dataLineStyle = lineStyle;
-		
-		CPColor *areaColorOrange = [CPColor colorWithComponentRed:1.0 green:0.5 blue:0.0 alpha:0.2];
-		CPFill *areaColorFillOrange = [CPFill fillWithColor:areaColorOrange];
-		warningLinePlot.areaFill = areaColorFillOrange;
-		warningLinePlot.areaBaseValue = CPDecimalFromDouble(RED_LIMIT);    
-
-		[graph addPlot:warningLinePlot];
-		
-	}
-
-
-	if(!drawAxisSet){
-		graph.axisSet = nil;
-	}
-	
+    // Load data points
+    self.duration = DEFAULT_DURATION; 
+    [self refreshContent:self];
 }
-
-/*
-- (void)viewWillAppear:(BOOL)animated{
-	[super viewWillAppear:animated];
-}
-*/
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
@@ -265,7 +123,7 @@
 	[graph release];
 	[hostingView release];
 	[stationInfo release];
-	[stationGraph release];
+	[stationGraphData release];
 	[axisSet release];
 	[duration release];
 	[scale release];
@@ -274,8 +132,7 @@
     [super dealloc];
 }
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
 	return YES;
 }
 
@@ -287,105 +144,111 @@
 	if(client == nil){
 		client = [[WMReSTClient alloc] init ];
 	}
-	[client asyncGetStationGraph:stationInfo.stationID duration:self.duration forSender:self];
+	[client asyncGetStationGraphData:stationInfo.stationID duration:self.duration forSender:self];
 }
 
 #pragma mark -
 #pragma mark WMReSTClientDelegate
 
-- (void)stationGraph:(StationGraph*)graphs{
-	self.stationGraph = graphs;
-	
-	// Adjust graph range
+- (void)stationGraphData:(StationGraphData*)data{
+	self.stationGraphData = data;
 	CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-	CPPlotRange *xRange = self.stationGraph.windMax.dateRange;
+    
+    // Calculate graph range
+    [graph reloadData];
+    [plotSpace scaleToFitPlots:[graph allPlots]];
+    CPPlotRange* xRange = plotSpace.xRange;
+    CPPlotRange* yRange = plotSpace.yRange;
+    
+    double maxValue = [yRange locationDouble] + [yRange lengthDouble];
+    double viewHeight = hostingView.bounds.size.height;
+    double scaleFactor = maxValue / viewHeight;
+    
+    // Y scale : 10 km/h minumum
+    if (maxValue < 10) {
+        maxValue = 10;
+    }
+    
+    // Add an upper margin : ~7 pixels
+    maxValue += 7 * scaleFactor;
+    
+    // Add a lower margin to have enough space to draw the x axis
+    double location = -40 * scaleFactor;
+    
+    // Update yRange
+    yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(location) length:CPDecimalFromDouble(maxValue - location)];
+    
+    // Put the y axis on the left of the view
+    axisSet.yAxis.orthogonalCoordinateDecimal = CPDecimalFromDouble(xRange.locationDouble + xRange.lengthDouble - xRange.lengthDouble/50);
+    axisSet.yAxis.visibleRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0) length:CPDecimalFromDouble(maxValue)];
+    
+    // Setup the "zoomed" range
     plotSpace.xRange = xRange;
-    plotSpace.yRange = self.stationGraph.windMax.valueRange;
-	
-	// move axis and update labels
-	if(drawAxisSet){
-		graph.axisSet = axisSet; // re-appy axis
-		axisSet.yAxis.orthogonalCoordinateDecimal = CPDecimalFromDouble(xRange.locationDouble + xRange.lengthDouble - xRange.lengthDouble/50);
-
-		// labeling range
-		CPXYAxis *x = axisSet.xAxis;
-		switch (scale.selectedSegmentIndex) {
-			case INTERVAL_4_HOURS:
-				x.majorIntervalLength = CPDecimalFromDouble(3600.0); // 1h
-				x.minorTicksPerInterval = 3; // 15 min
-				break;
-			case INTERVAL_6_HOURS:
-				x.majorIntervalLength = CPDecimalFromDouble(7200.0); // 2h
-				x.minorTicksPerInterval = 6; // 15 min
-				break;
-			case INTERVAL_12_HOURS:
-				x.majorIntervalLength = CPDecimalFromDouble(10800); // 3h
-				x.minorTicksPerInterval = 9; // 15 min
-				break;
-			case INTERVAL_24_HOURS:
-				x.majorIntervalLength = CPDecimalFromDouble(43200); // 12h
-				x.minorTicksPerInterval = 11; // 1 h
-				break;
-			case INTERVAL_2_DAYS:
-				x.majorIntervalLength = CPDecimalFromDouble(86400); // 24h
-				x.minorTicksPerInterval = 23; // 1 h
-				break;
-			case INTERVAL_3_DAYS:
-				x.majorIntervalLength = CPDecimalFromDouble(86400); // 24h
-				x.minorTicksPerInterval = 23; // 1 h
-				break;
-			default:
-				x.majorIntervalLength = CPDecimalFromDouble(7200.0);
-				x.preferredNumberOfMajorTicks = 6;
-				x.minorTicksPerInterval = 0;
-				break;
-		}
-		x.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
-		[x relabel];
-		
-		// labels
-		NSSet* labelCoordinates = x.majorTickLocations;
-		x.labelingPolicy = CPAxisLabelingPolicyNone;
-		NSMutableArray *customLabels = [[NSMutableArray alloc] initWithCapacity:[labelCoordinates count]];
-		
-		unsigned unitFlags = NSDayCalendarUnit;
-		NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:xRange.locationDouble];
-		NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:(xRange.locationDouble + xRange.lengthDouble)];
-		NSDateComponents *startComps = [[NSCalendar currentCalendar] components:unitFlags fromDate:startDate];
-		NSDateComponents *endComps = [[NSCalendar currentCalendar] components:unitFlags fromDate:endDate];
-		BOOL showDate = [startComps day] != [endComps day];
-		
-		for (NSNumber* tickLocation in labelCoordinates){
-			NSTimeInterval location = [tickLocation doubleValue];
-			NSDate* date = [NSDate dateWithTimeIntervalSince1970:location];
-			
-			NSString* dateLabel;
-			if(showDate){ // range crosses day boundary
-				dateLabel = [NSDateFormatter localizedStringFromDate:date 
-														   dateStyle:kCFDateFormatterShortStyle
-														   timeStyle:kCFDateFormatterShortStyle];
-			} else {
-				dateLabel = [NSDateFormatter localizedStringFromDate:date 
-														   dateStyle:kCFDateFormatterNoStyle
-														   timeStyle:kCFDateFormatterShortStyle];
-			}
-
-			
-			CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText:dateLabel textStyle:x.labelTextStyle];
-			newLabel.tickLocation = CPDecimalFromDouble(location);
-			newLabel.offset = x.labelOffset + x.majorTickLength;
-			[customLabels addObject:newLabel];
-			[newLabel release];
-		}
-		x.axisLabels =  [NSSet setWithArray:customLabels];
-		[customLabels release];
-	} else {
-		graph.axisSet = nil;
-	}
-
+    plotSpace.yRange = yRange;
+    
+    // Setup the global range
+    /*
+    plotSpace.globalXRange = xRange;
+    plotSpace.globalYRange = yRange;   
+    */
+    
+    // X interval customization
+    switch (scale.selectedSegmentIndex) {
+        case INTERVAL_4_HOURS:
+            axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(3600.0); // 1h
+            axisSet.xAxis.minorTicksPerInterval = 1; // 30 min
+            break;
+        case INTERVAL_6_HOURS:
+            axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(7200.0); // 2h
+            axisSet.xAxis.minorTicksPerInterval = 3; // 30 min
+            break;
+        case INTERVAL_12_HOURS:
+            axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(14400); // 4h
+            axisSet.xAxis.minorTicksPerInterval = 3; // 1 h
+            break;
+        case INTERVAL_24_HOURS:
+            axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(28800); // 8h
+            axisSet.xAxis.minorTicksPerInterval = 7; // 1 h
+            break;
+        case INTERVAL_2_DAYS:
+            axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(28800); // 8h
+            axisSet.xAxis.minorTicksPerInterval = 7; // 1 h
+            break;
+        default:
+            axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(14400); // 4h
+            axisSet.xAxis.minorTicksPerInterval = 3; // 1 h
+            break;
+    }
+    axisSet.xAxis.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
+    [axisSet.xAxis relabel];
+    
+    // X label customization
+    NSSet* labelCoordinates = axisSet.xAxis.majorTickLocations;
+    axisSet.xAxis.labelingPolicy = CPAxisLabelingPolicyNone;
+    NSMutableArray *customLabels = [[NSMutableArray alloc] initWithCapacity:[labelCoordinates count]];
+    
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"EEE HH:mm"];
+    
+    for (NSNumber* tickLocation in labelCoordinates){
+        NSTimeInterval location = [tickLocation doubleValue];
+        NSDate* date = [NSDate dateWithTimeIntervalSince1970:location];
+        
+        NSString* dateLabel = [dateFormatter stringFromDate:date];
+        
+        CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText:dateLabel textStyle:axisSet.xAxis.labelTextStyle];
+        newLabel.alignment = CPAlignmentRight;
+        newLabel.tickLocation = CPDecimalFromDouble(location);
+        newLabel.offset = axisSet.xAxis.labelOffset + axisSet.xAxis.majorTickLength;
+        [customLabels addObject:newLabel];
+        [newLabel release];
+    }
+    [dateFormatter release];
+    
+    axisSet.xAxis.axisLabels =  [NSSet setWithArray:customLabels];
+    [customLabels release];
+    
 	[self stopRefreshAnimation];
-	
-	[graph reloadData];
 }
 
 - (void)serverError:(NSString *)title message:(NSString *)message{
@@ -424,39 +287,29 @@
 #pragma mark Plot Data Source Methods
 
 - (NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot {
-	if(stationGraph == nil){
+	if(stationGraphData == nil){
 		return 0;
 	}
-    return [stationGraph.windAverage dataPointCount];
+    return [stationGraphData.windAverage dataPointCount];
 }
 
 - (NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
-	// Wind Average
-	if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_AVERAGE_IDENTIFIER]){
+	if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_AVERAGE_IDENTIFIER]) {
+        // Wind Average
 		if (fieldEnum == CPScatterPlotFieldX) {
-			return [NSNumber numberWithDouble:[stationGraph.windAverage timeIntervalForPointAtIndex:index]];
+			return [NSNumber numberWithDouble:[stationGraphData.windAverage timeIntervalForPointAtIndex:index]];
 		} else if(fieldEnum == CPScatterPlotFieldY){
-			return [stationGraph.windAverage valueForPointAtIndex:index];
+			return [stationGraphData.windAverage valueForPointAtIndex:index];
 		}
-	} else if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_MAX_IDENTIFIER]) { // Wind Max
+	} else if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_MAX_IDENTIFIER]) { 
+        // Wind Max
 		if (fieldEnum == CPScatterPlotFieldX) {
-			return [NSNumber numberWithDouble:[stationGraph.windMax timeIntervalForPointAtIndex:index]];
+			return [NSNumber numberWithDouble:[stationGraphData.windMax timeIntervalForPointAtIndex:index]];
 		} else if(fieldEnum == CPScatterPlotFieldY){
-			return [stationGraph.windMax valueForPointAtIndex:index];
-		}
-	} else if([(NSString *)plot.identifier isEqualToString:PLOT_WIND_RED_IDENTIFIER]){
-		if (fieldEnum == CPScatterPlotFieldX) {
-			return [NSNumber numberWithDouble:[stationGraph.windAverage timeIntervalForPointAtIndex:index]];
-		} else if(fieldEnum == CPScatterPlotFieldY){
-			return [NSNumber numberWithDouble:RED_LIMIT];
-		}
-	} else if([(NSString *)plot.identifier isEqualToString:PLOT_WIND_ORANGE_IDENTIFIER]){
-		if (fieldEnum == CPScatterPlotFieldX) {
-			return [NSNumber numberWithDouble:[stationGraph.windAverage timeIntervalForPointAtIndex:index]];
-		} else if(fieldEnum == CPScatterPlotFieldY){
-			return [NSNumber numberWithDouble:ORANGE_LIMIT];
+			return [stationGraphData.windMax valueForPointAtIndex:index];
 		}
 	}
+    
     return [NSNumber numberWithDouble:0.0];
 }
 
@@ -482,9 +335,6 @@
 			break;
 		case INTERVAL_2_DAYS:
 			newDuration = @"172800"; // 2d = 48h = 60 * 60 * 48 seconds
-			break;
-		case INTERVAL_3_DAYS:
-			newDuration = @"259200"; // 3d = 48h = 60 * 60 * 48 seconds
 			break;
 		default:
 			newDuration = DEFAULT_DURATION;
@@ -514,7 +364,6 @@
 		value = [NSString stringWithFormat:DURATION_FORMAT, i];
 		[scale setTitle:NSLocalizedStringFromTable(value, @"WindMobile", nil) forSegmentAtIndex:i];
 	}
-	
 }
 
 @end

@@ -6,9 +6,8 @@
 //  Copyright 2011 Pistache Software. All rights reserved.
 //
 
-#import "StationGraph.h"
+#import "StationGraphData.h"
 #import "WindMobileHelper.h"
-#import "CorePlot-CocoaTouch.h"
 
 #define STATION_GRAPH_DURATION_KEY @"@duration"
 #define STATION_GRAPH_LAST_UPDATE_KEY @"@lastUpdate"
@@ -19,39 +18,30 @@
 #define STATION_GRAPH_MAX_KEY @"windMax"
 #define STATION_GRAPH_DIRECTION_KEY @"windDirection"
 
-#define GRAPH_INITIAL_MAX_VALUE 25.0
-#define GRAPH_PADDING_VALUE 5.0
-#define GRAPH_PADDING_DATE 0
-
-
-@implementation StationGraph
-@synthesize stationGraph;
-@synthesize addPadding;
+@implementation StationGraphData
+@synthesize data;
 @synthesize windAverage;
 @synthesize windMax;
 @synthesize windDirection;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary{
 	self = [super init];
-	addPadding = YES;
+    
 	if(self != nil && aDictionary != nil){
-		stationGraph = [aDictionary retain];
+		data = [aDictionary retain];
 		
 		// Create graphs
-		NSArray *series = [stationGraph objectForKey:STATION_GRAPH_SERIE_KEY];
-		NSNumber* aDuration = [NSNumber numberWithInteger:[(NSString*)([stationGraph objectForKey:STATION_GRAPH_DURATION_KEY]) integerValue]];
+		NSArray *series = [data objectForKey:STATION_GRAPH_SERIE_KEY];
+		NSNumber* aDuration = [NSNumber numberWithInteger:[(NSString*)([data objectForKey:STATION_GRAPH_DURATION_KEY]) integerValue]];
 		if(series != nil){
 			for(NSDictionary* serie in series){
 				NSString *name = [serie objectForKey:STATION_GRAPH_NAME_KEY];
 				if([name isEqualToString:STATION_GRAPH_AVERAGE_KEY]){
 					windAverage = [[GraphData alloc] initWithDictionary:serie andDuration:aDuration];
-					windAverage.addPadding = addPadding;
 				} else if([name isEqualToString:STATION_GRAPH_MAX_KEY]){
 					windMax = [[GraphData alloc] initWithDictionary:serie andDuration:aDuration];
-					windMax.addPadding = addPadding;
 				} else if([name isEqualToString:STATION_GRAPH_DIRECTION_KEY]){
 					windDirection = [[GraphData alloc] initWithDictionary:serie andDuration:aDuration];
-					windDirection.addPadding = addPadding;
 				}
 			}
 		}
@@ -61,7 +51,7 @@
 }
 
 - (void)dealloc {
-	[stationGraph release];
+	[data release];
 	[windAverage release];
 	[windMax release];
 	[windDirection release];
@@ -72,31 +62,31 @@
 #pragma mark - NSDictionary composition
 
 - (NSUInteger)count{
-	return [stationGraph count];
+	return [data count];
 }
 
 - (id)objectForKey:(id)aKey{
-	return [stationGraph objectForKey:aKey];
+	return [data objectForKey:aKey];
 }
 
 - (NSEnumerator *)keyEnumerator{
-	return [stationGraph keyEnumerator];
+	return [data keyEnumerator];
 }
 
 - (NSString *)description{
-	return [NSString stringWithFormat:@"StationGraph %@", [stationGraph description]];
+	return [NSString stringWithFormat:@"StationGraph %@", [data description]];
 }
 
 #pragma mark -
-#pragma mark - StationGraph properties
+#pragma mark - StationGraphData properties
 @dynamic duration;
 - (NSNumber*)duration{
-	return [NSNumber numberWithInteger:[(NSString*)([stationGraph objectForKey:STATION_GRAPH_DURATION_KEY]) integerValue]];
+	return [NSNumber numberWithInteger:[(NSString*)([data objectForKey:STATION_GRAPH_DURATION_KEY]) integerValue]];
 }
 
 @dynamic lastUpdate;
 - (NSDate*)lastUpdate{
-	return [WindMobileHelper decodeDateFromString:[stationGraph objectForKey:STATION_GRAPH_LAST_UPDATE_KEY]];
+	return [WindMobileHelper decodeDateFromString:[data objectForKey:STATION_GRAPH_LAST_UPDATE_KEY]];
 }
 
 @end

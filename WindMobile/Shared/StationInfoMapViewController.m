@@ -28,7 +28,6 @@
 @implementation StationInfoMapViewController
 
 @synthesize mapView;
-@synthesize stationPopOver;
 
 #pragma mark -
 #pragma mark UIViewController
@@ -225,27 +224,9 @@
 	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:meteo];
 	[meteo release];
     
-	if([iPadHelper isIpad]){
-		// show in popover
-		if(annotation != nil){
-			// deselect annotation
-			[self.mapView deselectAnnotation:annotation animated:YES];
-			
-			// find location
-			CGPoint point = [self.mapView convertCoordinate:annotation.coordinate toPointToView:self.view];
-			
-			self.stationPopOver = [[UIPopoverController alloc] initWithContentViewController:nav];
-			[stationPopOver presentPopoverFromRect:CGRectMake(point.x + 6.5, point.y - 27.0, 1.0, 1.0) 
-                                            inView:self.view 
-                          permittedArrowDirections:UIPopoverArrowDirectionAny 
-                                          animated:YES];
-		}
-		
-	} else {
-		// Show in modal view
-		//[meteo setModalPresentationStyle:UIModalPresentationFormSheet];
-		[self presentModalViewController:nav animated:YES];
-	}
+    // Show in modal view
+    [self presentModalViewController:nav animated:YES];
+    
 	[nav release];
 }
 
@@ -333,7 +314,6 @@
 	[client release];
 	[selectedStation release];
 	[mapView release];
-	[stationPopOver release];
 	
     [super dealloc];
 }

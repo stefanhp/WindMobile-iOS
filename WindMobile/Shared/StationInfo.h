@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 enum  {
 	StationInfoStatusUndef = 0,
@@ -18,12 +18,11 @@ enum  {
 typedef NSUInteger StationInfoStatus;
 
 
-@interface StationInfo : NSObject <MKAnnotation> {
+@interface StationInfo : NSObject {
 	NSDictionary* stationInfo;
 	CLLocationCoordinate2D coordinate;
 }
 @property (retain) NSDictionary* stationInfo;
-// MKAnnotation protocol:
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate; 
 // stationInfo properties:
 @property (readonly) NSString* stationID;
@@ -41,9 +40,5 @@ typedef NSUInteger StationInfoStatus;
 - (id)objectForKey:(id)aKey;
 - (NSEnumerator *)keyEnumerator;
 - (NSString *)description;
-
-// MKAnnotation protocol
-- (NSString *)title;
-- (NSString *)subtitle;
 
 @end

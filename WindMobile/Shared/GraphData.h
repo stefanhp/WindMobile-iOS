@@ -21,8 +21,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class CPPlotRange;
-
 enum {
 	GraphPointTypeAverage = 0,
 	GraphPointTypeMax,
@@ -38,19 +36,15 @@ enum  {
 typedef NSUInteger GraphRangeType;
 
 @interface GraphData : NSObject {
-	NSDictionary* graphData;
+	NSDictionary* data;
 	NSNumber* duration;
 	NSNumber* graphType;
-	BOOL addPadding;
 }
-@property (nonatomic) BOOL addPadding;
-@property (retain) NSDictionary* graphData;
+@property (retain) NSDictionary* data;
 
 @property (readonly) NSString* name;
 @property (readonly) NSNumber* duration;
 @property (retain) NSNumber *graphType;
-@property (readonly) CPPlotRange* dateRange;
-@property (readonly) CPPlotRange* valueRange;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary andDuration:(NSNumber*)duration;
 

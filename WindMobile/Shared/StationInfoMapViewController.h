@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 
 #import "WMReSTClient.h"
-#import "StationInfo.h"
+#import "StationInfo+MKAnnotation.h"
 
 @class MapViewController;
 
@@ -18,12 +18,10 @@
 	WMReSTClient *client;
 	
 	MKMapView *mapView;
-	UIPopoverController *stationPopOver;
 @protected
 	StationInfo *selectedStation;
 }
 @property (retain) IBOutlet MKMapView *mapView;
-@property (retain) UIPopoverController *stationPopOver;
 @property (readonly) NSArray *stations;
 - (StationInfo *) getSelectedStation;
 - (void)selectStation:(StationInfo *)station;

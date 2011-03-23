@@ -27,7 +27,7 @@
 
 @synthesize stationListSender;
 @synthesize stationDataSender;
-@synthesize stationGraphSender;
+@synthesize stationGraphDataSender;
 
 - (id)init{
 	if(self=[super initWithServer:REST_SERVER onPort:REST_PORT withSSL:NO]){
@@ -40,7 +40,7 @@
 - (void)dealloc {
 	[stationListSender release];
 	[stationDataSender release];
-	[stationGraphSender release];
+	[stationGraphDataSender release];
 	[super dealloc];
 }
 
@@ -123,10 +123,10 @@
 }
 
 #pragma mark -
-#pragma mark - Station Graph
+#pragma mark - Station Graph Data
 
-- (StationGraph*)getStationGraph:(NSString*)stationID duration:(NSString*)duration{
-	NSDictionary* stationGraph = nil;
+- (StationGraphData*)getStationGraphData:(NSString*)stationID duration:(NSString*)duration{
+	NSDictionary* stationGraphData = nil;
 
 	NSDictionary* result = [self request:CPSReSTMethodGET
 								   atURL:[NSString stringWithFormat:URL_STATION_GRAPH_FORMAT, stationID, duration]
@@ -136,31 +136,31 @@
 	// parse result
 	NSDictionary * content = [result objectForKey:RESP_CONTENT_KEY];
 	if(content != nil && [content count]>0){
-		stationGraph = [content objectForKey:@"chart"];
+		stationGraphData = [content objectForKey:@"chart"];
 	}
-	return [WMReSTClient convertToStationGraph:stationGraph];
+	return [WMReSTClient convertToStationGraphData:stationGraphData];
 }
 
-- (void)asyncGetStationGraph:(NSString*)stationID duration:(NSString*)duration forSender:(id)sender{
-	self.stationGraphSender = sender;
+- (void)asyncGetStationGraphData:(NSString*)stationID duration:(NSString*)duration forSender:(id)sender{
+	self.stationGraphDataSender = sender;
 	[self async:self request:CPSReSTMethodGET atURL:[NSString stringWithFormat:URL_STATION_GRAPH_FORMAT, stationID, duration]
 		withGET:nil withPOST:nil asXML:YES accept:CPSReSTContentTypeApplicationXML]; 
 }
 
-- (void)getStationGraphResponse:(NSDictionary*)content{
-    NSDictionary* stationGraph = nil;
+- (void)getStationGraphDataResponse:(NSDictionary*)content{
+    NSDictionary* data = nil;
 	if(content != nil && [content count]>0){
-		stationGraph = [content objectForKey:RESP_STATION_GRAPH_KEY];
+		data = [content objectForKey:RESP_STATION_GRAPH_KEY];
 	}
 	
-	if(stationGraphSender != nil && [stationGraphSender respondsToSelector:@selector(stationGraph:)]){
-		[stationGraphSender stationGraph:[WMReSTClient convertToStationGraph:stationGraph]];
+	if(stationGraphDataSender != nil && [stationGraphDataSender respondsToSelector:@selector(stationGraphData:)]){
+		[stationGraphDataSender stationGraphData:[WMReSTClient convertToStationGraphData:data]];
 	}
-	self.stationGraphSender = nil;
+	self.stationGraphDataSender = nil;
 }
 
-+ (StationGraph*)convertToStationGraph:(NSDictionary*)stationGraph{
-	return [[[StationGraph alloc]initWithDictionary:stationGraph]autorelease];
++ (StationGraphData*)convertToStationGraphData:(NSDictionary*)data{
+	return [[[StationGraphData alloc]initWithDictionary:data]autorelease];
 }
 
 #pragma mark -
@@ -177,7 +177,7 @@
             } else if([content objectForKey:RESP_STATION_DATA_KEY] != nil) {
                 [self getStationDataResponse:content];
             } else if([content objectForKey:RESP_STATION_GRAPH_KEY] != nil) {
-                [self getStationGraphResponse:content];
+                [self getStationGraphDataResponse:content];
             }
         } else {
             // Fake 204 "No content"
@@ -220,8 +220,8 @@
 	if(stationDataSender != nil && [stationDataSender respondsToSelector:@selector(serverError:message:)]){
 		[stationDataSender serverError:title message:message];
 	}
-	if(stationGraphSender != nil && [stationGraphSender respondsToSelector:@selector(serverError:message:)]){
-		[stationGraphSender serverError:title message:message];
+	if(stationGraphDataSender != nil && [stationGraphDataSender respondsToSelector:@selector(serverError:message:)]){
+		[stationGraphDataSender serverError:title message:message];
 	}
 }
 
@@ -241,8 +241,8 @@
 	if(stationDataSender != nil && [stationDataSender respondsToSelector:@selector(serverError:message:)]){
 		[stationDataSender serverError:title message:message];
 	}
-	if(stationGraphSender != nil && [stationGraphSender respondsToSelector:@selector(serverError:message:)]){
-		[stationGraphSender serverError:title message:message];
+	if(stationGraphDataSender != nil && [stationGraphDataSender respondsToSelector:@selector(serverError:message:)]){
+		[stationGraphDataSender serverError:title message:message];
 	}
 }
 
@@ -262,8 +262,8 @@
 	if(stationDataSender != nil && [stationDataSender respondsToSelector:@selector(connectionError:message:)]){
 		[stationDataSender connectionError:title message:message];
 	}
-	if(stationGraphSender != nil && [stationGraphSender respondsToSelector:@selector(connectionError:message:)]){
-		[stationGraphSender connectionError:title message:message];
+	if(stationGraphDataSender != nil && [stationGraphDataSender respondsToSelector:@selector(connectionError:message:)]){
+		[stationGraphDataSender connectionError:title message:message];
 	}
 }
 

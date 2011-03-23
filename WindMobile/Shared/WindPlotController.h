@@ -12,29 +12,25 @@
 #import "StationInfo.h"
 
 
-@interface WindPlotController : UIViewController <CPPlotDataSource,WMReSTClientDelegate>{
+@interface WindPlotController : UIViewController <CPPlotDataSource, WMReSTClientDelegate> {
 	WMReSTClient* client;
 	
 	CPXYGraph *graph;
 	CPGraphHostingView *hostingView;
 	
 	StationInfo *stationInfo;
-	StationGraph *stationGraph;
+	StationGraphData *stationGraphData;
 	
 	CPXYAxisSet *axisSet;
-	BOOL drawAxisSet;
-	BOOL isInCell;
 	
 	NSString *duration;
 	UISegmentedControl *scale;
 	UIButton *info;
 	UIActivityIndicatorView *activityIndicator;
 }
-@property(readwrite, retain) IBOutlet CPGraphHostingView *hostingView;
-@property(readwrite, retain) StationInfo *stationInfo;
-@property(readwrite, retain) StationGraph *stationGraph;
-@property(readwrite)BOOL drawAxisSet;
-@property(readwrite)BOOL isInCell;
+@property(readwrite, retain) IBOutlet CPGraphHostingView* hostingView;
+@property(readwrite, retain) StationInfo* stationInfo;
+@property(readwrite, retain) StationGraphData* stationGraphData;
 @property(readwrite, retain) NSString* duration;
 @property(readwrite, retain) IBOutlet UISegmentedControl *scale;
 @property(readwrite, retain) IBOutlet UIButton *info;

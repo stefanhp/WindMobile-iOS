@@ -8,7 +8,7 @@
 
 #import "CPSReSTClient.h"
 #import "StationData.h"
-#import "StationGraph.h"
+#import "StationGraphData.h"
 
 #define REST_SERVER @"windmobile.vol-libre-suchet.ch"
 #define REST_PORT 1588
@@ -17,7 +17,7 @@
 @optional
 - (void)stationList:(NSArray*)stations;
 - (void)stationData:(StationData*)stationData;
-- (void)stationGraph:(StationGraph*)stationGraph;
+- (void)stationGraphData:(StationGraphData*)stationGraphData;
 @required
 - (void)serverError:(NSString*)title message:(NSString*)msg;
 - (void)connectionError:(NSString*)title message:(NSString*)msg;
@@ -27,16 +27,16 @@
 @interface WMReSTClient : CPSReSTClient<CPSReSTClientDelegate> {
 	NSObject<WMReSTClientDelegate>* stationListSender;
 	NSObject<WMReSTClientDelegate>* stationDataSender;
-	NSObject<WMReSTClientDelegate>* stationGraphSender;
+	NSObject<WMReSTClientDelegate>* stationGraphDataSender;
 	
 	BOOL useMockClient;
 }
 @property (retain,readwrite) NSObject<WMReSTClientDelegate>* stationListSender;
 @property (retain,readwrite) NSObject<WMReSTClientDelegate>* stationDataSender;
-@property (retain,readwrite) NSObject<WMReSTClientDelegate>* stationGraphSender;
+@property (retain,readwrite) NSObject<WMReSTClientDelegate>* stationGraphDataSender;
 + (NSArray*)convertToStationInfo:(NSArray*)stations;
 + (StationData*)convertToStationData:(NSDictionary*)stationData;
-+ (StationGraph*)convertToStationGraph:(NSDictionary*)stationGraph;
++ (StationGraphData*)convertToStationGraphData:(NSDictionary*)stationGraphData;
 
 - (NSArray*)getStationList:(BOOL)operationalStationOnly;
 - (void)asyncGetStationList:(BOOL)operationalStationOnly forSender:(id)sender;
@@ -44,8 +44,8 @@
 - (StationData*)getStationData:(NSString*)stationID;
 - (void)asyncGetStationData:(NSString*)stationID forSender:(id)sender;
 
-- (StationGraph*)getStationGraph:(NSString*)stationID duration:(NSString*)duration;
-- (void)asyncGetStationGraph:(NSString*)stationID duration:(NSString*)duration forSender:(id)sender;
+- (StationGraphData*)getStationGraphData:(NSString*)stationID duration:(NSString*)duration;
+- (void)asyncGetStationGraphData:(NSString*)stationID duration:(NSString*)duration forSender:(id)sender;
 
 // Parent delegate
 - (void)connectionError:(NSError*)error;
@@ -59,7 +59,7 @@
 @interface WMReSTClient ()
 - (void)getStationListResponse:(NSDictionary*)response;
 - (void)getStationDataResponse:(NSDictionary*)response;
-- (void)getStationGraphResponse:(NSDictionary*)response;
+- (void)getStationGraphDataResponse:(NSDictionary*)response;
 - (void)serverError:(NSDictionary*)error;
 - (void)serverUnknownError:(NSInteger)httpStatusCode;
 

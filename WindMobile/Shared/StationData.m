@@ -42,7 +42,6 @@
 			NSNumber* aDuration = [NSNumber numberWithInteger:[(NSString*)([chart objectForKey:STATION_DATA_GRAPH_DURATION_KEY]) integerValue]];
 			NSDictionary *serie = [chart objectForKey:STATION_DATA_GRAPH_SERIE_KEY];
 			windDirection = [[GraphData alloc] initWithDictionary:serie andDuration:aDuration];
-			windDirection.addPadding = YES;
 		}
 		
 	}

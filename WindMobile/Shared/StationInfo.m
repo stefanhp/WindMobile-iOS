@@ -21,7 +21,10 @@
 #define STATION_INFO_VALUE_GREEN @"green"
 
 @implementation StationInfo
+
 @synthesize stationInfo;
+@synthesize coordinate;
+
 - (id)initWithDictionary:(NSDictionary *)aDictionary{
 	self = [super init];
 	if(self != nil && aDictionary != nil){
@@ -109,23 +112,6 @@
 	}
 	// default:
 	return StationInfoStatusUndef;
-}
-
-#pragma mark -
-#pragma mark - MKAnnotation protocol
-
-@synthesize coordinate;
-- (NSString *)title {
-    if ([iPadHelper isIpad]) {
-        return self.name;
-    } else {
-        return self.shortName;
-    }
-}
-
-- (NSString *)subtitle {
-	return [NSString stringWithFormat:NSLocalizedStringFromTable(@"ALTITUDE_SHORT_FORMAT", @"WindMobile", nil),
-			self.altitude];
 }
 
 @end
