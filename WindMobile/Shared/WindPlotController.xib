@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.SystemVersion">10J869</string>
 		<string key="IBDocument.InterfaceBuilderVersion">823</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">132</string>
@@ -59,11 +59,11 @@
 					</object>
 					<object class="IBUISegmentedControl" id="870618081">
 						<reference key="NSNextResponder" ref="7996791"/>
-						<int key="NSvFlags">-2147483356</int>
+						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{10, 10}, {300, 30}}</string>
 						<reference key="NSSuperview" ref="7996791"/>
 						<bool key="IBUIOpaque">NO</bool>
-						<float key="IBUIAlpha">0.79577463865280151</float>
+						<float key="IBUIAlpha">0.69999998807907104</float>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBSegmentControlStyle">2</int>
 						<int key="IBNumberOfSegments">5</int>

@@ -37,7 +37,7 @@
     [super viewDidLoad];
 	
     [self setupButtons];
-    self.info.hidden = NO;
+    [self showScale:self];
     
     // Create graph from theme
     graph = [[CPXYGraph alloc] initWithFrame:CGRectZero];
@@ -298,7 +298,7 @@
         [self.masterController stopRefreshAnimation];
 	}
     
-    [self showInfo:self];
+    [self showScale:self];
 }
 
 #pragma mark -
@@ -367,7 +367,7 @@
 			break;
 	}
     
-    [self showInfo:self];
+    [self showScale:self];
 	
 	// apply new duration
 	if([newDuration compare:self.duration] !=  NSOrderedSame){
