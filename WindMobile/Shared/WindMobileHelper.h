@@ -10,9 +10,12 @@
 
 
 @interface WindMobileHelper : NSObject {
-
 }
-+ (NSDate*)decodeDateFromString:(NSString*)stringDate;
-+ (NSDate*)decodeDateFromJavaInt:(double)dateValue;
-+ (NSString*)naturalTimeSinceDate:(NSDate*)date;
+
++ (NSDate *)decodeDateFromString:(NSString *)stringDate;
++ (NSDate *)decodeDateFromJavaInt:(double)dateValue;
++ (NSString *)naturalTimeSinceDate:(NSDate *)date;
++ (NSString *)windDirectionLabel:(double)direction;
++ (BOOL)isPeak:(double[])values size:(int)size;
+    
 @end

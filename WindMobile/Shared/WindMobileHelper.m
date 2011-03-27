@@ -80,4 +80,52 @@
 	return NSLocalizedStringFromTable(@"NOT_AVAILABLE", @"WindMobile", nil);
 }
 
++ (NSString *)windDirectionLabel:(double)windDirection {
+    // See WindMobile.strings
+    static int sectorNumber = 8;
+    
+    float sector = 360 / sectorNumber;
+    float directionAngle = 0;
+    for (int directionIndex = 0; directionIndex < sectorNumber; directionIndex++) {
+        float min = directionAngle - sector / 2;
+        float max = directionAngle + sector / 2;
+        
+        if (directionIndex == 0) {
+            // Looking for the north "half sector" from 337.5 to 360
+            if ((windDirection >= 360 + min) && (windDirection <= 360)) {
+                NSString *key = [NSString stringWithFormat:@"WIND_DIRECTION_%i", 0];
+                return NSLocalizedStringFromTable(key, @"WindMobile", nil);
+            }
+        }
+        if ((windDirection >= min) && (windDirection < max)) {
+            NSString *key = [NSString stringWithFormat:@"WIND_DIRECTION_%i", directionIndex];
+            return NSLocalizedStringFromTable(key, @"WindMobile", nil);
+        }
+        
+        directionAngle += sector;
+    }
+    return nil;
+}
+
++ (BOOL)isPeak:(double[])values size:(int)size {
+    int middleIndex = size / 2;
+    double middleValue = values[middleIndex];
+    double maxValue = 0;
+    int maxIndex = 0;
+    
+    for (int i = 0; i < size; i++) {
+        double currentValue = values[i];
+        if (currentValue > middleValue) {         
+            return NO;
+        }
+        
+        // Mark the 1st max value only if the chart contains a "flat" max
+        if (currentValue > maxValue) {
+            maxValue = currentValue;
+            maxIndex = i;
+        }
+    }
+    return (maxIndex == middleIndex);
+}
+
 @end

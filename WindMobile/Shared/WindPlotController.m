@@ -10,6 +10,7 @@
 #import "CPGraphHostingView.h"
 #import "WMCellGraphTheme.h"
 #import "iPadHelper.h"
+#import "WindMobileHelper.h"
 
 #define PLOT_WIND_AVERAGE_IDENTIFIER @"Wind Average"
 #define PLOT_WIND_MAX_IDENTIFIER @"Wind Max"
@@ -172,10 +173,10 @@
         maxValue = 10;
     }
     
-    // Add an upper margin : ~7 pixels
-    maxValue += 7 * scaleFactor;
+    // Add an upper margin for wind direction labels : ~20 pixels
+    maxValue += 20 * scaleFactor;
     
-    // Add a lower margin to have enough space to draw the x axis
+    // Add a lower margin to have enough space to draw the x axis : ~40 pixels
     double location = -40 * scaleFactor;
     
     // Update yRange
@@ -302,7 +303,7 @@
 }
 
 #pragma mark -
-#pragma mark Plot Data Source Methods
+#pragma mark CPPlotDataSource
 
 - (NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot {
 	if(self.stationGraphData == nil){
@@ -310,10 +311,10 @@
 	}
     
     if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_AVERAGE_IDENTIFIER]) {
-        // Wind Average
+        // Wind average
         return [self.stationGraphData.windAverage dataPointCount];
 	} else if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_MAX_IDENTIFIER]) { 
-        // Wind Max
+        // Wind max
         return [self.stationGraphData.windMax dataPointCount];
 	}
     
@@ -322,14 +323,14 @@
 
 - (NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
 	if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_AVERAGE_IDENTIFIER]) {
-        // Wind Average
+        // Wind average
 		if (fieldEnum == CPScatterPlotFieldX) {
 			return [NSNumber numberWithDouble:[self.stationGraphData.windAverage timeIntervalForPointAtIndex:index]];
 		} else if(fieldEnum == CPScatterPlotFieldY){
 			return [self.stationGraphData.windAverage valueForPointAtIndex:index];
 		}
 	} else if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_MAX_IDENTIFIER]) { 
-        // Wind Max
+        // Wind max
 		if (fieldEnum == CPScatterPlotFieldX) {
 			return [NSNumber numberWithDouble:[self.stationGraphData.windMax timeIntervalForPointAtIndex:index]];
 		} else if(fieldEnum == CPScatterPlotFieldY){
@@ -338,6 +339,51 @@
 	}
     
     return [NSNumber numberWithDouble:0.0];
+}
+
+- (CPLayer *)dataLabelForIndex:(NSUInteger)index {
+    double direction = [[self.stationGraphData.windDirection valueForPointAtIndex:index] doubleValue];
+    NSString *directionText = [WindMobileHelper windDirectionLabel:direction];
+    CPTextLayer *label = [[CPTextLayer alloc] initWithText:directionText];
+    CPMutableTextStyle *textStyle = [[CPMutableTextStyle alloc] init];
+    textStyle.color = [CPColor lightGrayColor];
+    label.textStyle = textStyle;
+    [textStyle release];
+    return [label autorelease];
+}
+
+- (CPLayer *)dataLabelForPlot:(CPPlot *)plot recordIndex:(NSUInteger)index {
+    if ([(NSString *)plot.identifier isEqualToString:PLOT_WIND_MAX_IDENTIFIER]) {
+        static int maxNumberOfLabels = 50;
+        
+        double *values = nil;
+        @try {
+            int length = [self numberOfRecordsForPlot:plot];
+            // Round to the near odd number
+            int peakVectorSize = (int) round((double)length / maxNumberOfLabels * 2) * 2 - 1;
+            peakVectorSize = MAX(peakVectorSize, 3);
+            values = malloc(peakVectorSize * sizeof(double));
+            
+            int margin = (peakVectorSize / 2);
+            int startIndex = index - margin;
+            int stopIndex = index + margin;
+            if ((startIndex >= 0) && (stopIndex < length)) {
+                for (int i = startIndex; i <= stopIndex; i++) {
+                    double value = [[self numberForPlot:plot field:CPScatterPlotFieldY recordIndex:i] doubleValue];
+                    values[i-startIndex] = value;
+                }
+                if ([WindMobileHelper isPeak:values size:peakVectorSize]) {
+                    return [self dataLabelForIndex:index];
+                }
+            }
+        }
+        @finally {
+            if (values != nil) {
+                free(values);
+            }
+        }
+    }
+    return nil;
 }
 
 #pragma mark -
