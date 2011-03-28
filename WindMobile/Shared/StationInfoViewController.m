@@ -38,6 +38,8 @@
 
 - (void)viewDidUnload {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kIASKAppSettingChanged object:nil];
+    
+    [super viewDidUnload];
 }
 
 #pragma mark -

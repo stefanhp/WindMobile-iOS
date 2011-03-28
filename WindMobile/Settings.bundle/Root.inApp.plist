@@ -6,19 +6,11 @@
 	<array>
 		<dict>
 			<key>Title</key>
-			<string>Wind Mobile</string>
+			<string>Wind Mobile (0.9.0)</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<string>0.9.0.38</string>
-			<key>Key</key>
-			<string>pref_version</string>
-			<key>Title</key>
-			<string>Version</string>
-			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
+			<key>FooterText</key>
+			<string>©2011 la-haut.info</string>
 		</dict>
 		<dict>
 			<key>File</key>
@@ -27,22 +19,6 @@
 			<string>www.la-haut.info</string>
 			<key>Type</key>
 			<string>IASKOpenURLSpecifier</string>
-		</dict>
-		<dict>
-			<key>Title</key>
-			<string>Weather stations</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
-			<string>station_operational_preference</string>
-			<key>Title</key>
-			<string>Operational only</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -71,10 +47,6 @@
 			</array>
 		</dict>
 		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
 			<key>DefaultValue</key>
 			<integer>20</integer>
 			<key>Key</key>
@@ -99,6 +71,22 @@
 				<integer>45</integer>
 				<integer>60</integer>
 			</array>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Weather stations</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>station_operational_preference</string>
+			<key>Title</key>
+			<string>Operational only</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>

@@ -658,7 +658,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "WindMobile" */;
 			buildPhases = (
-				F87BB58A12F4779000C29261 /* Increment build number */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
@@ -822,20 +821,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		F87BB58A12F4779000C29261 /* Increment build number */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Increment build number";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "# Project version incrementing script\nif [ ${CONFIGURATION} = \"Release\" ]; then\n\tplistFile=\"WindMobile-Info.plist\"\n\tsettingsFile=\"Settings.bundle/Root.plist\"\n\tsettingsFile2=\"Settings.bundle/Root.inApp.plist\"\n\techo \"Incrementing Project Version for \"${plistFile}\n \n\tbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" $plistFile 2>&1)\n\tversionString=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" $plistFile 2>&1)\n\tif [[ \"$buildNumber\" == *Does\\ Not\\ Exist ]] ; then\n\t\tbuildNumber=1\n\t\techo \"Create CFBundleVersion\"\n\t    /usr/libexec/PlistBuddy -c \"Add :CFBundleVersion integer ${buildNumber}\" $plistFile\n\telse\n\t\tbuildNumber=$(($buildNumber + 1))\n\t\techo \"set CFBundleVersion to ${buildNumber}\"\n\t\t/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion ${buildNumber}\" $plistFile\n\t\t/usr/libexec/PlistBuddy -c \"Set PreferenceSpecifiers:1:DefaultValue ${versionString}.${buildNumber}\" $settingsFile\n\t\t/usr/libexec/PlistBuddy -c \"Set PreferenceSpecifiers:1:DefaultValue ${versionString}.${buildNumber}\" $settingsFile2\n\tfi\nfi \n";
-		};
 		F8FE123B12F9BB97006551F4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
