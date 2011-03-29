@@ -154,105 +154,112 @@
 #pragma mark -
 #pragma mark WMReSTClientDelegate
 
-- (void)stationGraphData:(StationGraphData*)data{
+- (void)stationGraphData:(StationGraphData*)data {
+    [self performSelectorOnMainThread:@selector(setupChart:) withObject:data waitUntilDone:true];
+}
+
+- (void)setupChart:(StationGraphData*)data {
 	self.stationGraphData = data;
-	CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
     
-    // Calculate graph range
-    [graph reloadData];
-    [plotSpace scaleToFitPlots:[graph allPlots]];
-    CPPlotRange* xRange = plotSpace.xRange;
-    CPPlotRange* yRange = plotSpace.yRange;
+    [self stopRefreshAnimation];
     
-    double maxValue = [yRange locationDouble] + [yRange lengthDouble];
-    double viewHeight = self.hostingView.bounds.size.height;
-    double scaleFactor = maxValue / viewHeight;
-    
-    // Y scale : 10 km/h minumum
-    if (maxValue < 10) {
-        maxValue = 10;
-    }
-    
-    // Add an upper margin for wind direction labels : ~20 pixels
-    maxValue += 20 * scaleFactor;
-    
-    // Add a lower margin to have enough space to draw the x axis : ~40 pixels
-    double location = -40 * scaleFactor;
-    
-    // Update yRange
-    yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(location) length:CPDecimalFromDouble(maxValue - location)];
-    
-    // Put the y axis on the left of the view
-    axisSet.yAxis.orthogonalCoordinateDecimal = CPDecimalFromDouble(xRange.locationDouble + xRange.lengthDouble);
-    axisSet.yAxis.visibleRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0) length:CPDecimalFromDouble(maxValue)];
-    
-    // Setup the "zoomed" range
-    plotSpace.xRange = xRange;
-    plotSpace.yRange = yRange;
-    
-    // Setup the global range
-    /*
-    plotSpace.globalXRange = xRange;
-    plotSpace.globalYRange = yRange;   
-    */
-    
-    // X interval customization
-    switch (self.scale.selectedSegmentIndex) {
-        case INTERVAL_4_HOURS:
-            axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(3600.0); // 1h
-            axisSet.xAxis.minorTicksPerInterval = 1; // 30 min
-            break;
-        case INTERVAL_6_HOURS:
-            axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(7200.0); // 2h
-            axisSet.xAxis.minorTicksPerInterval = 3; // 30 min
-            break;
-        case INTERVAL_12_HOURS:
-            axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(14400); // 4h
-            axisSet.xAxis.minorTicksPerInterval = 3; // 1 h
-            break;
-        case INTERVAL_24_HOURS:
-            axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(28800); // 8h
-            axisSet.xAxis.minorTicksPerInterval = 7; // 1 h
-            break;
-        case INTERVAL_2_DAYS:
-            axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(36000); // 10h
-            axisSet.xAxis.minorTicksPerInterval = 9; // 1 h
-            break;
-        default:
-            axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(14400); // 4h
-            axisSet.xAxis.minorTicksPerInterval = 3; // 1 h
-            break;
-    }
-    axisSet.xAxis.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
-    [axisSet.xAxis relabel];
-    
-    // X label customization
-    NSSet* labelCoordinates = axisSet.xAxis.majorTickLocations;
-    axisSet.xAxis.labelingPolicy = CPAxisLabelingPolicyNone;
-    NSMutableArray *customLabels = [[NSMutableArray alloc] initWithCapacity:[labelCoordinates count]];
-    
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"EEE HH:mm"];
-    
-    for (NSNumber* tickLocation in labelCoordinates){
-        NSTimeInterval location = [tickLocation doubleValue];
-        NSDate* date = [NSDate dateWithTimeIntervalSince1970:location];
+    if (([self.stationGraphData.windAverage count] > 0) && ([self.stationGraphData.windMax count] > 0)) {
+        CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
         
-        NSString* dateLabel = [dateFormatter stringFromDate:date];
+        // Calculate graph range
+        [graph reloadData];
+        [plotSpace scaleToFitPlots:[graph allPlots]];
+        CPPlotRange* xRange = plotSpace.xRange;
+        CPPlotRange* yRange = plotSpace.yRange;
         
-        CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText:dateLabel textStyle:axisSet.xAxis.labelTextStyle];
-        newLabel.alignment = CPAlignmentRight;
-        newLabel.tickLocation = CPDecimalFromDouble(location);
-        newLabel.offset = axisSet.xAxis.labelOffset + axisSet.xAxis.majorTickLength;
-        [customLabels addObject:newLabel];
-        [newLabel release];
+        double maxValue = [yRange locationDouble] + [yRange lengthDouble];
+        double viewHeight = self.hostingView.bounds.size.height;
+        double scaleFactor = maxValue / viewHeight;
+        
+        // Y scale : 10 km/h minumum
+        if (maxValue < 10) {
+            maxValue = 10;
+        }
+        
+        // Add an upper margin for wind direction labels : ~20 pixels
+        maxValue += 20 * scaleFactor;
+        
+        // Add a lower margin to have enough space to draw the x axis : ~40 pixels
+        double location = -40 * scaleFactor;
+        
+        // Update yRange
+        yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(location) length:CPDecimalFromDouble(maxValue - location)];
+        
+        // Put the y axis on the left of the view
+        axisSet.yAxis.orthogonalCoordinateDecimal = CPDecimalFromDouble(xRange.locationDouble + xRange.lengthDouble);
+        axisSet.yAxis.visibleRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0) length:CPDecimalFromDouble(maxValue)];
+        
+        // Setup the "zoomed" range
+        plotSpace.xRange = xRange;
+        plotSpace.yRange = yRange;
+        
+        // Setup the global range
+        /*
+         plotSpace.globalXRange = xRange;
+         plotSpace.globalYRange = yRange;   
+         */
+        
+        // X interval customization
+        switch (self.scale.selectedSegmentIndex) {
+            case INTERVAL_4_HOURS:
+                axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(3600.0); // 1h
+                axisSet.xAxis.minorTicksPerInterval = 1; // 30 min
+                break;
+            case INTERVAL_6_HOURS:
+                axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(7200.0); // 2h
+                axisSet.xAxis.minorTicksPerInterval = 3; // 30 min
+                break;
+            case INTERVAL_12_HOURS:
+                axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(14400); // 4h
+                axisSet.xAxis.minorTicksPerInterval = 3; // 1 h
+                break;
+            case INTERVAL_24_HOURS:
+                axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(28800); // 8h
+                axisSet.xAxis.minorTicksPerInterval = 7; // 1 h
+                break;
+            case INTERVAL_2_DAYS:
+                axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(36000); // 10h
+                axisSet.xAxis.minorTicksPerInterval = 9; // 1 h
+                break;
+            default:
+                axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(14400); // 4h
+                axisSet.xAxis.minorTicksPerInterval = 3; // 1 h
+                break;
+        }
+        axisSet.xAxis.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
+        [axisSet.xAxis relabel];
+        
+        // X label customization
+        NSSet* labelCoordinates = axisSet.xAxis.majorTickLocations;
+        axisSet.xAxis.labelingPolicy = CPAxisLabelingPolicyNone;
+        NSMutableArray *customLabels = [[NSMutableArray alloc] initWithCapacity:[labelCoordinates count]];
+        
+        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
+        [dateFormatter setDateFormat:@"EEE HH:mm"];
+        
+        for (NSNumber* tickLocation in labelCoordinates){
+            NSTimeInterval location = [tickLocation doubleValue];
+            NSDate* date = [NSDate dateWithTimeIntervalSince1970:location];
+            
+            NSString* dateLabel = [dateFormatter stringFromDate:date];
+            
+            CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText:dateLabel textStyle:axisSet.xAxis.labelTextStyle];
+            newLabel.alignment = CPAlignmentRight;
+            newLabel.tickLocation = CPDecimalFromDouble(location);
+            newLabel.offset = axisSet.xAxis.labelOffset + axisSet.xAxis.majorTickLength;
+            [customLabels addObject:newLabel];
+            [newLabel release];
+        }
+        [dateFormatter release];
+        
+        axisSet.xAxis.axisLabels =  [NSSet setWithArray:customLabels];
+        [customLabels release]; 
     }
-    [dateFormatter release];
-    
-    axisSet.xAxis.axisLabels =  [NSSet setWithArray:customLabels];
-    [customLabels release];
-    
-	[self stopRefreshAnimation];
 }
 
 - (void)serverError:(NSString *)title message:(NSString *)message{
