@@ -82,11 +82,6 @@
 	return (NSString*)[stationInfo objectForKey:STATION_INFO_ALTITUDE_KEY];
 }
 
-@dynamic dataValidity;
-- (NSString*)dataValidity{
-	return (NSString*)[stationInfo objectForKey:STATION_INFO_DATA_VALIDITY_KEY];
-}
-
 @dynamic stationID;
 - (NSString*)stationID{
 	return (NSString*)[stationInfo objectForKey:STATION_INFO_ID_KEY];

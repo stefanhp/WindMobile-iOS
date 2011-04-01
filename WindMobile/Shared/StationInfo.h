@@ -29,7 +29,6 @@ typedef NSUInteger StationInfoStatus;
 @property (readonly) NSString* name;
 @property (readonly) NSString* shortName;
 @property (readonly) NSString* altitude;
-@property (readonly) NSString* dataValidity;
 @property (readonly) NSString* maintenanceStatus;
 @property (readonly) StationInfoStatus maintenanceStatusEnum;
 
