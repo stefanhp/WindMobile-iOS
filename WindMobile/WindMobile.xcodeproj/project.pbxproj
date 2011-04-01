@@ -613,7 +613,7 @@
 		F8EC162C12E8666D00B268BD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F8EC163312E8666D00B268BD /* CPSReST */,
+				F8EC163312E8666D00B268BD /* CPSReST.framework */,
 				F8EC163512E8666D00B268BD /* libCPSReST.a */,
 				F8EC163712E8666D00B268BD /* Test-CPSRest-Framework.octest */,
 				F8EC163912E8666D00B268BD /* Test-CPSReST-Library.octest */,
@@ -740,10 +740,9 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		F8EC163312E8666D00B268BD /* CPSReST */ = {
+		F8EC163312E8666D00B268BD /* CPSReST.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			name = CPSReST;
 			path = CPSReST.framework;
 			remoteRef = F8EC163212E8666D00B268BD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
