@@ -100,16 +100,16 @@
         
 		switch (data.maintenanceStatusEnum) {
 			case StationInfoStatusGreen:
-				cell.imageView.image = [UIImage imageNamed:@"bullet-green"];
+				cell.imageView.image = [UIImage imageNamed:@"led_green"];
 				break;
 			case StationInfoStatusOrange:
-				cell.imageView.image = [UIImage imageNamed:@"bullet-yellow"];
+				cell.imageView.image = [UIImage imageNamed:@"led_orange"];
 				break;
 			case StationInfoStatusRed:
-				cell.imageView.image = [UIImage imageNamed:@"bullet-red"];
+				cell.imageView.image = [UIImage imageNamed:@"led_red"];
 				break;
 			default:
-				cell.imageView.image = [UIImage imageNamed:@"bullet-grey"];
+				cell.imageView.image = [UIImage imageNamed:@"led_green"];
 				break;
 		}
 	}
