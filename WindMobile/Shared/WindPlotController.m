@@ -36,7 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
+    
     [self setupButtons];
     self.info.hidden = NO;
     
@@ -52,18 +52,40 @@
     graph.paddingRight = 0.0;
     graph.paddingBottom = 0.0;
     
+    // Add a bottom and right margin to have enough space to draw the axis
+    graph.plotAreaFrame.paddingBottom = 30;
+    graph.plotAreaFrame.paddingRight = 40;
+    
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
 	plotSpace.allowsUserInteraction = NO;
     axisSet = [(CPXYAxisSet *)(graph.axisSet) retain];
     // Put axis layer to front
-    axisSet.zPosition = CPDefaultZPositionPlotGroup + 1;
+    //axisSet.zPosition = CPDefaultZPositionPlotGroup + 1;
     
     axisSet.xAxis.isFloatingAxis = NO;
     
     axisSet.yAxis.isFloatingAxis = NO;
+    axisSet.yAxis.tickDirection = CPSignPositive;
     axisSet.yAxis.majorIntervalLength = CPDecimalFromString(@"10");
+    NSNumberFormatter *windFormatter = [[NSNumberFormatter alloc]init];
+    [windFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    axisSet.yAxis.labelFormatter = windFormatter;
+    [windFormatter release];
+    CPMutableLineStyle *gridLineStyle = [CPMutableLineStyle lineStyle];
+    gridLineStyle.lineWidth = 1;
+    gridLineStyle.lineColor = [CPColor grayColor];
+    axisSet.yAxis.majorGridLineStyle = gridLineStyle;
     axisSet.yAxis.minorTickLineStyle = nil;
+    NSString *unit = NSLocalizedStringFromTable(@"WIND_FORMAT", @"WindMobile", nil);
+    axisSet.yAxis.title = [NSString stringWithFormat:unit, NSLocalizedStringFromTable(@"CHART_YAXIS_TITLE", @"WindMobile", nil)];
+    axisSet.yAxis.titleLocation = CPDecimalFromInteger(0);
+    CPMutableTextStyle *textStyle = [[CPMutableTextStyle alloc] init];
+    textStyle.color = [CPColor lightGrayColor];
+    textStyle.fontSize = 11;
+    axisSet.yAxis.titleOffset = 35;
+    axisSet.yAxis.titleTextStyle = textStyle;
+    [textStyle release];
 	
 	// Create a Wind Average plot area
 	CPScatterPlot *averageLinePlot = [[[CPScatterPlot alloc] init] autorelease];
@@ -73,7 +95,6 @@
     CPMutableLineStyle *lineStyle = [CPMutableLineStyle lineStyle];
     lineStyle.miterLimit = 1.25f;
     lineStyle.lineWidth = 2.5f;
-    
 	lineStyle.lineColor = [CPColor colorWithComponentRed:0.65 green:0.66 blue:0.8 alpha:1.0];
     averageLinePlot.dataLineStyle = lineStyle;
 
@@ -169,30 +190,26 @@
         // Calculate graph range
         [graph reloadData];
         [plotSpace scaleToFitPlots:[graph allPlots]];
-        CPPlotRange* xRange = plotSpace.xRange;
-        CPPlotRange* yRange = plotSpace.yRange;
+        CPPlotRange *xRange = plotSpace.xRange;
+        CPPlotRange *yRange = plotSpace.yRange;
         
         double maxValue = [yRange locationDouble] + [yRange lengthDouble];
-        double viewHeight = self.hostingView.bounds.size.height;
-        double scaleFactor = maxValue / viewHeight;
-        
-        // Y scale : 10 km/h minumum
+        // 10 km/h minumum
         if (maxValue < 10) {
             maxValue = 10;
         }
         
-        // Add an upper margin for wind direction labels : ~20 pixels
-        maxValue += 20 * scaleFactor;
+        double viewHeight = self.hostingView.bounds.size.height;
+        double scaleFactor = maxValue / viewHeight;
         
-        // Add a lower margin to have enough space to draw the x axis : ~40 pixels
-        double location = -40 * scaleFactor;
+        // Added space to display wind direction labels : ~30 pixels
+        maxValue += 30 * scaleFactor;;
         
         // Update yRange
-        yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(location) length:CPDecimalFromDouble(maxValue - location)];
+        yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0) length:CPDecimalFromDouble(maxValue)];
         
         // Put the y axis on the left of the view
         axisSet.yAxis.orthogonalCoordinateDecimal = CPDecimalFromDouble(xRange.locationDouble + xRange.lengthDouble);
-        axisSet.yAxis.visibleRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0) length:CPDecimalFromDouble(maxValue)];
         
         // Setup the "zoomed" range
         plotSpace.xRange = xRange;
@@ -207,27 +224,27 @@
         // X interval customization
         switch (self.scale.selectedSegmentIndex) {
             case INTERVAL_4_HOURS:
-                axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(3600.0); // 1h
+                axisSet.xAxis.majorIntervalLength = CPDecimalFromInteger(3600); // 1h
                 axisSet.xAxis.minorTicksPerInterval = 1; // 30 min
                 break;
             case INTERVAL_6_HOURS:
-                axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(7200.0); // 2h
+                axisSet.xAxis.majorIntervalLength = CPDecimalFromInteger(7200); // 2h
                 axisSet.xAxis.minorTicksPerInterval = 3; // 30 min
                 break;
             case INTERVAL_12_HOURS:
-                axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(14400); // 4h
+                axisSet.xAxis.majorIntervalLength = CPDecimalFromInteger(14400); // 4h
                 axisSet.xAxis.minorTicksPerInterval = 3; // 1 h
                 break;
             case INTERVAL_24_HOURS:
-                axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(28800); // 8h
+                axisSet.xAxis.majorIntervalLength = CPDecimalFromInteger(28800); // 8h
                 axisSet.xAxis.minorTicksPerInterval = 7; // 1 h
                 break;
             case INTERVAL_2_DAYS:
-                axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(36000); // 10h
+                axisSet.xAxis.majorIntervalLength = CPDecimalFromInteger(36000); // 10h
                 axisSet.xAxis.minorTicksPerInterval = 9; // 1 h
                 break;
             default:
-                axisSet.xAxis.majorIntervalLength = CPDecimalFromDouble(14400); // 4h
+                axisSet.xAxis.majorIntervalLength = CPDecimalFromInteger(14400); // 4h
                 axisSet.xAxis.minorTicksPerInterval = 3; // 1 h
                 break;
         }
@@ -249,7 +266,6 @@
             NSString* dateLabel = [dateFormatter stringFromDate:date];
             
             CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText:dateLabel textStyle:axisSet.xAxis.labelTextStyle];
-            newLabel.alignment = CPAlignmentRight;
             newLabel.tickLocation = CPDecimalFromDouble(location);
             newLabel.offset = axisSet.xAxis.labelOffset + axisSet.xAxis.majorTickLength;
             [customLabels addObject:newLabel];
