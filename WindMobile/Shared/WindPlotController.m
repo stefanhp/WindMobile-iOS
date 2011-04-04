@@ -68,10 +68,9 @@
     axisSet.yAxis.isFloatingAxis = NO;
     axisSet.yAxis.tickDirection = CPSignPositive;
     axisSet.yAxis.majorIntervalLength = CPDecimalFromString(@"10");
-    NSNumberFormatter *windFormatter = [[NSNumberFormatter alloc]init];
+    NSNumberFormatter *windFormatter = [[[NSNumberFormatter alloc]init]autorelease];
     [windFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
     axisSet.yAxis.labelFormatter = windFormatter;
-    [windFormatter release];
     CPMutableLineStyle *gridLineStyle = [CPMutableLineStyle lineStyle];
     gridLineStyle.lineWidth = 1;
     gridLineStyle.lineColor = [CPColor grayColor];
@@ -80,12 +79,11 @@
     NSString *unit = NSLocalizedStringFromTable(@"WIND_FORMAT", @"WindMobile", nil);
     axisSet.yAxis.title = [NSString stringWithFormat:unit, NSLocalizedStringFromTable(@"CHART_YAXIS_TITLE", @"WindMobile", nil)];
     axisSet.yAxis.titleLocation = CPDecimalFromInteger(0);
-    CPMutableTextStyle *textStyle = [[CPMutableTextStyle alloc] init];
+    CPMutableTextStyle *textStyle = [[[CPMutableTextStyle alloc] init]autorelease];
     textStyle.color = [CPColor lightGrayColor];
     textStyle.fontSize = 11;
     axisSet.yAxis.titleOffset = 35;
     axisSet.yAxis.titleTextStyle = textStyle;
-    [textStyle release];
 	
 	// Create a Wind Average plot area
 	CPScatterPlot *averageLinePlot = [[[CPScatterPlot alloc] init] autorelease];
@@ -254,9 +252,9 @@
         // X label customization
         NSSet* labelCoordinates = axisSet.xAxis.majorTickLocations;
         axisSet.xAxis.labelingPolicy = CPAxisLabelingPolicyNone;
-        NSMutableArray *customLabels = [[NSMutableArray alloc] initWithCapacity:[labelCoordinates count]];
+        NSMutableArray *customLabels = [[[NSMutableArray alloc] initWithCapacity:[labelCoordinates count]]autorelease];
         
-        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
+        NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc]init]autorelease];
         [dateFormatter setDateFormat:@"EEE HH:mm"];
         
         for (NSNumber* tickLocation in labelCoordinates){
@@ -271,10 +269,8 @@
             [customLabels addObject:newLabel];
             [newLabel release];
         }
-        [dateFormatter release];
         
         axisSet.xAxis.axisLabels =  [NSSet setWithArray:customLabels];
-        [customLabels release]; 
     }
 }
 
