@@ -88,16 +88,16 @@
 		switch (self.interfaceOrientation) {
 			case UIInterfaceOrientationLandscapeLeft:
 			case UIInterfaceOrientationLandscapeRight:
-				self.windPlotController = [[WindPlotController alloc] initWithNibName:@"WindPlotController" bundle:nil];
-				self.windPlotController.stationInfo = self.stationInfo;
-                self.windPlotController.masterController = self;
-                
-				// Display plot view
-				self.windPlotController.view.frame = self.view.bounds;
-				self.windPlotView = windPlotController.view; // Save for future reference
-				[self.view addSubview:self.windPlotView];
-				break;
-			default:
+                if (self.windPlotController == nil) {
+                    self.windPlotController = [[WindPlotController alloc] initWithNibName:@"WindPlotController" bundle:nil];
+                    self.windPlotController.stationInfo = self.stationInfo;
+                    self.windPlotController.masterController = self;
+                    
+                    // Display plot view
+                    self.windPlotController.view.frame = self.view.bounds;
+                    self.windPlotView = windPlotController.view; // Save for future reference
+                    [self.view addSubview:self.windPlotView];
+                }
 				break;
 		}
 	}
@@ -120,14 +120,16 @@
 		switch(toInterfaceOrientation){
 			case UIInterfaceOrientationLandscapeLeft:
 			case UIInterfaceOrientationLandscapeRight:
-				self.windPlotController = [[WindPlotController alloc] initWithNibName:@"WindPlotController" bundle:nil];
-				self.windPlotController.stationInfo = self.stationInfo;
-                self.windPlotController.masterController = self;
-                
-				// Display plot view
-				self.windPlotController.view.frame = self.view.bounds;
-				self.windPlotView = windPlotController.view; // Save for future reference
-				[self.view addSubview:self.windPlotView];
+                if (self.windPlotController == nil) {
+                    self.windPlotController = [[WindPlotController alloc] initWithNibName:@"WindPlotController" bundle:nil];
+                    self.windPlotController.stationInfo = self.stationInfo;
+                    self.windPlotController.masterController = self;
+                    
+                    // Display plot view
+                    self.windPlotController.view.frame = self.view.bounds;
+                    self.windPlotView = windPlotController.view; // Save for future reference
+                    [self.view addSubview:self.windPlotView];
+                }
 				break;
 			case UIInterfaceOrientationPortrait:
 			case UIInterfaceOrientationPortraitUpsideDown:
