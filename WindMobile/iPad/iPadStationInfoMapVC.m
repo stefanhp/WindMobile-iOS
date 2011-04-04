@@ -34,7 +34,7 @@
                                                    action:@selector(showSettingsPopover:)];
     
     stationsItem = [[UIBarButtonItem alloc]initWithTitle:NSLocalizedStringFromTable(@"STATIONS", @"WindMobile", nil)
-                                                style:UIBarButtonItemStylePlain 
+                                                style:UIBarButtonItemStyleBordered 
                                                target:self
                                                action:@selector(showStationsPopover:)];
     
