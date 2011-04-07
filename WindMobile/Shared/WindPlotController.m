@@ -67,7 +67,6 @@
     
     axisSet.yAxis.isFloatingAxis = NO;
     axisSet.yAxis.tickDirection = CPSignPositive;
-    axisSet.yAxis.majorIntervalLength = CPDecimalFromString(@"10");
     NSNumberFormatter *windFormatter = [[[NSNumberFormatter alloc]init]autorelease];
     [windFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
     axisSet.yAxis.labelFormatter = windFormatter;
@@ -76,26 +75,18 @@
     gridLineStyle.lineColor = [CPColor grayColor];
     axisSet.yAxis.majorGridLineStyle = gridLineStyle;
     axisSet.yAxis.minorTickLineStyle = nil;
-    NSString *unit = NSLocalizedStringFromTable(@"WIND_FORMAT", @"WindMobile", nil);
-    axisSet.yAxis.title = [NSString stringWithFormat:unit, NSLocalizedStringFromTable(@"CHART_YAXIS_TITLE", @"WindMobile", nil)];
-    axisSet.yAxis.titleLocation = CPDecimalFromInteger(0);
-    CPMutableTextStyle *textStyle = [[[CPMutableTextStyle alloc] init]autorelease];
-    textStyle.color = [CPColor lightGrayColor];
-    textStyle.fontSize = 11;
-    axisSet.yAxis.titleOffset = 35;
-    axisSet.yAxis.titleTextStyle = textStyle;
 	
 	// Create a Wind Average plot area
 	CPScatterPlot *averageLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     averageLinePlot.identifier = PLOT_WIND_AVERAGE_IDENTIFIER;
     averageLinePlot.dataSource = self;
-
+    
     CPMutableLineStyle *lineStyle = [CPMutableLineStyle lineStyle];
     lineStyle.miterLimit = 1.25f;
     lineStyle.lineWidth = 2.5f;
 	lineStyle.lineColor = [CPColor colorWithComponentRed:0.65 green:0.66 blue:0.8 alpha:1.0];
     averageLinePlot.dataLineStyle = lineStyle;
-
+    
 	// White to blue gradient
 	CPColor *gradientStart = [CPColor colorWithComponentRed:0.14 green:0.17 blue:0.8 alpha:1.0];
     CPColor *gradientEnd= [CPColor colorWithComponentRed:0.55 green:0.56 blue:0.8 alpha:1.0];
@@ -103,16 +94,16 @@
     areaGradient.angle = 90.0f;
     CPFill *areaGradientFill = [CPFill fillWithGradient:areaGradient];
     averageLinePlot.areaFill = areaGradientFill;
-
+    
     averageLinePlot.areaBaseValue = [[NSDecimalNumber zero] decimalValue];    
-
+    
 	[graph addPlot:averageLinePlot];
 	
     // Create a Wind Max plot area
 	CPScatterPlot *maxLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     maxLinePlot.identifier = PLOT_WIND_MAX_IDENTIFIER;
     maxLinePlot.dataSource = self;
-
+    
     lineStyle = [CPMutableLineStyle lineStyle];
     lineStyle.miterLimit = 1.25f;
     lineStyle.lineWidth = 2.5f;
@@ -270,6 +261,24 @@
             [newLabel release];
         }
         
+        // Y axis interval customization
+        if (maxValue >= 80) {
+            axisSet.yAxis.majorIntervalLength = CPDecimalFromString(@"20");
+        } else if (maxValue >= 20) {
+            axisSet.yAxis.majorIntervalLength = CPDecimalFromString(@"10");
+        } else {
+            axisSet.yAxis.majorIntervalLength = CPDecimalFromString(@"5");
+        }
+        
+        // Y axis title
+        NSString *unit = NSLocalizedStringFromTable(@"WIND_FORMAT", @"WindMobile", nil);
+        axisSet.yAxis.title = [NSString stringWithFormat:unit, NSLocalizedStringFromTable(@"CHART_YAXIS_TITLE", @"WindMobile", nil)];
+        CPMutableTextStyle *textStyle = [[[CPMutableTextStyle alloc] init]autorelease];
+        textStyle.color = [CPColor lightGrayColor];
+        textStyle.fontSize = 11;
+        axisSet.yAxis.titleOffset = 25;
+        axisSet.yAxis.titleTextStyle = textStyle;
+        
         axisSet.xAxis.axisLabels =  [NSSet setWithArray:customLabels];
     }
 }
@@ -361,14 +370,17 @@
 }
 
 - (CPLayer *)dataLabelForIndex:(NSUInteger)index {
-    double direction = [[self.stationGraphData.windDirection valueForPointAtIndex:index] doubleValue];
-    NSString *directionText = [WindMobileHelper windDirectionLabel:direction];
-    CPTextLayer *label = [[CPTextLayer alloc] initWithText:directionText];
-    CPMutableTextStyle *textStyle = [[CPMutableTextStyle alloc] init];
-    textStyle.color = [CPColor lightGrayColor];
-    label.textStyle = textStyle;
-    [textStyle release];
-    return [label autorelease];
+    if (index < [self.stationGraphData.windDirection dataPointCount]) {
+        double direction = [[self.stationGraphData.windDirection valueForPointAtIndex:index] doubleValue];
+        NSString *directionText = [WindMobileHelper windDirectionLabel:direction];
+        CPTextLayer *label = [[CPTextLayer alloc] initWithText:directionText];
+        CPMutableTextStyle *textStyle = [[CPMutableTextStyle alloc] init];
+        textStyle.color = [CPColor lightGrayColor];
+        label.textStyle = textStyle;
+        [textStyle release];
+        return [label autorelease];
+    }
+    return nil;
 }
 
 - (CPLayer *)dataLabelForPlot:(CPPlot *)plot recordIndex:(NSUInteger)index {

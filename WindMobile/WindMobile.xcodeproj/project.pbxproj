@@ -14,6 +14,7 @@
 		2860E32E111B888700E27156 /* AppDelegate_Pad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2860E32C111B888700E27156 /* AppDelegate_Pad.m */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		AA6BB26F1349BC9300353266 /* VMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6BB26E1349BC9300353266 /* VMSegmentedControl.m */; };
+		AA990170134E53D20099C8C2 /* CPAxisTitle+PositionFix.m in Sources */ = {isa = PBXBuildFile; fileRef = AA99016F134E53D20099C8C2 /* CPAxisTitle+PositionFix.m */; };
 		AAA44A841345F99D005CAB99 /* led_green.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA44A811345F99D005CAB99 /* led_green.png */; };
 		AAA44A851345F99D005CAB99 /* led_orange.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA44A821345F99D005CAB99 /* led_orange.png */; };
 		AAA44A861345F99D005CAB99 /* led_red.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA44A831345F99D005CAB99 /* led_red.png */; };
@@ -171,6 +172,8 @@
 		8D1107310486CEB800E47090 /* WindMobile-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WindMobile-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		AA6BB26D1349BC9300353266 /* VMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMSegmentedControl.h; sourceTree = "<group>"; };
 		AA6BB26E1349BC9300353266 /* VMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMSegmentedControl.m; sourceTree = "<group>"; };
+		AA99016E134E53D20099C8C2 /* CPAxisTitle+PositionFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPAxisTitle+PositionFix.h"; sourceTree = "<group>"; };
+		AA99016F134E53D20099C8C2 /* CPAxisTitle+PositionFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CPAxisTitle+PositionFix.m"; sourceTree = "<group>"; };
 		AAA44A811345F99D005CAB99 /* led_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = led_green.png; sourceTree = "<group>"; };
 		AAA44A821345F99D005CAB99 /* led_orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = led_orange.png; sourceTree = "<group>"; };
 		AAA44A831345F99D005CAB99 /* led_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = led_red.png; sourceTree = "<group>"; };
@@ -561,6 +564,8 @@
 		F855F580130559610038A03B /* Graph */ = {
 			isa = PBXGroup;
 			children = (
+				AA99016E134E53D20099C8C2 /* CPAxisTitle+PositionFix.h */,
+				AA99016F134E53D20099C8C2 /* CPAxisTitle+PositionFix.m */,
 				F8E9498412F487380036C165 /* WindPlotController.h */,
 				F8E9498512F487380036C165 /* WindPlotController.m */,
 				F8E9498612F487380036C165 /* WindPlotController.xib */,
@@ -891,6 +896,7 @@
 				F861BB14132F7BDC00F77639 /* iPadStationInfoViewController.m in Sources */,
 				AAE834591337395900F60FBB /* StationInfo+MKAnnotation.m in Sources */,
 				AA6BB26F1349BC9300353266 /* VMSegmentedControl.m in Sources */,
+				AA990170134E53D20099C8C2 /* CPAxisTitle+PositionFix.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
