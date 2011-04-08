@@ -99,6 +99,11 @@
                     [self.view addSubview:self.windPlotView];
                 }
 				break;
+            case UIInterfaceOrientationPortrait:
+			case UIInterfaceOrientationPortraitUpsideDown:
+				[self.windPlotView removeFromSuperview];
+				self.windPlotController = nil;
+				break;
 		}
 	}
 	
