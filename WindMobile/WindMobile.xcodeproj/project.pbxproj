@@ -15,6 +15,7 @@
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		AA2032E2134EF4A5008571BE /* world_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2032E0134EF4A5008571BE /* world_bar.png */; };
 		AA2032E3134EF4A5008571BE /* world_bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2032E1134EF4A5008571BE /* world_bar@2x.png */; };
+		AA2032F5134EF99C008571BE /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2032F4134EF99C008571BE /* settings@2x.png */; };
 		AA6BB26F1349BC9300353266 /* VMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6BB26E1349BC9300353266 /* VMSegmentedControl.m */; };
 		AA990170134E53D20099C8C2 /* CPAxisTitle+PositionFix.m in Sources */ = {isa = PBXBuildFile; fileRef = AA99016F134E53D20099C8C2 /* CPAxisTitle+PositionFix.m */; };
 		AAA44A841345F99D005CAB99 /* led_green.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA44A811345F99D005CAB99 /* led_green.png */; };
@@ -174,6 +175,7 @@
 		8D1107310486CEB800E47090 /* WindMobile-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WindMobile-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		AA2032E0134EF4A5008571BE /* world_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_bar.png; sourceTree = "<group>"; };
 		AA2032E1134EF4A5008571BE /* world_bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "world_bar@2x.png"; sourceTree = "<group>"; };
+		AA2032F4134EF99C008571BE /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
 		AA6BB26D1349BC9300353266 /* VMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMSegmentedControl.h; sourceTree = "<group>"; };
 		AA6BB26E1349BC9300353266 /* VMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMSegmentedControl.m; sourceTree = "<group>"; };
 		AA99016E134E53D20099C8C2 /* CPAxisTitle+PositionFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPAxisTitle+PositionFix.h"; sourceTree = "<group>"; };
@@ -613,6 +615,7 @@
 				AA2032E0134EF4A5008571BE /* world_bar.png */,
 				AA2032E1134EF4A5008571BE /* world_bar@2x.png */,
 				F851AC6F12F446D2002F851C /* settings.png */,
+				AA2032F4134EF99C008571BE /* settings@2x.png */,
 			);
 			name = icons;
 			path = Resources/icons;
@@ -834,6 +837,7 @@
 				AAA44AA41345FC70005CAB99 /* led_orange@2x.png in Resources */,
 				AA2032E2134EF4A5008571BE /* world_bar.png in Resources */,
 				AA2032E3134EF4A5008571BE /* world_bar@2x.png in Resources */,
+				AA2032F5134EF99C008571BE /* settings@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
