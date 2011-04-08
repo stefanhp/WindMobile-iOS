@@ -325,7 +325,7 @@
 			self.navigationItem.rightBarButtonItem = dismissButtonItem;
 			[dismissButtonItem release];
 		} else {
-			UIBarButtonItem *mapItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"world"]
+			UIBarButtonItem *mapItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"world_bar"]
 																		  style:UIBarButtonItemStylePlain 
 																		 target:self 
 																		 action:@selector(showMap:)];
