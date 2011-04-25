@@ -64,6 +64,9 @@
 	[toolbar setItems:[items arrayByAddingObject:activityItem] animated:NO];
     
 	[(UIActivityIndicatorView *)activityItem.customView startAnimating];
+    
+    // Disable stations popover button
+    [stationsItem setEnabled:NO];    
 }
 
 - (void)stopRefreshAnimation{
@@ -73,6 +76,9 @@
 	NSArray *items = [toolbar.items subarrayWithRange:range];
 	
 	[toolbar setItems:[items arrayByAddingObject:refreshItem] animated:NO];
+    
+    // Enable stations popover button
+    [stationsItem setEnabled:YES];
 }
 
 - (void)showSettingsPopover:(id)sender {
@@ -104,7 +110,6 @@
     if (self.stationsPopover == nil) {
         // Show station list
         iPadStationInfoViewController *stationListController = [[iPadStationInfoViewController alloc] initWithNibName:@"StationInfoViewController" bundle:nil];
-        stationListController.stations = self.stations;
         stationListController.delegate = self;
         
         // show in popover
@@ -112,6 +117,7 @@
         [stationListController release];
         self.stationsPopover.popoverContentSize = CGSizeMake(380, 450);
     }
+    ((iPadStationInfoViewController*)self.stationsPopover.contentViewController).stations = self.stations;
     
     if (self.stationsPopover.popoverVisible == NO) {
         [stationsPopover presentPopoverFromBarButtonItem:stationsItem 

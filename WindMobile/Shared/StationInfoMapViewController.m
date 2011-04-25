@@ -242,8 +242,8 @@
 #pragma mark WMReSTClientDelegate
 
 - (void)stationList:(NSArray *)stations{
-	[self stopRefreshAnimation];
 	[self performSelectorOnMainThread:@selector(addAnnotations:) withObject:stations waitUntilDone:true];
+    [self stopRefreshAnimation];
 }
 
 - (void)serverError:(NSString *)title message:(NSString *)message{
