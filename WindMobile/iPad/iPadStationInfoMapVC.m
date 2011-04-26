@@ -55,6 +55,13 @@
     [toolbar setItems:items animated:NO];
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    if (self.detailPopover.popoverVisible == YES) {
+        // Hide the popover because its position will not be updated after the screen rotation
+        [detailPopover dismissPopoverAnimated:NO];
+    }
+}
+
 - (void)startRefreshAnimation{
 	NSRange range;
 	range.location = 0;
@@ -107,22 +114,29 @@
 }
 
 - (void)showStationsPopover:(id)sender {
+    iPadStationInfoViewController *stationListController;
+    
     if (self.stationsPopover == nil) {
         // Show station list
-        iPadStationInfoViewController *stationListController = [[iPadStationInfoViewController alloc] initWithNibName:@"StationInfoViewController" bundle:nil];
+        stationListController = [[iPadStationInfoViewController alloc] initWithNibName:@"StationInfoViewController" bundle:nil];
         stationListController.delegate = self;
+        stationListController.stations = self.stations;
         
         // show in popover
         self.stationsPopover = [[UIPopoverController alloc] initWithContentViewController:stationListController];
         [stationListController release];
         self.stationsPopover.popoverContentSize = CGSizeMake(380, 450);
+    } else {
+        stationListController = (iPadStationInfoViewController *)self.stationsPopover.contentViewController;
     }
-    ((iPadStationInfoViewController*)self.stationsPopover.contentViewController).stations = self.stations;
     
     if (self.stationsPopover.popoverVisible == NO) {
         [stationsPopover presentPopoverFromBarButtonItem:stationsItem 
                                 permittedArrowDirections:UIPopoverArrowDirectionAny
                                                 animated:YES];
+        
+        stationListController.stations = self.stations;
+        [stationListController refreshContent:self];
     }
 }
 

@@ -37,7 +37,10 @@
 		double radius = 0.0;
 		double drawWidth = width - 2*TREND_CHART_PADDING;
 		double lineRadius = drawWidth/2;
-		
+        
+        CGFloat x;
+		CGFloat y;
+        
 		CGContextMoveToPoint(context, width/2, width/2);
 
 		for (int i=0; i < [self.windData dataPointCount]; i++) {
@@ -50,12 +53,23 @@
             double circleX = -cos(DegreeToRadian(-direction)) * radius;
             double circleY = sin(DegreeToRadian(-direction)) * radius;
 			
-            CGFloat x = (CGFloat) (pointOffsetX + radius - circleX);
-            CGFloat y = (CGFloat) (pointOffsetY + radius - circleY);
+            x = (CGFloat) (pointOffsetX + radius - circleX);
+            y = (CGFloat) (pointOffsetY + radius - circleY);
 			
             CGContextAddLineToPoint(context, x, y);
 		}
-		CGContextStrokePath(context);
+        CGContextStrokePath(context);
+        
+        static CGFloat markerSize = 5;
+        CGRect marker;
+        marker.origin.x = x - markerSize/2;
+        marker.origin.y = y - markerSize/2;
+        marker.size.width = markerSize;
+        marker.size.height = markerSize;
+        CGContextAddEllipseInRect(context, marker);
+        
+        CGContextSetCMYKFillColor(context, 0.0, 0.0, 0.67, 0.0, 1.0); // yellow
+        CGContextFillPath(context);
 	}
 }
 @synthesize windData;

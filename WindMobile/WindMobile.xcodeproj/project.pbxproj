@@ -16,6 +16,12 @@
 		AA2032E2134EF4A5008571BE /* world_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2032E0134EF4A5008571BE /* world_bar.png */; };
 		AA2032E3134EF4A5008571BE /* world_bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2032E1134EF4A5008571BE /* world_bar@2x.png */; };
 		AA2032F5134EF99C008571BE /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2032F4134EF99C008571BE /* settings@2x.png */; };
+		AA2C8CBC13662C0600D30E63 /* station@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2C8CBA13662C0600D30E63 /* station@2x.png */; };
+		AA2C8CBD13662C0600D30E63 /* station.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2C8CBB13662C0600D30E63 /* station.png */; };
+		AA2C8D211366D07C00D30E63 /* arrow_green.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2C8D1F1366D07C00D30E63 /* arrow_green.png */; };
+		AA2C8D221366D07C00D30E63 /* arrow_red.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2C8D201366D07C00D30E63 /* arrow_red.png */; };
+		AA2C8D3C1366E51100D30E63 /* arrow_green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2C8D3A1366E51100D30E63 /* arrow_green@2x.png */; };
+		AA2C8D3D1366E51100D30E63 /* arrow_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2C8D3B1366E51100D30E63 /* arrow_red@2x.png */; };
 		AA6BB26F1349BC9300353266 /* VMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6BB26E1349BC9300353266 /* VMSegmentedControl.m */; };
 		AAA44A841345F99D005CAB99 /* led_green.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA44A811345F99D005CAB99 /* led_green.png */; };
 		AAA44A851345F99D005CAB99 /* led_orange.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA44A821345F99D005CAB99 /* led_orange.png */; };
@@ -26,7 +32,6 @@
 		AAC3DD48131C0D81003CEF97 /* AppDelegate_WindMobile.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC3DD47131C0D81003CEF97 /* AppDelegate_WindMobile.m */; };
 		AAE834591337395900F60FBB /* StationInfo+MKAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE834581337395900F60FBB /* StationInfo+MKAnnotation.m */; };
 		F804BB8911A86047009B6057 /* iPadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F804BB8811A86047009B6057 /* iPadHelper.m */; };
-		F80C4EBB130ABF8E00FAD1A4 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = F80C4EBA130ABF8E00FAD1A4 /* arrow.png */; };
 		F80C4EC0130AC2FF00FAD1A4 /* StationDetailMeteoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F80C4EBE130AC2FF00FAD1A4 /* StationDetailMeteoViewController.xib */; };
 		F8144698130C1C8A002D83CE /* StationInfoMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8144697130C1C8A002D83CE /* StationInfoMapViewController.xib */; };
 		F814469B130C1C9C002D83CE /* WindTrendChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8144699130C1C9C002D83CE /* WindTrendChartViewController.xib */; };
@@ -175,6 +180,12 @@
 		AA2032E0134EF4A5008571BE /* world_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_bar.png; sourceTree = "<group>"; };
 		AA2032E1134EF4A5008571BE /* world_bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "world_bar@2x.png"; sourceTree = "<group>"; };
 		AA2032F4134EF99C008571BE /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
+		AA2C8CBA13662C0600D30E63 /* station@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "station@2x.png"; sourceTree = "<group>"; };
+		AA2C8CBB13662C0600D30E63 /* station.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = station.png; sourceTree = "<group>"; };
+		AA2C8D1F1366D07C00D30E63 /* arrow_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_green.png; sourceTree = "<group>"; };
+		AA2C8D201366D07C00D30E63 /* arrow_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_red.png; sourceTree = "<group>"; };
+		AA2C8D3A1366E51100D30E63 /* arrow_green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_green@2x.png"; sourceTree = "<group>"; };
+		AA2C8D3B1366E51100D30E63 /* arrow_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_red@2x.png"; sourceTree = "<group>"; };
 		AA6BB26D1349BC9300353266 /* VMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMSegmentedControl.h; sourceTree = "<group>"; };
 		AA6BB26E1349BC9300353266 /* VMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMSegmentedControl.m; sourceTree = "<group>"; };
 		AAA44A811345F99D005CAB99 /* led_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = led_green.png; sourceTree = "<group>"; };
@@ -195,7 +206,6 @@
 		F809AE3F1311C77B00193754 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = Resources/de.lproj/StationInfoViewController.xib; sourceTree = "<group>"; };
 		F809AE421311C7D800193754 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = Resources/de.lproj/StationDetailMeteoViewController.xib; sourceTree = "<group>"; };
 		F809AE431311C7E800193754 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = Resources/de.lproj/WindTrendChartViewController.xib; sourceTree = "<group>"; };
-		F80C4EBA130ABF8E00FAD1A4 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		F80C4EBF130AC2FF00FAD1A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/StationDetailMeteoViewController.xib; sourceTree = "<group>"; };
 		F80C4EC2130AC6BC00FAD1A4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/fr.lproj/StationDetailMeteoViewController.xib; sourceTree = "<group>"; };
 		F8144697130C1C8A002D83CE /* StationInfoMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = StationInfoMapViewController.xib; path = Shared/StationInfoMapViewController.xib; sourceTree = "<group>"; };
@@ -596,6 +606,10 @@
 		F8A73FE611773CF40058A7C4 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				AA2C8D1F1366D07C00D30E63 /* arrow_green.png */,
+				AA2C8D3A1366E51100D30E63 /* arrow_green@2x.png */,
+				AA2C8D201366D07C00D30E63 /* arrow_red.png */,
+				AA2C8D3B1366E51100D30E63 /* arrow_red@2x.png */,
 				AAA44A811345F99D005CAB99 /* led_green.png */,
 				AAA44AA11345FC70005CAB99 /* led_green@2x.png */,
 				AAA44A821345F99D005CAB99 /* led_orange.png */,
@@ -604,7 +618,8 @@
 				AAA44A9B1345FBC9005CAB99 /* led_red@2x.png */,
 				F8B88BA3130DDCCE004FAF3C /* chart.png */,
 				F8B88BAD130DDF1F004FAF3C /* chart@2x.png */,
-				F80C4EBA130ABF8E00FAD1A4 /* arrow.png */,
+				AA2C8CBB13662C0600D30E63 /* station.png */,
+				AA2C8CBA13662C0600D30E63 /* station@2x.png */,
 				F8E8A35312F8602000F2E84B /* world.png */,
 				F8E8A35212F8602000F2E84B /* world@2x.png */,
 				AA2032E0134EF4A5008571BE /* world_bar.png */,
@@ -818,7 +833,6 @@
 				F8E8A35512F8602000F2E84B /* world.png in Resources */,
 				F8E8A38212F8647600F2E84B /* MainWindow_Pad.xib in Resources */,
 				F8E8A38612F8649B00F2E84B /* MainWindow_Phone.xib in Resources */,
-				F80C4EBB130ABF8E00FAD1A4 /* arrow.png in Resources */,
 				F80C4EC0130AC2FF00FAD1A4 /* StationDetailMeteoViewController.xib in Resources */,
 				F8144698130C1C8A002D83CE /* StationInfoMapViewController.xib in Resources */,
 				F814469B130C1C9C002D83CE /* WindTrendChartViewController.xib in Resources */,
@@ -833,6 +847,12 @@
 				AA2032E2134EF4A5008571BE /* world_bar.png in Resources */,
 				AA2032E3134EF4A5008571BE /* world_bar@2x.png in Resources */,
 				AA2032F5134EF99C008571BE /* settings@2x.png in Resources */,
+				AA2C8CBC13662C0600D30E63 /* station@2x.png in Resources */,
+				AA2C8CBD13662C0600D30E63 /* station.png in Resources */,
+				AA2C8D211366D07C00D30E63 /* arrow_green.png in Resources */,
+				AA2C8D221366D07C00D30E63 /* arrow_red.png in Resources */,
+				AA2C8D3C1366E51100D30E63 /* arrow_green@2x.png in Resources */,
+				AA2C8D3D1366E51100D30E63 /* arrow_red@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

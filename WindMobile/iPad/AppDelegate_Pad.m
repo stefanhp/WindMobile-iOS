@@ -13,17 +13,11 @@
 
 @synthesize window;
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 	
-    // Override point for customization after application launch
 	root = [[iPadStationInfoMapVC alloc]initWithNibName:@"StationInfoMapViewController"
-												  bundle:nil];
+                                                 bundle:nil];
 	window.rootViewController = root;
-	/*
-	root.view.frame = window.bounds;
-	[window addSubview:root.view];
-	 */
     [window makeKeyAndVisible];
 	
 	return YES;
@@ -35,6 +29,5 @@
     [window release];
     [super dealloc];
 }
-
 
 @end

@@ -42,7 +42,6 @@
 @property (retain) StationInfo* stationInfo; 
 @property (retain) StationData* stationData; 
 
-//@property (retain) IBOutlet UILabel *stationName;
 @property (retain) IBOutlet UILabel *lastUpdated;
 @property (retain) IBOutlet UILabel *altitude;
 @property (retain) IBOutlet UILabel *windAverage;

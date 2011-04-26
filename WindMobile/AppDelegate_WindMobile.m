@@ -15,7 +15,7 @@
 	// Default values in Root.plist and Root.inApp.plist are not take in account (http://www.cocoanetics.com/2010/07/defaults-for-the-defaults/)
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSArray *keys = [NSArray arrayWithObjects:STATION_OPERATIONAL_KEY, MAP_TYPE_KEY, TIMEOUT_KEY, nil];
-	NSArray *objects = [NSArray arrayWithObjects:@"YES", @"0", @"20", nil];
+	NSArray *objects = [NSArray arrayWithObjects:@"YES", [NSNumber numberWithInt:0], [NSNumber numberWithInt:20], nil];
 	NSDictionary *defaultsDict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	[defaults registerDefaults:defaultsDict];
 }

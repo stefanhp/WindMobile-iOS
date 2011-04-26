@@ -21,7 +21,6 @@
 @implementation StationDetailMeteoViewController
 @synthesize stationInfo;
 @synthesize stationData;
-//@synthesize stationName;
 @synthesize lastUpdated;
 @synthesize altitude;
 @synthesize windAverage;
@@ -65,9 +64,6 @@
     
     // Set size when in popover
 	self.contentSizeForViewInPopover = CGSizeMake(320, 380);
-	
-	// load content
-	[self refreshContent:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -106,12 +102,19 @@
 				break;
 		}
 	}
+    
+    // Refresh content now and every time the view becomes active to refreh the last update time
+    [self refreshContent:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshContent:) name:UIApplicationDidBecomeActiveNotification object:nil];
 	
 	[super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+    [super viewWillDisappear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -145,25 +148,6 @@
 	}
 }
 
-/*
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
-}
-*/
-
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc. that aren't in use.
-}
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-
 - (void)dealloc {
 	[client release];
 
@@ -195,8 +179,6 @@
 #pragma mark Station Details methods
 
 - (IBAction)refreshContent:(id)sender {
-	//[self.tableView reloadData];
-	
 	[self startRefreshAnimation];
 	
 	if(client == nil){
@@ -241,8 +223,12 @@
 	
 	if(self.stationData.windTrend != nil){
 		float direction = [self.stationData.windTrend floatValue];
+        if (direction <= 0) {
+            self.windDirectionArrow.image = [UIImage imageNamed:@"arrow_green"];
+        } else {
+            self.windDirectionArrow.image = [UIImage imageNamed:@"arrow_red"];
+        }
 		CGAffineTransform xform = CGAffineTransformMakeRotation(DegreeToRadian(-direction));
-		//NSLog(@"Direction: %f", direction);
 		self.windDirectionArrow.transform = xform;
 	}
 	

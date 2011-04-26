@@ -28,6 +28,7 @@
 @implementation StationInfoMapViewController
 
 @synthesize mapView;
+@dynamic stations;
 
 #pragma mark -
 #pragma mark UIViewController
@@ -151,7 +152,6 @@
     [locNorthEast release];
 }
 
-@dynamic stations;
 - (NSArray*)stations{
     return self.mapView.annotations;
 }
