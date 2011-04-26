@@ -30,7 +30,7 @@
 	CGContextStrokePath(context);
 	
 	// Lines
-	if (self.windData != nil && [self.windData dataPointCount]>0) {
+	if (self.windData != nil && [self.windData dataPointCount] > 0) {
 		CGContextSetCMYKStrokeColor(context, 0.0, 0.0, 0.67, 0.0, 1.0); // yellow
 		CGContextSetLineWidth(context, 2.0);
 
@@ -38,8 +38,9 @@
 		double drawWidth = width - 2*TREND_CHART_PADDING;
 		double lineRadius = drawWidth/2;
         
-        CGFloat x;
-		CGFloat y;
+        // -1 for removing warning
+        CGFloat x = -1;
+		CGFloat y = -1;
         
 		CGContextMoveToPoint(context, width/2, width/2);
 
