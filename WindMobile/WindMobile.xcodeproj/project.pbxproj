@@ -642,7 +642,7 @@
 		F8EC162C12E8666D00B268BD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F8EC163312E8666D00B268BD /* CPSReST.framework */,
+				F8EC163312E8666D00B268BD /* CPSReST */,
 				F8EC163512E8666D00B268BD /* libCPSReST.a */,
 				F8EC163712E8666D00B268BD /* Test-CPSRest-Framework.octest */,
 				F8EC163912E8666D00B268BD /* Test-CPSReST-Library.octest */,
@@ -769,9 +769,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		F8EC163312E8666D00B268BD /* CPSReST.framework */ = {
+		F8EC163312E8666D00B268BD /* CPSReST */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
+			name = CPSReST;
 			path = CPSReST.framework;
 			remoteRef = F8EC163212E8666D00B268BD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -1035,6 +1036,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WindMobile_Prefix.pch;
 				INFOPLIST_FILE = "WindMobile-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -1053,6 +1055,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WindMobile_Prefix.pch;
 				INFOPLIST_FILE = "WindMobile-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -1072,6 +1075,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A8E00051-AE3D-4336-B6DE-807964607E5A";
@@ -1090,6 +1094,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WindMobile_Prefix.pch;
 				INFOPLIST_FILE = "WindMobile-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -1141,6 +1146,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1156,6 +1162,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;

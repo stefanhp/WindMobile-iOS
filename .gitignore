@@ -5,6 +5,10 @@
 *.perspectivev3
 build
 
+# xcode 4
+project.xcworkspace
+xcuserdata
+
 # SVN noise
 .svn
 
