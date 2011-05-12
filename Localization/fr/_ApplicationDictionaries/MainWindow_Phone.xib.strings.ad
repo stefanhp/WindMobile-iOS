@@ -130,5 +130,27 @@
 </TranslationSet>
 </TextItem>
 
+<TextItem>
+<Description> Class = &quot;IBUINavigationItem&quot;; title = &quot;Chat stations&quot;; ObjectID = &quot;69&quot;; </Description>
+<Position>69.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Chat stations</base>
+	<tran loc="fr" origin="">Messages</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> Class = &quot;IBUITabBarItem&quot;; title = &quot;Chat&quot;; ObjectID = &quot;70&quot;; </Description>
+<Position>70.title</Position>
+<TranslationSet>
+
+	<base loc="en"          >Chat</base>
+	<tran loc="fr" origin="">Messages</tran>
+
+</TranslationSet>
+</TextItem>
+
 </File>
 </Proj>

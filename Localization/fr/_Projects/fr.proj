@@ -11,13 +11,13 @@
 			<string>MainWindow_Phone.xib.strings</string>
 		</array>
 		<key>BrowserWindowHeight</key>
-		<integer>370</integer>
+		<integer>384</integer>
 		<key>BrowserWindowLeft</key>
 		<integer>92</integer>
 		<key>BrowserWindowTop</key>
 		<integer>76</integer>
 		<key>BrowserWindowWidth</key>
-		<integer>1329</integer>
+		<integer>1791</integer>
 		<key>FileMatcherIsVisible</key>
 		<false/>
 		<key>InspectorIsVisible</key>
@@ -30,16 +30,12 @@
 		<dict>
 			<key>ApplicationDictionary</key>
 			<string>MainWindow_Pad.xib.strings.ad</string>
-			<key>LogFile</key>
-			<string>MainWindow_Pad.xib.strings</string>
 			<key>NewBase</key>
 			<string>MainWindow_Pad.xib.strings</string>
 			<key>NewLoc</key>
 			<string>MainWindow_Pad.xib.strings</string>
 			<key>OldBase</key>
 			<string>MainWindow_Pad.xib.strings</string>
-			<key>WorkGlossary</key>
-			<string>MainWindow_Pad.xib.strings.wg</string>
 		</dict>
 		<dict>
 			<key>ApplicationDictionary</key>
@@ -58,16 +54,12 @@
 		<dict>
 			<key>ApplicationDictionary</key>
 			<string>StationDetailMeteoViewController.xib.strings.ad</string>
-			<key>LogFile</key>
-			<string>StationDetailMeteoViewController.xib.strings</string>
 			<key>NewBase</key>
 			<string>StationDetailMeteoViewController.xib.strings</string>
 			<key>NewLoc</key>
 			<string>StationDetailMeteoViewController.xib.strings</string>
 			<key>OldBase</key>
 			<string>StationDetailMeteoViewController.xib.strings</string>
-			<key>WorkGlossary</key>
-			<string>StationDetailMeteoViewController.xib.strings.wg</string>
 		</dict>
 		<dict>
 			<key>ApplicationDictionary</key>
@@ -102,14 +94,10 @@
 		<dict>
 			<key>ApplicationDictionary</key>
 			<string>WindTrendChartViewController.xib.strings.ad</string>
-			<key>LogFile</key>
-			<string>WindTrendChartViewController.xib.strings</string>
 			<key>NewBase</key>
 			<string>WindTrendChartViewController.xib.strings</string>
 			<key>NewLoc</key>
 			<string>WindTrendChartViewController.xib.strings</string>
-			<key>WorkGlossary</key>
-			<string>WindTrendChartViewController.xib.strings.wg</string>
 		</dict>
 	</array>
 	<key>ProjectName</key>
