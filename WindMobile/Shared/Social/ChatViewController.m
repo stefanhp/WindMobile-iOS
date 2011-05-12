@@ -1,0 +1,304 @@
+//
+//  ChatViewController.m
+//  MicroChatter
+//
+//  Created by David on 5/5/11.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//
+
+
+
+#import <QuartzCore/QuartzCore.h>
+#import <CoreLocation/CoreLocation.h>
+
+#import "ChatViewController.h"
+#import "ChatItem.h"
+#import "ChatView.h"
+#import "GradientButton.h"
+
+@implementation ChatViewController
+
+
+
+@synthesize scrollView;
+@synthesize inputTextField;
+@synthesize datasource;
+@synthesize mainView;
+@synthesize chatRoomId;
+@synthesize sendButton;
+
+-(void)recalculateScrollView
+{
+    [(ChatView*)[[scrollView subviews] objectAtIndex:0] reloadContent:chatRoomId];
+}
+
+-(void)doRefreshChat 
+{
+    if ( datasource != nil ) {
+        [self recalculateScrollView];
+        [scrollView setNeedsDisplay];
+    }
+}
+
+- (IBAction)refreshChat 
+{
+    [self doRefreshChat];
+}
+
+ 
+- (void)viewDidLoad
+{
+    self.chatRoomId = @"test";
+    // setup the datasource
+    ((ChatView*)[[scrollView subviews] objectAtIndex:0]).datasource = self.datasource;
+    
+   // [self recalculateScrollView];
+    
+    //CGSize contentSize = [inputTextField contentSize];
+    CGSize viewSize = [inputTextField superview].bounds.size;
+    CGFloat high = 40;
+    
+    CGFloat buttonWidth = (viewSize.width / 2.0);
+    
+    GradientButton *insertPosButton= [[GradientButton alloc] initWithFrame:CGRectMake(4, 0, high-8,high-8)];
+    [insertPosButton setTitle:@"+" forState:UIControlStateNormal];
+    [insertPosButton addTarget:self action:@selector(insertPosition:) forControlEvents:UIControlEventTouchUpInside];
+    insertPosButton.cornerRadius = 6.0;
+    insertPosButton.strokeColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
+    insertPosButton.strokeWeight = 1.0;
+    [insertPosButton useAlertStyle];
+    
+    GradientButton *localSendButton = [[GradientButton alloc] initWithFrame:CGRectMake(viewSize.width - buttonWidth+4, 0, buttonWidth-16, high-8)];
+    [localSendButton setTitle:@"Send" forState:UIControlStateNormal];
+    [localSendButton addTarget:self action:@selector(sendChatMessage:) forControlEvents:UIControlEventTouchUpInside];
+    localSendButton.cornerRadius = 6.0;
+    localSendButton.strokeColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
+    localSendButton.strokeWeight = 1.0;
+    [localSendButton useGreenConfirmStyle];
+    self.sendButton = localSendButton;
+    
+    UIView *accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,  viewSize.width,high)];
+    accessoryView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+    [accessoryView addSubview:[insertPosButton autorelease]];
+    [accessoryView addSubview:[localSendButton autorelease]];
+
+    ((UITextView*)inputTextField).inputAccessoryView = accessoryView;
+    
+    //------ Indicator view setup
+    activityView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge] autorelease];
+    indicatorMainView = [[UIView alloc] initWithFrame:self.view.bounds];
+    indicatorMainView.opaque = YES;
+    indicatorMainView.backgroundColor = [UIColor colorWithHue:0.0 saturation:0.0 brightness:0.0 alpha:0.2];
+    [indicatorMainView addSubview:activityView];
+    
+    CGRect activityRect = CGRectMake((CGRectGetWidth(indicatorMainView.bounds) - CGRectGetWidth(activityView.bounds)) / 2.0, 
+                                     (CGRectGetHeight(indicatorMainView.bounds) - CGRectGetHeight(activityView.bounds)) / 2.0,
+                                     CGRectGetWidth(activityView.bounds),
+                                     CGRectGetHeight(activityView.bounds));
+    activityView.frame = activityRect;
+    
+    
+    // Put Refresh button on the top left
+	UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+																				 target:self 
+																				 action:@selector(refreshChat)];
+	self.navigationItem.rightBarButtonItem = refreshItem;
+	[refreshItem release];
+    
+    //------ Add notification ---------------
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputEnded:) name:UITextViewTextDidEndEditingNotification object:inputTextField];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputStarted:) name:UITextViewTextDidBeginEditingNotification object:inputTextField];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification 
+{
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    
+    keyboardRect = [self.mainView convertRect:keyboardRect fromView:nil];
+    
+    CGFloat keyboardTop = keyboardRect.origin.y;
+    
+    CGRect newTextViewFrame = self.mainView.frame;
+    
+    keyboardOffset = (newTextViewFrame.size.height - keyboardTop);
+    newTextViewFrame.size.height -= keyboardOffset;
+    
+    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationDuration;
+    [animationDurationValue getValue:&animationDuration];
+    
+    // Animate the resize of the text view's frame in sync with the keyboard's appearance.
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:animationDuration];
+    
+    self.mainView.frame = newTextViewFrame;
+    [scrollView scrollRectToVisible:CGRectMake(0,scrollView.contentSize.height-1,10, 10) animated:YES];
+
+    [UIView commitAnimations];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification 
+{
+    NSDictionary* userInfo = [notification userInfo];
+    NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    keyboardRect = [self.mainView convertRect:keyboardRect fromView:nil];
+        
+    /*
+     Restore the size of the text view (fill self's view).
+     Animate the resize so that it's in sync with the disappearance of the keyboard.
+     */
+    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationDuration;
+    [animationDurationValue getValue:&animationDuration];
+    
+    
+    
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:animationDuration];
+    
+    CGRect newTextViewFrame = self.mainView.frame;
+    
+    newTextViewFrame.size.height += keyboardOffset;
+    
+    self.mainView.frame = newTextViewFrame;
+    
+    [UIView commitAnimations];
+}
+
+- (IBAction)cancelChatMessage:(id)sender
+{
+    ((UITextView*)inputTextField).text = @"";
+    [inputTextField resignFirstResponder];
+}
+
+- (IBAction)sendChatMessage:(id)sender 
+{
+    NSString *message = [inputTextField text];
+
+    [self activateIndicatorView];
+    
+    [sendButton setEnabled:NO];
+    [inputTextField resignFirstResponder];
+    [inputTextField setFresh];
+
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // backgroun process
+        NSString *error = nil;
+        if ( message.length > 0 ) {
+            @try{
+                [datasource postMessage:message withIdentifier:@"iPhone" onChatRoom:chatRoomId];
+            }
+            @catch (NSException *ex) {
+                error = [ex reason];
+            }
+        }
+        dispatch_async( dispatch_get_main_queue(), ^{
+            // Add code here to update the UI/send notifications based on the
+            // results of the background processing
+            [self deactivateIndicatorView];
+            if ( error ) {
+                UIAlertView *openURLAlert = [[UIAlertView alloc] initWithTitle:@"Server error" message:error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [openURLAlert show];
+                [openURLAlert release];
+            }
+            [sendButton setEnabled:YES];
+            [self refreshChat];
+        });
+    });
+}
+
+-(void)activateIndicatorView
+{
+    [self.view addSubview:indicatorMainView];
+    [activityView startAnimating];
+}
+
+-(void)deactivateIndicatorView
+{
+    [activityView stopAnimating];
+    [indicatorMainView removeFromSuperview];
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+
+}
+
+-(void)textInputEnded:(NSNotification *)notification 
+{
+    [inputTextField setNeedsDisplay];
+}
+
+-(void)textInputStarted:(NSNotification *)notification 
+{
+    [inputTextField setNeedsDisplay];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
+{
+    NSMutableString *str = [NSMutableString stringWithString:[textView text]];
+    [str replaceCharactersInRange:range withString:text];
+    if ([str length] == 0 ) {
+        [inputTextField resignFirstResponder];
+        [inputTextField setFresh];
+    }
+    return TRUE;
+}
+
+-(void)insertPosition:(id)sender
+{
+    CLLocationManager* locationManager = [[[CLLocationManager alloc] init] autorelease];
+    CLLocation *location = [locationManager location];
+    CLLocationCoordinate2D coor = [location coordinate];
+    // Get a refererence to the system pasteboard because that's
+	// the only one @selector(paste:) will use.
+	UIPasteboard* generalPasteboard = [UIPasteboard generalPasteboard];
+	
+	// Save a copy of the system pasteboard's items
+	// so we can restore them later.
+	NSArray* items = [generalPasteboard.items copy];
+	
+	// Set the contents of the system pasteboard
+	// to the text we wish to insert.
+	generalPasteboard.string = [NSString stringWithFormat:@"<%+f,%+f>",coor.latitude,coor.longitude];
+	
+	// Tell this responder to paste the contents of the
+	// system pasteboard at the current cursor location.
+	[inputTextField paste: self];
+	
+	// Restore the system pasteboard to its original items.
+	generalPasteboard.items = items;
+	
+	// Free the items array we copied earlier.
+	[items release];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [inputTextField resignFirstResponder];
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    
+}
+
+- (void)dealloc 
+{
+    [chatRoomId release];
+    [sendButton release];
+    [indicatorMainView release];
+    [super dealloc];
+}
+@end
