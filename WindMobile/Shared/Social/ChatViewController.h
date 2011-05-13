@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "ChatViewDatasource.h"
 #import "MessageTextView.h"
+#import "ChatView.h"
 
 @interface ChatViewController : UIViewController <UIScrollViewDelegate,UITextViewDelegate> {
 @private 
@@ -23,6 +24,7 @@
     UIView *indicatorMainView;
     UIActivityIndicatorView *activityView;
     CGFloat keyboardOffset;
+    Boolean refreshing;
 }
 
 @property ( nonatomic,retain ) id<ChatViewDatasource> datasource;
@@ -32,11 +34,18 @@
 @property ( nonatomic,retain ) NSString* chatRoomId;
 @property ( nonatomic,retain ) UIButton* sendButton;
 
-- (IBAction)refreshChat;
+@property() Boolean refreshing;
+
+- (IBAction)refreshChat:(id)sender;
 - (IBAction)sendChatMessage:(id)sender;
 
 -(void)activateIndicatorView;
 -(void)deactivateIndicatorView;
+
+- (void)startRefreshAnimation;
+- (void)stopRefreshAnimation;
+
+- (ChatView *)chatView;
 
 
 @end

@@ -17,7 +17,7 @@
 @synthesize textFont;
 @synthesize pseudoFont;
 @synthesize timeFont;
-
+@synthesize tempMessage;
 
 /*
  * Format the duration to display soemthing usefull for user
@@ -25,18 +25,36 @@
  */
 - (NSString *)whenString 
 {
+    if ( !when ) {
+        return NSLocalizedStringFromTable(@"CHAT_SENDING_MESSAGE", @"WindMobile", nil);
+    }
     NSTimeInterval interval = -[when timeIntervalSinceNow];
     if ( interval < 60 ) {
-        return @"now";
+        return NSLocalizedStringFromTable(@"CHAT_TIME_NOW", @"WindMobile", nil);
     }
     if ( interval < 60*60) {
-        return [NSString stringWithFormat:@"%d min ago",(int)(interval/60.0)];
+        int rest = (int)(interval/60.0);
+        if ( rest > 1 ) {
+            return [NSString stringWithFormat:NSLocalizedStringFromTable(@"CHAT_TIME_MINUTEs", @"WindMobile", nil),rest];
+        } else {
+            return [NSString stringWithFormat:NSLocalizedStringFromTable(@"CHAT_TIME_MINUTE", @"WindMobile", nil),rest];
+        }
     }
     if ( interval < 60*60*24) {
-        return [NSString stringWithFormat:@"%d hour(s) ago",(int)(interval/3600.0)];
+        int rest = (int)(interval/(60*60));
+        if ( rest > 1 ) {
+            return [NSString stringWithFormat:NSLocalizedStringFromTable(@"CHAT_TIME_HOURs", @"WindMobile", nil),rest];
+        } else {
+            return [NSString stringWithFormat:NSLocalizedStringFromTable(@"CHAT_TIME_HOUR", @"WindMobile", nil),rest];
+        }
     }
     if ( interval < 60*60*24*365) {
-        return [NSString stringWithFormat:@"%d day(s) ago",(int)(interval/(3600.0*24.0))];
+        int rest = (int)(interval/(60*60*24));
+        if ( rest > 1 ) {
+            return [NSString stringWithFormat:NSLocalizedStringFromTable(@"CHAT_TIME_DAYs", @"WindMobile", nil),rest];
+        } else {
+            return [NSString stringWithFormat:NSLocalizedStringFromTable(@"CHAT_TIME_DAY", @"WindMobile", nil),rest];
+        }
     }
     return [when description];
 }
@@ -125,6 +143,12 @@
         colors = t_colors;
         CGContextSetStrokeColorWithColor(context, [UIColor colorWithRed:0.0 green:0.5 blue:0.0 alpha:1.0].CGColor);
 
+    } else if ( tempMessage ) {
+        CGFloat t_colors[] = {0.9,0.9,0.9, 1.0,
+            0.7,0.7,0.7, 1.0};
+        colors = t_colors;
+        CGContextSetStrokeColorWithColor(context, [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0].CGColor);
+        
     } else {
         CGFloat t_colors[] = {0.7,0.8,0.9, 1.0,
             0.5,0.6,0.85, 1.0};

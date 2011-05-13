@@ -14,6 +14,7 @@
     NSArray *stationList;
     ChatViewController *chatViewController;
     id<StationViewDatasource> stationViewDatasource;
+    Boolean refreshing;
 }
 
 
@@ -21,6 +22,12 @@
 @property(nonatomic,retain) IBOutlet id<StationViewDatasource> stationViewDatasource;
 @property(nonatomic,retain) IBOutlet  ChatViewController *chatViewController;
 
--(void)refresh:(id)sender;
+@property() Boolean refreshing;
+
+-(void)refreshContent:(id)sender;
+
+- (void)startRefreshAnimation;
+- (void)stopRefreshAnimation;
+
 
 @end

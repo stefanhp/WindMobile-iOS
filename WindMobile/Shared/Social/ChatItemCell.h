@@ -17,6 +17,7 @@
     NSDate *when;
     
     BOOL selfMessage;
+    BOOL tempMessage;
     UIFont *textFont;
     UIFont *pseudoFont;
     UIFont *timeFont;
@@ -24,6 +25,7 @@
 }
 
 @property ( readwrite ) BOOL selfMessage;
+@property ( readwrite ) BOOL tempMessage;
 @property ( readwrite,retain ) UIFont* textFont;
 @property ( readwrite,retain ) UIFont* pseudoFont;
 @property ( readwrite,retain ) UIFont* timeFont;

@@ -10,6 +10,9 @@
 #import "ChatViewDatasource.h"
 #import "StationViewDatasource.h"
 
+/*
+ * Sime datasource that can be used in a nib to simulate a REST client
+ */
 @interface TestDataSource : NSObject <ChatViewDatasource,StationViewDatasource> {
     
 }

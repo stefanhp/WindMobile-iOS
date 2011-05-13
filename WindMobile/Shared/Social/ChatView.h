@@ -12,16 +12,17 @@
 
 @interface ChatView : UIView {
 @private 
-    IBOutlet id<ChatViewDatasource> datasource;
     UIFont* textFont;
     UIFont* pseudoFont;
     UIFont* timeFont;
-
+    Boolean loading;
 }
 
-- (void)reloadContent:(NSString *)charRoomId;
+-(void)setChatItems:(NSArray *)items;
+-(void)addTemporaryMessage:(NSString *)message;
 
-@property (readwrite,retain) IBOutlet id<ChatViewDatasource> datasource;
+@property () Boolean loading;
+
 @property (readwrite,retain) UIFont* textFont;
 @property (readwrite,retain) UIFont* pseudoFont;
 @property (readwrite,retain) UIFont* timeFont;

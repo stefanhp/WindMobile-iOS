@@ -26,62 +26,105 @@
 @synthesize mainView;
 @synthesize chatRoomId;
 @synthesize sendButton;
+@synthesize refreshing;
 
--(void)recalculateScrollView
+/*
+ * Reload the content and create the celles
+ */
+- (void)reloadChatMessages
 {
-    [(ChatView*)[[scrollView subviews] objectAtIndex:0] reloadContent:chatRoomId];
+    if ( self.refreshing ) {
+        return;
+    }
+    self.refreshing = true;
+    [self chatView].loading = YES;
+    [[self chatView] setNeedsDisplay];
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // backgroun process
+        NSString *error = nil;
+        NSArray *items = nil;
+        @try{
+            items = [datasource getChatItems:chatRoomId];
+        }
+        @catch (NSException *ex) {
+            error = [ex reason];
+        }
+        @finally {
+            self.refreshing = false;
+        }
+        dispatch_async( dispatch_get_main_queue(), ^{
+            // Add code here to update the UI/send notifications based on the
+            // results of the background processing
+            [self stopRefreshAnimation];
+            if ( !error) {
+                [[self chatView] setChatItems:items];
+                
+            } else {
+                UIAlertView *openURLAlert = [[UIAlertView alloc] initWithTitle:@"Server error" message:error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [openURLAlert show];
+                [openURLAlert release];
+            }
+        });
+    });
 }
 
 -(void)doRefreshChat 
 {
     if ( datasource != nil ) {
-        [self recalculateScrollView];
-        [scrollView setNeedsDisplay];
+        [self startRefreshAnimation];
+        [self reloadChatMessages];
+    } else {
+        [[self chatView] setChatItems:nil];
     }
 }
 
-- (IBAction)refreshChat 
+- (IBAction)refreshChat:(id)sender
 {
     [self doRefreshChat];
 }
 
- 
+- (ChatView *)chatView
+{
+    return ((ChatView*)[[scrollView subviews] objectAtIndex:0]);
+}
+
 - (void)viewDidLoad
 {
-    self.chatRoomId = @"test";
-    // setup the datasource
-    ((ChatView*)[[scrollView subviews] objectAtIndex:0]).datasource = self.datasource;
+    //self.chatRoomId = @"test";
     
-   // [self recalculateScrollView];
     
-    //CGSize contentSize = [inputTextField contentSize];
     CGSize viewSize = [inputTextField superview].bounds.size;
-    CGFloat high = 40;
+    CGFloat high = 30;
     
     CGFloat buttonWidth = (viewSize.width / 2.0);
     
-    GradientButton *insertPosButton= [[GradientButton alloc] initWithFrame:CGRectMake(4, 0, high-8,high-8)];
-    [insertPosButton setTitle:@"+" forState:UIControlStateNormal];
-    [insertPosButton addTarget:self action:@selector(insertPosition:) forControlEvents:UIControlEventTouchUpInside];
-    insertPosButton.cornerRadius = 6.0;
-    insertPosButton.strokeColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
-    insertPosButton.strokeWeight = 1.0;
-    [insertPosButton useAlertStyle];
+    GradientButton *insertPositionButton = [[GradientButton alloc] initWithFrame:CGRectMake(4, 0, high-8,high-8)];
+    [insertPositionButton setTitle:@"+" forState:UIControlStateNormal];
+    [insertPositionButton addTarget:self action:@selector(insertPosition:) forControlEvents:UIControlEventTouchUpInside];
+    insertPositionButton.cornerRadius = 6.0;
+    insertPositionButton.strokeColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
+    insertPositionButton.strokeWeight = 1.0;
+    [insertPositionButton useAlertStyle];
     
-    GradientButton *localSendButton = [[GradientButton alloc] initWithFrame:CGRectMake(viewSize.width - buttonWidth+4, 0, buttonWidth-16, high-8)];
-    [localSendButton setTitle:@"Send" forState:UIControlStateNormal];
-    [localSendButton addTarget:self action:@selector(sendChatMessage:) forControlEvents:UIControlEventTouchUpInside];
-    localSendButton.cornerRadius = 6.0;
-    localSendButton.strokeColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
-    localSendButton.strokeWeight = 1.0;
-    [localSendButton useGreenConfirmStyle];
-    self.sendButton = localSendButton;
+    GradientButton *sendChatButton = [[GradientButton alloc] initWithFrame:CGRectMake(viewSize.width - buttonWidth+2, 0, buttonWidth-16, high-4)];
+    [sendChatButton setTitle:NSLocalizedStringFromTable(@"CHAT_MESSAGE_SEND", @"WindMobile", nil) forState:UIControlStateNormal];
+    [sendChatButton addTarget:self action:@selector(sendChatMessage:) forControlEvents:UIControlEventTouchUpInside];
+    sendChatButton.cornerRadius = 6.0;
+    sendChatButton.strokeColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
+    sendChatButton.strokeWeight = 1.0;
+    sendChatButton.titleLabel.textColor = [UIColor whiteColor];
+    
+    [sendChatButton useGreenConfirmStyle];
+    self.sendButton = sendChatButton;
     
     UIView *accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,  viewSize.width,high)];
     accessoryView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
-    [accessoryView addSubview:[insertPosButton autorelease]];
-    [accessoryView addSubview:[localSendButton autorelease]];
+    //[accessoryView addSubview:insertPositionButton];
+    [accessoryView addSubview:sendChatButton];
 
+    [insertPositionButton release];
+    [sendChatButton release];
+    
     ((UITextView*)inputTextField).inputAccessoryView = accessoryView;
     
     //------ Indicator view setup
@@ -181,17 +224,19 @@
 {
     NSString *message = [inputTextField text];
 
+    [[self chatView] addTemporaryMessage:message];
     [self activateIndicatorView];
     
     [sendButton setEnabled:NO];
     [inputTextField resignFirstResponder];
     [inputTextField setFresh];
-
+    
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // backgroun process
         NSString *error = nil;
         if ( message.length > 0 ) {
             @try{
+                // identifier is not required in a real REST session
                 [datasource postMessage:message withIdentifier:@"iPhone" onChatRoom:chatRoomId];
             }
             @catch (NSException *ex) {
@@ -208,7 +253,7 @@
                 [openURLAlert release];
             }
             [sendButton setEnabled:YES];
-            [self refreshChat];
+            [self refreshChat:self];
         });
     });
 }
@@ -283,15 +328,47 @@
 {
     
 }
+-(void)viewDidAppear:(BOOL)animated
+{
+    [self doRefreshChat];
+}
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [inputTextField resignFirstResponder];
+    [[self chatView] setChatItems:nil];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
 {
     
+}
+
+- (void)startRefreshAnimation
+{
+	// Remove refresh button
+	self.navigationItem.rightBarButtonItem = nil;
+	
+	// activity indicator
+	UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+	[activityIndicator startAnimating];
+	UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+	[activityIndicator release];
+	self.navigationItem.rightBarButtonItem = activityItem;
+	[activityItem release];
+}
+
+- (void)stopRefreshAnimation
+{
+	// Stop animation
+	self.navigationItem.rightBarButtonItem = nil;
+	
+	// Put Refresh button on the top left
+	UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+																				 target:self 
+																				 action:@selector(refreshChat:)];
+	self.navigationItem.rightBarButtonItem = refreshItem;
+	[refreshItem release];
 }
 
 - (void)dealloc 

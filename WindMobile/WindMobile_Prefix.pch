@@ -11,4 +11,6 @@
 #define MAP_TYPE_KEY @"map_type_preference"
 #define TIMEOUT_KEY @"timeout_preference"
 #define MOCK_KEY @"mock_data_preference"
+#define SOCIAL_USERNAME  @"social_username"
+#define SOCIAL_PASSWORD  @"social_password"
 

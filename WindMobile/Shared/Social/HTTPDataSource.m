@@ -11,6 +11,7 @@
 #import "JSON.h"
 #import "ChatItem.h"
 #import "StationItem.h"
+#import "WMReSTClient.h"
 
 //http://windmobile.vol-libre-suchet.ch:1588/windmobile/chatrooms/test/lastmessages/30
 
@@ -21,18 +22,14 @@
 
 //http://windmobile.vol-libre-suchet.ch:1588/windmobile/stationinfos?allStation=true
 #define URL_STATION_GET @"http://%@:%d/windmobile/stationinfos?allStation=%@"
+#define TIME_OUT_IN_SECONDS = 20
 
 @implementation HTTPDataSource
-
-@synthesize username;
-@synthesize password;
-
 
 - (id)init {
     self = [super init];
     if (self) {
-        self.username = @"david@epyx.ch";
-        self.password = @"123";
+        
     }
     return self;
 }
@@ -49,7 +46,7 @@
     NSString *urlString = [NSString stringWithFormat:URL_CHAT_MESSAGES_GET,REST_SERVER,REST_PORT,encodedString];
     NSURL *url = [NSURL URLWithString:urlString];
     
-    NSLog(@"Request on URL : %@",url);
+   // NSLog(@"Request on URL : %@",url);
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request setUseCookiePersistence:true];
     [request addRequestHeader:@"Accept" value:@"application/json"];
@@ -57,11 +54,11 @@
     [request setTimeOutSeconds:5];
     [request startSynchronous];
     NSString *result = [request responseString];
-    NSLog(@"Result : %@",result);
+   // NSLog(@"Result : %@",result);
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     id resutlAsObject = [parser objectWithString:result];
     [parser release];
-    NSLog(@"Result : %@",resutlAsObject);
+   // NSLog(@"Result : %@",resutlAsObject);
     NSArray *listOfMessage = [(NSDictionary*)resutlAsObject objectForKey:MessageKey];
     if ( !listOfMessage ) {
         return nil;
@@ -121,7 +118,6 @@
 
 - (void)postMessage:(NSString *)message withIdentifier:(NSString *)identifier onChatRoom:(NSString *)chatRoomId 
 {
-    //NSString *charRoomPath = [[NSMutableString stringWithString:chatRoomId] replaceOccurrencesOfString:@" " withString:@"%20" options:NSLiteralSearch range:NULL];
     NSString *encodedString =  (NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
                                                                                (CFStringRef)chatRoomId,
                                                                                NULL,
@@ -130,17 +126,17 @@
     
     NSString *urlString = [NSString stringWithFormat:URL_CHAT_MESSAGE_POST,REST_SERVER,REST_PORT,encodedString];
     NSURL *url = [NSURL URLWithString:urlString];
-    NSLog(@"Request on URL : %@",url);
+   // NSLog(@"Request on URL : %@",url);
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request setRequestMethod:@"POST"];
-    [request setUsername:username];
-    [request setPassword:password];
+    [request setUsername:[[NSUserDefaults standardUserDefaults] stringForKey:SOCIAL_USERNAME]];
+    [request setPassword:[[NSUserDefaults standardUserDefaults] stringForKey:SOCIAL_PASSWORD]];
     [request setAuthenticationScheme:(NSString *)kCFHTTPAuthenticationSchemeBasic];
     [request setUseSessionPersistence:YES];
 	[request setUseKeychainPersistence:NO];
     [request setShouldPresentCredentialsBeforeChallenge:YES];
     [request addRequestHeader:@"Content-Type" value:@"text/plain"];
-	[request setTimeOutSeconds:5];
+	[request setTimeOutSeconds:[[NSUserDefaults standardUserDefaults]doubleForKey:TIMEOUT_KEY]];
 	[request setPostBody:[NSMutableData dataWithData:[message dataUsingEncoding:NSUTF8StringEncoding]]];
     [request buildRequestHeaders];
 
@@ -148,6 +144,9 @@
     int code = [request responseStatusCode];
     if ( code >=300 || code < 200 ) {
         NSString *reason = [NSString stringWithFormat:@"%d",code];
+        if ( code == 0 ) {
+            reason =  NSLocalizedStringFromTable(@"CHAT_TIMEOUT", @"WindMobile", nil);
+        }
         NSException* myException = [NSException
                                     exceptionWithName:@"ServerErrorException"
                                     reason:reason
@@ -179,19 +178,19 @@
     NSString *urlString = [NSString stringWithFormat:URL_STATION_GET,REST_SERVER,REST_PORT,@"yes"];
     urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:urlString];
-    NSLog(@"Request on URL : %@",url);
+   // NSLog(@"Request on URL : %@",url);
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request setUseCookiePersistence:true];
     [request addRequestHeader:@"Accept" value:@"application/json"];
     [request buildRequestHeaders];
-    [request setTimeOutSeconds:5];
+    [request setTimeOutSeconds:[[NSUserDefaults standardUserDefaults]doubleForKey:TIMEOUT_KEY]];
     [request startSynchronous];
     NSString *result = [request responseString];
-    NSLog(@"Result : %@",result);
+   // NSLog(@"Result : %@",result);
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     id resutlAsObject = [parser objectWithString:result];
     [parser release];
-     NSLog(@"JSON Result : %@",resutlAsObject);
+   //  NSLog(@"JSON Result : %@",resutlAsObject);
     
     NSArray *listOfStation = [(NSDictionary*)resutlAsObject objectForKey:StationInfoKey];
     if ( !listOfStation ) {
@@ -214,8 +213,6 @@
 
 -(void)dealloc 
 {
-    [password release];
-    [username release];
     [super dealloc];
 }
 

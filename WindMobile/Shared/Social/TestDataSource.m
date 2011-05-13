@@ -10,6 +10,7 @@
 #import "ChatItem.h"
 #import "StationItem.h"
 
+#define SLEEP_TIME_TEST 5.0
 
 @implementation TestDataSource
 
@@ -30,13 +31,14 @@ NSMutableArray* array = nil;
 
 - (NSArray*) getChatItems:(NSString *)chatRoomId
 {
+    sleep(SLEEP_TIME_TEST);
     return array;
 }
 
 - (void)postMessage:(NSString *)message withIdentifier:(NSString *)identifier onChatRoom:(NSString *)chatRoomId 
 {
     NSLog(@"Posting message %@ : %@",identifier,message);
-    sleep(2.0);
+    sleep(SLEEP_TIME_TEST);
     ChatItem *item = [[[ChatItem alloc] initWithPseudo:identifier message:message date:[NSDate date]] autorelease];
     item.selfMessage = YES;
     [array addObject:item];
@@ -45,6 +47,7 @@ NSMutableArray* array = nil;
 
 -(NSArray *)getStationList 
 {
+     sleep(SLEEP_TIME_TEST);
     return [NSArray arrayWithObject:[StationItem itemWithId:@"test" displayName:@"Test station"]];
 }
 

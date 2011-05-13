@@ -34,7 +34,7 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     if ( ![self isFirstResponder] ) {
-        NSString *message = @"Touch here to input a message";
+        NSString *message = NSLocalizedStringFromTable(@"CHAT_TOUCH_HERE", @"WindMobile", nil);
         // draw place holder
         CGSize maximumLabelSize = CGSizeMake(self.bounds.size.width - 40, 9999);
         CGSize size = [message sizeWithFont:self.font constrainedToSize:maximumLabelSize lineBreakMode:UILineBreakModeWordWrap];        

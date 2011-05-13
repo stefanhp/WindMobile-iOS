@@ -23,10 +23,10 @@
 NSArray* cells = nil;
 
 
-@synthesize datasource;
 @synthesize textFont;
 @synthesize pseudoFont;
 @synthesize timeFont;
+@synthesize loading;
 
 - (void)setupView 
 {
@@ -57,16 +57,17 @@ NSArray* cells = nil;
 }
 
 
--(void)_doRefreshView:(NSArray *)items
+-(void)setChatItems:(NSArray *)items
 {
+    loading = NO;
     NSMutableArray *tmpCells = [[NSMutableArray alloc] init];
     
     CGFloat width = [[self superview] bounds].size.width;
     
     ChatItem *item;
     CGFloat yPos = 0;
-    CGFloat textWidth = width-( ITEM_OFFSET_X);
-    CGSize maximumLabelSize = CGSizeMake(textWidth,9999);
+    CGFloat textWidth = width-(( ITEM_OFFSET_X));
+    CGSize maximumLabelSize = CGSizeMake(textWidth-ITEM_OFFSET_X-4,9999);
     
     for ( item in items ) {
         NSString* message = [NSString stringWithFormat:@"\n%@",item.message];
@@ -95,44 +96,11 @@ NSArray* cells = nil;
     [self setFrame:CGRectMake(0, 0, width, yPos)];
     
     [cells autorelease];
-    cells = tmpCells;
-    
+    cells = tmpCells;    
     [(UIScrollView*)[self superview] setContentSize:CGSizeMake(width, yPos)];
-    [(UIScrollView*)[self superview] scrollRectToVisible:CGRectMake(0,yPos-1,width, yPos) animated:YES];
     [self setNeedsDisplay];
+    [(UIScrollView*)[self superview] scrollRectToVisible:CGRectMake(0,yPos-1,1, 1) animated:YES];
 }
-
-/*
- * Reload the content and create the celles
- */
-- (void)reloadContent:(NSString *)chatRoomId
-{
-    
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // backgroun process
-        NSString *error = nil;
-        NSArray *items = nil;
-        @try{
-            items = [datasource getChatItems:chatRoomId];
-        }
-        @catch (NSException *ex) {
-            error = [ex reason];
-        }
-        dispatch_async( dispatch_get_main_queue(), ^{
-            // Add code here to update the UI/send notifications based on the
-            // results of the background processing
-            if ( !error) {
-                [self _doRefreshView:items];
-            } else {
-                UIAlertView *openURLAlert = [[UIAlertView alloc] initWithTitle:@"Server error" message:error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [openURLAlert show];
-                [openURLAlert release];
-
-            }
-        });
-    });
-}
-    
 
 
 - (void)dealloc
@@ -151,7 +119,13 @@ NSArray* cells = nil;
     ChatItemCell *cell;
     if ( [cells count] == 0 ) {
         //----- Draw the no message info
-        NSString *message = @"No message";
+        NSString *message;
+        if ( loading ) {
+            message = NSLocalizedStringFromTable(@"CHAT_MESSAGES_LOADING", @"WindMobile", nil);
+        } else {
+            message = NSLocalizedStringFromTable(@"CHAT_MESSAGES_EMPTY", @"WindMobile", nil);
+        }
+        
         // draw place holder
         CGSize maximumLabelSize = CGSizeMake(self.bounds.size.width, 9999);
         CGSize size = [message sizeWithFont:self.pseudoFont constrainedToSize:maximumLabelSize lineBreakMode:UILineBreakModeWordWrap];        
@@ -172,6 +146,42 @@ NSArray* cells = nil;
             }
         }
     }
+}
+
+-(void)addTemporaryMessage:(NSString *)newMessage 
+{
+    // add a new cell at the end with temporary look
+    CGFloat width = [[self superview] bounds].size.width;
+    
+    CGFloat yPos = [self bounds].size.height - 12.0;
+    
+    CGFloat textWidth = width-( ITEM_OFFSET_X);
+    CGSize maximumLabelSize = CGSizeMake(textWidth,9999);
+ 
+    NSString* message = [NSString stringWithFormat:@"\n%@",newMessage];
+    CGSize size = [message sizeWithFont:textFont constrainedToSize:maximumLabelSize lineBreakMode:UILineBreakModeWordWrap];        
+    CGFloat height = size.height+( 2* ITEM_OFFSET_Y);
+    CGRect frame = CGRectMake(6, yPos, textWidth, height);
+    ChatItemCell *cell = [[ChatItemCell alloc] initWithFrame:frame];
+    cell.pseudoFont = pseudoFont;
+    cell.textFont = textFont;
+    cell.timeFont = timeFont;
+    cell.tempMessage = YES;
+
+    [cell setText:newMessage withPseudo:@"" at:nil];
+    [(NSMutableArray*)cells addObject:[cell autorelease]];
+    yPos += height;
+    yPos += 12.0;
+    
+    // set the content size so it can be scrollable
+    // animate
+    [self setFrame:CGRectMake(0, 0, width, yPos)];
+        
+    [(UIScrollView*)[self superview] setContentSize:CGSizeMake(width, yPos)];
+    // do not sroll here
+    //[(UIScrollView*)[self superview] scrollRectToVisible:CGRectMake(0,yPos-1,1, 1) animated:NO];
+    [self setNeedsDisplay];
+
 }
 
 @end

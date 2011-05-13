@@ -40,25 +40,7 @@
     
     CGRect fullRect = [self bounds];
     // pain the gradiant background
-    /*
-    CGFloat locations[2];
-    CGColorSpaceRef colorSpeceRef = CGColorSpaceCreateDeviceRGB();
-    NSMutableArray *colors = [NSMutableArray arrayWithCapacity:2];
-    
-    [colors addObject:(id)[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0].CGColor];
-    locations[0] = 0.0;
-    
-    [colors addObject:(id)[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0].CGColor];
-    locations[1] = 1.0;
 
-    
-    CGGradientRef gradientRef = CGGradientCreateWithColors(colorSpeceRef, (CFArrayRef)colors, locations);
-    CGContextDrawLinearGradient(context, gradientRef, 
-                                CGPointMake(fullRect.origin.x, fullRect.origin.y), 
-                                CGPointMake(fullRect.origin.x, fullRect.origin.y+fullRect.size.height), 
-                                kCGGradientDrawsAfterEndLocation);
-    */
-    
     CGContextSetFillColorWithColor(context, [UIColor scrollViewTexturedBackgroundColor].CGColor);
     CGContextFillRect(context, fullRect);
 
@@ -68,14 +50,12 @@
     CGContextAddLineToPoint(context, self.bounds.origin.x+self.bounds.size.width-1,self.bounds.origin.y);
     CGContextStrokePath(context);
     
+    // draw upper separation ( extruded )
     CGContextSetStrokeColorWithColor(context,[UIColor whiteColor].CGColor);
     CGContextMoveToPoint(context, self.bounds.origin.x,self.bounds.origin.y+1);
     CGContextAddLineToPoint(context, self.bounds.origin.x+self.bounds.size.width-1,self.bounds.origin.y+1);
     CGContextStrokePath(context);
 
-    //CGGradientRelease(gradientRef);
-    //CGColorSpaceRelease(colorSpeceRef);
-    
     
 }
 

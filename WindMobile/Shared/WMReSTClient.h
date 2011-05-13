@@ -12,6 +12,7 @@
 
 #define REST_SERVER @"windmobile.vol-libre-suchet.ch"
 #define REST_PORT 1588
+#define REST_TIMEOUT 60.0
 
 @protocol WMReSTClientDelegate
 @optional

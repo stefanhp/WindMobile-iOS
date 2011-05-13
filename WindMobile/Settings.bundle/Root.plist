@@ -74,6 +74,33 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
+        <!-- Social preferences -->
+        <dict>
+			<key>Title</key>
+			<string>Login</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+        <dict>
+            <key>Type</key>
+            <string>PSTextFieldSpecifier</string>
+			<key>Key</key>
+			<string>social_username</string>
+			<key>Title</key>
+			<string>Username</string>
+            <key>KeyboardType</key>
+			<string>EmailAddress</string>
+        </dict>
+        <dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>IsSecure</key>
+			<true/>
+			<key>Key</key>
+			<string>social_password</string>
+			<key>Title</key>
+			<string>Password</string>
+        </dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>
