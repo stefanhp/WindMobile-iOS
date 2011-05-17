@@ -94,7 +94,6 @@
 {
     //self.chatRoomId = @"test";
     
-    GradientButton *insertPositionButton;
     GradientButton *sendChatButton;
     
     CGSize viewSize = [inputTextField superview].bounds.size;
@@ -106,6 +105,7 @@
         buttonWidth = viewSize.width;
     }
     
+    GradientButton *insertPositionButton = [[GradientButton alloc] initWithFrame:CGRectMake(4, 0, high-8,high-8)];
     [insertPositionButton setTitle:@"+" forState:UIControlStateNormal];
     [insertPositionButton addTarget:self action:@selector(insertPosition:) forControlEvents:UIControlEventTouchUpInside];
     insertPositionButton.cornerRadius = 6.0;
