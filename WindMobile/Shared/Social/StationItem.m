@@ -13,6 +13,8 @@
 
 @synthesize displayName;
 @synthesize identifier;
+@synthesize altitude;
+@synthesize maintenanceStatus;
 
 + (StationItem *)itemWithId:(NSString *)i displayName:(NSString *)n 
 {
@@ -21,5 +23,16 @@
     result.displayName = n;
     return [result autorelease];
 }
+
++ (StationItem *)itemWithId:(NSString *)i displayName:(NSString *)n altitude:(NSString*)a maintenanceStatus:(NSString*)m
+{
+    StationItem* result = [[StationItem alloc] init];
+    result.identifier = i;
+    result.displayName = n;
+    result.altitude = a;
+    result.maintenanceStatus = m;
+    return [result autorelease];
+}
+
 
 @end
