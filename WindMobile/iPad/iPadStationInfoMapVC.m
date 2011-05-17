@@ -10,11 +10,14 @@
 #import "StationInfoViewController.h"
 #import "StationDetailMeteoViewController.h"
 
+#import "ChatTableViewController.h"
+
 @implementation iPadStationInfoMapVC
 
 @synthesize settingsPopover;
 @synthesize stationsPopover;
 @synthesize detailPopover;
+@synthesize chatPopover;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,6 +41,11 @@
                                                target:self
                                                action:@selector(showStationsPopover:)];
     
+    chatItem = [[UIBarButtonItem alloc]initWithTitle:NSLocalizedStringFromTable(@"CHAT_TABLE_TITLE", @"WindMobile", nil)
+                                                   style:UIBarButtonItemStyleBordered 
+                                                  target:self
+                                                  action:@selector(showChatPopover:)];
+    
     flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                                              target:nil
                                                              action:nil];
@@ -51,7 +59,7 @@
     activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
     [activityIndicator release];
     
-    NSArray *items = [NSArray arrayWithObjects:settingsItem, flexItem, stationsItem, flexItem, refreshItem, nil];	
+    NSArray *items = [NSArray arrayWithObjects:settingsItem, flexItem, stationsItem, chatItem, flexItem, refreshItem, nil];	
     [toolbar setItems:items animated:NO];
 }
 
@@ -110,6 +118,41 @@
         [settingsPopover presentPopoverFromBarButtonItem:settingsItem 
                                 permittedArrowDirections:UIPopoverArrowDirectionAny
                                                 animated:YES];
+    }
+}
+
+- (void)showChatPopover:(id)sender {
+    ChatTableViewController *chatTableViewController;
+    UINavigationController *aNavController;
+    
+    if (self.chatPopover == nil) {
+        // Show chat list
+        chatTableViewController = [[ChatTableViewController alloc] initWithNibName:@"ChatView" bundle:nil];
+        //chatTableViewController.delegate = self;
+        //chatTableViewController.stations = self.stations;
+
+        // Navigation controller
+        aNavController = [[UINavigationController alloc] initWithRootViewController:chatTableViewController];
+        [chatTableViewController release];
+
+        // show in popover
+        self.chatPopover = [[UIPopoverController alloc] initWithContentViewController:aNavController];
+        [aNavController release];
+        
+        self.chatPopover.popoverContentSize = CGSizeMake(380, 450);
+    } else {
+        aNavController = (UINavigationController *)self.chatPopover.contentViewController;
+        [aNavController popToRootViewControllerAnimated:NO];
+        chatTableViewController = (ChatTableViewController *)aNavController.topViewController;
+    }
+    
+    if (self.chatPopover.popoverVisible == NO) {
+        [chatPopover presentPopoverFromBarButtonItem:chatItem 
+                                permittedArrowDirections:UIPopoverArrowDirectionAny
+                                                animated:YES];
+        
+        //stationListController.stations = self.stations;
+        [chatTableViewController refreshContent:self];
     }
 }
 

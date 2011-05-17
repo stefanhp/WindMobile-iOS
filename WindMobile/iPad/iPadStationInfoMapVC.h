@@ -16,10 +16,12 @@
 	UIPopoverController *settingsPopover;
 	UIPopoverController *stationsPopover;
     UIPopoverController *detailPopover;
+    UIPopoverController *chatPopover;
     
     UIToolbar *toolbar;
     UIBarButtonItem *settingsItem;
     UIBarButtonItem *stationsItem;
+    UIBarButtonItem *chatItem;
 	UIBarButtonItem *refreshItem;
     UIBarButtonItem *activityItem;    
     UIBarButtonItem *flexItem;
@@ -28,8 +30,10 @@
 @property (retain) UIPopoverController *settingsPopover;
 @property (retain) UIPopoverController *stationsPopover;
 @property (retain) UIPopoverController *detailPopover;
+@property (retain) UIPopoverController *chatPopover;
 
 - (void)showSettingsPopover:(id)sender;
 - (void)showStationsPopover:(id)sender;
+- (void)showChatPopover:(id)sender;
 
 @end
