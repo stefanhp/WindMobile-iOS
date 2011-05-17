@@ -159,13 +159,17 @@
 {
     static NSString *IdKey = @"@id";
     static NSString *NameKey = @"@name";
+    static NSString *MaintenanceKey = @"@maintenanceStatus";
+    static NSString *AltitudeKey = @"@altitude";
 
     NSMutableArray *result = [NSMutableArray array];
     NSDictionary *objectAsDict;
     for ( objectAsDict in jsonObjects) {
         NSString *idStr = [objectAsDict objectForKey:IdKey];
         NSString *nameStr = [objectAsDict objectForKey:NameKey];
-        StationItem *item = [StationItem itemWithId:idStr displayName:nameStr];
+        NSString *altitudeStr = [objectAsDict objectForKey:AltitudeKey];
+        NSString *statusStr = [objectAsDict objectForKey:MaintenanceKey];
+        StationItem *item = [StationItem itemWithId:idStr displayName:nameStr altitude:altitudeStr maintenanceStatus:statusStr];
         [result addObject:item];
     }
     return result;
