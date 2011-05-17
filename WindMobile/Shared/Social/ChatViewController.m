@@ -16,6 +16,8 @@
 #import "ChatView.h"
 #import "GradientButton.h"
 
+#import "iPadHelper.h"
+
 @implementation ChatViewController
 
 
@@ -92,13 +94,18 @@
 {
     //self.chatRoomId = @"test";
     
+    GradientButton *insertPositionButton;
+    GradientButton *sendChatButton;
     
     CGSize viewSize = [inputTextField superview].bounds.size;
     CGFloat high = 30;
-    
     CGFloat buttonWidth = (viewSize.width / 2.0);
+
+    if([iPadHelper isIpad]){
+        high = 60;
+        buttonWidth = viewSize.width;
+    }
     
-    GradientButton *insertPositionButton = [[GradientButton alloc] initWithFrame:CGRectMake(4, 0, high-8,high-8)];
     [insertPositionButton setTitle:@"+" forState:UIControlStateNormal];
     [insertPositionButton addTarget:self action:@selector(insertPosition:) forControlEvents:UIControlEventTouchUpInside];
     insertPositionButton.cornerRadius = 6.0;
@@ -106,7 +113,11 @@
     insertPositionButton.strokeWeight = 1.0;
     [insertPositionButton useAlertStyle];
     
-    GradientButton *sendChatButton = [[GradientButton alloc] initWithFrame:CGRectMake(viewSize.width - buttonWidth+2, 0, buttonWidth-16, high-4)];
+    if([iPadHelper isIpad]){
+        sendChatButton = [[GradientButton alloc] initWithFrame:CGRectMake(viewSize.width - buttonWidth+2, 2, buttonWidth-8, high-4)];
+    } else {
+        sendChatButton = [[GradientButton alloc] initWithFrame:CGRectMake(viewSize.width - buttonWidth+2, 0, buttonWidth-16, high-4)];
+    }
     [sendChatButton setTitle:NSLocalizedStringFromTable(@"CHAT_MESSAGE_SEND", @"WindMobile", nil) forState:UIControlStateNormal];
     [sendChatButton addTarget:self action:@selector(sendChatMessage:) forControlEvents:UIControlEventTouchUpInside];
     sendChatButton.cornerRadius = 6.0;
@@ -114,11 +125,17 @@
     sendChatButton.strokeWeight = 1.0;
     sendChatButton.titleLabel.textColor = [UIColor whiteColor];
     
+    sendChatButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    
     [sendChatButton useGreenConfirmStyle];
     self.sendButton = sendChatButton;
     
     UIView *accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,  viewSize.width,high)];
-    accessoryView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+    if([iPadHelper isIpad]){
+        accessoryView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+    }else {
+        accessoryView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+    }
     //[accessoryView addSubview:insertPositionButton];
     [accessoryView addSubview:sendChatButton];
 

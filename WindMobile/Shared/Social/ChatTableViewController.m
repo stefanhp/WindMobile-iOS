@@ -75,7 +75,26 @@
     if ( cell == nil ) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-    cell.textLabel.text = ((StationItem*)[self.stationList objectAtIndex:[indexPath row]]).displayName;
+    
+    StationItem* item = (StationItem*)[self.stationList objectAtIndex:[indexPath row]];
+    cell.textLabel.text = item.displayName;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"ALTITUDE_FORMAT", 
+                                                                                             @"WindMobile", 
+                                                                                             [NSBundle mainBundle], 
+                                                                                             @"Altitude %@m", 
+                                                                                             @"Altitude format string"),
+                                 item.altitude];
+    
+    cell.imageView.image = [UIImage imageNamed:@"led_green"];
+    if ([item.maintenanceStatus isEqualToString:@"green"]) {
+        cell.imageView.image = [UIImage imageNamed:@"led_green"];
+    } else if([item.maintenanceStatus isEqualToString:@"orange"]){
+        cell.imageView.image = [UIImage imageNamed:@"led_orange"];
+    } else if([item.maintenanceStatus isEqualToString:@"red"]){
+        cell.imageView.image = [UIImage imageNamed:@"led_red"];
+    }
     return cell;
 }
 
