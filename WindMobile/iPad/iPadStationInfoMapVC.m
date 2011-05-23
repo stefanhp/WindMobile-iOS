@@ -82,6 +82,7 @@
     
     // Disable stations popover button
     [stationsItem setEnabled:NO];    
+    [chatItem setEnabled:NO];    
 }
 
 - (void)stopRefreshAnimation{
@@ -94,6 +95,7 @@
     
     // Enable stations popover button
     [stationsItem setEnabled:YES];
+    [chatItem setEnabled:YES];
 }
 
 - (void)showSettingsPopover:(id)sender {
@@ -236,6 +238,7 @@
 	[detailPopover release];    
 	[toolbar release];	
 	[stationsItem release];
+	[chatItem release];
 	[flexItem release];	
 	[refreshItem release];	
 	[activityItem release];
