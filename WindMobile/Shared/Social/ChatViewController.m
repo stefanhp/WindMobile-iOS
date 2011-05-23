@@ -172,6 +172,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputStarted:) name:UITextViewTextDidBeginEditingNotification object:inputTextField];
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    return YES;
+}
+
 - (void)keyboardWillShow:(NSNotification *)notification 
 {
     NSDictionary *userInfo = [notification userInfo];
